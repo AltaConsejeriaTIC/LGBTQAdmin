@@ -3,16 +3,16 @@
     <div>
       <form >
         <div class="form-group">
-          <label for="first_name">Nombre:</label>
-          <input v-model="first_name" type="text" id="first_name" class="form-control">
+          <label for="email">Email:</label>
+          <input v-model="email" type="text" id="email" class="form-control">
         </div>
 
         <div class="form-group">
-          <label for="last_name">Apellido</label>
-          <input v-model="last_name" type="text" id="last_name" class="form-control">
+          <label for="password">Password</label>
+          <input v-model="password" type="password" id="password"  class="form-control">
         </div>
 
-        <button type="submit" class="btn btn-primary" v-bind:disabled= "!isFomrValid()">Continuar</button> -->
+        <button type="submit" class="btn btn-primary" v-bind:disabled= "!isDisabled">Continuar</button>
       </form>
     </div>
   </div>
@@ -23,19 +23,26 @@ export default {
   name: 'Login',
   data () {
     return {
-      first_name: '',
-      last_name: ''
+      form: {
+
+      },
+      email: '',
+      password: ''
     }
   },
   methods: {
     isFormValid: function () {
       return this.first_name != '' && this.last_name != '';
     }
+  },
+  computed: {
+    isDisabled : function (){
+      return this.email != "" && this.password != "";
+    }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1, h2 {
   font-weight: normal;

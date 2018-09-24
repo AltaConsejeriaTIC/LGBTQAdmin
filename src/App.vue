@@ -3,11 +3,24 @@
     <img src="./assets/logo.png">
     <router-view/>
   </div>
+
 </template>
 
 <script>
+import TodoList from './components/TodoList';
+import Login from './components/Login';
+
 export default {
-  name: 'App'
+  name: 'app',
+  components: {
+    TodoList,
+    Login
+  },
+  data() {
+    return {
+
+    };
+  },
 }
 </script>
 
