@@ -1,6 +1,34 @@
 <template>
-  <div id="" class="container">
-    <div>
+  <div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui image header">
+      <div class="content"></div>
+    </h2>
+    <form action="https://s.codepen.io/voltron2112/debug/PqrEPM?" method="get" class="ui large form">
+      <div class="ui stacked secondary  segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input v-model="email" type="text" id="email" class="form-control" placeholder="E-mail">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input v-model="password" type="password" id="password"  class="form-control" placeholder="Password">
+          </div>
+        </div>
+        <div v-if=!isDisabled type="submit" class="fluid ui disabled blue button" >Login</div>
+        <div v-else type="submit" class="fluid ui blue button" >Login</div>
+      </div>
+
+      <div class="ui error message"></div>
+
+    </form>      
+    </div>
+  </div>
+  
+    <!-- <div>
       <form >
         <div class="form-group">
           <label for="email">Email:</label>
@@ -14,8 +42,8 @@
 
         <button type="submit" class="btn btn-primary" v-bind:disabled= "!isDisabled">Continuar</button>
       </form>
-    </div>
-  </div>
+    </div> -->
+  
 </template>
 
 <script>
@@ -27,12 +55,7 @@ export default {
 
       },
       email: '',
-      password: ''
-    }
-  },
-  methods: {
-    isFormValid: function () {
-      return this.first_name != '' && this.last_name != '';
+      password: '',
     }
   },
   computed: {
@@ -44,6 +67,16 @@ export default {
 </script>
 
 <style scoped>
+body > .grid {
+  height: 100%;
+}
+.image {
+  margin-top: 1100px;
+}
+.column {
+  max-width: 450px;
+}
+
 h1, h2 {
   font-weight: normal;
 }
