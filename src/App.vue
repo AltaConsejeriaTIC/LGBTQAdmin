@@ -7,18 +7,15 @@
 </template>
 
 <script>
-import TodoList from './components/TodoList';
-import Login from './components/Login';
+import Login from './components/Login/Login';
 
 export default {
   name: 'app',
   components: {
-    TodoList,
-    Login
+    Login,
   },
   data() {
     return {
-
     };
   },
 }
