@@ -19,7 +19,7 @@
             </div>
           </div>
           <div v-if=!isDisabled type="submit" class="fluid ui disabled blue button" >Login</div>
-          <div v-else type="submit" class="fluid ui blue button" >Login</div>
+          <div v-else type="submit" class="fluid ui blue button" @click="sigin">Login</div>
         </div>
       </form>
     </div>
@@ -27,6 +27,9 @@
 </template>
 
 <script>
+import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
+import * as constants from '@/store/constants'
+
 export default {
   name: 'Login',
   data () {
@@ -42,7 +45,16 @@ export default {
     isDisabled : function (){
       return this.email != "" && this.password != "";
     }
+  },
+  methods: {
+    ...mapActions({
+      login: constants.SESSION_LOGIN
+    }),
+    sigin(){
+      this.login()
+    }
   }
+
 }
 </script>
 
