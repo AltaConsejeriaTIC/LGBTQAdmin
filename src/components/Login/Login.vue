@@ -18,8 +18,7 @@
               <input v-model="password" type="password" id="password"  class="form-control" placeholder="Password">
             </div>
           </div>
-          <div v-if=!isDisabled type="submit" class="fluid ui disabled blue button" >Login</div>
-          <div v-else type="submit" class="fluid ui blue button" @click="sigin">Login</div>
+          <button class="fluid ui blue button" type="submit"  :disabled="isDisabled" @click="sigin">Login</button>
         </div>
       </form>
     </div>
@@ -43,7 +42,7 @@ export default {
   },
   computed: {
     isDisabled : function (){
-      return this.email != "" && this.password != "";
+      return this.email == "" || this.password == "";
     }
   },
   methods: {
