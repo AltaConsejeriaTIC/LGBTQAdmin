@@ -1,26 +1,28 @@
 <template>
-  <div class="ui middle aligned center aligned grid">
-    <div class="column">
-      <h2 class="ui image header">
-        <div class="content"></div>
-      </h2>
-        <div class="ui stacked secondary  segment">
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              <input v-model="form.email" type="text" id="email" class="form-control" placeholder="E-mail">
+  <form class="ui form" >
+    <div class="ui middle aligned center aligned grid">
+      <div class="column">
+        <h2 class="ui image header">
+          <div class="content"></div>
+        </h2>
+          <div class="ui stacked secondary  segment">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input v-model="form.email" type="text" id="email" class="form-control" placeholder="E-mail">
+              </div>
             </div>
-          </div>
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              <input v-model="form.password" type="password" id="password"  class="form-control" placeholder="Password">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input v-model="form.password" type="password" id="password"  class="form-control" placeholder="Password">
+              </div>
             </div>
+            <button class="fluid ui blue button" :disabled="isDisabled" @click="sigin">Login</button>
           </div>
-          <button class="fluid ui blue button" :disabled="isDisabled" @click="sigin">Login</button>
-        </div>
+      </div>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
