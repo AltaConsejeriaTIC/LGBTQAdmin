@@ -4,23 +4,21 @@
       <h2 class="ui image header">
         <div class="content"></div>
       </h2>
-      <form action="https://s.codepen.io/voltron2112/debug/PqrEPM?" method="get" class="ui large form">
         <div class="ui stacked secondary  segment">
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
-              <input v-model="email" type="text" id="email" class="form-control" placeholder="E-mail">
+              <input v-model="form.email" type="text" id="email" class="form-control" placeholder="E-mail">
             </div>
           </div>
           <div class="field">
             <div class="ui left icon input">
               <i class="lock icon"></i>
-              <input v-model="password" type="password" id="password"  class="form-control" placeholder="Password">
+              <input v-model="form.password" type="password" id="password"  class="form-control" placeholder="Password">
             </div>
           </div>
-          <button class="fluid ui blue button" type="submit"  :disabled="isDisabled" @click="sigin">Login</button>
+          <button class="fluid ui blue button" :disabled="isDisabled" @click="sigin">Login</button>
         </div>
-      </form>
     </div>
   </div>
 </template>
@@ -34,23 +32,37 @@ export default {
   data () {
     return {
       form: {
-
+        email: '',
+        password: '',
       },
-      email: '',
-      password: '',
+
     }
   },
   computed: {
+    ...mapState({
+      token: state => state.Session.token
+    }),
     isDisabled : function (){
-      return this.email == "" || this.password == "";
-    }
+      return this.form.email === "" || this.form.password === "";
+    },
+    ...mapGetters({
+      isLogged: constants.SESSION_IS_LOGGED
+    })
   },
   methods: {
     ...mapActions({
       login: constants.SESSION_LOGIN
     }),
     sigin(){
-      this.login()
+      this.login(this.form)
+    }
+  },
+  watch: {
+    token (data){
+      if(this.isLogged){
+        console.log("Is Logged?? -----> " + this.isLogged)
+        this.$router.push({name: 'Dashboard'})
+      }
     }
   }
 
