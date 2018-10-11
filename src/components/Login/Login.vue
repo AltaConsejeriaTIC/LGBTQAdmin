@@ -1,5 +1,6 @@
 <template>
   <form class="ui form" >
+    <img src="../../assets/logo-alcaldia.png" width=30% height=30%>
     <div class="ui middle aligned center aligned grid">
       <div class="column">
         <h2 class="ui image header">
