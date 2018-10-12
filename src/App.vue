@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/logo-alcaldia.png" width=30% height=30%>
     <router-view/>
   </div>
 
@@ -12,18 +11,17 @@ import Login from './components/Login/Login';
 export default {
   name: 'app',
   components: {
-    Login,
+    Login
   },
   data() {
-    return {
-    };
-  },
-}
+    return {};
+  }
+};
 </script>
 
 <style>
 body {
-  background-color: #409FDC;
+  background-color: #409fdc;
 }
 #app {
   margin-top: 60px;

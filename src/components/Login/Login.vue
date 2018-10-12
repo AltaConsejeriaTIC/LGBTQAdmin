@@ -27,26 +27,25 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
-import * as constants from '@/store/constants'
+import { mapActions, mapGetters, mapState, mapMutations } from 'vuex';
+import * as constants from '@/store/constants';
 
 export default {
   name: 'Login',
-  data () {
+  data() {
     return {
       form: {
         email: '',
-        password: '',
-      },
-
-    }
+        password: ''
+      }
+    };
   },
   computed: {
     ...mapState({
-      token: state => state.Session.token
+      token: (state) => state.Session.token
     }),
-    isDisabled : function (){
-      return this.form.email === "" || this.form.password === "";
+    isDisabled: function() {
+      return this.form.email === '' || this.form.password === '';
     },
     ...mapGetters({
       isLogged: constants.SESSION_IS_LOGGED
@@ -56,20 +55,18 @@ export default {
     ...mapActions({
       login: constants.SESSION_LOGIN
     }),
-    sigin(){
-      this.login(this.form)
+    sigin() {
+      this.login(this.form);
     }
   },
   watch: {
-    token (data){
-      if(this.isLogged){
-        console.log("Is Logged?? -----> " + this.isLogged)
-        this.$router.push({name: 'Dashboard'})
+    token(data) {
+      if (this.isLogged) {
+        this.$router.push({ name: 'Dashboard' });
       }
     }
   }
-
-}
+};
 </script>
 
 <style scoped>
@@ -83,7 +80,8 @@ body > .grid {
   max-width: 450px;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 ul {

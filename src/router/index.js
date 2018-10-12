@@ -1,20 +1,27 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Login from '@/components/Login/Login'
-import Dashboard from '@/components/Dashboard/Dashboard'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Login from '@/components/Login/Login';
+import Dashboard from '@/components/Dashboard/Dashboard';
+import Event from '@/components/Event/Event';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
-    routes: [{
-            path: '/',
-            name: 'Login',
-            component: Login
-        },
-        {
-            path: '/dashboard',
-            name: 'Dashboard',
-            component: Dashboard
-        }
-    ]
-})
+  routes: [
+    {
+      path: '/',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: Dashboard
+    },
+    {
+      path: '/events',
+      name: 'Event',
+      component: Event
+    }
+  ]
+});
