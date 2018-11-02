@@ -2,8 +2,7 @@ import Vue from 'vue';
 import * as constants from '@/store/constants';
 
 const state = {
-  title: 'Prueba de evento',
-  events: ['evento1', 'evento2', 'evento3']
+  events: []
 };
 
 const actions = {

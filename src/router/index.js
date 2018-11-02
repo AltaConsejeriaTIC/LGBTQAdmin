@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/components/Login/Login';
 import Dashboard from '@/components/Dashboard/Dashboard';
-import Event from '@/components/Event/Event';
+import DetailEvent from '@/components/Event/DetailEvent';
 
 Vue.use(Router);
 
@@ -19,9 +19,9 @@ export default new Router({
       component: Dashboard
     },
     {
-      path: '/events',
-      name: 'Event',
-      component: Event
+      path: '/event',
+      name: 'DetailEvent',
+      component: DetailEvent
     }
   ]
 });

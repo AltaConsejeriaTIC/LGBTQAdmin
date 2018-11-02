@@ -7,9 +7,10 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { sync } from 'vuex-router-sync'
 import store from './store'
+import Vuetify from 'vuetify'
 
+Vue.use(Vuetify)
 Vue.use(VueAxios, axios)
-
 Vue.axios.defaults.baseURL = 'http://localhost:8080/'
 sync(store, router)
 

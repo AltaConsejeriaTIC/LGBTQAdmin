@@ -1,29 +1,29 @@
 <template>
   <div class="ui bottom attached segment pushable">
     <div class="ui visible inverted left vertical sidebar menu">
-      <button class="item" @click="watchEvents"><i class="home icon"></i> Eventos </button>
+      <a class="item" ><i class="home icon"></i> Eventos </a>
       <a class="item"><i class="home icon"></i> Noticias </a>
-      <a class="item"><i class="smile icon"></i> Amigos </a>
-      <a class="item"><i class="smile icon"></i> Amigos </a>
-      <a class="item"><i class="calendar icon"></i>Historia</a>
+      <a class="item"><i class="smile icon"></i> Alianzas </a>
+      <a class="item"><i class="smile icon"></i> Organizaciones </a>
+      <a class="item"><i class="calendar icon"></i>Usuarios</a>
     </div>
     <div class="pusher">
       <div class="ui basic segment">
         <h3 class="ui header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Contenido de la aplicación</font></font></h3>
         <p></p>
         <img src="../../assets/logo-alcaldia.png" width=30% height=30%>
-        <p></p>
+        <Event></Event>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Event from "../Event/Event";
+
 export default {
+  components: {Event},
   methods: {
-    watchEvents() {
-      this.$router.push({ name: 'Event' });
-    }
   }
 };
 </script>
