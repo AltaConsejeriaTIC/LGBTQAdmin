@@ -21,7 +21,7 @@
           <td>{{event.place}}</td>
           <td>{{event.state ? "Publicado" : "No Publicado" }}</td>
           <td ><div class="ui small button">{{event.state ? "Ocultar" : "Publicar" }}</div></td>
-          <td ><div class="ui small button" @click="editEvent" ><i class="edit icon"></i>Editar</div></td>
+          <td ><div class="ui small button" @click="editEvent(event.id)" ><i class="edit icon"></i>Editar</div></td>
         </tr>
       </tbody>
     </table>
@@ -63,8 +63,8 @@ export default {
     formatDate(date) {
       return moment(date).format('YYYY-MMMM-DD');
     },
-    editEvent(){
-      this.$router.push({ name: 'DetailEvent' });
+    editEvent(eventId){
+      this.$router.push({ name: 'DetailEvent', params: { id: eventId } });
     }
   }
 };

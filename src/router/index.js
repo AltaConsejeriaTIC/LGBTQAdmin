@@ -19,7 +19,7 @@ export default new Router({
       component: Dashboard
     },
     {
-      path: '/event',
+      path: '/event/:id',
       name: 'DetailEvent',
       component: DetailEvent
     }
