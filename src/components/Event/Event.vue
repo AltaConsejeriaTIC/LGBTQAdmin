@@ -46,12 +46,9 @@ export default {
     }
   },
   created() {
-    this.getEvents();
-    this.events = constants.EVENTS
+    this.getEvents()
   },
   computed: {
-    ...mapState({
-    }),
     ...mapGetters({
       events: constants.EVENTS
     })

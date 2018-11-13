@@ -7,7 +7,7 @@
     </div>
 
     <div class="ten wide column">
-      <form class="ui form">
+      <form class="ui form" @submit.prevent="save">
         <div class="field">
           <label>Titulo</label>
           <input type="text" v-model="data.title">
@@ -40,29 +40,47 @@
           <label>Dirección</label>
           <input type="text" v-model="data.address">
         </div>
-        <button class="ui button" type="submit">Guardar</button>
+        <button class="ui button" type="submit" >Guardar</button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters, mapMutations } from 'vuex';
+import * as constants from '@/store/constants';
 import Vue from 'vue';
+
+var moment = require('moment');
 
 export default {
   name: 'DetailEvent',
   data() {
     return {
       data: {},
-      api: 'http://192.168.88.54:8080'
+      api: 'http://192.168.88.76:8080'
     }
   },
-  created(){
+  created() {
     let id = this.$route.params.id;
-    Vue.axios
-      .get(`/events/${id}`)
-      .then(response => this.data=response.data)
-      .catch((e) => console.log(e));
+    this.data = this.get(id);
+    console.log(this.data);
+    this.data.start_date = moment(this.data.start_date).format('YYYY-MM-DD');
+    this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+  },
+  computed: {
+    ...mapGetters({
+      get: constants.EVENT_BY_ID
+    })
+  },
+  methods: {
+    ...mapActions({
+      updateEvent: constants.EVENT_UPDATE
+    }),
+    save() {
+      this.updateEvent(this.data);
+      this.$router.push({ name: 'Dashboard' });
+    }
   }
 }
 </script>
