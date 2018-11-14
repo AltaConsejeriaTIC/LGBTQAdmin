@@ -8,10 +8,11 @@ import VueAxios from 'vue-axios'
 import { sync } from 'vuex-router-sync'
 import store from './store'
 import Vuetify from 'vuetify'
+import * as ENV from './env';
 
 Vue.use(Vuetify)
 Vue.use(VueAxios, axios)
-Vue.axios.defaults.baseURL = 'http://localhost:8080/'
+Vue.axios.defaults.baseURL = ENV.ENDPOINT
 sync(store, router)
 
 Vue.config.productionTip = false

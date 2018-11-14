@@ -49,6 +49,7 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import * as constants from '@/store/constants';
+import * as ENV from '../../env';
 import Vue from 'vue';
 
 var moment = require('moment');
@@ -58,7 +59,7 @@ export default {
   data() {
     return {
       data: {},
-      api: 'http://192.168.88.76:8080'
+      api: ENV.ENDPOINT
     }
   },
   created() {

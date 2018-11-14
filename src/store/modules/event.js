@@ -19,8 +19,8 @@ const actions = {
     Vue.axios
       .put(`/events/${event.id}`, event)
       .then(response => {
-        console.log(response);
         commit(constants.EVENT_SET_EVENT, event)
+        console.log(response);
       })
       .catch((e) => console.log(e));
   }

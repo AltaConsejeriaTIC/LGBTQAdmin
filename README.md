@@ -23,5 +23,9 @@ npm run build --report
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 # LGBTQAdmin
 
+Ejecute el siguiente comando `npm install moment --save`
 
-You need execute the follow comand `npm install moment --save`
+## Configure sus variables de entorno
+
+Copie el archivo `env.example.js` ubicado en la carpeta `~/src` y pegelo en la misma ubicación, luego cambie el nombre del archivo a `env.js`.
+> Cambiar el valor de la constante `ENDPOINT` con su host
