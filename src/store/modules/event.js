@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import * as constants from '@/store/constants';
+import VueAxios from 'vue-axios';
 
 const state = {
   events: []
@@ -7,19 +8,25 @@ const state = {
 
 const actions = {
   [constants.EVENT_GET_EVENTS]: ({ commit }) => {
+    console.log("llamando back");
     Vue.axios
       .get(`/events`)
       .then((response) => response.data)
-      .then((events) => {
-        commit(constants.EVENT_SET_EVENTS, events);
-      })
+      .then((events) => commit(constants.EVENT_SET_EVENTS, events))
       .catch((e) => console.log(e));
   },
   [constants.EVENT_UPDATE]: ({commit}, event) => {
     Vue.axios
       .put(`/events/${event.id}`, event)
+      .then(response => commit(constants.EVENT_SET_EVENT, event))
+      .catch((e) => console.log(e));
+  },
+  [constants.EVENT_CHANGE_STATE]: ({commit}, event) => {
+    event.state = !event.state;
+    Vue.axios
+      .put(`/events/${event.id}`, event)
       .then(response => {
-        commit(constants.EVENT_SET_EVENT, event)
+        commit(constants.EVENT_SET_EVENT, event);
         console.log(response);
       })
       .catch((e) => console.log(e));

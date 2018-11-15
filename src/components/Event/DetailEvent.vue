@@ -3,6 +3,17 @@
     <div class="five wide column">
       <div class="ui medium image">
         <img :src="api+data.image">
+        <input
+          type="file"
+          style="display: none"
+          @change="uploadImage"
+          ref="fileInput">
+        <button
+          class="fluid ui button"
+          @click="$refs.fileInput.click()">
+          <i class="edit icon"></i>
+          Editar
+        </button>
       </div>
     </div>
 
@@ -81,6 +92,21 @@ export default {
     save() {
       this.updateEvent(this.data);
       this.$router.push({ name: 'Dashboard' });
+    },
+    uploadImage(event){
+      console.log(event);
+      let img = event.target.files[0];
+      console.log("-------",img.name);
+
+      const fd = new FormData();
+      fd.append('file', img, img.name);
+      Vue.axios
+      .post(`/upload`, fd)
+      .then(response => {
+        console.log(response)
+        this.data.image = `/images/${img.name}`;
+        })
+      .catch((e) => console.log(e));
     }
   }
 }

@@ -20,8 +20,17 @@
           <td>{{formatDate(event.finish_date)}}</td>
           <td>{{event.place}}</td>
           <td>{{event.state ? "Publicado" : "No Publicado" }}</td>
-          <td ><div class="ui small button">{{event.state ? "Ocultar" : "Publicar" }}</div></td>
-          <td ><div class="ui small button" @click="editEvent(event.id)" ><i class="edit icon"></i>Editar</div></td>
+          <td >
+            <div class="ui small button" @click="changeStateEvent(event)">
+              {{event.state ? "Ocultar" : "Publicar" }}
+            </div>
+          </td>
+          <td >
+            <div class="ui small button" @click="editEvent(event.id)" >
+              <i class="edit icon"></i>
+              Editar
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -29,7 +38,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState, mapMutations } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import * as constants from '@/store/constants';
 import DetailEvent from "./DetailEvent";
 
@@ -46,7 +55,8 @@ export default {
     }
   },
   created() {
-    this.getEvents()
+    if ( !this.events.length )
+      this.getEvents()
   },
   computed: {
     ...mapGetters({
@@ -55,7 +65,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      getEvents: constants.EVENT_GET_EVENTS
+      getEvents: constants.EVENT_GET_EVENTS,
+      changeStateEvent: constants.EVENT_CHANGE_STATE
     }),
     formatDate(date) {
       return moment(date).format('YYYY-MMMM-DD');
