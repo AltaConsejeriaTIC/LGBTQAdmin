@@ -2,7 +2,7 @@
   <div class="ui grid">
     <div class="five wide column">
       <div class="ui medium image">
-        <img :src="api+data.image">
+        <img :src="api+image">
         <input
           type="file"
           style="display: none"
@@ -70,15 +70,16 @@ export default {
   data() {
     return {
       data: {},
+      image: '',
       api: ENV.ENDPOINT
     }
   },
   created() {
     let id = this.$route.params.id;
     this.data = this.get(id);
-    console.log(this.data);
     this.data.start_date = moment(this.data.start_date).format('YYYY-MM-DD');
     this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+    this.image = this.data.image;
   },
   computed: {
     ...mapGetters({
@@ -90,22 +91,19 @@ export default {
       updateEvent: constants.EVENT_UPDATE
     }),
     save() {
+      this.data.image = this.image;
       this.updateEvent(this.data);
       this.$router.push({ name: 'Dashboard' });
     },
     uploadImage(event){
-      console.log(event);
       let img = event.target.files[0];
-      console.log("-------",img.name);
-
       const fd = new FormData();
       fd.append('file', img, img.name);
       Vue.axios
-      .post(`/upload`, fd)
-      .then(response => {
-        console.log(response)
-        this.data.image = `/images/${img.name}`;
-        })
+      .post(`/upload`, fd ,{
+        onUploadProgress: uploadEvent => console.log('Upload Progress: ', Math.round(uploadEvent.loaded/uploadEvent.total * 100))
+      })
+      .then(response => this.image = `/images/${img.name}`)
       .catch((e) => console.log(e));
     }
   }
