@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Login from '@/components/Login/Login';
 import Dashboard from '@/components/Dashboard/Dashboard';
 import DetailEvent from '@/components/Event/DetailEvent';
+import DetailNews from '@/components/News/DetailNews';
 
 Vue.use(Router);
 
@@ -60,6 +61,11 @@ const router = new Router({
             path: '/event/:id',
             name: 'DetailEvent',
             component: DetailEvent
+        },
+        {
+            path: '/news/:id',
+            name: 'DetailNews',
+            component: DetailNews
         }
     ]
 })

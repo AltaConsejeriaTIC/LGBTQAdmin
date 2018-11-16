@@ -1,18 +1,19 @@
 <template>
   <div class="ui bottom attached segment pushable">
     <div class="ui visible inverted left vertical sidebar menu">
-      <a class="item" ><i class="home icon"></i> Eventos </a>
-      <a class="item"><i class="home icon"></i> Noticias </a>
-      <a class="item"><i class="smile icon"></i> Alianzas </a>
-      <a class="item"><i class="smile icon"></i> Organizaciones </a>
-      <a class="item"><i class="calendar icon"></i>Usuarios</a>
+      <a @click="changeComponent('Event')" class="item" ><i class="home icon"></i> Eventos </a>
+      <a @click="changeComponent('News')" class="item"><i class="home icon"></i> Noticias </a>
+      <a @click="changeComponent('algo')" class="item"><i class="smile icon"></i> Alianzas </a>
+      <a @click="changeComponent('algo')" class="item"><i class="smile icon"></i> Organizaciones </a>
+      <a @click="changeComponent('algo')" class="item"><i class="calendar icon"></i>Usuarios</a>
     </div>
     <div class="pusher">
       <div class="ui basic segment">
         <h3 class="ui header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Contenido de la aplicación</font></font></h3>
         <p></p>
         <img src="../../assets/logo-alcaldia.png" width=30% height=30%>
-        <Event></Event>
+        <component :is="dynamiComponent"></component>
+        <h1>{{dynamiComponent}}</h1>
       </div>
     </div>
   </div>
@@ -20,10 +21,22 @@
 
 <script>
 import Event from "../Event/Event";
+import News from "../News/News";
 
 export default {
-  components: {Event},
+  components: {
+    Event,
+    News
+  },
+  data() {
+    return {
+      dynamiComponent: `Event`
+    }
+  },
   methods: {
+    changeComponent( component ) {
+      this.dynamiComponent = component
+    }
   }
 };
 </script>

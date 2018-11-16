@@ -29,33 +29,19 @@
           <label>Titulo</label>
           <input type="text" v-model="data.title">
           <label>Descripción</label>
-          <textarea rows="5" v-model="data.description"></textarea>
-        </div>
-        <div class="ui two column grid">
-          <div class="row">
-            <div class="column">
-              <div class="field">
-                <label>Fecha de inicio: {{data.start_date}}</label>
-                <input type="date" v-model="data.start_date">
-                <label>Hora de inicio: {{data.start_time}}</label>
-                <input type="time" v-model="data.start_time">
-              </div>
-            </div>
-            <div class="column">
-              <div class="field">
-                <label>Fecha de fin: {{data.finish_date}}</label>
-                <input type="date" v-model="data.finish_date">
-                <label>Hora de fin: {{data.finish_time}}</label>
-                <input type="time" v-model="data.finish_time">
-              </div>
-            </div>
-          </div>
+          <textarea rows="8" v-model="data.description"></textarea>
         </div>
         <div class="field">
-          <label>Lugar</label>
-          <input type="text" v-model="data.place">
-          <label>Dirección</label>
-          <input type="text" v-model="data.address">
+          <label>Fuente</label>
+          <input type="text" v-model="data.source">
+          <label>Link de la noticia</label>
+          <input type="text" v-model="data.source_link">
+          <label>Propietario de la imagen</label>
+          <input type="text" v-model="data.image_owner">
+        </div>
+        <div class="field">
+          <label>Fecha: {{data.date}}</label>
+          <input type="date" v-model="data.date">
         </div>
         <button class="ui button" type="submit" >Guardar</button>
       </form>
@@ -72,7 +58,7 @@ import Vue from 'vue';
 var moment = require('moment');
 
 export default {
-  name: 'DetailEvent',
+  name: 'DetailNews',
   data() {
     return {
       data: {},
@@ -84,26 +70,25 @@ export default {
   created() {
     let id = this.$route.params.id;
     this.data = this.get(id);
-    this.data.start_date = moment(this.data.start_date).format('YYYY-MM-DD');
-    this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+    this.data.date = moment(this.data.start_date).format('YYYY-MM-DD');
     this.image = this.data.image;
   },
   computed: {
     ...mapGetters({
-      get: constants.EVENT_BY_ID
+      get: constants.NEWS_BY_ID
     })
   },
   methods: {
     ...mapActions({
-      updateEvent: constants.EVENT_UPDATE
+      updateEvent: constants.NEWS_UPDATE
     }),
     save() {
       this.data.image = this.image;
       this.updateEvent(this.data);
       this.$router.push({ name: 'Dashboard' });
     },
-    uploadImage(event){
-      let img = event.target.files[0];
+    uploadImage(news){
+      let img = news.target.files[0];
       const fd = new FormData();
       fd.append('file', img, img.name);
       Vue.axios
@@ -113,7 +98,7 @@ export default {
       .then(response => this.image = `/images/${img.name}`)
       .catch((e) => console.log(e));
     },
-    checkForm(event) {
+    checkForm(e) {
       this.errors = [];
 
       if (!this.data.title) {
@@ -122,14 +107,8 @@ export default {
       if (!this.data.description) {
         this.errors.push('Descripción es requerida.');
       }
-      if (!this.data.place) {
-        this.errors.push('Lugar es requerido.');
-      }
-      if (!this.data.address) {
-        this.errors.push('Dirección es requerida.');
-      }
       console.log(this.errors);
-      event.preventDefault();
+      e.preventDefault();
       if(this.errors.length === 0)
         this.save(this.data);
     }

@@ -9,9 +9,9 @@ const actions = {
   [constants.SESSION_LOGIN]: ({ commit }, params) => {
     Vue.axios
       .post('/login', params)
-      .then((response) => response.data)
-      .then((data) => {
-        commit(constants.SESSION_SET_TOKEN, data.token);
+      .then((response) => {
+        response.data;
+        commit(constants.SESSION_SET_TOKEN, response.data.token);
       })
       .catch((error) => {
         console.log(error);
