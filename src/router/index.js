@@ -5,6 +5,9 @@ import Dashboard from '@/components/Dashboard/Dashboard';
 import DetailEvent from '@/components/Event/DetailEvent';
 import * as constants from '../store/constants';
 import store from '@/store';
+import DetailNews from '@/components/News/DetailNews';
+import NewEvent from '@/components/Event/NewEvent';
+import NewNews from '@/components/News/NewNews';
 
 Vue.use(Router);
 
@@ -39,7 +42,22 @@ const router = new Router({
             meta: {
                 autentificado: true
             }
-        }
+        },
+        {
+            path: '/createevent',
+            name: 'NewEvent',
+            component: NewEvent
+        },
+        {
+            path: '/news/:id',
+            name: 'DetailNews',
+            component: DetailNews
+        },
+        {
+            path: '/createnews',
+            name: 'NewNews',
+            component: NewNews
+        },
     ]
 })
 

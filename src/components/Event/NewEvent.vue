@@ -72,35 +72,27 @@ import Vue from 'vue';
 var moment = require('moment');
 
 export default {
-  name: 'DetailEvent',
+  name: 'NewEvent',
   data() {
     return {
       data: {},
-      image: '',
+      image: '/images/ImagePlaceholder.png',
       api: ENV.ENDPOINT,
       errors: []
     }
   },
-  created() {
-    let id = this.$route.params.id;
-    this.data = this.get(id);
-    this.data.start_date = moment(this.data.start_date).format('YYYY-MM-DD');
-    this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
-    this.image = this.data.image;
-  },
-  computed: {
-    ...mapGetters({
-      get: constants.EVENT_BY_ID
-    })
-  },
   methods: {
     ...mapActions({
-      updateEvent: constants.EVENT_UPDATE
+      createEvent: constants.EVENT_CREATE_EVENT
     }),
     save() {
       this.data.image = this.image;
-      this.updateEvent(this.data);
-      this.$router.push({ name: 'Dashboard' });
+      this.data.state = true;
+      this.data.latitude = 78.25;
+      this.data.longitude = 78.252;
+
+      this.createEvent(this.data);
+      this.$router.go(-1);
     },
     uploadImage(event){
       let img = event.target.files[0];
@@ -128,10 +120,9 @@ export default {
       if (!this.data.address) {
         this.errors.push('Dirección es requerida.');
       }
-      console.log(this.errors);
       event.preventDefault();
       if(this.errors.length === 0)
-        this.save(this.data);
+        this.save();
     }
   }
 }
