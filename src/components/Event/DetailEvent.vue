@@ -15,6 +15,12 @@
           Editar
         </button>
       </div>
+      <div>
+        <croppa v-model="myCroppa" canvas-color="transparent"></croppa>
+        <button @click="generateImage">Generate</button>
+        <br>
+        <img class="output" :src="imgUrl" >
+      </div>
     </div>
 
     <div class="ten wide column">
@@ -68,8 +74,11 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 import * as constants from '@/store/constants';
 import * as ENV from '../../env';
 import Vue from 'vue';
+import Croppa from 'vue-croppa';
 
 var moment = require('moment');
+
+Vue.use(Croppa);
 
 export default {
   name: 'DetailEvent',
@@ -78,7 +87,9 @@ export default {
       data: {},
       image: '',
       api: ENV.ENDPOINT,
-      errors: []
+      errors: [],
+      myCroppa: null,
+      imgUrl: ''
     }
   },
   created() {
@@ -132,11 +143,22 @@ export default {
       event.preventDefault();
       if(this.errors.length === 0)
         this.save(this.data);
+    },
+    generateImage: function() {
+    	let url = this.myCroppa.generateDataUrl()
+      if (!url) {
+      	alert('no image')
+        return
+      }
+      this.imgUrl = url
     }
   }
 }
 </script>
 
 <style>
-
+  .croppa-container {
+    background-color: white;
+    border: 3px solid black
+  }
 </style>
