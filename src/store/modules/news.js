@@ -25,6 +25,16 @@ const actions = {
       .put(`/news/${news.id}`, news)
       .then(response => commit(constants.NEWS_SET_ONE_NEW, news))
       .catch((e) => console.log(e));
+  },
+  [constants.NEWS_CREATE_NEWS]: ({commit}, news) => {
+    Vue.axios
+      .post('/news', news)
+      .then(response => {
+        news.id = response.data.id
+        console.log(news);
+        commit(constants.NEWS_ADD_NEWS, news);
+      })
+      .catch((e) => console.log(e));
   }
 };
 
@@ -38,6 +48,9 @@ const mutations = {
         state.news[i] = news
       }
     }
+  },
+  [constants.NEWS_ADD_NEWS]: (state, news) => {
+    state.news.push(news);
   }
 };
 

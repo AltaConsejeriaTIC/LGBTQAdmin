@@ -4,6 +4,8 @@ import Login from '@/components/Login/Login';
 import Dashboard from '@/components/Dashboard/Dashboard';
 import DetailEvent from '@/components/Event/DetailEvent';
 import DetailNews from '@/components/News/DetailNews';
+import NewEvent from '@/components/Event/NewEvent';
+import NewNews from '@/components/News/NewNews';
 
 Vue.use(Router);
 
@@ -63,10 +65,20 @@ const router = new Router({
             component: DetailEvent
         },
         {
+            path: '/createevent',
+            name: 'NewEvent',
+            component: NewEvent
+        },
+        {
             path: '/news/:id',
             name: 'DetailNews',
             component: DetailNews
-        }
+        },
+        {
+            path: '/createnews',
+            name: 'NewNews',
+            component: NewNews
+        },
     ]
 })
 

@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import * as constants from '@/store/constants';
-import VueAxios from 'vue-axios';
 
 const state = {
   events: []
@@ -25,12 +24,21 @@ const actions = {
     event.state = !event.state;
     Vue.axios
       .put(`/events/${event.id}`, event)
+      .then(response => commit(constants.EVENT_SET_EVENT, event) )
+      .catch((e) => console.log(e));
+  },
+  [constants.EVENT_CREATE_EVENT]: ({commit}, event) => {
+    console.log("----------------",event);
+    Vue.axios
+      .post('/events', event)
       .then(response => {
-        commit(constants.EVENT_SET_EVENT, event);
+        event.id = response.data.id
+        commit(constants.EVENT_ADD_EVENT, event);
         console.log(response);
       })
       .catch((e) => console.log(e));
-  }
+  },
+
 };
 
 const mutations = {
@@ -43,7 +51,10 @@ const mutations = {
         state.events[i] = event
       }
     }
-  }
+  },
+  [constants.EVENT_ADD_EVENT]: (state, event) => {
+    state.events.push(event);
+  },
 };
 
 const getters = {

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <button class="ui button" @click="newNews">Crear Noticia</button>
     <h2>{{title}}</h2>
     <table class="ui celled table">
       <thead>
@@ -70,6 +71,9 @@ export default {
     },
     editNews(newsId){
       this.$router.push({ name: 'DetailNews', params: { id: newsId } });
+    },
+    newNews() {
+      this.$router.push({ name: 'NewNews' });
     }
   }
 };

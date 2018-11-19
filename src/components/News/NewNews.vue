@@ -50,70 +50,59 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
-import * as constants from '@/store/constants';
-import * as ENV from '../../env';
-import Vue from 'vue';
+  import { mapActions, mapGetters, mapMutations } from 'vuex';
+  import * as constants from '@/store/constants';
+  import * as ENV from '../../env';
+  import Vue from 'vue';
 
-var moment = require('moment');
+  var moment = require('moment');
 
-export default {
-  name: 'DetailNews',
-  data() {
-    return {
-      data: {},
-      image: '',
-      api: ENV.ENDPOINT,
-      errors: []
-    }
-  },
-  created() {
-    let id = this.$route.params.id;
-    this.data = this.get(id);
-    this.data.date = moment(this.data.date).format('YYYY-MM-DD');
-    this.image = this.data.image;
-  },
-  computed: {
-    ...mapGetters({
-      get: constants.NEWS_BY_ID
-    })
-  },
-  methods: {
-    ...mapActions({
-      updateEvent: constants.NEWS_UPDATE
-    }),
-    save() {
-      this.data.image = this.image;
-      this.updateEvent(this.data);
-      this.$router.push({ name: 'Dashboard' });
-    },
-    uploadImage(news){
-      let img = news.target.files[0];
-      const fd = new FormData();
-      fd.append('file', img, img.name);
-      Vue.axios
-      .post(`/upload`, fd ,{
-        onUploadProgress: uploadEvent => console.log('Upload Progress: ', Math.round(uploadEvent.loaded/uploadEvent.total * 100))
-      })
-      .then(response => this.image = `/images/${img.name}`)
-      .catch((e) => console.log(e));
-    },
-    checkForm(e) {
-      this.errors = [];
-
-      if (!this.data.title) {
-        this.errors.push('Título es requerido.');
+  export default {
+    name: 'NewNews',
+    data() {
+      return {
+        data: {},
+        image: '/images/ImagePlaceholder.png',
+        api: ENV.ENDPOINT,
+        errors: []
       }
-      if (!this.data.description) {
-        this.errors.push('Descripción es requerida.');
+    },
+    methods: {
+      ...mapActions({
+        createNews: constants.NEWS_CREATE_NEWS
+      }),
+      save() {
+        this.data.image = this.image;
+        this.data.state = true;
+        this.createNews(this.data);
+        this.$router.go(-1);
+      },
+      uploadImage(news){
+        let img = news.target.files[0];
+        const fd = new FormData();
+        fd.append('file', img, img.name);
+        Vue.axios
+          .post(`/upload`, fd ,{
+            onUploadProgress: uploadEvent => console.log('Upload Progress: ', Math.round(uploadEvent.loaded/uploadEvent.total * 100))
+          })
+          .then(response => this.image = `/images/${img.name}`)
+          .catch((e) => console.log(e));
+      },
+      checkForm(e) {
+        this.errors = [];
+
+        if (!this.data.title) {
+          this.errors.push('Título es requerido.');
+        }
+        if (!this.data.description) {
+          this.errors.push('Descripción es requerida.');
+        }
+        e.preventDefault();
+        if(this.errors.length === 0)
+          this.save();
       }
-      console.log(this.errors);
-      e.preventDefault();
-      if(this.errors.length === 0)
-        this.save(this.data);
     }
   }
-}
 </script>
 
 <style>

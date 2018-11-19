@@ -1,5 +1,6 @@
 <template>
   <div>
+    <button class="ui button" @click="newEvent">Crear Evento</button>
     <h2>{{title}}</h2>
     <table class="ui celled table">
       <thead>
@@ -73,6 +74,9 @@ export default {
     },
     editEvent(eventId){
       this.$router.push({ name: 'DetailEvent', params: { id: eventId } });
+    },
+    newEvent() {
+      this.$router.push({ name: 'NewEvent' });
     }
   }
 };
