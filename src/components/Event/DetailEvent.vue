@@ -1,7 +1,17 @@
 <template>
   <div class="ui grid">
     <div class="five wide column">
-      <div class="ui medium image">
+      <croppa v-model="myCroppa"
+              quality="1"
+              width="300"
+              height="300"
+              prevent-white-space="true"
+              show-remove-button="false">
+          <img crossOrigin="anonymous" :src="api+image" slot="initial"></croppa>
+      <button @click="generateImage">Generate</button>
+      <br>
+      <img class="output" :src="imgUrl" >
+      <!-- <div v-if='show' class="ui medium image">
         <img :src="api+image">
         <input
           type="file"
@@ -14,13 +24,13 @@
           <i class="edit icon"></i>
           Editar
         </button>
-      </div>
-      <div>
-        <croppa v-model="myCroppa" canvas-color="transparent"></croppa>
-        <button @click="generateImage">Generate</button>
-        <br>
-        <img class="output" :src="imgUrl" >
-      </div>
+        <button
+          class="fluid ui button"
+          @click='changeImage'>
+          <i class="edit icon"></i>
+          Editar
+        </button>
+      </div>       -->
     </div>
 
     <div class="ten wide column">
@@ -89,7 +99,9 @@ export default {
       api: ENV.ENDPOINT,
       errors: [],
       myCroppa: null,
-      imgUrl: ''
+      imgUrl: '',
+      show:true,
+      im: "http://localhost:8080/images/evento02.jpg"
     }
   },
   created() {
@@ -145,12 +157,15 @@ export default {
         this.save(this.data);
     },
     generateImage: function() {
-    	let url = this.myCroppa.generateDataUrl()
+      let url = this.myCroppa.generateDataUrl()
       if (!url) {
       	alert('no image')
         return
       }
       this.imgUrl = url
+    },
+    changeImage: function(){
+      this.show = !this.show
     }
   }
 }
@@ -158,7 +173,9 @@ export default {
 
 <style>
   .croppa-container {
-    background-color: white;
-    border: 3px solid black
+    background-color: #409fdc;
+    /* border: 3px solid black; */
+    width: 60%;
+    margin: auto;
   }
 </style>
