@@ -1,15 +1,23 @@
 <template>
   <div class="ui grid">
     <div class="five wide column">
-      <croppa v-model="myCroppa"
-              quality="1"
-              width="300"
-              height="300"
-              prevent-white-space="true"
-              show-remove-button="false">
-          <img crossOrigin="anonymous" :src="api+image" slot="initial"></croppa>
-      <button @click="generateImage">Generate</button>
-      <br>
+      <div class="ui medium image">
+        <croppa v-model="myCroppa"
+                :quality="1"
+                :width="300"
+                :height="300"
+                :prevent-white-space="true"
+                :show-remove-button="false">
+          <img crossOrigin="anonymous" :src="api+image" slot="initial">
+        </croppa>
+        <div class="ui buttons">
+          <button class="ui button" @click="myCroppa.chooseFile()">
+            <i class="edit icon"></i>
+            Editar
+          </button>
+          <button class="ui positive button" @click="uploadImage" >Guardar</button>
+        </div>
+      </div>
       <img class="output" :src="imgUrl" >
       <!-- <div v-if='show' class="ui medium image">
         <img :src="api+image">
@@ -30,7 +38,13 @@
           <i class="edit icon"></i>
           Editar
         </button>
-      </div>       -->
+      </div>
+         .croppa-container {
+            background-color: #409fdc;
+            border: 3px solid black;
+            width: 60%;
+            margin: auto;
+          }   -->
     </div>
 
     <div class="ten wide column">
@@ -125,16 +139,26 @@ export default {
       this.updateEvent(this.data);
       this.$router.push({ name: 'Dashboard' });
     },
-    uploadImage(event){
-      let img = event.target.files[0];
-      const fd = new FormData();
-      fd.append('file', img, img.name);
-      Vue.axios
-      .post(`/upload`, fd ,{
-        onUploadProgress: uploadEvent => console.log('Upload Progress: ', Math.round(uploadEvent.loaded/uploadEvent.total * 100))
+    uploadImage(){
+      if (!this.myCroppa.hasImage()) {
+        alert('no image to upload')
+        return
+      }
+      let name = `evento${this.data.id}`;
+      this.myCroppa.generateBlob( blob => {
+        var fd = new FormData();
+        console.log("-----blob-----", blob);
+        fd.append('file', blob, name);
+        /*let img = event.target.files[0];
+        const fd = new FormData();
+        fd.append('file', img, img.name);*/
+        Vue.axios
+          .post(`/upload`, fd, {
+            onUploadProgress: uploadEvent => console.log('Upload Progress: ', Math.round(uploadEvent.loaded / uploadEvent.total * 100))
+          })
+          .then(response => this.image = `/images/${name}`)
+          .catch((e) => console.log(e));
       })
-      .then(response => this.image = `/images/${img.name}`)
-      .catch((e) => console.log(e));
     },
     checkForm(event) {
       this.errors = [];
@@ -172,10 +196,5 @@ export default {
 </script>
 
 <style>
-  .croppa-container {
-    background-color: #409fdc;
-    /* border: 3px solid black; */
-    width: 60%;
-    margin: auto;
-  }
+
 </style>
