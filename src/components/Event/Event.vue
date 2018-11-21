@@ -22,7 +22,7 @@
           <td>{{event.place}}</td>
           <td>{{event.state ? "Publicado" : "No Publicado" }}</td>
           <td >
-            <div class="ui small button" @click="changeStateEvent(event)">
+            <div class="ui small button" @click="changeState(event)">
               {{event.state ? "Ocultar" : "Publicar" }}
             </div>
           </td>
@@ -77,6 +77,9 @@ export default {
     },
     newEvent() {
       this.$router.push({ name: 'NewEvent' });
+    },
+    changeState(event) {
+      this.changeStateEvent(event);
     }
   }
 };

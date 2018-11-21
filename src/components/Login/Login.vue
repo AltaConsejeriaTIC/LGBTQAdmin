@@ -62,6 +62,7 @@ export default {
   watch: {
     token(data) {
       if (this.isLogged) {
+        sessionStorage.setItem('token', this.token);
         this.$router.push({ name: 'Dashboard' });
       }
     }
