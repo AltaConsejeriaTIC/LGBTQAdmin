@@ -15,20 +15,20 @@ const actions = {
   },
   [constants.NEWS_UPDATE]: ({commit}, news) => {
     Vue.axios
-      .put(`/news/${news.id}`, news)
+      .put(`/news/${news.id}`, news, { headers: { token: sessionStorage.getItem('token') }})
       .then(response => commit(constants.NEWS_SET_ONE_NEW, news))
       .catch((e) => console.log(e));
   },
   [constants.NEWS_CHANGE_STATE]: ({commit}, news) => {
     news.state = !news.state;
     Vue.axios
-      .put(`/news/${news.id}`, news)
+      .put(`/news/${news.id}`, news, { headers: { token: sessionStorage.getItem('token') }})
       .then(response => commit(constants.NEWS_SET_ONE_NEW, news))
       .catch((e) => console.log(e));
   },
   [constants.NEWS_CREATE_NEWS]: ({commit}, news) => {
     Vue.axios
-      .post('/news', news)
+      .post('/news', news, { headers: { token: sessionStorage.getItem('token') }})
       .then(response => {
         news.id = response.data.id
         console.log(news);
