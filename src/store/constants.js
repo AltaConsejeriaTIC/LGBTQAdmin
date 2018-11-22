@@ -1,4 +1,4 @@
-// actions
+// actionsthis.data.
 export const SESSION_LOGIN = 'session/LOGIN';
 export const EVENT_GET_EVENTS = 'event/GET_EVENTS';
 export const EVENT_UPDATE = 'events/UPDATE_EVENT';

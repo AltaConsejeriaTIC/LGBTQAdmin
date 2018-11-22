@@ -7,25 +7,26 @@ const state = {
 
 const actions = {
   [constants.EVENT_GET_EVENTS]: ({ commit }) => {
-    console.log("llamando back");
-    Vue.axios
+    return Vue.axios
       .get(`/events`)
       .then((response) => response.data)
       .then((events) => commit(constants.EVENT_SET_EVENTS, events))
       .catch((e) => console.log(e));
   },
   [constants.EVENT_UPDATE]: ({commit}, event) => {
-    Vue.axios
+    console.log('Actualizando el evento')
+    return Vue.axios
       .put(`/events/${event.id}`, event, { headers: { token: sessionStorage.getItem('token') }})
       .then(response => {
         commit(constants.EVENT_SET_EVENT, event);
+        console.log("-------actualizar--------");
         console.log(response);
       })
       .catch((e) => console.log(e));
   },
   [constants.EVENT_CHANGE_STATE]: ({commit}, event) => {
     event.state = !event.state;
-    Vue.axios
+     return Vue.axios
       .put(`/events/${event.id}`, event, { headers: { token: sessionStorage.getItem('token') }})
       .then(response =>{
         commit(constants.EVENT_SET_EVENT, event);
@@ -36,7 +37,7 @@ const actions = {
      });
   },
   [constants.EVENT_CREATE_EVENT]: ({commit}, event) => {
-    Vue.axios
+    return Vue.axios
       .post('/events', event, { headers: { token: sessionStorage.getItem('token') }})
       .then(response => {
         event.id = response.data.id
@@ -53,6 +54,7 @@ const mutations = {
     state.events = events;
   },
   [constants.EVENT_SET_EVENT]: (state, event) => {
+    console.log('Setting new events....')
     for (var i = 0; i < state.events.length; i++) {
       if (state.events[i].id === event.id){
         state.events[i] = event
