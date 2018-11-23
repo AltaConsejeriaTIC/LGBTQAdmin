@@ -56,7 +56,6 @@ export default {
     }
   },
   created() {
-    if ( !this.events.length )
       this.getEvents()
   },
   computed: {
