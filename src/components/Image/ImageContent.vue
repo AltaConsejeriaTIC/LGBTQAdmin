@@ -34,8 +34,18 @@
     data() {
       return {
         myCroppa: null,
-        image: `${ENV.ENDPOINT}/${this.img}`
+        image: null,
       }
+    },
+    created(){
+      Vue.axios.get(`${ENV.ENDPOINT}/${this.img}`,{responseType: 'blob'})
+        .then(response => {
+          this.image = window.URL.createObjectURL(new Blob([response.data],{type: 'image/jpeg'}))
+          console.log(this.image2)
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
     methods: {
       uploadImage() {

@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import ImageContent from '../Image/ImageContent'
 import * as constants from '@/store/constants';
 import * as ENV from '../../env';
