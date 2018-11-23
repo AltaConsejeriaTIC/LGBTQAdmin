@@ -3,38 +3,14 @@ import Router from 'vue-router';
 import Login from '@/components/Login/Login';
 import Dashboard from '@/components/Dashboard/Dashboard';
 import DetailEvent from '@/components/Event/DetailEvent';
+import * as constants from '../store/constants';
+import store from '@/store';
 import DetailNews from '@/components/News/DetailNews';
 import NewEvent from '@/components/Event/NewEvent';
 import NewNews from '@/components/News/NewNews';
 
 Vue.use(Router);
 
-// export default new Router({
-//     routes: [{
-//             path: '*',
-//             redirect: '/login'
-//         },
-//         {
-//             path: '/',
-//             redirect: '/login'
-//         },
-//         {
-//             path: '/login',
-//             name: 'Login',
-//             component: Login
-//         },
-//         {
-//             path: '/dashboard',
-//             name: 'Dashboard',
-//             component: Dashboard
-//         },
-//         {
-//             path: '/event/:id',
-//             name: 'DetailEvent',
-//             component: DetailEvent
-//         }
-//     ]
-// });
 
 const router = new Router({
     routes: [{
@@ -62,7 +38,10 @@ const router = new Router({
         {
             path: '/event/:id',
             name: 'DetailEvent',
-            component: DetailEvent
+            component: DetailEvent,
+            meta: {
+                autentificado: true
+            }
         },
         {
             path: '/createevent',
@@ -83,10 +62,11 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-    let user = true;
+    let isLogged = store.getters['session/IS_LOGGED'];
+    console.log('===========', store.getters['session/IS_LOGGED']);
     let autorizacion = to.matched.some(record => record.meta.autentificado);
 
-    if (autorizacion && !user) {
+    if (autorizacion && !isLogged) {
         next('login')
     } else {
         next()

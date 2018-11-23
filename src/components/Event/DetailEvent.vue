@@ -2,6 +2,24 @@
   <div class="ui grid">
     <div class="five wide column">
       <div class="ui medium image">
+        <croppa v-model="myCroppa"
+                :quality="1"
+                :width="300"
+                :height="300"
+                :prevent-white-space="true"
+                :show-remove-button="false">
+          <img crossOrigin="anonymous" :src="api+image" slot="initial">
+        </croppa>
+        <div class="ui buttons">
+          <button class="ui button" @click="myCroppa.chooseFile()">
+            <i class="edit icon"></i>
+            Editar
+          </button>
+          <button class="ui positive button" @click="uploadImage" >Guardar</button>
+        </div>
+      </div>
+      <img class="output" :src="imgUrl" >
+      <!-- <div v-if='show' class="ui medium image">
         <img :src="api+image">
         <input
           type="file"
@@ -14,7 +32,19 @@
           <i class="edit icon"></i>
           Editar
         </button>
+        <button
+          class="fluid ui button"
+          @click='changeImage'>
+          <i class="edit icon"></i>
+          Editar
+        </button>
       </div>
+         .croppa-container {
+            background-color: #409fdc;
+            border: 3px solid black;
+            width: 60%;
+            margin: auto;
+          }   -->
     </div>
 
     <div class="ten wide column">
@@ -68,8 +98,11 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 import * as constants from '@/store/constants';
 import * as ENV from '../../env';
 import Vue from 'vue';
+import Croppa from 'vue-croppa';
 
 var moment = require('moment');
+
+Vue.use(Croppa);
 
 export default {
   name: 'DetailEvent',
@@ -78,7 +111,11 @@ export default {
       data: {},
       image: '',
       api: ENV.ENDPOINT,
-      errors: []
+      errors: [],
+      myCroppa: null,
+      imgUrl: '',
+      show:true,
+      im: "http://localhost:8080/images/evento02.jpg"
     }
   },
   created() {
@@ -102,16 +139,26 @@ export default {
       this.updateEvent(this.data);
       this.$router.push({ name: 'Dashboard' });
     },
-    uploadImage(event){
-      let img = event.target.files[0];
-      const fd = new FormData();
-      fd.append('file', img, img.name);
-      Vue.axios
-      .post(`/upload`, fd ,{
-        onUploadProgress: uploadEvent => console.log('Upload Progress: ', Math.round(uploadEvent.loaded/uploadEvent.total * 100))
+    uploadImage(){
+      if (!this.myCroppa.hasImage()) {
+        alert('no image to upload')
+        return
+      }
+      let name = `evento${this.data.id}`;
+      this.myCroppa.generateBlob( blob => {
+        var fd = new FormData();
+        console.log("-----blob-----", blob);
+        fd.append('file', blob, name);
+        /*let img = event.target.files[0];
+        const fd = new FormData();
+        fd.append('file', img, img.name);*/
+        Vue.axios
+          .post(`/upload`, fd, {
+            onUploadProgress: uploadEvent => console.log('Upload Progress: ', Math.round(uploadEvent.loaded / uploadEvent.total * 100))
+          })
+          .then(response => this.image = `/images/${name}`)
+          .catch((e) => console.log(e));
       })
-      .then(response => this.image = `/images/${img.name}`)
-      .catch((e) => console.log(e));
     },
     checkForm(event) {
       this.errors = [];
@@ -132,6 +179,17 @@ export default {
       event.preventDefault();
       if(this.errors.length === 0)
         this.save(this.data);
+    },
+    generateImage: function() {
+      let url = this.myCroppa.generateDataUrl()
+      if (!url) {
+      	alert('no image')
+        return
+      }
+      this.imgUrl = url
+    },
+    changeImage: function(){
+      this.show = !this.show
     }
   }
 }
