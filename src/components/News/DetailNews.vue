@@ -1,20 +1,7 @@
 <template>
   <div class="ui grid">
     <div class="five wide column">
-      <div class="ui medium image">
-        <img :src="api+image">
-        <input
-          type="file"
-          style="display: none"
-          @change="uploadImage"
-          ref="fileInput">
-        <button
-          class="fluid ui button"
-          @click="$refs.fileInput.click()">
-          <i class="edit icon"></i>
-          Editar
-        </button>
-      </div>
+      <ImageContent :img="data.image" ref="imgContent"></ImageContent>
     </div>
 
     <div class="ten wide column">
@@ -50,20 +37,21 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import * as constants from '@/store/constants';
-import * as ENV from '../../env';
+import ImageContent from '../Image/ImageContent';
 import Vue from 'vue';
 
 var moment = require('moment');
 
 export default {
   name: 'DetailNews',
+  components: {
+    ImageContent
+  },
   data() {
     return {
       data: {},
-      image: '',
-      api: ENV.ENDPOINT,
       errors: []
     }
   },
@@ -71,7 +59,6 @@ export default {
     let id = this.$route.params.id;
     this.data = this.get(id);
     this.data.date = moment(this.data.date).format('YYYY-MM-DD');
-    this.image = this.data.image;
   },
   computed: {
     ...mapGetters({
@@ -80,23 +67,13 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateEvent: constants.NEWS_UPDATE
+      updateNews: constants.NEWS_UPDATE
     }),
-    save() {
-      this.data.image = this.image;
-      this.updateEvent(this.data);
+    async save() {
+      this.$refs.imgContent.uploadImage();
+      await this.updateNews(this.data);
+      alert("ok");
       this.$router.push({ name: 'Dashboard' });
-    },
-    uploadImage(news){
-      let img = news.target.files[0];
-      const fd = new FormData();
-      fd.append('file', img, img.name);
-      Vue.axios
-      .post(`/upload`, fd ,{
-        onUploadProgress: uploadEvent => console.log('Upload Progress: ', Math.round(uploadEvent.loaded/uploadEvent.total * 100))
-      })
-      .then(response => this.image = `/images/${img.name}`)
-      .catch((e) => console.log(e));
     },
     checkForm(e) {
       this.errors = [];
@@ -107,10 +84,9 @@ export default {
       if (!this.data.description) {
         this.errors.push('Descripción es requerida.');
       }
-      console.log(this.errors);
       e.preventDefault();
       if(this.errors.length === 0)
-        this.save(this.data);
+        this.save();
     }
   }
 }

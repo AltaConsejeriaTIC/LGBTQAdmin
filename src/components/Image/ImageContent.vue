@@ -38,10 +38,9 @@
       }
     },
     created(){
-      Vue.axios.get(`${ENV.ENDPOINT}/${this.img}`,{responseType: 'blob'})
+      Vue.axios.get(`${ENV.ENDPOINT}${this.img}`,{responseType: 'blob'})
         .then(response => {
           this.image = window.URL.createObjectURL(new Blob([response.data],{type: 'image/jpeg'}))
-          console.log(this.image2)
         })
         .catch((e) => {
           console.log(e);
@@ -61,11 +60,9 @@
           Vue.axios.post(`/upload`, fd )
             .then(response => {
               console.log(response)
-              alert("Imagen Cargada.");
             })
             .catch((e) => {
               console.log(e);
-              alert("Ha ocurrido un error. Vuelve a intentarlo.")
             });
         });
       }

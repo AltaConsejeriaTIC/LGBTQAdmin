@@ -15,7 +15,7 @@ export const EVENT_SET_EVENTS = 'event/SET_EVENTS';
 export const EVENT_SET_EVENT = 'event/SET_EVENT';
 export const EVENT_ADD_EVENT = 'event/ADD_EVENT';
 export const NEWS_SET_NEWS = 'news/SET_NEWS';
-export const NEWS_SET_ONE_NEW = 'news/SET_ONE_NEWS';
+export const NEWS_SET_ONE_NEWS = 'news/SET_ONE_NEWS';
 export const NEWS_ADD_NEWS = 'news/ADD_NEWS';
 
 //getters

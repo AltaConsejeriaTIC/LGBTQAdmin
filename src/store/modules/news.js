@@ -7,27 +7,30 @@ const state = {
 
 const actions = {
   [constants.NEWS_GET_NEWS]: ({ commit }) => {
-    Vue.axios
+    return Vue.axios
       .get(`/news`)
       .then((response) => response.data)
       .then((news) => commit(constants.NEWS_SET_NEWS, news))
       .catch((e) => console.log(e));
   },
   [constants.NEWS_UPDATE]: ({commit}, news) => {
-    Vue.axios
+    return Vue.axios
       .put(`/news/${news.id}`, news, { headers: { token: sessionStorage.getItem('token') }})
-      .then(response => commit(constants.NEWS_SET_ONE_NEW, news))
+      .then(response =>{
+        commit(constants.NEWS_SET_ONE_NEWS, news);
+        console.log("------Noticia Actualizada-------")
+      })
       .catch((e) => console.log(e));
   },
   [constants.NEWS_CHANGE_STATE]: ({commit}, news) => {
     news.state = !news.state;
-    Vue.axios
+    return Vue.axios
       .put(`/news/${news.id}`, news, { headers: { token: sessionStorage.getItem('token') }})
-      .then(response => commit(constants.NEWS_SET_ONE_NEW, news))
+      .then(response => commit(constants.NEWS_SET_ONE_NEWS, news))
       .catch((e) => console.log(e));
   },
   [constants.NEWS_CREATE_NEWS]: ({commit}, news) => {
-    Vue.axios
+    return Vue.axios
       .post('/news', news, { headers: { token: sessionStorage.getItem('token') }})
       .then(response => {
         news.id = response.data.id
@@ -42,7 +45,7 @@ const mutations = {
   [constants.NEWS_SET_NEWS]: (state, news) => {
     state.news = news;
   },
-  [constants.NEWS_SET_ONE_NEW]: (state, news) => {
+  [constants.NEWS_SET_ONE_NEWS]: (state, news) => {
     for (var i = 0; i < state.news.length; i++) {
       if (state.news[i].id === news.id){
         state.news[i] = news
