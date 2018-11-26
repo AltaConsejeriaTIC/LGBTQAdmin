@@ -63,7 +63,7 @@ export default {
     token(data) {
       if (this.isLogged) {
         sessionStorage.setItem('token', this.token);
-        this.$router.push({ name: 'Dashboard' });
+        this.$router.push({ name: 'Dashboard',  params: { component: "events" }  });
       }
     }
   }

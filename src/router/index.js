@@ -8,6 +8,8 @@ import store from '@/store';
 import DetailNews from '@/components/News/DetailNews';
 import NewEvent from '@/components/Event/NewEvent';
 import NewNews from '@/components/News/NewNews';
+import Event from '@/components/Event/Event';
+import News from '@/components/News/News';
 
 Vue.use(Router);
 
@@ -27,7 +29,7 @@ const router = new Router({
             component: Login
         },
         {
-            path: '/dashboard',
+            path: '/dashboard/:component',
             name: 'Dashboard',
             component: Dashboard,
             meta: {

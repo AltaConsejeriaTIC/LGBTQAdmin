@@ -1,7 +1,7 @@
 <template>
   <div class="ui grid">
     <div class="five wide column">
-      <ImageContent :img="data.image" ref="imgContent"></ImageContent>
+      <ImageContent :img="data.image"  :w="350" :h="280"  ref="imgContent"></ImageContent>
     </div>
 
     <div class="ten wide column">
@@ -32,6 +32,12 @@
         </div>
         <button class="ui button" type="submit" >Guardar</button>
       </form>
+    </div>
+    <div class="fifteen wide column">
+      <button class="ui button back" @click="goBack">
+        <i class="caret left icon"></i>
+        Volver
+      </button>
     </div>
   </div>
 </template>
@@ -73,7 +79,7 @@ export default {
       this.$refs.imgContent.uploadImage();
       await this.updateNews(this.data);
       alert("ok");
-      this.$router.push({ name: 'Dashboard' });
+      this.$router.push({ name: 'Dashboard',params: {component: "news" } });
     },
     checkForm(e) {
       this.errors = [];
@@ -87,11 +93,18 @@ export default {
       e.preventDefault();
       if(this.errors.length === 0)
         this.save();
+    },
+    goBack() {
+      window.history.length > 1
+        ? this.$router.go(-1)
+        : this.$router.push('/dashboard/events')
     }
   }
 }
 </script>
 
 <style>
-
+  .ui.button.back {
+    float: right;
+  }
 </style>

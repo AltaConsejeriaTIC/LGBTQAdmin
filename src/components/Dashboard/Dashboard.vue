@@ -10,10 +10,9 @@
     <div class="pusher">
       <div class="ui basic segment">
         <h3 class="ui header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Contenido de la aplicación</font></font></h3>
-        <p></p>
+
         <img src="../../assets/logo-alcaldia.png" width=30% height=30%>
         <component :is="dynamiComponent"></component>
-        <h1>{{dynamiComponent}}</h1>
       </div>
     </div>
   </div>
@@ -30,12 +29,35 @@ export default {
   },
   data() {
     return {
-      dynamiComponent: `Event`
+      dynamiComponent: ``
     }
+  },
+  created() {
+    console.log("---Creado-----");
+    this.selectComponent( this.$route.params.component )
   },
   methods: {
     changeComponent( component ) {
       this.dynamiComponent = component
+    },
+    selectComponent( component ) {
+      switch (component) {
+        case "events":
+          this.dynamiComponent = "Event";
+          break;
+        case "news":
+          this.dynamiComponent = "News";
+          break;
+        case "organizations":
+          this.dynamiComponent = "Organization";
+          break;
+        case "alliances":
+          this.dynamiComponent = "Alliance";
+          break;
+        case "users":
+          this.dynamiComponent = "User";
+          break;
+      }
     }
   }
 };

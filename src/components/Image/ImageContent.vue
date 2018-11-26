@@ -1,11 +1,13 @@
 <template>
   <div class="ui medium image">
     <croppa v-model="myCroppa"
-            :quality="1"
-            :width="300"
-            :height="300"
+            :quality="2"
+            :width="w"
+            :height="h"
             :prevent-white-space="true"
-            :show-remove-button="false">
+            :show-remove-button="false"
+            :file-size-limit="1024000"
+            @file-size-exceed="onFileSizeExceed">
       <img crossOrigin="anonymous" :src="image" slot="initial">
     </croppa>
     <button class="ui button" @click="myCroppa.chooseFile()">
@@ -28,6 +30,14 @@
     props: {
       img: {
         type: String,
+        required: true
+      },
+      w: {
+        type: Number,
+        required: true
+      },
+      h: {
+        type: Number,
         required: true
       }
     },
@@ -65,6 +75,9 @@
               console.log(e);
             });
         });
+      },
+      onFileSizeExceed (file) {
+        alert('File size exceeds. Please choose a file smaller than 1MB.')
       }
     }
   }
