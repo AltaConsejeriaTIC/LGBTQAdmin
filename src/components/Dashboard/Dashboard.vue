@@ -3,7 +3,7 @@
     <div class="ui visible inverted left vertical sidebar menu">
       <a @click="changeComponent('Event')" class="item" ><i class="home icon"></i> Eventos </a>
       <a @click="changeComponent('News')" class="item"><i class="home icon"></i> Noticias </a>
-      <a @click="changeComponent('algo')" class="item"><i class="smile icon"></i> Alianzas </a>
+      <a @click="changeComponent('Alliance')" class="item"><i class="smile icon"></i> Alianzas </a>
       <a @click="changeComponent('algo')" class="item"><i class="smile icon"></i> Organizaciones </a>
       <a @click="changeComponent('algo')" class="item"><i class="calendar icon"></i>Usuarios</a>
     </div>
@@ -21,11 +21,13 @@
 <script>
 import Event from "../Event/Event";
 import News from "../News/News";
+import Alliance from "../Alliance/Alliance";
 
 export default {
   components: {
     Event,
-    News
+    News,
+    Alliance
   },
   data() {
     return {

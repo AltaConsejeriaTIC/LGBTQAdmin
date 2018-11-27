@@ -3,13 +3,12 @@ import Router from 'vue-router';
 import Login from '@/components/Login/Login';
 import Dashboard from '@/components/Dashboard/Dashboard';
 import DetailEvent from '@/components/Event/DetailEvent';
-import * as constants from '../store/constants';
 import store from '@/store';
 import DetailNews from '@/components/News/DetailNews';
 import NewEvent from '@/components/Event/NewEvent';
 import NewNews from '@/components/News/NewNews';
-import Event from '@/components/Event/Event';
-import News from '@/components/News/News';
+import DetailAlliance from '@/components/Alliance/DetailAlliance';
+import NewAlliance from '@/components/Alliance/NewAlliance';
 
 Vue.use(Router);
 
@@ -59,6 +58,16 @@ const router = new Router({
             path: '/createnews',
             name: 'NewNews',
             component: NewNews
+        },
+        {
+          path: '/alliance/:id',
+          name: 'DetailAlliance',
+          component: DetailAlliance
+        },
+        {
+          path: '/createalliance',
+          name: 'NewAlliance',
+          component: NewAlliance
         },
     ]
 })
