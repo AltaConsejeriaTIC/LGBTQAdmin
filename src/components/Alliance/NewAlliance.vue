@@ -1,7 +1,7 @@
 <template>
   <div class="ui grid">
     <div class="five wide column">
-      <ImageContent :img="data.image"  :w="200" :h="200"  ref="imgContent"></ImageContent>
+      <ImageContent :img="image"  :w="200" :h="200"  ref="imgContent"></ImageContent>
     </div>
 
     <div class="ten wide column">
@@ -45,11 +45,59 @@
 </template>
 
 <script>
-    export default {
-        name: "NewAlliance"
+  import { mapActions } from 'vuex';
+  import * as constants from '@/store/constants';
+  import ImageContent from '../Image/ImageContent';
+  import * as ENV from '../../env';
+
+  var moment = require('moment');
+
+  export default {
+    name: "NewAlliance",
+    components: {
+      ImageContent
+    },
+    data() {
+      return {
+        data: {},
+        image: '/images/ImagePlaceholder.png',
+        api: ENV.ENDPOINT,
+        errors: []
+      }
+    },
+    methods: {
+      ...mapActions({
+        createAlliance: constants.ALLIANCE_CREATE_ALLIANCE
+      }),
+      async save() {
+        this.data.image = this.image;
+        this.data.state = true;
+        this.$refs.imgContent.uploadImage();
+        await this.createAlliance(this.data);
+        this.$router.go(-1);
+      },
+      checkForm(e) {
+        this.errors = [];
+
+        if (!this.data.name) {
+          this.errors.push('nombre es requerido.');
+        }
+        if (!this.data.description) {
+          this.errors.push('Descripción es requerida.');
+        }
+        e.preventDefault();
+        if(this.errors.length === 0)
+          this.save();
+      },
+      goBack() {
+        this.$router.push('/dashboard/alliances')
+      }
     }
+  }
 </script>
 
-<style scoped>
-
+<style>
+  .ui.button.back {
+    float: right;
+  }
 </style>
