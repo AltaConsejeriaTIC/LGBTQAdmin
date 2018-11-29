@@ -9,6 +9,8 @@ import NewEvent from '@/components/Event/NewEvent';
 import NewNews from '@/components/News/NewNews';
 import DetailAlliance from '@/components/Alliance/DetailAlliance';
 import NewAlliance from '@/components/Alliance/NewAlliance';
+import DetailOrganization from '@/components/Organization/DetailOrganization';
+import NewOrganization from '@/components/Organization/NewOrganization';
 
 Vue.use(Router);
 
@@ -60,15 +62,25 @@ const router = new Router({
             component: NewNews
         },
         {
-          path: '/alliance/:id',
-          name: 'DetailAlliance',
-          component: DetailAlliance
+            path: '/alliance/:id',
+            name: 'DetailAlliance',
+            component: DetailAlliance
         },
         {
-          path: '/createalliance',
-          name: 'NewAlliance',
-          component: NewAlliance
+            path: '/createalliance',
+            name: 'NewAlliance',
+            component: NewAlliance
         },
+        {
+            path: '/organization/:id',
+            name: 'DetailOrganization',
+            component: DetailOrganization
+        },
+        {
+            path: '/createorganization',
+            name: 'NewOrganization',
+            component: NewOrganization
+        }
     ]
 })
 

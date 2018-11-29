@@ -4,7 +4,7 @@
       <a @click="changeComponent('Event')" class="item" ><i class="home icon"></i> Eventos </a>
       <a @click="changeComponent('News')" class="item"><i class="home icon"></i> Noticias </a>
       <a @click="changeComponent('Alliance')" class="item"><i class="smile icon"></i> Alianzas </a>
-      <a @click="changeComponent('algo')" class="item"><i class="smile icon"></i> Organizaciones </a>
+      <a @click="changeComponent('Organization')" class="item"><i class="smile icon"></i> Organizaciones </a>
       <a @click="changeComponent('algo')" class="item"><i class="calendar icon"></i>Usuarios</a>
     </div>
     <div class="pusher">
@@ -22,12 +22,14 @@
 import Event from "../Event/Event";
 import News from "../News/News";
 import Alliance from "../Alliance/Alliance";
+import Organization from "../Organization/Organization";
 
 export default {
   components: {
     Event,
     News,
-    Alliance
+    Alliance,
+    Organization
   },
   data() {
     return {

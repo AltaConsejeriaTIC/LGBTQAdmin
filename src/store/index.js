@@ -4,14 +4,17 @@ import Session from './modules/session';
 import Event from './modules/event';
 import News from './modules/news';
 import Alliance from './modules/alliance';
+import Organization from './modules/organization';
+
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: {
-    Session,
-    Event,
-    News,
-    Alliance
-  }
+    modules: {
+        Session,
+        Event,
+        News,
+        Alliance,
+        Organization
+    }
 });
