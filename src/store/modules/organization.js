@@ -23,6 +23,7 @@ const actions = {
             .catch((e) => console.log(e));
     },
     [constants.ORGANIZATION_CHANGE_STATE]: ({ commit }, organization) => {
+        console.log(organization);
         organization.state = !organization.state;
         return Vue.axios
             .put(`/organizations/${organization.id}`, organization, { headers: { token: sessionStorage.getItem('token') } })
