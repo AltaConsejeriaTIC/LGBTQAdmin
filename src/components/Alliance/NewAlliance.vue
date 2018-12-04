@@ -72,10 +72,9 @@
       async save() {
         this.data.image = `/images/alianza${this.data.name}.jpg`;
         this.data.state = true;
-        console.log("alliance-----------\n", this.data);
         this.$refs.imgContent.uploadImage(`alianza${this.data.name}.jpg`);
         await this.createAlliance(this.data);
-        this.$router.go(-1);
+        this.$router.push('/dashboard/alliances')
       },
       checkForm(e) {
         this.errors = [];

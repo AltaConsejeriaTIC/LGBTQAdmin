@@ -1,20 +1,7 @@
 <template>
   <div class="ui grid">
     <div class="five wide column">
-      <div class="ui medium image">
-        <img :src="api+image">
-        <input
-          type="file"
-          style="display: none"
-          @change="uploadImage"
-          ref="fileInput">
-        <button
-          class="fluid ui button"
-          @click="$refs.fileInput.click()">
-          <i class="edit icon"></i>
-          Editar
-        </button>
-      </div>
+      <ImageContent :img="image" :w="350" :h="280" ref="imgContent"></ImageContent>
     </div>
 
     <div class="ten wide column">
@@ -67,12 +54,15 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import * as constants from '@/store/constants';
 import * as ENV from '../../env';
-import Vue from 'vue';
+import ImageContent from '../Image/ImageContent';
 
 var moment = require('moment');
 
 export default {
   name: 'NewEvent',
+  components: {
+    ImageContent
+  },
   data() {
     return {
       data: {},
@@ -85,25 +75,14 @@ export default {
     ...mapActions({
       createEvent: constants.EVENT_CREATE_EVENT
     }),
-    save() {
-      this.data.image = this.image;
+    async save() {
+      this.data.image = `/images/evento-${this.data.title}.jpg`;
       this.data.state = true;
       this.data.latitude = 78.25;
       this.data.longitude = 78.252;
-
-      this.createEvent(this.data);
-      this.$router.go(-1);
-    },
-    uploadImage(event){
-      let img = event.target.files[0];
-      const fd = new FormData();
-      fd.append('file', img, img.name);
-      Vue.axios
-      .post(`/upload`, fd ,{
-        onUploadProgress: uploadEvent => console.log('Upload Progress: ', Math.round(uploadEvent.loaded/uploadEvent.total * 100))
-      })
-      .then(response => this.image = `/images/${img.name}`)
-      .catch((e) => console.log(e));
+      this.$refs.imgContent.uploadImage(`evento-${this.data.title}.jpg`);
+      await this.createEvent(this.data);
+      this.$router.push('/dashboard/events');
     },
     checkForm(event) {
       this.errors = [];
@@ -123,6 +102,9 @@ export default {
       event.preventDefault();
       if(this.errors.length === 0)
         this.save();
+    },
+    goBack() {
+      this.$router.push('/dashboard/events')
     }
   }
 }
