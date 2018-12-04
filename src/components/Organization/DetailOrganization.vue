@@ -19,7 +19,7 @@
           <textarea rows="8" v-model="data.description"></textarea>
         </div>
         <div class="field">
-          <label>Oferta</label>
+          <label>Dirección</label>
           <textarea rows="5" v-model="data.offer"></textarea>
           <label>Sitio Web</label>
           <input type="text" v-model="data.website">
@@ -27,10 +27,6 @@
           <input type="text" v-model="data.phone">
           <label>Email</label>
           <input type="text" v-model="data.email">
-        </div>
-        <div class="field">
-          <label>Fecha: {{data.finish_date}}</label>
-          <input type="date" v-model="data.finish_date">
         </div>
         <button class="ui button" type="submit" >Guardar</button>
       </form>
@@ -90,6 +86,12 @@
             }
             if (!this.data.description) {
               this.errors.push('Descripción es requerida.');
+            }
+            if (!this.data.email) {
+              this.errors.push('Email es requerido.');
+            }
+            if (!this.data.phone) {
+              this.errors.push('Teléfono es requerido.');
             }
             e.preventDefault();
             if(this.errors.length === 0)

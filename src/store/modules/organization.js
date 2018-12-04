@@ -23,10 +23,10 @@ const actions = {
             .catch((e) => console.log(e));
     },
     [constants.ORGANIZATION_CHANGE_STATE]: ({ commit }, organization) => {
-        console.log(organization);
+        console.log('ORGANIZATION==', organization);
         organization.state = !organization.state;
         return Vue.axios
-            .put(`/organizations/${organization.id}`, organization, { headers: { token: sessionStorage.getItem('token') } })
+            .put(`/updateOrganizationState/${organization.id}`, organization, { headers: { token: sessionStorage.getItem('token') } })
             .then(response => commit(constants.ORGANIZATION_SET_ORGANIZATION, organization))
             .catch((e) => console.log(e));
     },
