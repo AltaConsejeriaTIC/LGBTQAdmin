@@ -23,9 +23,10 @@ const actions = {
       .catch((e) => console.log(e));
   },
   [constants.ALLIANCE_CHANGE_STATE]: ({commit}, alliance) => {
+    console.log("-------estare")
     alliance.state = !alliance.state;
     return Vue.axios
-      .put(`/alliance/${alliance.id}`, alliance, { headers: { token: sessionStorage.getItem('token') }})
+      .put(`/updateAllianceState/${alliance.id}`, alliance, { headers: { token: sessionStorage.getItem('token') }})
       .then(response => commit(constants.ALLIANCE_SET_ALLIANCE, alliance))
       .catch((e) => console.log(e));
   },

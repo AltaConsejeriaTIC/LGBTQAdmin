@@ -57,13 +57,16 @@
         });
     },
     methods: {
-      uploadImage() {
+      uploadImage( name ) {
         if (!this.myCroppa.hasImage()) {
           alert('No hay imagen')
           return
         }
-        let name = this.img.split("/");
-        name = name[name.length - 1];
+        if(!name){
+          name = this.img.split("/");
+          name = name[name.length - 1];
+        }
+        console.log("--------nombre foto---------\n",name);
         this.myCroppa.generateBlob( blob => {
           var fd = new FormData();
           fd.append('file', blob, name);
