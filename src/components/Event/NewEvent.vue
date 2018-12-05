@@ -55,23 +55,18 @@
           <label>Lugar</label>
           <input type="text" v-model="data.place">
         </div>
-
         <div class="ui two column grid">
           <div class="row">
             <div class="column">
               <label>Latitud</label>
               <input type="number" step="0.0000001" v-model="data.latitude">
             </div>
-
              <div class="column">
               <label>longitud</label>
               <input type="number" step="0.0000001" v-model="data.longitude">
             </div>
-
           </div>
         </div>
-
-
         <div class="field">
           <label>Dirección</label>
           <input type="text" v-model="data.address">
