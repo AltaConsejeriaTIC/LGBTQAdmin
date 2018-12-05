@@ -3,7 +3,6 @@
     <div class="five wide column">
       <ImageContent :img="image" :w="350" :h="280" ref="imgContent"></ImageContent>
     </div>
-
     <div class="ten wide column">
       <div v-if="errors.length">
         <b>Por favor corriga los siguientes errores:</b>
@@ -46,6 +45,12 @@
         </div>
         <button class="ui button" type="submit" >Guardar</button>
       </form>
+    </div>
+    <div class="fifteen wide column">
+      <button class="ui button back" @click="goBack">
+        <i class="caret left icon"></i>
+        Volver
+      </button>
     </div>
   </div>
 </template>
