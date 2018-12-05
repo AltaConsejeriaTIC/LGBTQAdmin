@@ -1,18 +1,30 @@
 <template>
   <div class="ui bottom attached segment pushable">
     <div class="ui visible inverted left vertical sidebar menu">
-      <a @click="changeComponent('Event')" class="item" ><i class="home icon"></i> Eventos </a>
-      <a @click="changeComponent('News')" class="item"><i class="home icon"></i> Noticias </a>
-      <a @click="changeComponent('Alliance')" class="item"><i class="smile icon"></i> Alianzas </a>
+      <router-link
+        tag="a"
+        class="item"
+        :to="{name: 'Event'}"> <i class="home icon"></i> Eventos
+      </router-link>
+      <router-link
+        tag="a"
+        class="item"
+        :to="{name: 'News'}">
+        <i class="home icon"></i> Noticias
+      </router-link>
+      <router-link
+        tag="a"
+        class="item"
+        :to="{name: 'Alliance'}">
+        <i class="home icon"></i> Alianzas
+      </router-link>
       <a @click="changeComponent('algo')" class="item"><i class="smile icon"></i> Organizaciones </a>
       <a @click="changeComponent('algo')" class="item"><i class="calendar icon"></i>Usuarios</a>
     </div>
     <div class="pusher">
       <div class="ui basic segment">
-        <h3 class="ui header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Contenido de la aplicación</font></font></h3>
-
         <img src="../../assets/logo-alcaldia.png" width=30% height=30%>
-        <component :is="dynamiComponent"></component>
+        <router-view></router-view>
       </div>
     </div>
   </div>

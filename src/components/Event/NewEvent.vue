@@ -111,5 +111,7 @@ export default {
 </script>
 
 <style>
-
+  .ui.grid {
+    width: 80%;
+  }
 </style>

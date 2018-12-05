@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="alliance">
     <button class="ui button" @click="newAlliance">Crear Alianza</button>
     <h2>{{title}}</h2>
     <table class="ui celled table">
@@ -76,5 +76,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .alliance {
+    width: 80%;
+  }
 </style>

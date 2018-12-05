@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="event">
     <button class="ui button" @click="newEvent">Crear Evento</button>
     <h2>{{title}}</h2>
     <table class="ui celled table">
@@ -85,7 +85,7 @@ export default {
 </script>
 
 <style>
-.table {
-  width: 80% !important;
-}
+  .event {
+    width: 80%;
+  }
 </style>

@@ -105,4 +105,7 @@ export default {
   .ui.button.back {
     float: right;
   }
+  .ui.grid {
+    width: 80%;
+  }
 </style>
