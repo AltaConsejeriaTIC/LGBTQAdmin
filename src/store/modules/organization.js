@@ -14,13 +14,14 @@ const actions = {
             .catch((e) => console.log(e));
     },
     [constants.ORGANIZATION_UPDATE]: ({ commit }, organization) => {
-        return Vue.axios
-            .put(`/organizations/${organization.id}`, organization, { headers: { token: sessionStorage.getItem('token') } })
-            .then(response => {
-                commit(constants.ORGANIZATION_SET_ORGANIZATION, organization);
-                console.log("------Organizacion  Actualizada-------")
-            })
-            .catch((e) => console.log(e));
+      console.log(organization);
+      return Vue.axios
+          .put(`/organizations/${organization.id}`, organization, { headers: { token: sessionStorage.getItem('token') } })
+          .then(response => {
+              commit(constants.ORGANIZATION_SET_ORGANIZATION, organization);
+              console.log("------Organizacion  Actualizada-------")
+          })
+          .catch((e) => console.log(e));
     },
     [constants.ORGANIZATION_CHANGE_STATE]: ({ commit }, organization) => {
         console.log('ORGANIZATION==', organization);

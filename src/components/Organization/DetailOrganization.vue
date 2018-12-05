@@ -20,13 +20,13 @@
         </div>
         <div class="field">
           <label>Dirección</label>
-          <textarea rows="5" v-model="data.offer"></textarea>
+          <input type="text" v-model="data.address">
           <label>Sitio Web</label>
           <input type="text" v-model="data.website">
           <label>Teléfono</label>
           <input type="text" v-model="data.phone">
           <label>Email</label>
-          <input type="text" v-model="data.email">
+          <input type="email" v-model="data.email">
         </div>
         <button class="ui button" type="submit" >Guardar</button>
       </form>
@@ -61,6 +61,12 @@
         created() {
           let id = this.$route.params.id;
           this.data = this.get(id);
+          if(!this.data.address){
+            this.data.address = "";
+          }
+          if(!this.data.website){
+            this.data.website = "";
+          }
           this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
         },
         computed: {
