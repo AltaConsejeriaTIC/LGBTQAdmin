@@ -8,7 +8,7 @@ const state = {
 const actions = {
   [constants.EVENT_GET_EVENTS]: ({ commit }) => {
     return Vue.axios
-      .get(`/events`)
+      .get(`/allevents`)
       .then((response) => response.data)
       .then((events) => commit(constants.EVENT_SET_EVENTS, events))
       .catch((e) => console.log(e));
@@ -19,7 +19,6 @@ const actions = {
       .put(`/events/${event.id}`, event, { headers: { token: sessionStorage.getItem('token') }})
       .then(response => {
         commit(constants.EVENT_SET_EVENT, event);
-        console.log("-------actualizar--------");
         console.log(response);
       })
       .catch((e) => console.log(e));
@@ -27,7 +26,7 @@ const actions = {
   [constants.EVENT_CHANGE_STATE]: ({commit}, event) => {
     event.state = !event.state;
      return Vue.axios
-      .put(`/events/${event.id}`, event, { headers: { token: sessionStorage.getItem('token') }})
+      .put(`/updateEvenState/${event.id}`, event, { headers: { token: sessionStorage.getItem('token') }})
       .then(response =>{
         commit(constants.EVENT_SET_EVENT, event);
         console.log(response);

@@ -26,7 +26,7 @@
           <label>Teléfono</label>
           <input type="text" v-model="data.phone">
           <label>Email</label>
-          <input type="text" v-model="data.email">
+          <input type="email" v-model="data.email">
         </div>
         <div class="field">
           <label>Fecha: {{data.finish_date}}</label>

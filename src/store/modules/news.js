@@ -25,7 +25,7 @@ const actions = {
   [constants.NEWS_CHANGE_STATE]: ({commit}, news) => {
     news.state = !news.state;
     return Vue.axios
-      .put(`/news/${news.id}`, news, { headers: { token: sessionStorage.getItem('token') }})
+      .put(`/updateNewsState/${news.id}`, news, { headers: { token: sessionStorage.getItem('token') }})
       .then(response => commit(constants.NEWS_SET_ONE_NEWS, news))
       .catch((e) => console.log(e));
   },

@@ -26,7 +26,7 @@
           <label>Teléfono</label>
           <input type="text" v-model="data.phone">
           <label>Email</label>
-          <input type="text" v-model="data.email">
+          <input type="email" v-model="data.email">
         </div>
         <div class="field">
           <label>Fecha: {{data.finish_date}}</label>
@@ -70,11 +70,11 @@
         createAlliance: constants.ALLIANCE_CREATE_ALLIANCE
       }),
       async save() {
-        this.data.image = this.image;
+        this.data.image = `/images/alianza-${this.data.name}.jpg`;
         this.data.state = true;
-        this.$refs.imgContent.uploadImage();
+        this.$refs.imgContent.uploadImage(`alianza-${this.data.name}.jpg`);
         await this.createAlliance(this.data);
-        this.$router.go(-1);
+        this.$router.push('/dashboard/alliances')
       },
       checkForm(e) {
         this.errors = [];
