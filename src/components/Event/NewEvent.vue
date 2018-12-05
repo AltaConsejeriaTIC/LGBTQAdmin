@@ -54,6 +54,25 @@
         <div class="field">
           <label>Lugar</label>
           <input type="text" v-model="data.place">
+        </div>
+
+        <div class="ui two column grid">
+          <div class="row">
+            <div class="column">
+              <label>Latitud</label>
+              <input type="number" step="0.0000001" v-model="data.latitude">
+            </div>
+
+             <div class="column">
+              <label>longitud</label>
+              <input type="number" step="0.0000001" v-model="data.longitude">
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="field">
           <label>Dirección</label>
           <input type="text" v-model="data.address">
         </div>
@@ -88,8 +107,8 @@ export default {
     save() {
       this.data.image = this.image;
       this.data.state = true;
-      this.data.latitude = 78.25;
-      this.data.longitude = 78.252;
+      this.data.latitude = !parseFloat( this.data.latitude )? 0 : parseFloat( this.data.latitude );
+      this.data.longitude = !parseFloat( this.data.longitude ) ? 0 : parseFloat( this.data.longitude );
 
       this.createEvent(this.data);
       this.$router.go(-1);
