@@ -12,10 +12,11 @@ export const ORGANIZATION_GET_ORGANIZATIONS = 'organization/GET_ORGANIZATION';
 export const ORGANIZATION_UPDATE = 'organization/UPDATE_ORGANIZATION';
 export const ORGANIZATION_CHANGE_STATE = 'organization/CHANGE_STATE';
 export const ORGANIZATION_CREATE_ORGANIZATION = 'organization/CREATE_ORGANIZATION';
-export const ALLIANCE_GET_ALLIANCES = 'alliance/GET_ALLIANCE';
+export const ALLIANCE_GET_ALLIANCES = 'alliance/GET_ALLIANCES';
 export const ALLIANCE_UPDATE = 'alliance/UPDATE_ALLIANCE';
 export const ALLIANCE_CHANGE_STATE = 'alliance/CHANGE_STATE';
 export const ALLIANCE_CREATE_ALLIANCE = 'alliance/CREATE_ALLIANCE';
+export const PERSONALDATA_GET_USERS = 'personalData/GET_USERS';
 
 //mutations
 export const SESSION_SET_TOKEN = 'session/SET_TOKEN';
@@ -31,6 +32,7 @@ export const ORGANIZATION_ADD_ORGANIZATION = 'organization/ADD_ORGANIZATION';
 export const ALLIANCE_SET_ALLIANCES = 'alliance/SET_ALLIANCES';
 export const ALLIANCE_SET_ALLIANCE = 'alliance/SET_ALLIANCE';
 export const ALLIANCE_ADD_ALLIANCE = 'alliance/ADD_ALLIANCE';
+export const PERSONALDATA_SET_USERS = 'personalData/SET_DATA';
 
 //getters
 export const SESSION_IS_LOGGED = 'session/IS_LOGGED';
@@ -42,3 +44,5 @@ export const ORGANIZATIONS = 'organization/GET';
 export const ORGANIZATION_BY_ID = 'organization/GET_ORGANIZATION';
 export const ALLIANCES = 'alliance/GET';
 export const ALLIANCE_BY_ID = 'alliance/GET_ALLIANCE';
+export const USERS = 'personalData/GET';
+export const PERSONALDATA_BY_ID = 'personalData/GET_USER';

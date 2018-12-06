@@ -1,7 +1,7 @@
 <template>
   <div class="ui grid">
     <div class="five wide column">
-      <ImageContent :img="data.image"  :w="200" :h="200"  ref="imgContent"></ImageContent>
+      <ImageContent :img="image"  :w="200" :h="200"  ref="imgContent"></ImageContent>
     </div>
     <div class="ten wide column">
       <div v-if="errors.length">

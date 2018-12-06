@@ -11,6 +11,8 @@ import DetailAlliance from '@/components/Alliance/DetailAlliance';
 import NewAlliance from '@/components/Alliance/NewAlliance';
 import DetailOrganization from '@/components/Organization/DetailOrganization';
 import NewOrganization from '@/components/Organization/NewOrganization';
+import PersonalData from '@/components/PersonalData/PersonalData';
+import DetailUser from '@/components/PersonalData/DetailUser';
 
 Vue.use(Router);
 
@@ -80,6 +82,16 @@ const router = new Router({
             path: '/createorganization',
             name: 'NewOrganization',
             component: NewOrganization
+        },
+        {
+            path: '/personaldata',
+            name: 'PersonalData',
+            component: PersonalData
+        },
+        {
+            path: '/user/:id',
+            name: 'DetailUser',
+            component: DetailUser
         }
     ]
 })
