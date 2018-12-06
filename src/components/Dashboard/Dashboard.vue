@@ -6,6 +6,7 @@
       <a @click="changeComponent('algo')" class="item"><i class="smile icon"></i> Alianzas </a>
       <a @click="changeComponent('algo')" class="item"><i class="smile icon"></i> Organizaciones </a>
       <a @click="changeComponent('algo')" class="item"><i class="calendar icon"></i>Usuarios</a>
+      <a @click="changeComponent('Home')" class="item" ><i class="home icon"></i> Home-carousel </a>
     </div>
     <div class="pusher">
       <div class="ui basic segment">
@@ -21,11 +22,14 @@
 <script>
 import Event from "../Event/Event";
 import News from "../News/News";
+import Home from "../home/Home";
+
 
 export default {
   components: {
     Event,
-    News
+    News,
+    Home
   },
   data() {
     return {
@@ -57,6 +61,8 @@ export default {
         case "users":
           this.dynamiComponent = "User";
           break;
+        case "Home-carousels":
+          this.dynamiComponent = "Home";
       }
     }
   }

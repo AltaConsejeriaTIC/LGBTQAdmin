@@ -10,6 +10,7 @@ import NewEvent from '@/components/Event/NewEvent';
 import NewNews from '@/components/News/NewNews';
 import Event from '@/components/Event/Event';
 import News from '@/components/News/News';
+import Home from '@/components/home/Home';
 
 Vue.use(Router);
 
@@ -60,6 +61,11 @@ const router = new Router({
             name: 'NewNews',
             component: NewNews
         },
+        {
+            path: '/homeCarousel',
+            name: 'Home',
+            component: Home
+        }
     ]
 })
 
