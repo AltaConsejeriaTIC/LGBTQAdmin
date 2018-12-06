@@ -4,6 +4,7 @@ import Session from './modules/session';
 import Event from './modules/event';
 import News from './modules/news';
 import Alliance from './modules/alliance';
+import PersonalData from './modules/personalData';
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     Session,
     Event,
     News,
-    Alliance
+    Alliance,
+    PersonalData
   }
 });
