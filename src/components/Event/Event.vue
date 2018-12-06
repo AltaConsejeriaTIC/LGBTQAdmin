@@ -10,7 +10,10 @@
           <th>Fecha de Inicio</th>
           <th>Fecha de Finalización</th>
           <th>Lugar</th>
+          <th>Latitud</th>
+          <th>Longitud</th>
           <th>Estado</th>
+
         </tr>
       </thead>
        <tbody v-for="event in events" :key="event.id">
@@ -20,6 +23,8 @@
           <td>{{formatDate(event.start_date)}}</td>
           <td>{{formatDate(event.finish_date)}}</td>
           <td>{{event.place}}</td>
+          <td>{{event.latitude !== 0 ? event.latitude : "NA" }}  </td>
+          <td>{{event.longitude !==0 ? event.longitude : "NA"}} </td>
           <td>{{event.state ? "Publicado" : "No Publicado" }}</td>
           <td >
             <div class="ui small button" @click="changeState(event)">
