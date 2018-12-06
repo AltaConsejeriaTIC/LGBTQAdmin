@@ -94,7 +94,7 @@ export default {
         this.errors.push('Teléfono es requerido.');
       }
       if (!this.data.email) {
-        this.errors.push('Email es requerido es requerida.');
+        this.errors.push('Email es requerido.');
       }
       organization.preventDefault();
       if(this.errors.length === 0)

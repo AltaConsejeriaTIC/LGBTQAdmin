@@ -97,6 +97,7 @@
           },
           checkForm(e) {
             this.errors = [];
+            console.log('DATA',data);
 
             if (!this.data.name) {
               this.errors.push('Nombre es requerido.');
@@ -113,6 +114,8 @@
             e.preventDefault();
             if(this.errors.length === 0)
               this.save();
+
+            console.log('DATA',this.data);
           },
           goBack() {
             this.$router.push('/dashboard/organizations')
