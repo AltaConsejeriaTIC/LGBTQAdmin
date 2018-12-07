@@ -6,12 +6,9 @@ import store from '@/store';
 import { Alliance,DetailAlliance,NewAlliance } from '@/components/Alliance';
 import { Event,DetailEvent,NewEvent } from '@/components/Event';
 import { News,DetailNews,NewNews } from '@/components/News';
-import DetailOrganization from '@/components/Organization/DetailOrganization';
-import NewOrganization from '@/components/Organization/NewOrganization';
-import PersonalData from '@/components/PersonalData/PersonalData';
-import DetailUser from '@/components/PersonalData/DetailUser';
-import Complaint from '@/components/Complaint/Complaint';
-import DetailComplaint from '@/components/Complaint/DetailComplaint';
+import { Organization, DetailOrganization, NewOrganization } from '@/components/Organization';
+import { Complaint, DetailComplaint } from '@/components/Complaint';
+import { PersonalData, DetailUser } from '@/components/PersonalData';
 
 Vue.use(Router);
 
@@ -82,39 +79,44 @@ const router = new Router({
               path: '/createalliance',
               name: 'NewAlliance',
               component: NewAlliance
+            },            
+            {
+                path: '/organizations',
+                name: 'Organization',
+                component: Organization
             },
+            {
+                path: '/organization/:id',
+                name: 'DetailOrganization',
+                component: DetailOrganization
+            },
+            {
+                path: '/createorganization',
+                name: 'NewOrganization',
+                component: NewOrganization
+            },
+            {
+                path: '/personaldata',
+                name: 'PersonalData',
+                component: PersonalData
+            },
+            {
+                path: '/user/:id',
+                name: 'DetailUser',
+                component: DetailUser
+            },
+            {
+                path: '/complaints',
+                name: 'Complaint',
+                component: Complaint
+            },
+            {
+                path: '/complaint/:id',
+                name: 'DetailComplaint',
+                component: DetailComplaint
+            }
           ]
-        },
-        {
-            path: '/organization/:id',
-            name: 'DetailOrganization',
-            component: DetailOrganization
-        },
-        {
-            path: '/createorganization',
-            name: 'NewOrganization',
-            component: NewOrganization
-        },
-        {
-            path: '/personaldata',
-            name: 'PersonalData',
-            component: PersonalData
-        },
-        {
-            path: '/user/:id',
-            name: 'DetailUser',
-            component: DetailUser
-        },
-        {
-            path: '/complaints',
-            name: 'Complaint',
-            component: Complaint
-        },
-        {
-            path: '/complaint/:id',
-            name: 'DetailComplaint',
-            component: DetailComplaint
-        }
+        }        
     ]
 })
 

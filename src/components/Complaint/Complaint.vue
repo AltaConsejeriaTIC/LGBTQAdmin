@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='complaint'>
     <h2>Denuncia</h2>   
     <table class="ui celled table">
       <thead>
@@ -58,7 +58,9 @@
 </script>
 
 <style scoped>
-
+  .complaint {
+    width: 85%;
+  }
 </style>
 
 

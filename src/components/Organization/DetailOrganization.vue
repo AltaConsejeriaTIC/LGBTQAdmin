@@ -118,7 +118,9 @@
             console.log('DATA',this.data);
           },
           goBack() {
-            this.$router.push('/dashboard/organizations')
+            window.history.length > 1
+              ? this.$router.go(-1)
+              : this.$router.push('/dashboard')
           }
         }
     }

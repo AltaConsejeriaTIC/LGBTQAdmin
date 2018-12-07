@@ -18,9 +18,24 @@
         :to="{name: 'Alliance'}">
         <i class="home icon"></i> Alianzas
       </router-link>
-      <a @click="changeComponent('Organization')" class="item"><i class="smile icon"></i> Organizaciones </a>
-      <a @click="changeComponent('PersonalData')" class="item"><i class="calendar icon"></i>Usuarios</a>
-      <a @click="changeComponent('Complaint')" class="item"><i class="calendar icon"></i>Denuncia</a>
+      <router-link
+        tag="a"
+        class="item"
+        :to="{name: 'Organization'}">
+        <i class="home icon"></i> Organizaciones
+      </router-link>
+      <router-link
+        tag="a"
+        class="item"
+        :to="{name: 'PersonalData'}">
+        <i class="home icon"></i> Censo
+      </router-link>
+      <router-link
+        tag="a"
+        class="item"
+        :to="{name: 'Complaint'}">
+        <i class="home icon"></i> Denuncia
+      </router-link>      
     </div>
     <div class="pusher">
       <div class="ui basic segment">
@@ -32,62 +47,15 @@
 </template>
 
 <script>
-import Event from "../Event/Event";
-import News from "../News/News";
-import Alliance from "../Alliance/Alliance";
-import PersonalData from "../PersonalData/PersonalData";
-import Organization from "../Organization/Organization";
-import Complaint from "../Complaint/Complaint";
-
-export default {
-  components: {
-    Event,
-    News,
-    Alliance,
-    PersonalData,
-    Organization,
-    Complaint
-  },
-  data() {
-    return {
-      dynamiComponent: ``
-    }
-  },
-  created() {
-    console.log("---Creado-----");
-    this.selectComponent( this.$route.params.component )
-  },
-  methods: {
-    changeComponent( component ) {
-      this.dynamiComponent = component
-    },
-    selectComponent( component ) {
-      switch (component) {
-        case "events":
-          this.dynamiComponent = "Event";
-          break;
-        case "news":
-          this.dynamiComponent = "News";
-          break;
-        case "organizations":
-          this.dynamiComponent = "Organization";
-          break;
-        case "alliances":
-          this.dynamiComponent = "Alliance";
-          break;
-        case "users":
-          this.dynamiComponent = "PersonalData";
-          break;
-        case "complaints":
-          this.dynamiComponent = "Complaint";
-          break;
-      }
-    }
+  export default {
+    name: 'Dashboard' 
   }
-};
 </script>
 
 <style scoped>
+.pushable {
+    height: 100vh;
+}
 body > .grid {
   height: 100%;
 }

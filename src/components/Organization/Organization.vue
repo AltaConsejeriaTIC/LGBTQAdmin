@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='organization'>
     <button class="ui button" @click="newOrganization">Crear Organización </button>
     <h2>{{title}}</h2>
     <table class="ui celled table">
@@ -70,5 +70,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .organization {
+    width: 85%;
+  }
 </style>

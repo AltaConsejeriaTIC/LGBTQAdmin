@@ -33,6 +33,12 @@
         <button class="ui button" type="submit" >Guardar</button>
       </form>
     </div>
+    <div class="fifteen wide column">
+      <button class="ui button back" @click="goBack">
+        <i class="caret left icon"></i>
+        Volver
+      </button>
+    </div>
   </div>
 </template>
 
@@ -82,7 +88,9 @@
           this.save();
       },
       goBack() {
-        this.$router.push('/dashboard/news')
+        window.history.length > 1
+          ? this.$router.go(-1)
+          : this.$router.push('/dashboard')
       }
     }
   }

@@ -95,7 +95,9 @@ export default {
         this.save();
     },
     goBack() {
-      this.$router.push('/dashboard/news')
+      window.history.length > 1
+        ? this.$router.go(-1)
+        : this.$router.push('/dashboard')
     }
   }
 }

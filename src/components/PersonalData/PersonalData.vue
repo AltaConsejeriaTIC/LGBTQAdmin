@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div calss='personalData'>
     <h2>Datos Personales</h2>   
     <table class="ui celled table">
       <thead>
@@ -53,5 +53,7 @@
 </script>
 
 <style scoped>
-    
+  .personalData {
+    width: 85%;
+  }
 </style>
