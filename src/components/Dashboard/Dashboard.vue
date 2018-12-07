@@ -1,69 +1,61 @@
 <template>
   <div class="ui bottom attached segment pushable">
     <div class="ui visible inverted left vertical sidebar menu">
-      <a @click="changeComponent('Event')" class="item" ><i class="home icon"></i> Eventos </a>
-      <a @click="changeComponent('News')" class="item"><i class="home icon"></i> Noticias </a>
-      <a @click="changeComponent('algo')" class="item"><i class="smile icon"></i> Alianzas </a>
-      <a @click="changeComponent('algo')" class="item"><i class="smile icon"></i> Organizaciones </a>
-      <a @click="changeComponent('algo')" class="item"><i class="calendar icon"></i>Usuarios</a>
+      <router-link
+        tag="a"
+        class="item"
+        :to="{name: 'Event'}"> <i class="home icon"></i> Eventos
+      </router-link>
+      <router-link
+        tag="a"
+        class="item"
+        :to="{name: 'News'}">
+        <i class="home icon"></i> Noticias
+      </router-link>
+      <router-link
+        tag="a"
+        class="item"
+        :to="{name: 'Alliance'}">
+        <i class="home icon"></i> Alianzas
+      </router-link>
+      <router-link
+        tag="a"
+        class="item"
+        :to="{name: 'Organization'}">
+        <i class="home icon"></i> Organizaciones
+      </router-link>
+      <router-link
+        tag="a"
+        class="item"
+        :to="{name: 'PersonalData'}">
+        <i class="home icon"></i> Censo
+      </router-link>
+      <router-link
+        tag="a"
+        class="item"
+        :to="{name: 'Complaint'}">
+        <i class="home icon"></i> Denuncia
+      </router-link>      
     </div>
     <div class="pusher">
       <div class="ui basic segment">
-        <h3 class="ui header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Contenido de la aplicación</font></font></h3>
-
         <img src="../../assets/logo-alcaldia.png" width=30% height=30%>
-        <component :is="dynamiComponent"></component>
+        <router-view></router-view>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Event from "../Event/Event";
-import News from "../News/News";
-
-export default {
-  components: {
-    Event,
-    News
-  },
-  data() {
-    return {
-      dynamiComponent: ``
-    }
-  },
-  created() {
-    console.log("---Creado-----");
-    this.selectComponent( this.$route.params.component )
-  },
-  methods: {
-    changeComponent( component ) {
-      this.dynamiComponent = component
-    },
-    selectComponent( component ) {
-      switch (component) {
-        case "events":
-          this.dynamiComponent = "Event";
-          break;
-        case "news":
-          this.dynamiComponent = "News";
-          break;
-        case "organizations":
-          this.dynamiComponent = "Organization";
-          break;
-        case "alliances":
-          this.dynamiComponent = "Alliance";
-          break;
-        case "users":
-          this.dynamiComponent = "User";
-          break;
-      }
-    }
+  export default {
+    name: 'Dashboard' 
   }
-};
 </script>
 
 <style scoped>
+.pushable {
+    height: 100vh;
+}
 body > .grid {
   height: 100%;
 }

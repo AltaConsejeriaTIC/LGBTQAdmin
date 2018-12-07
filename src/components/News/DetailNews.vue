@@ -97,7 +97,7 @@ export default {
     goBack() {
       window.history.length > 1
         ? this.$router.go(-1)
-        : this.$router.push('/dashboard/events')
+        : this.$router.push('/dashboard')
     }
   }
 }
@@ -106,5 +106,8 @@ export default {
 <style>
   .ui.button.back {
     float: right;
+  }
+  .ui.grid {
+    width: 80%;
   }
 </style>

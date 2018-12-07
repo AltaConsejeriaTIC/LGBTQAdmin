@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="news">
     <button class="ui button" @click="newNews">Crear Noticia</button>
     <h2>{{title}}</h2>
     <table class="ui celled table">
@@ -80,7 +80,7 @@ export default {
 </script>
 
 <style>
-.table {
-  width: 80% !important;
-}
+  .news {
+    width: 80%;
+  }
 </style>
