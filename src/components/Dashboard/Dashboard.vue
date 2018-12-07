@@ -18,8 +18,9 @@
         :to="{name: 'Alliance'}">
         <i class="home icon"></i> Alianzas
       </router-link>
-      <a @click="changeComponent('algo')" class="item"><i class="smile icon"></i> Organizaciones </a>
-      <a @click="changeComponent('algo')" class="item"><i class="calendar icon"></i>Usuarios</a>
+      <a @click="changeComponent('Organization')" class="item"><i class="smile icon"></i> Organizaciones </a>
+      <a @click="changeComponent('PersonalData')" class="item"><i class="calendar icon"></i>Usuarios</a>
+      <a @click="changeComponent('Complaint')" class="item"><i class="calendar icon"></i>Denuncia</a>
     </div>
     <div class="pusher">
       <div class="ui basic segment">
@@ -34,12 +35,18 @@
 import Event from "../Event/Event";
 import News from "../News/News";
 import Alliance from "../Alliance/Alliance";
+import PersonalData from "../PersonalData/PersonalData";
+import Organization from "../Organization/Organization";
+import Complaint from "../Complaint/Complaint";
 
 export default {
   components: {
     Event,
     News,
-    Alliance
+    Alliance,
+    PersonalData,
+    Organization,
+    Complaint
   },
   data() {
     return {
@@ -69,7 +76,10 @@ export default {
           this.dynamiComponent = "Alliance";
           break;
         case "users":
-          this.dynamiComponent = "User";
+          this.dynamiComponent = "PersonalData";
+          break;
+        case "complaints":
+          this.dynamiComponent = "Complaint";
           break;
       }
     }
