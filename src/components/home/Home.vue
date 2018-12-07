@@ -11,29 +11,18 @@
             <th>Nombre</th>
           </tr>
         </thead>
-        <!-- <tbody v-for="event in events" :key="event.id">
+        <tbody v-for="highlight in highlights" :key="highlight.id">
           <tr >
-            <td>{{event.id}}</td>
-            <td :class="{disabled: !event.state}">{{event.title}}</td>
-            <td>{{formatDate(event.start_date)}}</td>
-            <td>{{formatDate(event.finish_date)}}</td>
-            <td>{{event.place}}</td>
-            <td>{{event.latitude !== 0 ? event.latitude : "NA" }}  </td>
-            <td>{{event.longitude !==0 ? event.longitude : "NA"}} </td>
-            <td>{{event.state ? "Publicado" : "No Publicado" }}</td>
+            <td>{{highlight.id}}</td>
+            <td>{{highlight.section_id}}</td>
+            <td>{{highlight.section}} </td>
             <td >
-              <div class="ui small button" @click="changeState(event)">
-                {{event.state ? "Ocultar" : "Publicar" }}
-              </div>
-            </td>
-            <td >
-              <div class="ui small button" @click="editEvent(event.id)" >
-                <i class="edit icon"></i>
-                Editar
-              </div>
+                <div class="ui small button" @click="deleteHighlightById(highlight.id) " >
+                    Quitar
+                </div>
             </td>
           </tr>
-        </tbody> -->
+        </tbody>
         <tbody>
         </tbody>
       </table>
@@ -63,6 +52,11 @@
                 <td>{{formatDate(event.start_date)}}</td>
                 <td>{{formatDate(event.finish_date)}}</td>
                 <td>{{event.place}}</td>
+                <td >
+                  <div class="ui small button" @click="postHighlight( event ,'event')" >
+                    Destacar
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -86,6 +80,11 @@
                 <td :class="{disabled: !n.state}">{{n.title}}</td>
                 <td>{{n.source}}</td>
                 <td>{{formatDate(n.date)}}</td>
+                 <td >
+                  <div class="ui small button" @click="postHighlight( n ,'news')" >
+                    Destacar
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -99,10 +98,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex';
 import * as constants from '@/store/constants';
 import * as ENV from '../../env';
 import Vue from 'vue';
+import Highlight from '@/store/modules/highlight'
 
 var moment = require('moment');
 
@@ -115,17 +115,21 @@ export default {
       api: ENV.ENDPOINT,
       errors: [],
       isEventActive: true,
-      isNewsdActive: false,
+      isNewsdActive: false
     }
   },
   created() {
       this.getEvents();
       this.getNews();
+      this.getHighlights();
   },
   methods: {
     ...mapActions({
       getEvents: constants.EVENT_GET_EVENTS,
       getNews: constants.NEWS_GET_NEWS,
+      getHighlights: constants.HIGHLIGHT_GET_HIGHLIGHT,
+      createHighlight: constants.HIGHLIGHT_CREATE_HIGHLIGHT,
+      deleteHighlight: constants.HIGHLIGHT_DELETE_HIGHLIGHT
     }),
     switchTabs(tab) {
       if (tab === 'event') {
@@ -136,6 +140,17 @@ export default {
         this.isNewsdActive = true;
       }
     },
+    postHighlight( data, section ){
+      const curr = {
+        "section_id": data.id,
+        "section": section
+      }
+
+      this.createHighlight( curr );
+    },
+    deleteHighlightById( id ){
+      this.deleteHighlight( id );
+    },
     formatDate(date) {
       return moment(date).format('YYYY-MMMM-DD');
     },
@@ -143,9 +158,11 @@ export default {
   computed: {
     ...mapGetters({
       events: constants.EVENTS,
-      news: constants.NEWS
+      news: constants.NEWS,
+      highlights: constants.HIGHLIGHTS
     })
   },
+
 }
 </script>
 
