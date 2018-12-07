@@ -17,6 +17,7 @@ export const ALLIANCE_UPDATE = 'alliance/UPDATE_ALLIANCE';
 export const ALLIANCE_CHANGE_STATE = 'alliance/CHANGE_STATE';
 export const ALLIANCE_CREATE_ALLIANCE = 'alliance/CREATE_ALLIANCE';
 export const PERSONALDATA_GET_USERS = 'personalData/GET_USERS';
+export const COMPLAINT_GET_COMPLAINTS = 'complaint/GET_COMPLAINTS'
 
 //mutations
 export const SESSION_SET_TOKEN = 'session/SET_TOKEN';
@@ -33,6 +34,7 @@ export const ALLIANCE_SET_ALLIANCES = 'alliance/SET_ALLIANCES';
 export const ALLIANCE_SET_ALLIANCE = 'alliance/SET_ALLIANCE';
 export const ALLIANCE_ADD_ALLIANCE = 'alliance/ADD_ALLIANCE';
 export const PERSONALDATA_SET_USERS = 'personalData/SET_DATA';
+export const COMPLAINT_SET_COMPLAINTS = 'complaint/SET_COMPLAINTS';
 
 //getters
 export const SESSION_IS_LOGGED = 'session/IS_LOGGED';
@@ -46,3 +48,5 @@ export const ALLIANCES = 'alliance/GET';
 export const ALLIANCE_BY_ID = 'alliance/GET_ALLIANCE';
 export const USERS = 'personalData/GET';
 export const PERSONALDATA_BY_ID = 'personalData/GET_USER';
+export const COMPLAINTS = 'complaint/GET';
+export const COMPLAINT_BY_ID = 'complaint/GET_COMPLAINT'

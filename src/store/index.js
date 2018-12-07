@@ -6,7 +6,7 @@ import News from './modules/news';
 import Alliance from './modules/alliance';
 import Organization from './modules/organization';
 import PersonalData from './modules/personalData';
-
+import Complaint from './modules/complaint';
 
 Vue.use(Vuex);
 
@@ -17,6 +17,7 @@ export default new Vuex.Store({
         News,
         Alliance,
         Organization,
-        PersonalData
+        PersonalData,
+        Complaint
     }
 });

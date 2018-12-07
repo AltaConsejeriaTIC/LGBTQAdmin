@@ -13,6 +13,8 @@ import DetailOrganization from '@/components/Organization/DetailOrganization';
 import NewOrganization from '@/components/Organization/NewOrganization';
 import PersonalData from '@/components/PersonalData/PersonalData';
 import DetailUser from '@/components/PersonalData/DetailUser';
+import Complaint from '@/components/Complaint/Complaint';
+import DetailComplaint from '@/components/Complaint/DetailComplaint';
 
 Vue.use(Router);
 
@@ -92,6 +94,16 @@ const router = new Router({
             path: '/user/:id',
             name: 'DetailUser',
             component: DetailUser
+        },
+        {
+            path: '/complaints',
+            name: 'Complaint',
+            component: Complaint
+        },
+        {
+            path: '/complaint/:id',
+            name: 'DetailComplaint',
+            component: DetailComplaint
         }
     ]
 })

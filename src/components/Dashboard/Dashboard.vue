@@ -6,7 +6,7 @@
       <a @click="changeComponent('Alliance')" class="item"><i class="smile icon"></i> Alianzas </a>
       <a @click="changeComponent('Organization')" class="item"><i class="smile icon"></i> Organizaciones </a>
       <a @click="changeComponent('PersonalData')" class="item"><i class="calendar icon"></i>Usuarios</a>
-      <a @click="changeComponent('algo')" class="item"><i class="calendar icon"></i>Usuarios</a>
+      <a @click="changeComponent('Complaint')" class="item"><i class="calendar icon"></i>Denuncia</a>
     </div>
     <div class="pusher">
       <div class="ui basic segment">
@@ -25,6 +25,7 @@ import News from "../News/News";
 import Alliance from "../Alliance/Alliance";
 import PersonalData from "../PersonalData/PersonalData";
 import Organization from "../Organization/Organization";
+import Complaint from "../Complaint/Complaint";
 
 export default {
   components: {
@@ -32,7 +33,8 @@ export default {
     News,
     Alliance,
     PersonalData,
-    Organization
+    Organization,
+    Complaint
   },
   data() {
     return {
@@ -63,6 +65,9 @@ export default {
           break;
         case "users":
           this.dynamiComponent = "PersonalData";
+          break;
+        case "complaints":
+          this.dynamiComponent = "Complaint";
           break;
       }
     }
