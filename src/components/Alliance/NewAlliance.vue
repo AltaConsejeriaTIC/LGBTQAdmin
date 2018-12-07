@@ -74,37 +74,38 @@
         this.data.state = true;
         this.$refs.imgContent.uploadImage(`alianza-${this.data.name}.jpg`);
         await this.createAlliance(this.data);
-        this.$router.push('/dashboard/alliances')
+        this.$router.push('/alliance');
       },
       checkForm(e) {
         this.errors = [];
-
-        if (!this.data.name) {
-          this.errors.push('Nombre es requerido.');
-        }
-        if (!this.data.description) {
-          this.errors.push('Descripción es requerida.');
-        }
-        if (!this.data.offer) {
-          this.errors.push('Campo oferta es requerido.')
-        }
-        if (!this.data.email) {
-          this.errors.push('Campo Email es requerido.')
-        }            
-        if (this.data.finish_date === "Invalid date") {
-          this.errors.push('Campo Fecha es requerido.')
-        }
-        let lenDes = this.data.description.length;
-        if( lenDes < 150 ||  lenDes > 300){
-          this.errors.push('Tamaño de Descripción no permitido.Tamaño máximo 300 mínimo 150 caracteres.');
-        }
-        let lenOfer = this.data.offer.length;
-        if( lenOfer < 300 ||  lenOfer > 700){
-          this.errors.push('Tamaño de oferta no permitido.Tamaño máximo 700 mínimo 300 caracteres.');
-        }            
-        e.preventDefault();
-        if(this.errors.length === 0)
-          this.save();
+          if (!this.data.name) {
+            this.errors.push('Nombre es requerido.');
+          }
+          if (!this.data.description) {
+            this.errors.push('Descripción es requerida.');
+          }else{
+            let lenDes = this.data.description.length;
+            if( lenDes < 150 ||  lenDes > 300){
+              this.errors.push('Tamaño de Descripción no permitido.Tamaño máximo 300 mínimo 150 caracteres.');
+            }
+          }
+          if (!this.data.offer) {
+            this.errors.push('Campo oferta es requerido.')
+          }else{
+            let lenOfer = this.data.offer.length;
+            if( lenOfer < 300 ||  lenOfer > 700){
+              this.errors.push('Tamaño de oferta no permitido.Tamaño máximo 700 mínimo 300 caracteres.');
+            } 
+          }                    
+          if (!this.data.email) {
+            this.errors.push('Campo Email es requerido.')
+          }            
+          if (this.data.finish_date === "Invalid date" || !this.data.finish_date ) {
+            this.errors.push('Campo Fecha es requerido.')
+          }                     
+          e.preventDefault();
+          if(this.errors.length === 0)
+            this.save();
       },
       goBack() {
         window.history.length > 1

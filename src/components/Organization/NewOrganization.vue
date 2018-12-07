@@ -79,8 +79,8 @@ export default {
       this.data.state = true;
       this.$refs.imgContent.uploadImage(`organizacion-${this.data.title}.jpg`);
       await this.createOrganization(this.data);
-      this.$router.push('/dashboard/organizations');
-    },
+      this.$router.push('/organizations');
+    },    
     checkForm(organization) {
       this.errors = [];
 
@@ -89,13 +89,20 @@ export default {
       }
       if (!this.data.description) {
         this.errors.push('Descripción es requerida.');
+      }else{
+        let lenDes = this.data.description.length
+        if ( lenDes < 300 || lenDes > 700 ){
+          this.errors.push('Tamaño de la descripción no permitido. Tamaño máximo 700 mínimo 300 caracteres.')
+        }
+      }
+
+      if (!this.data.email) {
+        this.errors.push('Email es requerido.');
       }
       if (!this.data.phone) {
         this.errors.push('Teléfono es requerido.');
       }
-      if (!this.data.email) {
-        this.errors.push('Email es requerido.');
-      }
+      
       organization.preventDefault();
       if(this.errors.length === 0)
         this.save();

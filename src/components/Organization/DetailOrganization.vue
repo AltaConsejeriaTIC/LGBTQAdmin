@@ -93,29 +93,33 @@
             this.$refs.imgContent.uploadImage();
             await this.updateOrganization(this.data);
             alert("ok");
-            this.$router.push({ name: 'Dashboard',params: {component: "organizations" } });
+            this.$router.push('/organizations');
           },
           checkForm(e) {
             this.errors = [];
-            console.log('DATA',data);
 
             if (!this.data.name) {
               this.errors.push('Nombre es requerido.');
             }
             if (!this.data.description) {
               this.errors.push('Descripción es requerida.');
+            }else{
+              let lenDes = this.data.description.length
+              if ( lenDes < 300 || lenDes > 700 ){
+                this.errors.push('Tamaño de la descripción no permitido. Tamaño máximo 700 mínimo 300 caracteres.')
+              }
             }
+
             if (!this.data.email) {
               this.errors.push('Email es requerido.');
             }
             if (!this.data.phone) {
               this.errors.push('Teléfono es requerido.');
             }
+            
             e.preventDefault();
             if(this.errors.length === 0)
-              this.save();
-
-            console.log('DATA',this.data);
+              this.save();            
           },
           goBack() {
             window.history.length > 1
