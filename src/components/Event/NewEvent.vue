@@ -107,16 +107,43 @@ export default {
       this.errors = [];
 
       if (!this.data.title) {
-        this.errors.push('Título es requerido.');
-      }
+        this.errors.push('Título es requerido.');        
+      }else{
+        let lenTit = this.data.title.length;
+        if (lenTit > 45) {
+          this.errors.push('Título no válido. Tamaño máximo del título 45 caracteres.');
+        }
+      }           
       if (!this.data.description) {
         this.errors.push('Descripción es requerida.');
-      }
-      if (!this.data.place) {
-        this.errors.push('Lugar es requerido.');
+      }else{
+        let lenDes = this.data.description.length;
+        if (lenDes < 150 || lenDes > 800) {
+          this.errors.push('Descipción no válida. Tamaño máximo de 800 caracteres. Tamaño mínimo 150 caracteres.');
+        }
       }
       if (!this.data.address) {
         this.errors.push('Dirección es requerida.');
+      }
+      if (!this.data.start_date){
+        this.errors.push('Fecha de inicio requerida.');
+      }
+      if (!this.data.finish_date){
+        this.errors.push('Fecha de fin requerida.');
+      }
+      if (this.data.start_date > this.data.finish_date){
+        this.errors.push('La fecha de fin debe ser mayor a la fecha de inicio.');
+      }
+      if (!this.data.start_time) {
+        this.errors.push('Hora de inicio requerida.');
+      }
+      if (!this.data.finish_time) {
+        this.errors.push('Hora de fin requerida.');
+      }
+      if (this.data.start_date === this.data.finish_date){
+        if (this.data.start_time > this.data.finish_time){
+          this.errors.push('La hora de fin debe ser mayor a la hora de inicio.');
+        }
       }
       event.preventDefault();
       if(this.errors.length === 0)

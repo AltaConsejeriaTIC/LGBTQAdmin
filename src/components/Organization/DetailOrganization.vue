@@ -77,8 +77,7 @@
           }
           if(!this.data.website){
             this.data.website = "";
-          }
-          this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+          }          
         },
         computed: {
           ...mapGetters({
@@ -93,11 +92,10 @@
             this.$refs.imgContent.uploadImage();
             await this.updateOrganization(this.data);
             alert("ok");
-            this.$router.push({ name: 'Dashboard',params: {component: "organizations" } });
+            this.$router.push("/organizations");
           },
           checkForm(e) {
-            this.errors = [];
-            console.log('DATA',data);
+            this.errors = [];            
 
             if (!this.data.name) {
               this.errors.push('Nombre es requerido.');
@@ -113,9 +111,7 @@
             }
             e.preventDefault();
             if(this.errors.length === 0)
-              this.save();
-
-            console.log('DATA',this.data);
+              this.save();            
           },
           goBack() {
             window.history.length > 1
