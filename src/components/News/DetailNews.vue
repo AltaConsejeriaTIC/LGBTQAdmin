@@ -79,7 +79,7 @@ export default {
       this.$refs.imgContent.uploadImage();
       await this.updateNews(this.data);
       alert("ok");
-      this.$router.push({ name: 'Dashboard',params: {component: "news" } });
+      this.$router.push('/news');
     },
     checkForm(e) {
       this.errors = [];

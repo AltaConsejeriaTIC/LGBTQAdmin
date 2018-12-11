@@ -110,7 +110,7 @@ export default {
       this.$refs.imgContent.uploadImage();
       await this.updateEvent(this.data);
       alert("ok");
-      this.$router.push({ name: 'Dashboard',  params: { component: "events" }  });
+      this.$router.push('/events');
     },
     checkForm(event) {
       this.errors = [];

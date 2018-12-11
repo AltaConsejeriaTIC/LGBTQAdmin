@@ -101,7 +101,7 @@ export default {
       this.data.longitude = !parseFloat( this.data.longitude ) ? 0 : parseFloat( this.data.longitude );
       this.$refs.imgContent.uploadImage(`evento-${this.data.title}.jpg`);
       await this.createEvent(this.data);
-      this.$router.go(-1);
+      this.$router.push('/events');
     },
     checkForm(event) {
       this.errors = [];

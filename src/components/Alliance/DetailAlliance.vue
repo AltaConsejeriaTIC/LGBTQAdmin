@@ -80,7 +80,7 @@
             this.$refs.imgContent.uploadImage();
             await this.updateAlliance(this.data);
             alert("ok");
-            this.$router.push({ name: 'Dashboard',params: {component: "alliances" } });
+            this.$router.push('/alliances');
           },
           checkForm(e) {
             this.errors = [];

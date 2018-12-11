@@ -75,11 +75,11 @@ export default {
       createOrganization: constants.ORGANIZATION_CREATE_ORGANIZATION
     }),
     async save() {
-      this.data.image = `/images/organization-${this.data.title}.jpg`;
+      this.data.image = `/images/organizacion-${this.data.name}.jpg`;
       this.data.state = true;
-      this.$refs.imgContent.uploadImage(`organizacion-${this.data.title}.jpg`);
+      this.$refs.imgContent.uploadImage(`organizacion-${this.data.name}.jpg`);
       await this.createOrganization(this.data);
-      this.$router.push('/dashboard/organizations');
+      this.$router.push('/organizations');
     },
     checkForm(organization) {
       this.errors = [];

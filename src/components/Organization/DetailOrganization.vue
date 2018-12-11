@@ -93,12 +93,11 @@
             this.$refs.imgContent.uploadImage();
             await this.updateOrganization(this.data);
             alert("ok");
-            this.$router.push({ name: 'Dashboard',params: {component: "organizations" } });
+            this.$router.push('/organizations');
           },
           checkForm(e) {
             this.errors = [];
-            console.log('DATA',data);
-
+            
             if (!this.data.name) {
               this.errors.push('Nombre es requerido.');
             }

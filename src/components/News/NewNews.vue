@@ -72,7 +72,7 @@
         this.data.state = true;
         this.$refs.imgContent.uploadImage(`noticia-${this.data.title}.jpg`);
         await this.createNews(this.data);
-        this.$router.push('/dashboard/news');
+        this.$router.push('/news');
       },
       checkForm(e) {
         this.errors = [];

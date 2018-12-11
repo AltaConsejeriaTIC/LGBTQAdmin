@@ -74,7 +74,7 @@
         this.data.state = true;
         this.$refs.imgContent.uploadImage(`alianza-${this.data.name}.jpg`);
         await this.createAlliance(this.data);
-        this.$router.push('/dashboard/alliances')
+        this.$router.push('/alliances')
       },
       checkForm(e) {
         this.errors = [];
