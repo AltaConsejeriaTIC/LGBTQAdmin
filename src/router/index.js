@@ -67,7 +67,7 @@ const router = new Router({
               component: NewNews
             },
             {
-              path: '/alliance',
+              path: '/alliances',
               name: 'Alliance',
               component: Alliance
             },
