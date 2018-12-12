@@ -94,21 +94,15 @@ export default {
     ...mapActions({
       createEvent: constants.EVENT_CREATE_EVENT
     }),
-    save() {
+    async save() {
       this.data.image = `/images/evento-${this.data.title}.jpg`;
       this.data.state = true;
       this.data.latitude = !parseFloat( this.data.latitude )? 0 : parseFloat( this.data.latitude );
       this.data.longitude = !parseFloat( this.data.longitude ) ? 0 : parseFloat( this.data.longitude );
       this.$refs.imgContent.uploadImage(`evento-${this.data.title}.jpg`);
-      this.createEvent(this.data)
-        .then( response => {
-          alert(`Evento con id ${response.data.id} fue creado`)
-          this.$router.go(-1);
-        })
-        .catch(error => {
-          alert(`Un error ha ocurrido`);
-          console.error(error);
-        })
+      await this.createEvent(this.data);        
+      alert(`Evento creado`);
+      this.$router.push('/events'); 
     },
     checkForm(event) {
       this.errors = [];

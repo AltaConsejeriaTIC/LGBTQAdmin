@@ -114,8 +114,8 @@ export default {
       this.data.longitude = !parseFloat( this.data.longitude ) ? 0 : parseFloat( this.data.longitude );
       this.$refs.imgContent.uploadImage();
       await this.updateEvent(this.data);
-      alert(`Evento con id ${response.data.id} fue actualizado`)
-      this.$router.go(-1);
+      alert(`Evento con id ${this.data.id} fue actualizado`)
+      this.$router.push('/events');
     },    
     checkForm(event) {
       this.errors = [];
@@ -142,24 +142,7 @@ export default {
       let currentDateAndHour = new Date();      
       if (!this.data.start_date){
         this.errors.push('Fecha de inicio requerida.');
-      }else{
-        let year = currentDateAndHour.getFullYear();
-        let month = this.addZero(currentDateAndHour.getMonth()+1);
-        let day = this.addZero(currentDateAndHour.getDate());
-        let date = `${year}-${month}-${day}`;
-        if ( this.data.start_date < date ){
-          this.errors.push('La fecha de inicio debe ser igual o mayor al día de hoy.');
-        }
-        if ( this.data.start_date === date ){
-          let hour = this.addZero(currentDateAndHour.getHours());
-          let minutes = this.addZero(currentDateAndHour.getMinutes());
-          let currentHour = `${hour}:${minutes}`;
-          console.log(currentHour);
-          if ( this.data.start_time < currentHour ){
-            this.errors.push('La hora de inicio debe ser igual o mayor a la hora actual.');
-          }
-        }
-      }      
+      }            
       if (!this.data.finish_date){
         this.errors.push('Fecha de fin requerida.');
       }
