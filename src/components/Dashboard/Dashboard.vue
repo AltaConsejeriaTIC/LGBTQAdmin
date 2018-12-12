@@ -35,7 +35,13 @@
         class="item"
         :to="{name: 'Complaint'}">
         <i class="home icon"></i> Denuncia
-      </router-link>      
+      </router-link>
+      <router-link
+        tag="a"
+        class="item"
+        :to="{name: 'Home'}">
+        <i class="home icon"></i> Home-carousel
+      </router-link>
     </div>
     <div class="pusher">
       <div class="ui basic segment">
@@ -48,7 +54,7 @@
 
 <script>
   export default {
-    name: 'Dashboard' 
+    name: 'Dashboard'
   }
 </script>
 

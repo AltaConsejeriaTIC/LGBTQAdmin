@@ -9,6 +9,7 @@ import { News,DetailNews,NewNews } from '@/components/News';
 import { Organization, DetailOrganization, NewOrganization } from '@/components/Organization';
 import { Complaint, DetailComplaint } from '@/components/Complaint';
 import { PersonalData, DetailUser } from '@/components/PersonalData';
+import Home from '@/components/home/Home';
 
 Vue.use(Router);
 
@@ -79,7 +80,7 @@ const router = new Router({
               path: '/createalliance',
               name: 'NewAlliance',
               component: NewAlliance
-            },            
+            },
             {
                 path: '/organizations',
                 name: 'Organization',
@@ -114,9 +115,14 @@ const router = new Router({
                 path: '/complaint/:id',
                 name: 'DetailComplaint',
                 component: DetailComplaint
+            },
+            {
+              path: '/homeCarousel',
+              name: 'Home',
+              component: Home
             }
           ]
-        }        
+        }
     ]
 })
 

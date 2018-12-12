@@ -66,6 +66,9 @@
           let id = this.$route.params.id;
           this.data = this.get(id);
           this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+          if(!this.data.phone){
+            this.data.phone = ""
+          }
         },
         computed: {
           ...mapGetters({

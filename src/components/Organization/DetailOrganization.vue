@@ -77,8 +77,7 @@
           }
           if(!this.data.website){
             this.data.website = "";
-          }
-          this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+          }          
         },
         computed: {
           ...mapGetters({
