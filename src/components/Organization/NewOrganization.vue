@@ -75,37 +75,55 @@ export default {
       createOrganization: constants.ORGANIZATION_CREATE_ORGANIZATION
     }),
     async save() {
-      this.data.image = `/images/organization-${this.data.title}.jpg`;
+      if(!this.data.address){
+        this.data.address = "";
+      }
+      if(!this.data.website){
+        this.data.website = "";
+      }
+      this.data.image = `/images/organization-${this.data.name}.jpg`;
       this.data.state = true;
-      this.$refs.imgContent.uploadImage(`organizacion-${this.data.title}.jpg`);
+      this.$refs.imgContent.uploadImage(`organization-${this.data.name}.jpg`);
       await this.createOrganization(this.data);
       this.$router.push('/organizations');
     },    
-    checkForm(organization) {
+    checkForm(submit) {
       this.errors = [];
 
       if (!this.data.name) {
         this.errors.push('Nombre es requerido.');
+      }else if(this.data.name.length > 45){
+        this.errors.push('El nombre puede contener máximo 45 caracteres.');
       }
       if (!this.data.description) {
         this.errors.push('Descripción es requerida.');
       }else{
         let lenDes = this.data.description.length
-        if ( lenDes < 300 || lenDes > 700 ){
-          this.errors.push('Tamaño de la descripción no permitido. Tamaño máximo 700 mínimo 300 caracteres.')
+        if ( lenDes < 200 || lenDes > 700 ){
+          this.errors.push('La descripción debe contener mínimo 200 y máximo 700 caracteres.');
         }
       }
-
       if (!this.data.email) {
         this.errors.push('Email es requerido.');
+      }else if (!this.validateEmail(this.data.email)) {
+        this.errors.push('Correo no válido.')
       }
       if (!this.data.phone) {
         this.errors.push('Teléfono es requerido.');
-      }
-      
-      organization.preventDefault();
+      }else if (!this.validatePhone(this.data.phone)) {
+        this.errors.push('Teléfono no válido')
+      }            
+      submit.preventDefault();
       if(this.errors.length === 0)
-        this.save();
+        this.save();            
+    },
+    validateEmail( email ) {
+      let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z-.]{2,}$/
+      return regex.test(email);
+    },
+    validatePhone( phone ) {
+      let regex = /^([\(]?\+[0-9]{1,3}[\)]?)?[0-9\s]{7,20}$/
+      return regex.test(phone)
     },
     goBack() {
       window.history.length > 1
