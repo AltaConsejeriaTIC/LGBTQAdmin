@@ -8,7 +8,7 @@ const state = {
 const actions = {
     [constants.ORGANIZATION_GET_ORGANIZATIONS]: ({ commit }) => {
         return Vue.axios
-            .get(`/organizations`)
+            .get(`/allOrganizations`)
             .then((response) => response.data)
             .then((organizations) => commit(constants.ORGANIZATION_SET_ORGANIZATIONS, organizations))
             .catch((e) => console.log(e));

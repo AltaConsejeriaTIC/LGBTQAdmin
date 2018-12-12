@@ -8,7 +8,7 @@ const state = {
 const actions = {
   [constants.NEWS_GET_NEWS]: ({ commit }) => {
     return Vue.axios
-      .get(`/news`)
+      .get(`/allnews`)
       .then((response) => response.data)
       .then((news) => commit(constants.NEWS_SET_NEWS, news))
       .catch((e) => console.log(e));

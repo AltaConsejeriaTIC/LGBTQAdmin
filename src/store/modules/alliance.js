@@ -8,7 +8,7 @@ const state = {
 const actions = {
   [constants.ALLIANCE_GET_ALLIANCES]: ({ commit }) => {
     return Vue.axios
-      .get(`/alliances`)
+      .get(`/allAlliances`)
       .then((response) => response.data)
       .then((alliances) => commit(constants.ALLIANCE_SET_ALLIANCES, alliances))
       .catch((e) => console.log(e));
