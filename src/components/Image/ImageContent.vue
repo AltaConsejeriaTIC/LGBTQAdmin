@@ -7,7 +7,9 @@
             :prevent-white-space="true"
             :show-remove-button="false"
             :file-size-limit="1024000"
-            @file-size-exceed="onFileSizeExceed">
+            accept=".jpeg,.png"
+            @file-size-exceed="onFileSizeExceed"
+            @file-type-mismatch="onFileMismatch">
       <img crossOrigin="anonymous" :src="image" slot="initial">
     </croppa>
     <button class="ui button" @click="myCroppa.chooseFile()">
@@ -80,7 +82,10 @@
         });
       },
       onFileSizeExceed (file) {
-        alert('File size exceeds. Please choose a file smaller than 1MB.')
+        alert('Tamaño de archivo excedido. Pro favo elija una imagen menor a 1MB.')
+      },
+      onFileMismatch() {
+        alert('Tipo de archivo no válido.')
       }
     }
   }
