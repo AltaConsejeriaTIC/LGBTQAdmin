@@ -9,13 +9,13 @@
             <ul class="list-unstyled components">
                 <!-- <p>Dummy Heading</p> -->
                 <li class="active">
-                    <a href="#">CARRUSEL</a>                    
+                    <a href="#">CARRUSEL</a>
                 </li>
                 <li>
                     <a href="#">EVENTOS</a>
                 </li>
                 <li>
-                    <a href="#">NOTICIAS</a>                    
+                    <a href="#">NOTICIAS</a>
                 </li>
                 <li>
                     <a href="#">ORGANIZACIONES</a>
@@ -29,22 +29,27 @@
                 <li>
                     <a href="#">DENUNCIAS</a>
                 </li>
-            </ul>            
+            </ul>
         </nav>
 
         <!-- Page Content  -->
         <div id="content">
-
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info" @click="toggle">
-                        <i class="fas fa-align-justify"></i>                        
+                        <i class="fas fa-align-justify"></i>
                     </button>
-                    
+                    <div class="headerCenter">
+                      <div class="title">
+                        <h3 class="mainTitle">EN BOGOTÁ SE PUEDE SER</h3>
+                        <h5 class="subtitle">ADMINISTRADOR</h5>
+                      </div>
+                    </div>
+
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">                                
+                            <li class="nav-item active">
                                 <a id="navlink" href="#">CERRAR SESIÓN</a>
                             </li>
                         </ul>
@@ -72,18 +77,18 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
     </div>
-    
+
 </template>
 
 <script>
-  
+
   export default {
-    name: 'Dashboard',   
+    name: 'Dashboard',
     data () {
       return {
         active: true
       }
-    }, 
+    },
     methods: {
       toggle: function() {
         this.active = !this.active
@@ -157,7 +162,7 @@ a:focus {
     min-width: 250px;
     max-width: 250px;
     background: #202122;
-    color: #fff;    
+    color: #fff;
 }
 
 #sidebar.active {
@@ -248,6 +253,18 @@ a.article:hover {
 .btn-info{
     background-color: #343a40;
     border-color: rgb(100, 97, 97);
+}
+
+.title {
+  flex: 1;
+  text-align: left;
+}
+.mainTitle{
+  font-weight: 800;
+}
+.subtitle{
+  font-weight: bold;
+  color: black;
 }
 
 
