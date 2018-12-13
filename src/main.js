@@ -9,13 +9,18 @@ import { sync } from 'vuex-router-sync'
 import store from './store'
 import Vuetify from 'vuetify'
 import * as ENV from './env';
+import BootstrapVue from 'bootstrap-vue'
 
-Vue.use(Vuetify)
-Vue.use(VueAxios, axios)
-Vue.axios.defaults.baseURL = ENV.ENDPOINT
-sync(store, router)
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-Vue.config.productionTip = false
+Vue.use(BootstrapVue);
+Vue.use(Vuetify);
+Vue.use(VueAxios, axios);
+Vue.axios.defaults.baseURL = ENV.ENDPOINT;
+sync(store, router);
+
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
