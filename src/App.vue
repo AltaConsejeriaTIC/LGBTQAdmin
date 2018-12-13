@@ -20,9 +20,7 @@ export default {
 </script>
 
 <style>
-body {
-  background-color: #409fdc;
-}
+
 #app {
 
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

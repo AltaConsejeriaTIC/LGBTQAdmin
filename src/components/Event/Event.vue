@@ -2,7 +2,7 @@
   <div class="event">
     <button class="ui button" @click="newEvent">Crear Evento</button>
     <h2>{{title}}</h2>
-    <table class="ui celled table">
+    <table class="table">
       <thead>
         <tr>
           <th>Id</th>
