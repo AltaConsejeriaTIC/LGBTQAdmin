@@ -49,6 +49,7 @@ import * as constants from '@/store/constants';
 import DetailEvent from "./DetailEvent";
 
 var moment = require('moment');
+moment.locale('es');
 
 export default {
   name: 'Event',
@@ -75,7 +76,7 @@ export default {
       changeStateEvent: constants.EVENT_CHANGE_STATE
     }),
     formatDate(date) {
-      return moment(date).format('YYYY-MMMM-DD');
+      return moment(date).format('DD-MMMM-YYYY');
     },
     editEvent(eventId){
       this.$router.push({ name: 'DetailEvent', params: { id: eventId } });
