@@ -111,14 +111,11 @@
         }else if (!this.validEmail(this.data.email)) {
           this.errors.push("Correo ingresado no es válido.")
         }
-        if ( !this.data.finish_date ) {
-          this.errors.push('Campo Fecha es requerido.')
-        }
         if (this.data.phone && !this.validPhone(this.data.phone)) {
           this.errors.push("Teléfono ingresado no es válido.")
         }
         if (!this.data.finish_date){
-          this.errors.push('Fecha de inicio requerida.');
+          this.errors.push('Campo Fecha es requerido.')
         }else{
           let currentDate = new Date();
           let year = currentDate.getFullYear();

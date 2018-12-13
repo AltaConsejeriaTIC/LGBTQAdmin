@@ -72,9 +72,7 @@
           var fd = new FormData();
           fd.append('file', blob, name);
           Vue.axios.post(`/upload`, fd )
-            .then(() => {
-              console.log(name)
-            })
+            .then()
             .catch((e) => {
               console.log(e);
             });
