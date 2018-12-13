@@ -76,9 +76,10 @@
         if(!this.data.website){
           this.data.website = "";
         }
-        this.data.image = `/images/alianza-${this.data.name}.jpg`;
+        let nameImage = this.data.name.replace(/\s/g,"");
+        this.data.image = `/images/alianza-${nameImage}.jpg`;
         this.data.state = true;
-        this.$refs.imgContent.uploadImage(`alianza-${this.data.name}.jpg`);
+        this.$refs.imgContent.uploadImage(`alianza-${nameImage}.jpg`);
         await this.createAlliance(this.data);
         this.$router.push('/alliances');
       },

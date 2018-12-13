@@ -77,9 +77,10 @@
         if (!this.data.image_owner) {
           this.data.image_owner = "";
         }
-        this.data.image = `/images/noticia-${this.data.title}.jpg`;
+        let nameImage = this.data.title.replace(/\s/g,"");
+        this.data.image = `/images/noticia-${nameImage}.jpg`;
         this.data.state = true;
-        this.$refs.imgContent.uploadImage(`noticia-${this.data.title}.jpg`);
+        this.$refs.imgContent.uploadImage(`noticia-${nameImage}.jpg`);
         await this.createNews(this.data);
         this.$router.push('/news');
       },

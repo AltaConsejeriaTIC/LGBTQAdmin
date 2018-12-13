@@ -67,14 +67,13 @@
         if(!name){
           name = this.img.split("/");
           name = name[name.length - 1];
-        }
-        console.log("--------nombre foto---------\n",name);
+        }        
         this.myCroppa.generateBlob( blob => {
           var fd = new FormData();
           fd.append('file', blob, name);
           Vue.axios.post(`/upload`, fd )
-            .then(response => {
-              console.log(response)
+            .then(() => {
+              console.log(name)
             })
             .catch((e) => {
               console.log(e);
