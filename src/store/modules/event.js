@@ -11,35 +11,43 @@ const actions = {
       .get(`/allevents`)
       .then((response) => response.data)
       .then((events) => commit(constants.EVENT_SET_EVENTS, events))
-      .catch((e) => console.log(e));
+      .catch((e) => console.error(e));
   },
-  [constants.EVENT_UPDATE]: ({commit}, event) => {    
-    return Vue.axios
+  [constants.EVENT_UPDATE]: ({commit}, event) => {
+    return new Promise((resolve, reject) => {
+      Vue.axios
       .put(`/events/${event.id}`, event, { headers: { token: sessionStorage.getItem('token') }})
-      .then(response => commit(constants.EVENT_SET_EVENT, event))
-      .catch((e) => console.log(e));
+      .then(() => {
+        commit(constants.EVENT_SET_EVENT, event)
+        resolve();
+      })
+      .catch((e) => {
+        console.error(e)
+        reject();
+      });
+    })    
   },
   [constants.EVENT_CHANGE_STATE]: ({commit}, event) => {
     event.state = !event.state;
     return Vue.axios
     .put(`/updateEvenState/${event.id}`, event, { headers: { token: sessionStorage.getItem('token') }})
-    .then(response =>{
-      commit(constants.EVENT_SET_EVENT, event);
-      console.log(response);
-    })
-    .catch((e) => {
-      console.log(e);
-    });
+    .then( () => commit(constants.EVENT_SET_EVENT, event))
+    .catch((e) => console.error(e));
   },
   [constants.EVENT_CREATE_EVENT]: ({commit}, event) => {
-    return Vue.axios
+    return new Promise((resolve, reject) => {
+      Vue.axios
       .post('/events', event, { headers: { token: sessionStorage.getItem('token') }})
       .then(response => {
         event.id = response.data.id
         commit(constants.EVENT_ADD_EVENT, event);
-        console.log(response);
+        resolve( response.data.id );
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.error(e);
+        reject();
+      });
+    })    
   },
 
 };
