@@ -90,6 +90,7 @@
 
   .content{
     width: 80%;
+    height: calc(100vh - 106px);
     margin: 0 auto;
     padding-top: 36px;
   }
