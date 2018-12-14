@@ -1,75 +1,100 @@
 <template>
     <div class="wrapper">
-        <!-- Sidebar  -->
-        <nav v-if = "active" id="sidebar">
-            <div class="sidebar-header">
-                <h3>DDS</h3>
-            </div>
-
-            <ul class="list-unstyled components">
-                <!-- <p>Dummy Heading</p> -->
-                <li class="active">
-                    <a href="#">CARRUSEL</a>                    
-                </li>
-                <li>
-                    <a href="#">EVENTOS</a>
-                </li>
-                <li>
-                    <a href="#">NOTICIAS</a>                    
-                </li>
-                <li>
-                    <a href="#">ORGANIZACIONES</a>
-                </li>
-                <li>
-                    <a href="#">ALIANZAS</a>
-                </li>
-                <li>
-                    <a href="#">CENSO</a>
-                </li>
-                <li>
-                    <a href="#">DENUNCIAS</a>
-                </li>
-            </ul>            
-        </nav>
-
-        <!-- Page Content  -->
-        <div id="content">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-
+        <div class="app-container">            
+            <nav class="navbar">
+                <div class="toggle-button">                    
                     <button type="button" id="sidebarCollapse" class="btn btn-info" @click="toggle">
                         <i class="fas fa-align-justify"></i>                        
                     </button>
-                    
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">                                
-                                <a id="navlink" href="#">CERRAR SESIÓN</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
+
+                <div class="title">
+                    <h3 class="mainTitle">EN BOGOTÁ SE PUEDE SER</h3>
+                    <h5 class="subtitle">ADMINISTRADOR</h5>
+                </div> 
+
+                <div>
+                    <button type="button" class="btn btn-link navlink" @click="toggle">CERRAR SESIÓN</button>
+                </div>   
             </nav>
+            
+            <div class="dashboard">
+                <nav v-if = "active" id="sidebar">
+                    <ul class="list-unstyled components">                                     
+                        <router-link tag="li" active-class="active" :to="{name: 'Home'}">
+                            <a href="#"> 
+                                <div class="section"> 
+                                    <div class="section-text">DESTACADOS</div> 
+                                    <div class="section-icon"><i class="far fa-star"></i></div>
+                                </div>
+                            </a>
+                        </router-link>
+                        <li class="group-text">                        
+                                AGRUPACION 1
+                        </li>
+                        <router-link tag="li" active-class="active" :to="{name: 'Event'}">
+                            <a href="#"> 
+                                <div class="section"> 
+                                    <div class="section-text">EVENTOS</div> 
+                                    <div class="section-icon"><i class="far fa-calendar"></i></div>
+                                </div>
+                            </a>                        
+                        </router-link>
+                        <router-link tag="li" active-class="active" :to="{name: 'News'}">
+                            <a href="#"> 
+                                <div class="section"> 
+                                    <div class="section-text">NOTICIAS</div> 
+                                    <div class="section-icon"><i class="far fa-bell"></i></div>
+                                </div>
+                            </a>                        
+                        </router-link>
+                        <li class="group-text">                        
+                                AGRUPACION 2
+                        </li>
+                        <router-link tag="li" active-class="active" :to="{name: 'Organization'}">
+                            <a href="#"> 
+                                <div class="section"> 
+                                    <div class="section-text">ORGANIZACIONES</div> 
+                                    <div class="section-icon"><i class="fas fa-users"></i></div>
+                                </div>
+                            </a>                        
+                        </router-link>
+                        <router-link tag="li" active-class="active" :to="{name: 'Alliance'}">
+                            <a href="#"> 
+                                <div class="section"> 
+                                    <div class="section-text">ALIANZAS</div> 
+                                    <div class="section-icon"><i class="far  fa-handshake"></i></div>
+                                </div>
+                            </a>                        
+                        </router-link>
+                        <li class="group-text">                        
+                                AGRUPACION 3
+                        </li>
+                        <router-link tag="li" active-class="active" :to="{name: 'PersonalData'}">
+                            <a href="#"> 
+                                <div class="section"> 
+                                    <div class="section-text">CENSO</div> 
+                                    <div class="section-icon"><i class="far fa-list-alt"></i></div>
+                                </div>
+                            </a>                        
+                        </router-link>
+                        <router-link tag="li" active-class="active" :to="{name: 'Complaint'}">
+                            <a href="#"> 
+                                <div class="section"> 
+                                    <div class="section-text">DENUNCIA</div> 
+                                    <div class="section-icon"><i class="fas fa-gavel"></i></div>
+                                </div>
+                            </a>                        
+                        </router-link>                    
+                    </ul>            
+                </nav>
 
-            <h2>DDS</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            <div class="line"></div>
-
-            <h2>Lorem Ipsum Dolor</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            <div class="line"></div>
-
-            <h2>Lorem Ipsum Dolor</h2>
-            <p>Lorem ipeerrr olor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            <div class="line"></div>
-
-            <h3>Lorem Ipsum Dolor</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <!-- Page Content  -->
+                <div id="content">               
+                    <img src="../../assets/logo-alcaldia.png" width=30% height=30%>
+                    <router-view></router-view>                
+                </div>
+            </div>
         </div>
     </div>
     
@@ -94,40 +119,16 @@
 </script>
 
 <style scoped>
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"; */
-body {
-    font-family: 'Poppins', sans-serif;
-    background: #fafafa;
-}
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
-p {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.1em;
-    font-weight: 300;
-    line-height: 1.7em;
-    color: #999;
-}
-
-a,
-a:hover,
-a:focus {
-    color: inherit;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
+/* navbar */
 .navbar {
-    padding: 15px 10px;
-    background: rgb(59, 79, 143);
+    font-family:    ;
+    background: #009de0;
     border: none;
     border-radius: 0;
-    margin: -20px;
-    margin-bottom: 40px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.bg-light {
-    background-color: #009DE0 !important;
+    padding: 140 !important;
 }
 
 .navbar-btn {
@@ -135,23 +136,11 @@ a:focus {
     outline: none !important;
     border: none;
 }
-#navlink {
+.navlink {
     color:#fafafa;
 }
 
-.line {
-    width: 100%;
-    height: 1px;
-    border-bottom: 1px dashed #ddd;
-    margin: 40px 0;
-}
-
-
-.wrapper {
-    display: flex;
-    width: 100%;
-    align-items: stretch;
-}
+/* sidebar */
 
 #sidebar {
     min-width: 250px;
@@ -196,6 +185,93 @@ a[aria-expanded="true"] {
     background: rgba(248, 251, 252, 0.1);
 }
 
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.5s;  
+    height: 39px;
+    font-size: 15px;  
+}
+
+/* content */
+
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+    background-color: #EAEAEC;
+    
+}
+.app-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+.title {  
+  flex: 1;
+  text-align: left;
+}
+.mainTitle{
+    color: white;
+    font-weight: 800;
+}
+.subtitle{
+  font-weight: bold;
+  color: black;
+}
+
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    max-height: 1000vh;
+    min-width: 1400px;
+    width: 100%;
+    align-items: stretch;
+}
+.dashboard{
+    display: flex;
+}
+
+.toggle-button{
+    width: 250px;
+}
+
+
+.section{
+    display: -webkit-box;
+}
+.section-icon {
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.section-text {
+    min-width: 200px;
+    max-width: 200px;
+    margin-left: -10px;
+}
+.group-text{
+    height: 54px;    
+    color: #7A7B80;
+    left: 24px;
+    font-size: 12px;
+    padding-left: 24px;
+    padding-top: 30px;
+    text-align: left
+}
 a[data-toggle="collapse"] {
     position: relative;
 }
@@ -226,6 +302,11 @@ ul.CTAs a {
     margin-bottom: 5px;
 }
 
+li {
+    border-bottom: 1px solid #323436;
+    
+}
+
 a.download {
     background: #fff;
     color: #7386D5;
@@ -238,20 +319,19 @@ a.article:hover {
 }
 
 
-#content {
-    width: 100%;
-    padding: 20px;
-    min-height: 100vh;
-    transition: all 0.3s;
-    background-color: #EAEAEC;
-}
 .btn-info{
     background-color: #343a40;
     border-color: rgb(100, 97, 97);
 }
 
+h1, h3, h5 {
+  font-weight: normal;
+  font-family: 'Nunito';
+  margin: 0px;
+}
 
-@media (max-width: 768px) {
+
+/* @media (max-width: 768px) {
     #sidebar {
         margin-left: -250px;
     }
@@ -261,5 +341,5 @@ a.article:hover {
     #sidebarCollapse span {
         display: none;
     }
-}
+} */
 </style>
