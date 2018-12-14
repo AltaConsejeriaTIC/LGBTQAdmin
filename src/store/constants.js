@@ -22,6 +22,8 @@ export const ALLIANCE_CHANGE_STATE = 'alliance/CHANGE_STATE';
 export const ALLIANCE_CREATE_ALLIANCE = 'alliance/CREATE_ALLIANCE';
 export const PERSONALDATA_GET_USERS = 'personalData/GET_USERS';
 export const COMPLAINT_GET_COMPLAINTS = 'complaint/GET_COMPLAINTS'
+export const EVENT_GET_ON_EVENTS = 'event/GET_ON_EVENTS';
+export const NEWS_GET_ON_NEWS = 'news/NEWS_GET_ON_NEWS';
 
 //mutations
 export const SESSION_SET_TOKEN = 'session/SET_TOKEN';
@@ -42,6 +44,8 @@ export const ALLIANCE_SET_ALLIANCE = 'alliance/SET_ALLIANCE';
 export const ALLIANCE_ADD_ALLIANCE = 'alliance/ADD_ALLIANCE';
 export const PERSONALDATA_SET_USERS = 'personalData/SET_DATA';
 export const COMPLAINT_SET_COMPLAINTS = 'complaint/SET_COMPLAINTS';
+export const EVENT_SET_CURRENT_EVENTS = 'events/SET_CURRENT_EVENTS';
+export const NEWS_SET_CURRENT_NEWS = 'news/NEWS_SET_CURRENT_NEWS';
 
 //getters
 export const SESSION_IS_LOGGED = 'session/IS_LOGGED';
@@ -58,3 +62,5 @@ export const USERS = 'personalData/GET';
 export const PERSONALDATA_BY_ID = 'personalData/GET_USER';
 export const COMPLAINTS = 'complaint/GET';
 export const COMPLAINT_BY_ID = 'complaint/GET_COMPLAINT'
+export const CURRENT_EVENTS = 'events/CURRENT_EVENTS';
+export const CURRENT_NEWS = 'news/CURRENT_NEWS';

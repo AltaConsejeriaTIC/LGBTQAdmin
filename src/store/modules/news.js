@@ -2,7 +2,8 @@ import Vue from 'vue';
 import * as constants from '@/store/constants';
 
 const state = {
-  news: []
+  news: [],
+  currentNews: []
 };
 
 const actions = {
@@ -38,12 +39,22 @@ const actions = {
         commit(constants.NEWS_ADD_NEWS, news);
       })
       .catch((e) => console.log(e));
-  }
+  },
+  [constants.NEWS_GET_ON_NEWS]: ({ commit }) => {
+    return Vue.axios
+      .get(`/news`)
+      .then((response) => response.data)
+      .then((news) => commit(constants.NEWS_SET_CURRENT_NEWS, news))
+      .catch((e) => console.log(e));
+  },
 };
 
 const mutations = {
   [constants.NEWS_SET_NEWS]: (state, news) => {
     state.news = news;
+  },
+  [constants.NEWS_SET_CURRENT_NEWS]: (state, news) => {
+    state.currentNews = news;
   },
   [constants.NEWS_SET_ONE_NEWS]: (state, news) => {
     for (var i = 0; i < state.news.length; i++) {
@@ -58,6 +69,12 @@ const mutations = {
 };
 
 const getters = {
+  [constants.NEWS]: (state) => {
+    return state.news;
+  },
+  [constants.CURRENT_NEWS]: (state) => {
+    return state.currentNews;
+  },
   [constants.NEWS]: (state) => {
     return state.news;
   },

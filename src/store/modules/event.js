@@ -2,7 +2,8 @@ import Vue from 'vue';
 import * as constants from '@/store/constants';
 
 const state = {
-  events: []
+  events: [],
+  currentEvents: []
 };
 
 const actions = {
@@ -13,7 +14,7 @@ const actions = {
       .then((events) => commit(constants.EVENT_SET_EVENTS, events))
       .catch((e) => console.log(e));
   },
-  [constants.EVENT_UPDATE]: ({commit}, event) => {    
+  [constants.EVENT_UPDATE]: ({commit}, event) => {
     return Vue.axios
       .put(`/events/${event.id}`, event, { headers: { token: sessionStorage.getItem('token') }})
       .then(response => commit(constants.EVENT_SET_EVENT, event))
@@ -41,12 +42,22 @@ const actions = {
       })
       .catch((e) => console.log(e));
   },
+  [constants.EVENT_GET_ON_EVENTS]: ({ commit }) => {
+    return Vue.axios
+      .get(`/events`)
+      .then((response) => response.data)
+      .then((events) => commit(constants.EVENT_SET_CURRENT_EVENTS, events))
+      .catch((e) => console.log(e));
+  },
 
 };
 
 const mutations = {
   [constants.EVENT_SET_EVENTS]: (state, events) => {
     state.events = events;
+  },
+  [constants.EVENT_SET_CURRENT_EVENTS]: (state, events) => {
+    state.currentEvents = events;
   },
   [constants.EVENT_SET_EVENT]: (state, event) => {
     console.log('Setting new events....')
@@ -67,7 +78,10 @@ const getters = {
   },
   [constants.EVENT_BY_ID]: (state) => (id) => {
     return state.events.find(event => event.id === id);
-  }
+  },
+  [constants.CURRENT_EVENTS]: (state) => {
+    return state.currentEvents;
+  },
 };
 
 export default {
