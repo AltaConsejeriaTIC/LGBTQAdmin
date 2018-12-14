@@ -2,7 +2,7 @@ import Vue from 'vue';
 import * as constants from '@/store/constants';
 
 const state = {
-  token: null
+  token: sessionStorage.getItem('token') || null
 };
 
 const actions = {
@@ -23,7 +23,7 @@ const actions = {
       .put('/deleteToken', {}, { headers: { token: sessionStorage.getItem('token') }})
       .then((response) => {
         commit(constants.SESSION_SET_TOKEN, null);
-        sessionStorage.clear();
+        sessionStorage.removeItem('token');
       })
       .catch((error) => {
         console.error(error);

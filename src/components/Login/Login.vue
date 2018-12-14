@@ -1,5 +1,5 @@
 <template>
-  <form class="ui form" >
+  <form @submit.prevent="sigin" class="ui form" >
     <img src="../../assets/logo-alcaldia.png" width=30% height=30%>
     <div class="ui middle aligned center aligned grid">
       <div class="column">
@@ -19,7 +19,7 @@
                 <input v-model="form.password" type="password" id="password"  class="form-control" placeholder="Password">
               </div>
             </div>
-            <button class="fluid ui blue button" :disabled="isDisabled" @click="sigin">Login</button>
+            <button class="fluid ui blue button" :disabled="isDisabled" type="submit">Login</button>
           </div>
       </div>
     </div>
@@ -60,7 +60,7 @@ export default {
     }
   },
   watch: {
-    token(data) {
+    token() {
       if (this.isLogged) {
         this.$router.push({ name: 'Dashboard'  });
       }

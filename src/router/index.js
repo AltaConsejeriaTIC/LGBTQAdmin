@@ -15,6 +15,7 @@ Vue.use(Router);
 
 
 const router = new Router({
+    mode: 'history',        
     routes: [{
             path: '*',
             redirect: '/login'
