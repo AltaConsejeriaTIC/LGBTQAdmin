@@ -1,45 +1,50 @@
 <template>
   <div class="event">
     <button class="ui button" @click="newEvent">Crear Evento</button>
-    <h2>{{title}}</h2>
-    <table class="ui celled table">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Título</th>
-          <th>Fecha de Inicio</th>
-          <th>Fecha de Finalización</th>
-          <th>Lugar</th>
-          <th>Latitud</th>
-          <th>Longitud</th>
-          <th>Estado</th>
+    <div v-if="thereAreEvents">
+      <h2>{{title}}</h2>    
+      <table class="ui celled table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Título</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Finalización</th>
+            <th>Lugar</th>
+            <th>Latitud</th>
+            <th>Longitud</th>
+            <th>Estado</th>
 
-        </tr>
-      </thead>
-       <tbody v-for="event in events" :key="event.id">
-        <tr >
-          <td>{{event.id}}</td>
-          <td :class="{disabled: !event.state}">{{event.title}}</td>
-          <td>{{formatDate(event.start_date)}}</td>
-          <td>{{formatDate(event.finish_date)}}</td>
-          <td>{{event.place}}</td>
-          <td>{{event.latitude !== 0 ? event.latitude : "NA" }}  </td>
-          <td>{{event.longitude !==0 ? event.longitude : "NA"}} </td>
-          <td>{{event.state ? "Publicado" : "No Publicado" }}</td>
-          <td >
-            <div class="ui small button" @click="changeState(event)">
-              {{event.state ? "Ocultar" : "Publicar" }}
-            </div>
-          </td>
-          <td >
-            <div class="ui small button" @click="editEvent(event.id)" >
-              <i class="edit icon"></i>
-              Editar
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </tr>
+        </thead>
+        <tbody v-for="event in events" :key="event.id">
+          <tr >
+            <td>{{event.id}}</td>
+            <td :class="{disabled: !event.state}">{{event.title}}</td>
+            <td>{{formatDate(event.start_date)}}</td>
+            <td>{{formatDate(event.finish_date)}}</td>
+            <td>{{event.place}}</td>
+            <td>{{event.latitude !== 0 ? event.latitude : "NA" }}  </td>
+            <td>{{event.longitude !==0 ? event.longitude : "NA"}} </td>
+            <td>{{event.state ? "Publicado" : "No Publicado" }}</td>
+            <td >
+              <div class="ui small button" @click="changeState(event)">
+                {{event.state ? "Ocultar" : "Publicar" }}
+              </div>
+            </td>
+            <td >
+              <div class="ui small button" @click="editEvent(event.id)" >
+                <i class="edit icon"></i>
+                Editar
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>    
+    <div v-else>
+      <h3>No hay Eventos Vigentes</h3>
+    </div>
   </div>
 </template>
 
@@ -64,11 +69,14 @@ export default {
   created() {
     if ( !this.events.length )
       this.getEvents()
-  },
+  },  
   computed: {
     ...mapGetters({
       events: constants.EVENTS
-    })
+    }),
+    thereAreEvents() {
+      return this.events.length !== 0;
+    }
   },
   methods: {
     ...mapActions({
@@ -87,7 +95,7 @@ export default {
     changeState(event) {
       this.changeStateEvent(event);
     }
-  }
+  },
 };
 </script>
 

@@ -1,37 +1,42 @@
 <template>
   <div class="alliance">
     <button class="ui button" @click="newAlliance">Crear Alianza</button>
-    <h2>{{title}}</h2>
-    <table class="ui celled table">
-      <thead>
-      <tr>
-        <th>Id</th>
-        <th>Nombre</th>
-        <th>Sitio Web</th>
-        <th>Fecha de Finalización</th>
-      </tr>
-      </thead>
-      <tbody v-for="alliance in alliances" :key="alliance.id">
-      <tr >
-        <td>{{alliance.id}}</td>
-        <td :class="{disabled: !alliance.state}">{{alliance.name}}</td>
-        <td>{{alliance.website}}</td>
-        <td>{{formatDate(alliance.finish_date)}}</td>
-        <td>{{alliance.state ? "Publicado" : "No Publicado" }}</td>
-        <td >
-          <div class="ui small button" @click="changeStateAlliance(alliance)">
-            {{alliance.state ? "Ocultar" : "Publicar" }}
-          </div>
-        </td>
-        <td >
-          <div class="ui small button" @click="editAlliance(alliance.id)" >
-            <i class="edit icon"></i>
-            Editar
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div v-if="thereAreAliances">
+      <h2>{{title}}</h2>
+      <table class="ui celled table">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nombre</th>
+          <th>Sitio Web</th>
+          <th>Fecha de Finalización</th>
+        </tr>
+        </thead>
+        <tbody v-for="alliance in alliances" :key="alliance.id">
+        <tr >
+          <td>{{alliance.id}}</td>
+          <td :class="{disabled: !alliance.state}">{{alliance.name}}</td>
+          <td>{{alliance.website}}</td>
+          <td>{{formatDate(alliance.finish_date)}}</td>
+          <td>{{alliance.state ? "Publicado" : "No Publicado" }}</td>
+          <td >
+            <div class="ui small button" @click="changeStateAlliance(alliance)">
+              {{alliance.state ? "Ocultar" : "Publicar" }}
+            </div>
+          </td>
+          <td >
+            <div class="ui small button" @click="editAlliance(alliance.id)" >
+              <i class="edit icon"></i>
+              Editar
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div v-else>
+      <h3>No hay Alianzas Vigentes</h3>
+    </div>
   </div>
 </template>
 
@@ -55,7 +60,10 @@ export default {
     computed: {
       ...mapGetters({
         alliances: constants.ALLIANCES
-      })
+      }),
+      thereAreAliances() {
+        return this.alliances.length !== 0;
+      }
     },
     methods: {
       ...mapActions({
