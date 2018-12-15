@@ -1,5 +1,6 @@
 // actions
 export const SESSION_LOGIN = 'session/LOGIN';
+export const SESSION_LOGOUT = 'session/LOGOUT';
 export const EVENT_GET_EVENTS = 'event/GET_EVENTS';
 export const EVENT_UPDATE = 'event/UPDATE_EVENT';
 export const EVENT_CHANGE_STATE = 'event/CHANGE_STATE';

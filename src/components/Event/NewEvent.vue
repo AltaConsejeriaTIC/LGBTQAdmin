@@ -100,28 +100,80 @@ export default {
       this.data.latitude = !parseFloat( this.data.latitude )? 0 : parseFloat( this.data.latitude );
       this.data.longitude = !parseFloat( this.data.longitude ) ? 0 : parseFloat( this.data.longitude );
       this.$refs.imgContent.uploadImage(`evento-${this.data.title}.jpg`);
-      await this.createEvent(this.data);
-      this.$router.push('/events');
+      await this.createEvent(this.data);        
+      alert(`Evento creado`);
+      this.$router.push('/events'); 
     },
     checkForm(event) {
       this.errors = [];
 
       if (!this.data.title) {
-        this.errors.push('Título es requerido.');
-      }
+        this.errors.push('Título es requerido.');        
+      }else{
+        let lenTit = this.data.title.length;
+        if (lenTit > 50) {
+          this.errors.push('Título no válido. Tamaño máximo del título 50 caracteres.');
+        }
+      }           
       if (!this.data.description) {
         this.errors.push('Descripción es requerida.');
-      }
-      if (!this.data.place) {
-        this.errors.push('Lugar es requerido.');
+      }else{
+        let lenDes = this.data.description.length;
+        if (lenDes < 150 || lenDes > 800) {
+          this.errors.push('Descipción no válida. Tamaño máximo de 800 caracteres. Tamaño mínimo 150 caracteres.');
+        }
       }
       if (!this.data.address) {
         this.errors.push('Dirección es requerida.');
+      }
+      let currentDateAndHour = new Date();      
+      if (!this.data.start_date){
+        this.errors.push('Fecha de inicio requerida.');
+      }else{
+        let year = currentDateAndHour.getFullYear();
+        let month = this.addZero(currentDateAndHour.getMonth()+1);
+        let day = this.addZero(currentDateAndHour.getDate());
+        let date = `${year}-${month}-${day}`;
+        if ( this.data.start_date < date ){
+          this.errors.push('La fecha de inicio debe ser igual o mayor al día de hoy.');
+        }
+        if ( this.data.start_date === date ){
+          let hour = this.addZero(currentDateAndHour.getHours());
+          let minutes = this.addZero(currentDateAndHour.getMinutes());
+          let currentHour = `${hour}:${minutes}`;
+          console.log(currentHour);
+          if ( this.data.start_time < currentHour ){
+            this.errors.push('La hora de inicio debe ser igual o mayor a la hora actual.');
+          }
+        }
+      }      
+      if (!this.data.finish_date){
+        this.errors.push('Fecha de fin requerida.');
+      }
+      if (this.data.start_date > this.data.finish_date){
+        this.errors.push('La fecha de fin debe ser mayor o igual a la fecha de inicio.');
+      }
+      if (!this.data.start_time) {
+        this.errors.push('Hora de inicio requerida.');
+      }
+      if (!this.data.finish_time) {
+        this.errors.push('Hora de fin requerida.');
+      }
+      if (this.data.start_date === this.data.finish_date){
+        if (this.data.start_time > this.data.finish_time){
+          this.errors.push('La hora de fin debe ser mayor a la hora de inicio.');
+        }
       }
       event.preventDefault();
       if(this.errors.length === 0)
         this.save();
     },
+    addZero(number){
+      if(number < 10){
+        number = "0"+1;
+      }
+      return number;
+    },  
     goBack() {
       window.history.length > 1
         ? this.$router.go(-1)

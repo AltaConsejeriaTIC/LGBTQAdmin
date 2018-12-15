@@ -92,7 +92,7 @@
                 <!-- Page Content  -->
                 <div id="content">               
                     <img src="../../assets/logo-alcaldia.png" width=30% height=30%>
-                    <router-view></router-view>                
+                    <router-view class="content"></router-view>                
                 </div>
             </div>
         </div>
@@ -101,6 +101,8 @@
 </template>
 
 <script>
+  import { mapActions, mapGetters} from 'vuex';
+  import * as constants from '@/store/constants';
 
   export default {
     name: 'Dashboard',
@@ -110,12 +112,16 @@
       }
     },
     methods: {
-      toggle: function() {
-        this.active = !this.active
-        console.log('ACTIVE===',this.active)
+      ...mapActions({
+        logout: constants.SESSION_LOGOUT
+      }),
+      signout() {
+        this.logout();
+        this.$router.push('/login')
       }
-    },
+    }
   }
+
 </script>
 
 <style scoped>
@@ -148,6 +154,9 @@
     background: #202122;
     color: #fff;
 }
+  .pusher{
+    background-color: #EAEAEC;
+  }
 
 #sidebar.active {
     margin-left: -250px;
@@ -353,4 +362,10 @@ h1, h3, h5 {
         display: none;
     }
 } */
+  .content{
+    width: 80%;
+    height: calc(100vh - 106px);
+    margin: 0 auto;
+    padding-top: 36px;
+  }
 </style>
