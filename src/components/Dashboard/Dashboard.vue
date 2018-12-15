@@ -4,7 +4,7 @@
             <nav class="navbar">
                 <div class="toggle-button">                    
                     <button type="button" id="sidebarCollapse" class="btn btn-info" @click="toggle">
-                        <i class="fas fa-align-justify"></i>                        
+                        <i class="fas fa-align-justify"></i>
                     </button>
                 </div>
 
@@ -97,18 +97,18 @@
             </div>
         </div>
     </div>
-    
+
 </template>
 
 <script>
-  
+
   export default {
-    name: 'Dashboard',   
+    name: 'Dashboard',
     data () {
       return {
         active: true
       }
-    }, 
+    },
     methods: {
       toggle: function() {
         this.active = !this.active
@@ -146,7 +146,7 @@
     min-width: 250px;
     max-width: 250px;
     background: #202122;
-    color: #fff;    
+    color: #fff;
 }
 
 #sidebar.active {
@@ -328,6 +328,17 @@ h1, h3, h5 {
   font-weight: normal;
   font-family: 'Nunito';
   margin: 0px;
+}
+.title {
+  flex: 1;
+  text-align: left;
+}
+.mainTitle{
+  font-weight: 800;
+}
+.subtitle{
+  font-weight: bold;
+  color: black;
 }
 
 
