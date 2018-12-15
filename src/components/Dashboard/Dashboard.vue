@@ -129,12 +129,12 @@
 
 /* navbar */
 .navbar {
-    font-family:    ;
+    font-family:  Nunito  ;
     background: #009de0;
     border: none;
     border-radius: 0;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 140 !important;
+    /*padding: 140px !important;*/
 }
 
 .navbar-btn {
@@ -154,9 +154,6 @@
     background: #202122;
     color: #fff;
 }
-  .pusher{
-    background-color: #EAEAEC;
-  }
 
 #sidebar.active {
     margin-left: -250px;
@@ -364,7 +361,7 @@ h1, h3, h5 {
 } */
   .content{
     width: 80%;
-    height: calc(100vh - 106px);
+    height: calc(100vh - 64px);
     margin: 0 auto;
     padding-top: 36px;
   }
