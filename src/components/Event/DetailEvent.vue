@@ -94,6 +94,9 @@ export default {
     this.data = this.get(id);
     this.data.start_date = moment(this.data.start_date).format('YYYY-MM-DD');
     this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+    if(!this.data.place){
+      this.data.place = "";
+    }
   },
   computed: {
     ...mapGetters({
@@ -105,31 +108,67 @@ export default {
       updateEvent: constants.EVENT_UPDATE
     }),
     async save() {
+      this.data.image = `/images/evento-${this.data.title}.jpg`;
+      this.data.state = true;
       this.data.latitude = !parseFloat( this.data.latitude )? 0 : parseFloat( this.data.latitude );
       this.data.longitude = !parseFloat( this.data.longitude ) ? 0 : parseFloat( this.data.longitude );
       this.$refs.imgContent.uploadImage();
       await this.updateEvent(this.data);
-      alert("ok");
+      alert(`Evento con id ${this.data.id} fue actualizado`)
       this.$router.push('/events');
-    },
+    },    
     checkForm(event) {
       this.errors = [];
 
       if (!this.data.title) {
-        this.errors.push('Título es requerido.');
-      }
+        this.errors.push('Título es requerido.');        
+      }else{
+        let lenTit = this.data.title.length;
+        if (lenTit > 50) {
+          this.errors.push('Título no válido. Tamaño máximo del título 50 caracteres.');
+        }
+      }           
       if (!this.data.description) {
         this.errors.push('Descripción es requerida.');
-      }
-      if (!this.data.place) {
-        this.errors.push('Lugar es requerido.');
+      }else{
+        let lenDes = this.data.description.length;
+        if (lenDes < 150 || lenDes > 800) {
+          this.errors.push('Descipción no válida. Tamaño máximo de 800 caracteres. Tamaño mínimo 150 caracteres.');
+        }
       }
       if (!this.data.address) {
         this.errors.push('Dirección es requerida.');
       }
+      let currentDateAndHour = new Date();      
+      if (!this.data.start_date){
+        this.errors.push('Fecha de inicio requerida.');
+      }            
+      if (!this.data.finish_date){
+        this.errors.push('Fecha de fin requerida.');
+      }
+      if (this.data.start_date > this.data.finish_date){
+        this.errors.push('La fecha de fin debe ser mayor o igual a la fecha de inicio.');
+      }
+      if (!this.data.start_time) {
+        this.errors.push('Hora de inicio requerida.');
+      }
+      if (!this.data.finish_time) {
+        this.errors.push('Hora de fin requerida.');
+      }
+      if (this.data.start_date === this.data.finish_date){
+        if (this.data.start_time > this.data.finish_time){
+          this.errors.push('La hora de fin debe ser mayor a la hora de inicio.');
+        }
+      }
       event.preventDefault();
       if(this.errors.length === 0)
         this.save();
+    },
+    addZero(number){
+      if(number < 10){
+        number = "0"+1;
+      }
+      return number;
     },
     goBack() {
       window.history.length > 1

@@ -15,12 +15,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(BootstrapVue);
-Vue.use(Vuetify)
-Vue.use(VueAxios, axios)
-Vue.axios.defaults.baseURL = ENV.ENDPOINT
-sync(store, router)
+Vue.use(Vuetify);
+Vue.use(VueAxios, axios);
+Vue.axios.defaults.baseURL = ENV.ENDPOINT;
+sync(store, router);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({

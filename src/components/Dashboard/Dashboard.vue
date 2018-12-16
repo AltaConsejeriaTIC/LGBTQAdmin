@@ -3,26 +3,28 @@
         <div class="app-container">            
             <nav class="navbar">
                 <div class="toggle-button">                    
-                    <button type="button" class="btn btn-info navbar-btn" @click="toggle">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info" @click="toggle">
                         <i class="fas fa-align-justify"></i>
                     </button>
                 </div>
+
                 <div class="title">
                     <h3 class="mainTitle">EN BOGOTÁ SE PUEDE SER</h3>
                     <h5 class="subtitle">ADMINISTRADOR</h5>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-link navlink" @click="toggle">CERRAR SESIÓN</button>
+                </div> 
+
+                <div class="logout-button">
+                    <button type="button" class="btn btn-link navlink" @click="signout">CERRAR SESIÓN</button>
                 </div>   
             </nav>
             
             <div class="dashboard">
-                <nav v-if = "active" class="sidebar">
+                <nav v-if = "active" id="sidebar">
                     <ul class="list-unstyled components">                                     
                         <router-link tag="li" active-class="active" :to="{name: 'Home'}">
                             <a href="#"> 
                                 <div class="section"> 
-                                    <div class="section-text">Destacados</div> 
+                                    <div class="section-text">DESTACADOS</div> 
                                     <div class="section-icon"><i class="far fa-star"></i></div>
                                 </div>
                             </a>
@@ -33,7 +35,7 @@
                         <router-link tag="li" active-class="active" :to="{name: 'Event'}">
                             <a href="#"> 
                                 <div class="section"> 
-                                    <div class="section-text">Eventos</div> 
+                                    <div class="section-text">EVENTOS</div> 
                                     <div class="section-icon"><i class="far fa-calendar"></i></div>
                                 </div>
                             </a>                        
@@ -41,7 +43,7 @@
                         <router-link tag="li" active-class="active" :to="{name: 'News'}">
                             <a href="#"> 
                                 <div class="section"> 
-                                    <div class="section-text">Noticias</div> 
+                                    <div class="section-text">NOTICIAS</div> 
                                     <div class="section-icon"><i class="far fa-bell"></i></div>
                                 </div>
                             </a>                        
@@ -52,7 +54,7 @@
                         <router-link tag="li" active-class="active" :to="{name: 'Organization'}">
                             <a href="#"> 
                                 <div class="section"> 
-                                    <div class="section-text">Organizaciones</div> 
+                                    <div class="section-text">ORGANIZACIONES</div> 
                                     <div class="section-icon"><i class="fas fa-users"></i></div>
                                 </div>
                             </a>                        
@@ -60,7 +62,7 @@
                         <router-link tag="li" active-class="active" :to="{name: 'Alliance'}">
                             <a href="#"> 
                                 <div class="section"> 
-                                    <div class="section-text">Alianzas</div> 
+                                    <div class="section-text">ALIANZAS</div> 
                                     <div class="section-icon"><i class="far  fa-handshake"></i></div>
                                 </div>
                             </a>                        
@@ -71,7 +73,7 @@
                         <router-link tag="li" active-class="active" :to="{name: 'PersonalData'}">
                             <a href="#"> 
                                 <div class="section"> 
-                                    <div class="section-text">Censo</div> 
+                                    <div class="section-text">CENSO</div> 
                                     <div class="section-icon"><i class="far fa-list-alt"></i></div>
                                 </div>
                             </a>                        
@@ -79,7 +81,7 @@
                         <router-link tag="li" active-class="active" :to="{name: 'Complaint'}">
                             <a href="#"> 
                                 <div class="section"> 
-                                    <div class="section-text">Denuncias</div> 
+                                    <div class="section-text">DENUNCIA</div> 
                                     <div class="section-icon"><i class="fas fa-gavel"></i></div>
                                 </div>
                             </a>                        
@@ -88,8 +90,9 @@
                 </nav>
 
                 <!-- Page Content  -->
-                <div class="content">               
-                    <router-view></router-view>                
+                <div id="content">               
+                    <!--<img src="../../assets/logo-alcaldia.png" width=30% height=30%>-->
+                  <router-view class="content"></router-view>
                 </div>
             </div>
         </div>
@@ -98,6 +101,8 @@
 </template>
 
 <script>
+  import { mapActions, mapGetters} from 'vuex';
+  import * as constants from '@/store/constants';
 
   export default {
     name: 'Dashboard',
@@ -107,109 +112,90 @@
       }
     },
     methods: {
+      ...mapActions({
+        logout: constants.SESSION_LOGOUT
+      }),
+      signout() {
+        this.logout();
+        this.$router.push('/login')
+      },
       toggle: function() {
         this.active = !this.active
       }
-    },
+    }
   }
+
 </script>
 
 <style scoped>
 
-@import "https://fonts.googleapis.com/css?family=Nunito:300,400,500,600,700";
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
-.app-container {
-    display: flex;
-    flex-direction: column;
-    
-}
 /* navbar */
 
 .navbar {
-    font-family: 'Nunito';
+    font-family:  Nunito  ;
     background: #009de0;
     border: none;
     border-radius: 0;
-    height: 80px;
-    display: flex;
-    padding: 0 0;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    /*padding: 140px !important;*/
 }
 
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
 .navlink {
-  font-family: Nunito;
-  font-weight: bold;
-  font-size: 12px;
-  text-align: right;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color:#ffffff;
-  text-decoration: none;
-}
-
-.navbar-btn:hover {
-  background: #009DE0
-}
-.navlink:hover {
-  font-size: 14px;
-}
-
-.title {  
-  flex: 1;
-  text-align: left;
-}
-.mainTitle{
-    color: white;
-    font-style: normal;
-    font-size: 20px;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    font-weight: 800;
-    }
-.subtitle{
-  font-weight: bold;
-  font-size: 11px;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
+    color:#fafafa;
 }
 
 /* sidebar */
 
-.sidebar {
-  width: 237px;
-  background: #202122;
-  color: #fff;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 18px;
-  font-size: 15px;
-  text-align: center;
-  letter-spacing: 0.02em;
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #202122;
+    color: #fff;
 }
 
-.sidebar-header {
-  padding: 0px;
-  background: #202122;
+#sidebar.active {
+    margin-left: -250px;
 }
 
-.sidebar {
-    padding: 0 0;
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #202122;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
     border-bottom: 1px solid #141313;
 }
 
-.sidebar li a {
+#sidebar ul p {
+    color: #fff;
     padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
     display: block;
 }
 
-.sidebar li a:hover {
-    color: #000;
-    background: #009DE0;
-}
-
-li.active>a{    
+#sidebar ul li a:hover {
     color: #009DE0;
     background: rgba(248, 251, 252, 0.1);
 }
+
+#sidebar ul li.active>a,
+a[aria-expanded="true"] {
+    color:  #009DE0;
+    background: rgba(248, 251, 252, 0.1);
+}
+
 a,
 a:hover,
 a:focus {
@@ -220,29 +206,20 @@ a:focus {
     font-size: 15px;  
 }
 
-.section{
-    display: flex;
-}
-.section-icon {
-    min-width: 50px;
-    max-width: 50px;
-}
-
-.section-text {
-    min-width: 187px;
-    max-width: 187px;
-}
 /* content */
 
-.content {
-  display: flex;
-  width: calc(100% - 237px);
-  padding: 20px;
-  height: calc(100vh - 200px);
-  transition: all 0.3s;
-  background-color: #EAEAEC;
-}
+#content {
+    width: 100%;
+    height: calc(100vh - 64px);
+    transition: all 0.3s;
+    background-color: #EAEAEC;
     
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+}
 
 
 
@@ -253,17 +230,53 @@ a:focus {
     margin: 40px 0;
 }
 
+.title {  
+  flex: 1;
+  text-align: left;
+}
+.mainTitle{
+    color: white;
+    font-weight: 800;
+}
+.subtitle{
+  font-weight: bold;
+  color: black;
+}
 
 
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    max-height: 1000vh;
+    /*min-width: 1400px;*/
+    width: 100%;
+    align-items: stretch;
+}
 .dashboard{
     display: flex;
 }
 
 .toggle-button{
-    width: 237px;
+    width: 250px;
 }
 
+.logout-button{
+  margin-right: 8%;
+}
 
+.section{
+    display: -webkit-box;
+}
+.section-icon {
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.section-text {
+    min-width: 200px;
+    max-width: 200px;
+    margin-left: -10px;
+}
 .group-text{
     height: 54px;    
     color: #7A7B80;
@@ -308,6 +321,18 @@ li {
     
 }
 
+a.download {
+    background: #fff;
+    color: #7386D5;
+}
+
+a.article,
+a.article:hover {
+    background: #6d7fcc !important;
+    color: #fff !important;
+}
+
+
 .btn-info{
     background-color: #343a40;
     border-color: rgb(100, 97, 97);
@@ -330,4 +355,37 @@ h1, h3, h5 {
   color: black;
 }
 
+
+/* @media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+} */
+  .content{
+    width: 80%;
+    height: calc(100vh - 64px);
+    margin: 0 auto;
+    padding-top: 36px;
+    /*background-image: url("/static/img/logo-alcaldia.png");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: contain;*/
+    /*background-position: center;*/
+  }
+
+@media (max-width: 1500px){
+  .logout-button{
+    margin-right: 7%;
+  }
+}
+@media (max-width: 1100px){
+  .logout-button{
+    margin-right: 5%;
+  }
+}
 </style>

@@ -70,25 +70,82 @@
         createAlliance: constants.ALLIANCE_CREATE_ALLIANCE
       }),
       async save() {
+        if(!this.data.phone){
+          this.data.phone = "";
+        }
+        if(!this.data.website){
+          this.data.website = "";
+        }
         this.data.image = `/images/alianza-${this.data.name}.jpg`;
         this.data.state = true;
         this.$refs.imgContent.uploadImage(`alianza-${this.data.name}.jpg`);
         await this.createAlliance(this.data);
-        this.$router.push('/alliances')
+        this.$router.push('/alliances');
       },
-      checkForm(e) {
+      checkForm(submit) {
         this.errors = [];
-
         if (!this.data.name) {
-          this.errors.push('nombre es requerido.');
+          this.errors.push('Nombre es requerido.');
+        }else if (this.data.name.length > 45) {
+          this.errors.push('El nombre puede contener máximo 45 caracteres.');                            
         }
         if (!this.data.description) {
           this.errors.push('Descripción es requerida.');
+        }else{
+          let lenDes = this.data.description.length;
+          if( lenDes < 150 ||  lenDes > 300){
+            this.errors.push('La descripción debe contener mínimo 150 y máximo 300 caracteres.');
+          }
         }
-        e.preventDefault();
+        if (!this.data.offer) {
+          this.errors.push('Campo oferta es requerido.')
+        }else{
+          let lenOfer = this.data.offer.length;
+          if( lenOfer < 300 ||  lenOfer > 700){
+            this.errors.push('La oferta debe contener mínimo 300 y máximo 700  caracteres.');
+          } 
+        }                    
+        if (!this.data.email) {
+          this.errors.push('Campo Email es requerido.')
+        }else if (!this.validEmail(this.data.email)) {
+          this.errors.push("Correo ingresado no es válido.")
+        }
+        if ( !this.data.finish_date ) {
+          this.errors.push('Campo Fecha es requerido.')
+        }
+        if (this.data.phone && !this.validPhone(this.data.phone)) {
+          this.errors.push("Teléfono ingresado no es válido.")
+        }
+        if (!this.data.finish_date){
+          this.errors.push('Fecha de inicio requerida.');
+        }else{
+          let currentDate = new Date();
+          let year = currentDate.getFullYear();
+          let month = this.addZero(currentDate.getMonth()+1);
+          let day = this.addZero(currentDate.getDate());
+          currentDate = `${year}-${month}-${day}`;
+          if ( this.data.finish_date < currentDate ){
+            this.errors.push('La fecha debe ser igual o mayor al día de hoy.');
+          }
+        }
+        submit.preventDefault();
         if(this.errors.length === 0)
           this.save();
       },
+      validEmail( email ) {
+        let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z-.]{2,}$/
+        return regex.test(email);
+      },
+      validPhone( phone ) {
+        let regex = /^([\(]?\+[0-9]{1,3}[\)]?)?[0-9\s]{7,20}$/
+        return regex.test(phone)
+      },
+      addZero(number){
+      if(number < 10){
+        number = "0"+1;
+      }
+      return number;
+    },
       goBack() {
         window.history.length > 1
           ? this.$router.go(-1)
