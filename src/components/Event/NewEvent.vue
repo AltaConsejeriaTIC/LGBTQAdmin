@@ -54,49 +54,58 @@
             </b-form-group>
           </b-col>
         </b-form-row>
+        <b-form-group id="placeGroup" label="Lugar:" label-for="place">
+          <b-form-input id="place" type="text" v-model="data.place"
+                        required placeholder="Lugar">
+          </b-form-input>
+        </b-form-group>
+        <b-form-group id="addressGroup" label="Dirección:" label-for="address">
+          <b-form-input id="address" type="text" v-model="data.address"
+                        required placeholder="Dirección">
+          </b-form-input>
+        </b-form-group>
 
 
-        
-        <div class="">
-          <div class="">
-            <div class="">
-              <div class="">
-                <label>Fecha de inicio: {{data.start_date}}</label>
-                <input type="date" v-model="data.start_date">
-                <label>Hora de inicio: {{data.start_time}}</label>
-                <input type="time" v-model="data.start_time">
-              </div>
-            </div>
-            <div class="">
-              <div class="">
-                <label>Fecha de fin: {{data.finish_date}}</label>
-                <input type="date" v-model="data.finish_date">
-                <label>Hora de fin: {{data.finish_time}}</label>
-                <input type="time" v-model="data.finish_time">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="">
-          <label>Lugar</label>
-          <input type="text" v-model="data.place">
-        </div>
-        <div class="">
-          <div class="">
-            <div class="">
-              <label>Latitud</label>
-              <input type="number" step="0.0000001" v-model="data.latitude">
-            </div>
-             <div class="">
-              <label>longitud</label>
-              <input type="number" step="0.0000001" v-model="data.longitude">
-            </div>
-          </div>
-        </div>
-        <div class="">
-          <label>Dirección</label>
-          <input type="text" v-model="data.address">
-        </div>
+        <!--<div class="">-->
+          <!--<div class="">-->
+            <!--<div class="">-->
+              <!--<div class="">-->
+                <!--<label>Fecha de inicio: {{data.start_date}}</label>-->
+                <!--<input type="date" v-model="data.start_date">-->
+                <!--<label>Hora de inicio: {{data.start_time}}</label>-->
+                <!--<input type="time" v-model="data.start_time">-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="">-->
+              <!--<div class="">-->
+                <!--<label>Fecha de fin: {{data.finish_date}}</label>-->
+                <!--<input type="date" v-model="data.finish_date">-->
+                <!--<label>Hora de fin: {{data.finish_time}}</label>-->
+                <!--<input type="time" v-model="data.finish_time">-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="">-->
+          <!--<label>Lugar</label>-->
+          <!--<input type="text" v-model="data.place">-->
+        <!--</div>-->
+        <!--<div class="">-->
+          <!--<div class="">-->
+            <!--<div class="">-->
+              <!--<label>Latitud</label>-->
+              <!--<input type="number" step="0.0000001" v-model="data.latitude">-->
+            <!--</div>-->
+             <!--<div class="">-->
+              <!--<label>longitud</label>-->
+              <!--<input type="number" step="0.0000001" v-model="data.longitude">-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="">-->
+          <!--<label>Dirección</label>-->
+          <!--<input type="text" v-model="data.address">-->
+        <!--</div>-->
         <button class="button" type="submit" >Guardar</button>
       </b-form>
 
