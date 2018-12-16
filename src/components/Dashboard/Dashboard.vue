@@ -215,6 +215,7 @@ a:focus {
     background-color: #EAEAEC;
     
 }
+
 .app-container {
     display: flex;
     flex-direction: column;
