@@ -1,34 +1,74 @@
 <template>
-  <div class="ui grid">
-    <div class="five wide column">
-      <ImageContent :img="image" :w="350" :h="280" ref="imgContent"></ImageContent>
+  <div>
+    <div class="p-title text">
+      <h2 class="d-inline float-left text">Agregar Evento</h2>
+      <button type="button" class="btn btn-warning d-inline float-right create text"  @click="goBack">Volver?</button>
     </div>
-    <div class="ten wide column">
+    <div >
       <div v-if="errors.length">
         <b>Por favor corriga los siguientes errores:</b>
         <ul>
           <li v-for="error in errors" >{{ error }}</li>
         </ul>
       </div>
-      <form class="ui form" @submit="checkForm">
-        <div class="field">
-          <label>Titulo</label>
-          <input type="text" v-model="data.title">
-          <label>Descripción</label>
-          <textarea rows="5" v-model="data.description"></textarea>
-        </div>
-        <div class="ui two column grid">
-          <div class="row">
-            <div class="column">
-              <div class="field">
+      <b-form class="p-form" @submit="checkForm">
+        <b-form-group id="titleGroup" label="Título:" label-for="title">
+          <b-form-input id="title" type="text" v-model="data.title"
+                        required placeholder="Título">
+          </b-form-input>
+        </b-form-group>
+        <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
+          <b-form-textarea  id="description" type="text" v-model="data.description"
+                            required placeholder="Descripción" :rows="3" :max-rows="5"
+                            v-bind:no-resize="true">
+          </b-form-textarea>
+        </b-form-group>
+        <b-form-row>
+          <b-col>
+            <b-form-group id="start_dateGroup" label="Fecha de inicio:" label-for="start_date">
+              <b-form-input id="start_date" type="date" v-model="data.start_date"
+                            required placeholder="Fecha de inicio">
+              </b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group id="finish_dateGroup" label="Fecha de fin:" label-for="finish_date">
+              <b-form-input id="finish_date" type="date" v-model="data.finish_date"
+                            required placeholder="Fecha de fin">
+              </b-form-input>
+            </b-form-group>
+          </b-col>
+          <div class="w-100"></div>
+          <b-col>
+            <b-form-group id="start_timeGroup" label="Hora de inicio:" label-for="start_time">
+              <b-form-input id="start_time" type="time" v-model="data.start_time"
+                            required placeholder="Hora de inicio">
+              </b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group id="finish_timeGroup" label="Hora de fin:" label-for="finish_time">
+              <b-form-input id="finish_time" type="time" v-model="data.finish_time"
+                            required placeholder="Hora de fin">
+              </b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
+
+
+        
+        <div class="">
+          <div class="">
+            <div class="">
+              <div class="">
                 <label>Fecha de inicio: {{data.start_date}}</label>
                 <input type="date" v-model="data.start_date">
                 <label>Hora de inicio: {{data.start_time}}</label>
                 <input type="time" v-model="data.start_time">
               </div>
             </div>
-            <div class="column">
-              <div class="field">
+            <div class="">
+              <div class="">
                 <label>Fecha de fin: {{data.finish_date}}</label>
                 <input type="date" v-model="data.finish_date">
                 <label>Hora de fin: {{data.finish_time}}</label>
@@ -37,34 +77,32 @@
             </div>
           </div>
         </div>
-        <div class="field">
+        <div class="">
           <label>Lugar</label>
           <input type="text" v-model="data.place">
         </div>
-        <div class="ui two column grid">
-          <div class="row">
-            <div class="column">
+        <div class="">
+          <div class="">
+            <div class="">
               <label>Latitud</label>
               <input type="number" step="0.0000001" v-model="data.latitude">
             </div>
-             <div class="column">
+             <div class="">
               <label>longitud</label>
               <input type="number" step="0.0000001" v-model="data.longitude">
             </div>
           </div>
         </div>
-        <div class="field">
+        <div class="">
           <label>Dirección</label>
           <input type="text" v-model="data.address">
         </div>
-        <button class="ui button" type="submit" >Guardar</button>
-      </form>
-    </div>
-    <div class="fifteen wide column">
-      <button class="ui button back" @click="goBack">
-        <i class="caret left icon"></i>
-        Volver
-      </button>
+        <button class="button" type="submit" >Guardar</button>
+      </b-form>
+
+      <div class="">
+        <ImageContent :img="image" :w="350" :h="280" ref="imgContent"></ImageContent>
+      </div>
     </div>
   </div>
 </template>
@@ -184,7 +222,33 @@ export default {
 </script>
 
 <style>
-  .ui.grid {
-    width: 80%;
-  }
+
+.p-form{
+  text-align: left;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.4;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+
+  color: #575A6D;
+}
+
+.p-form ::placeholder{
+  font-weight: 600;
+  line-height: 20px;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  color: #A8ABBA;
+}
+
+input[type=text]{
+  height: 40px;
+}
+
+#description{
+  height: 143px;
+}
+
 </style>
