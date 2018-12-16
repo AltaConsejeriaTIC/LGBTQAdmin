@@ -3,28 +3,26 @@
         <div class="app-container">            
             <nav class="navbar">
                 <div class="toggle-button">                    
-                    <button type="button" id="sidebarCollapse" class="btn btn-info" @click="toggle">
+                    <button type="button" class="btn btn-info navbar-btn" @click="toggle">
                         <i class="fas fa-align-justify"></i>
                     </button>
                 </div>
-
                 <div class="title">
                     <h3 class="mainTitle">EN BOGOTÁ SE PUEDE SER</h3>
                     <h5 class="subtitle">ADMINISTRADOR</h5>
-                </div> 
-
+                </div>
                 <div>
                     <button type="button" class="btn btn-link navlink" @click="toggle">CERRAR SESIÓN</button>
                 </div>   
             </nav>
             
             <div class="dashboard">
-                <nav v-if = "active" id="sidebar">
+                <nav v-if = "active" class="sidebar">
                     <ul class="list-unstyled components">                                     
                         <router-link tag="li" active-class="active" :to="{name: 'Home'}">
                             <a href="#"> 
                                 <div class="section"> 
-                                    <div class="section-text">DESTACADOS</div> 
+                                    <div class="section-text">Destacados</div> 
                                     <div class="section-icon"><i class="far fa-star"></i></div>
                                 </div>
                             </a>
@@ -35,7 +33,7 @@
                         <router-link tag="li" active-class="active" :to="{name: 'Event'}">
                             <a href="#"> 
                                 <div class="section"> 
-                                    <div class="section-text">EVENTOS</div> 
+                                    <div class="section-text">Eventos</div> 
                                     <div class="section-icon"><i class="far fa-calendar"></i></div>
                                 </div>
                             </a>                        
@@ -43,7 +41,7 @@
                         <router-link tag="li" active-class="active" :to="{name: 'News'}">
                             <a href="#"> 
                                 <div class="section"> 
-                                    <div class="section-text">NOTICIAS</div> 
+                                    <div class="section-text">Noticias</div> 
                                     <div class="section-icon"><i class="far fa-bell"></i></div>
                                 </div>
                             </a>                        
@@ -54,7 +52,7 @@
                         <router-link tag="li" active-class="active" :to="{name: 'Organization'}">
                             <a href="#"> 
                                 <div class="section"> 
-                                    <div class="section-text">ORGANIZACIONES</div> 
+                                    <div class="section-text">Organizaciones</div> 
                                     <div class="section-icon"><i class="fas fa-users"></i></div>
                                 </div>
                             </a>                        
@@ -62,7 +60,7 @@
                         <router-link tag="li" active-class="active" :to="{name: 'Alliance'}">
                             <a href="#"> 
                                 <div class="section"> 
-                                    <div class="section-text">ALIANZAS</div> 
+                                    <div class="section-text">Alianzas</div> 
                                     <div class="section-icon"><i class="far  fa-handshake"></i></div>
                                 </div>
                             </a>                        
@@ -73,7 +71,7 @@
                         <router-link tag="li" active-class="active" :to="{name: 'PersonalData'}">
                             <a href="#"> 
                                 <div class="section"> 
-                                    <div class="section-text">CENSO</div> 
+                                    <div class="section-text">Censo</div> 
                                     <div class="section-icon"><i class="far fa-list-alt"></i></div>
                                 </div>
                             </a>                        
@@ -81,7 +79,7 @@
                         <router-link tag="li" active-class="active" :to="{name: 'Complaint'}">
                             <a href="#"> 
                                 <div class="section"> 
-                                    <div class="section-text">DENUNCIA</div> 
+                                    <div class="section-text">Denuncias</div> 
                                     <div class="section-icon"><i class="fas fa-gavel"></i></div>
                                 </div>
                             </a>                        
@@ -90,8 +88,7 @@
                 </nav>
 
                 <!-- Page Content  -->
-                <div id="content">               
-                    <img src="../../assets/logo-alcaldia.png" width=30% height=30%>
+                <div class="content">               
                     <router-view></router-view>                
                 </div>
             </div>
@@ -119,72 +116,99 @@
 </script>
 
 <style scoped>
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+@import "https://fonts.googleapis.com/css?family=Nunito:300,400,500,600,700";
 
+.app-container {
+    display: flex;
+    flex-direction: column;
+    
+}
 /* navbar */
 .navbar {
-    font-family:    ;
+    font-family: 'Nunito';
     background: #009de0;
     border: none;
     border-radius: 0;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 140 !important;
+    height: 80px;
+    display: flex;
+    padding: 0 0;
 }
 
-.navbar-btn {
-    box-shadow: none;
-    outline: none !important;
-    border: none;
-}
 .navlink {
-    color:#fafafa;
+  font-family: Nunito;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: right;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color:#ffffff;
+  text-decoration: none;
+}
+
+.navbar-btn:hover {
+  background: #009DE0
+}
+.navlink:hover {
+  font-size: 14px;
+}
+
+.title {  
+  flex: 1;
+  text-align: left;
+}
+.mainTitle{
+    color: white;
+    font-style: normal;
+    font-size: 20px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-weight: 800;
+    }
+.subtitle{
+  font-weight: bold;
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
 }
 
 /* sidebar */
 
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    background: #202122;
-    color: #fff;
+.sidebar {
+  width: 237px;
+  background: #202122;
+  color: #fff;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 18px;
+  font-size: 15px;
+  text-align: center;
+  letter-spacing: 0.02em;
 }
 
-#sidebar.active {
-    margin-left: -250px;
+.sidebar-header {
+  padding: 0px;
+  background: #202122;
 }
 
-#sidebar .sidebar-header {
-    padding: 20px;
-    background: #202122;
-}
-
-#sidebar ul.components {
-    padding: 20px 0;
+.sidebar {
+    padding: 0 0;
     border-bottom: 1px solid #141313;
 }
 
-#sidebar ul p {
-    color: #fff;
+.sidebar li a {
     padding: 10px;
-}
-
-#sidebar ul li a {
-    padding: 10px;
-    font-size: 1.1em;
     display: block;
 }
 
-#sidebar ul li a:hover {
+.sidebar li a:hover {
+    color: #000;
+    background: #009DE0;
+}
+
+li.active>a{    
     color: #009DE0;
     background: rgba(248, 251, 252, 0.1);
 }
-
-#sidebar ul li.active>a,
-a[aria-expanded="true"] {
-    color:  #009DE0;
-    background: rgba(248, 251, 252, 0.1);
-}
-
 a,
 a:hover,
 a:focus {
@@ -195,20 +219,29 @@ a:focus {
     font-size: 15px;  
 }
 
+.section{
+    display: flex;
+}
+.section-icon {
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.section-text {
+    min-width: 187px;
+    max-width: 187px;
+}
 /* content */
 
-#content {
-    width: 100%;
-    padding: 20px;
-    min-height: 100vh;
-    transition: all 0.3s;
-    background-color: #EAEAEC;
+.content {
+  display: flex;
+  width: calc(100% - 237px);
+  padding: 20px;
+  height: calc(100vh - 200px);
+  transition: all 0.3s;
+  background-color: #EAEAEC;
+}
     
-}
-.app-container {
-    display: flex;
-    flex-direction: column;
-}
 
 
 
@@ -219,50 +252,17 @@ a:focus {
     margin: 40px 0;
 }
 
-.title {  
-  flex: 1;
-  text-align: left;
-}
-.mainTitle{
-    color: white;
-    font-weight: 800;
-}
-.subtitle{
-  font-weight: bold;
-  color: black;
-}
 
 
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    max-height: 1000vh;
-    min-width: 1400px;
-    width: 100%;
-    align-items: stretch;
-}
 .dashboard{
     display: flex;
 }
 
 .toggle-button{
-    width: 250px;
+    width: 237px;
 }
 
 
-.section{
-    display: -webkit-box;
-}
-.section-icon {
-    min-width: 50px;
-    max-width: 50px;
-}
-
-.section-text {
-    min-width: 200px;
-    max-width: 200px;
-    margin-left: -10px;
-}
 .group-text{
     height: 54px;    
     color: #7A7B80;
@@ -307,18 +307,6 @@ li {
     
 }
 
-a.download {
-    background: #fff;
-    color: #7386D5;
-}
-
-a.article,
-a.article:hover {
-    background: #6d7fcc !important;
-    color: #fff !important;
-}
-
-
 .btn-info{
     background-color: #343a40;
     border-color: rgb(100, 97, 97);
@@ -341,16 +329,4 @@ h1, h3, h5 {
   color: black;
 }
 
-
-/* @media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-    #sidebarCollapse span {
-        display: none;
-    }
-} */
 </style>
