@@ -109,7 +109,6 @@
     methods: {
       toggle: function() {
         this.active = !this.active
-        console.log('ACTIVE===',this.active)
       }
     },
   }
