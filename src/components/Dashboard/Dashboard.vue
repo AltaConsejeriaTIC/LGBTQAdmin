@@ -130,6 +130,7 @@
 </script>
 
 <style scoped>
+
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
 /* navbar */
@@ -215,6 +216,7 @@ a:focus {
     background-color: #EAEAEC;
     
 }
+
 .app-container {
     display: flex;
     flex-direction: column;
@@ -232,7 +234,6 @@ a:focus {
 .title {  
   flex: 1;
   text-align: left;
-  margin-left: 210px;
 }
 .mainTitle{
     color: white;
@@ -256,9 +257,9 @@ a:focus {
     display: flex;
 }
 
-/*.toggle-button{*/
-    /*width: 250px;*/
-/*}*/
+.toggle-button{
+    width: 250px;
+}
 
 .logout-button{
   margin-right: 8%;
