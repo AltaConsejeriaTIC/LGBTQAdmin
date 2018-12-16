@@ -232,6 +232,7 @@ a:focus {
 .title {  
   flex: 1;
   text-align: left;
+  margin-left: 210px;
 }
 .mainTitle{
     color: white;
@@ -255,9 +256,9 @@ a:focus {
     display: flex;
 }
 
-.toggle-button{
-    width: 250px;
-}
+/*.toggle-button{*/
+    /*width: 250px;*/
+/*}*/
 
 .logout-button{
   margin-right: 8%;
