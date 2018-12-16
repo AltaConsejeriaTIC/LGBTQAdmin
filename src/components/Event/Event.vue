@@ -47,6 +47,8 @@
         <b-button class="actions" variant="light" @click.stop="editEvent(row.id)">Editar</b-button>
       </template>
     </b-table>
+    <b-pagination :total-rows="events.length" :per-page="perPage" v-model="currentPage" align="right"
+                  :limit=5 v-bind:hide-goto-end-buttons="true" next-text="Siguiente" prev-text="Anterior"></b-pagination>
   </div>
 </template>
 
@@ -164,7 +166,11 @@ export default {
     text-align: left;
     background-color: #fff;
     margin-top: 24px;
+    margin-bottom: 0;
     height: auto;
+    overflow-y: auto;
+    min-height: 309px;
+    max-height: 70%;
   }
 
   table.table td, table.table th{
@@ -236,14 +242,13 @@ export default {
   }
 
   @media (max-width: 1100px){
-    td:nth-child(6) {
-      min-width: 0;
-      max-width: 183px;
+    td:nth-child(6){
+      width: unset;
     }
 
     button.actions:first-child{
-      margin-bottom: 10px;
       margin-right: 0;
+      margin-bottom: 10px;
     }
 
   }
@@ -253,14 +258,17 @@ export default {
       width: unset;
     }
 
-    td:nth-child(6){
-      width: unset;
-      max-width: unset;
-    }
+
 
     button.actions:first-child{
       margin-bottom: 0;
       margin-right: 7px;
+    }
+  }
+
+  @media (max-width: 629px) {
+    button.actions:first-child{
+      margin-bottom: 10px;
     }
   }
 
