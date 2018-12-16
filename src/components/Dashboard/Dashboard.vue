@@ -13,8 +13,8 @@
                     <h5 class="subtitle">ADMINISTRADOR</h5>
                 </div> 
 
-                <div>
-                    <button type="button" class="btn btn-link navlink" @click="toggle">CERRAR SESIÓN</button>
+                <div class="logout-button">
+                    <button type="button" class="btn btn-link navlink" @click="signout">CERRAR SESIÓN</button>
                 </div>   
             </nav>
             
@@ -91,7 +91,7 @@
 
                 <!-- Page Content  -->
                 <div id="content">               
-                    <img src="../../assets/logo-alcaldia.png" width=30% height=30%>
+                    <!--<img src="../../assets/logo-alcaldia.png" width=30% height=30%>-->
                   <router-view class="content"></router-view>
                 </div>
             </div>
@@ -210,8 +210,7 @@ a:focus {
 
 #content {
     width: 100%;
-    padding: 20px;
-    min-height: 100vh;
+    height: calc(100vh - 64px);
     transition: all 0.3s;
     background-color: #EAEAEC;
     
@@ -248,7 +247,7 @@ a:focus {
     display: flex;
     flex-direction: column;
     max-height: 1000vh;
-    min-width: 1400px;
+    /*min-width: 1400px;*/
     width: 100%;
     align-items: stretch;
 }
@@ -260,6 +259,9 @@ a:focus {
     width: 250px;
 }
 
+.logout-button{
+  margin-right: 8%;
+}
 
 .section{
     display: -webkit-box;
@@ -369,5 +371,20 @@ h1, h3, h5 {
     height: calc(100vh - 64px);
     margin: 0 auto;
     padding-top: 36px;
+    /*background-image: url("/static/img/logo-alcaldia.png");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: contain;*/
+    /*background-position: center;*/
   }
+
+@media (max-width: 1500px){
+  .logout-button{
+    margin-right: 7%;
+  }
+}
+@media (max-width: 1100px){
+  .logout-button{
+    margin-right: 5%;
+  }
+}
 </style>

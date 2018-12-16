@@ -4,7 +4,7 @@
       <h2 class="d-inline float-left text">{{title}}</h2>
       <button type="button" class="btn btn-warning d-inline float-right create text" @click="newEvent">Agregar Evento</button>
     </div>
-    <table class="table .text">
+    <table class="table .text table-responsive-xl">
       <thead class="thead-light">
         <tr>
           <th scope="col" class="id">Id</th>
@@ -125,9 +125,20 @@ export default {
     height: 43px;
   }
 
+  td:nth-child(3) {
+    min-width: 148px;
+    max-width: 148px;
+  }
+
+  td:nth-child(6) {
+    min-width: 183px;
+    max-width: 183px;
+  }
+
   table.table tr{
     height: 43px;
   }
+
   thead{
     text-transform: uppercase;
   }
@@ -159,8 +170,8 @@ export default {
   }
 
   button.actions{
-    height: 35px;
-    width: 92px;
+    height: 32px;
+    width: 73px;
     background: #DFE0E1;
     border: 1px solid #CBCED0;
     box-sizing: border-box;
@@ -168,7 +179,25 @@ export default {
     line-height: 20px;
     font-size: 13px;
     text-align: center;
-    margin-right: 20px;
+
+  }
+
+  button.actions:first-child{
+    margin-bottom: 0px;
+    margin-right: 10px;
+  }
+
+  @media (max-width: 1100px){
+    td:nth-child(6) {
+      min-width: 0;
+      max-width: 183px;
+    }
+
+    button.actions:first-child{
+      margin-bottom: 10px;
+      margin-right: 0;
+    }
+
   }
 
 </style>
