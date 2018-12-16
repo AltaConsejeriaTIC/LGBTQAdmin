@@ -4,46 +4,58 @@
       <h2 class="d-inline float-left text">{{title}}</h2>
       <button type="button" class="btn btn-warning d-inline float-right create text" @click="newEvent">Agregar Evento</button>
     </div>
-    <table class="table .text table-responsive-xl">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col" class="id">Id</th>
-          <th scope="col">Título</th>
-          <th scope="col">Fecha de Inicio</th>
-          <th scope="col">Lugar</th>
-          <th scope="col">Estado</th>
-          <th scope="col">Acciones</th>
+    <!--<table class="table text table-responsive-md">-->
+      <!--<thead class="thead-light">-->
+        <!--<tr>-->
+          <!--<th scope="col" class="id">Id</th>-->
+          <!--<th scope="col">Título</th>-->
+          <!--<th scope="col">Fecha de Inicio</th>-->
+          <!--<th scope="col">Lugar</th>-->
+          <!--<th scope="col">Estado</th>-->
+          <!--<th scope="col">Acciones</th>-->
 
-        </tr>
-      </thead>
-       <tbody v-for="event in events" :key="event.id">
-        <tr :class="{disabled: !event.state}">
-          <th scope="row" class="id">{{event.id}}</th>
-          <td>{{event.title}}</td>
-          <td>{{formatDate(event.start_date)}}<br>{{formatDate(event.finish_date)}}</td>
-          <td>{{event.place}}</td>
-          <td>{{event.state ? "Publicado" : "No Publicado" }}</td>
-          <td >
-            <button type="button" class="btn btn-light actions" @click="changeState(event)">
-              {{event.state ? "Ocultar" : "Publicar" }}
-            </button>
-            <button type="button" class="btn btn-light actions" @click="editEvent(event.id)" >
-              <i class="edit icon"></i>
-              Editar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <!--</tr>-->
+      <!--</thead>-->
+       <!--<tbody v-for="event in events" :key="event.id">-->
+        <!--<tr :class="{'table-disable': !event.state}">-->
+          <!--<th scope="row" class="id">{{event.id}}</th>-->
+          <!--<td>{{event.title}}</td>-->
+          <!--<td>{{formatDate(event.start_date)}}<br>{{formatDate(event.finish_date)}}</td>-->
+          <!--<td>{{event.place}}</td>-->
+          <!--<td>{{event.state ? "Publicado" : "No Publicado" }}</td>-->
+          <!--<td >-->
+            <!--<button type="button" class="btn btn-light actions" @click="changeState(event)">-->
+              <!--{{event.state ? "Ocultar" : "Publicar" }}-->
+            <!--</button>-->
+            <!--<button type="button" class="btn btn-light actions" @click="editEvent(event.id)" >-->
+              <!--<i class="edit icon"></i>-->
+              <!--Editar-->
+            <!--</button>-->
+          <!--</td>-->
+        <!--</tr>-->
+      <!--</tbody>-->
+    <!--</table>-->
+
+    <b-table hover stacked="lg"           :items="events"
+             :fields="fields"             :head-variant="'light'"
+             :current-page="currentPage"  :per-page="perPage"
+             class="table text table-responsive-xl">
+      <template slot="state" slot-scope="row">{{row.value?'Publicado':'No Publicado'}}</template>
+      <template slot="actions" slot-scope="row">
+        <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
+        <b-button class="actions" variant="light" @click.stop="changeState(row.item)">{{row.item.state ? "Ocultar" : "Publicar" }}</b-button>
+        <b-button class="actions" variant="light" @click.stop="editEvent(row.id)">Editar</b-button>
+      </template>
+    </b-table>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import * as constants from '@/store/constants';
 import DetailEvent from "./DetailEvent";
 
-var moment = require('moment');
+import * as moment from 'moment';
 
 export default {
   name: 'Event',
@@ -52,12 +64,45 @@ export default {
   },
   data() {
     return {
-      title: "Administrar Eventos"
+      title: "Administrar Eventos",
+      currentPage: 1,
+      perPage: 5,
+      fields: {
+        id: {
+          label: 'ID',
+          sortable: true,
+          class: 'id'
+        },
+        title: {
+          label: 'Titulo',
+          sortable: false
+        },
+        start_date: {
+          label: 'Fecha',
+          sortable: true,
+          class: 'white-space-pre',
+          formatter: (value, key, item) => {
+            return this.formatDate(item.start_date) + "\n" + this.formatDate(item.finish_date)
+          }
+        },
+        place: {
+          label: 'Lugar'
+        },
+        state: {
+          label: 'Estado'
+        },
+        actions: {
+          label: 'Acciones'
+        }
+      }
     }
+
   },
   created() {
-    if ( !this.events.length )
-      this.getEvents()
+    if ( !this.events.length ){
+      this.getEvents();
+    }
+    this.events.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
   },
   computed: {
     ...mapGetters({
@@ -70,7 +115,7 @@ export default {
       changeStateEvent: constants.EVENT_CHANGE_STATE
     }),
     formatDate(date) {
-      return moment(date).format('YYYY-MMMM-DD');
+      return moment(date).format('DD-MMM-YYYY');
     },
     editEvent(eventId){
       this.$router.push({ name: 'DetailEvent', params: { id: eventId } });
@@ -80,6 +125,7 @@ export default {
     },
     changeState(event) {
       this.changeStateEvent(event);
+      this.events.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
     }
   }
 };
@@ -118,25 +164,23 @@ export default {
     text-align: left;
     background-color: #fff;
     margin-top: 24px;
+    height: auto;
   }
 
-  table.table td{
+  table.table td, table.table th{
     vertical-align: middle;
-    height: 43px;
   }
 
   td:nth-child(3) {
-    min-width: 148px;
-    max-width: 148px;
+    width: 113px;
   }
 
   td:nth-child(6) {
-    min-width: 183px;
-    max-width: 183px;
+    width: 183px;
   }
 
   table.table tr{
-    height: 43px;
+    min-height: 43px;
   }
 
   thead{
@@ -164,7 +208,7 @@ export default {
     color: #3F4150;
   }
 
-  tbody tr.disabled{
+  tbody tr.table-disable{
     font-weight: 600;
     color: #999BAA;
   }
@@ -183,8 +227,12 @@ export default {
   }
 
   button.actions:first-child{
-    margin-bottom: 0px;
+    margin-bottom: 0;
     margin-right: 10px;
+  }
+
+  .white-space-pre {
+    white-space: pre-wrap;
   }
 
   @media (max-width: 1100px){
@@ -198,6 +246,22 @@ export default {
       margin-right: 0;
     }
 
+  }
+
+  @media (max-width: 992px) {
+    td:nth-child(3){
+      width: unset;
+    }
+
+    td:nth-child(6){
+      width: unset;
+      max-width: unset;
+    }
+
+    button.actions:first-child{
+      margin-bottom: 0;
+      margin-right: 7px;
+    }
   }
 
 </style>
