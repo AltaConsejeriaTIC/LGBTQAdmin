@@ -116,6 +116,7 @@
 </script>
 
 <style scoped>
+
 @import "https://fonts.googleapis.com/css?family=Nunito:300,400,500,600,700";
 
 .app-container {
@@ -124,6 +125,7 @@
     
 }
 /* navbar */
+
 .navbar {
     font-family: 'Nunito';
     background: #009de0;
