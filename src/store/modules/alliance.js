@@ -7,38 +7,48 @@ const state = {
 
 const actions = {
   [constants.ALLIANCE_GET_ALLIANCES]: ({ commit }) => {
-    return Vue.axios
+    Vue.axios
       .get(`/allAlliances`)
       .then((response) => response.data)
       .then((alliances) => commit(constants.ALLIANCE_SET_ALLIANCES, alliances))
-      .catch((e) => console.log(e));
+      .catch((e) => console.error(e));
   },
   [constants.ALLIANCE_UPDATE]: ({commit}, alliance) => {
-    return Vue.axios
+    return new Promise( (resolve, reject ) => {
+      Vue.axios
       .put(`/alliance/${alliance.id}`, alliance, { headers: { token: sessionStorage.getItem('token') }})
-      .then(response =>{
+      .then(() =>{
         commit(constants.ALLIANCE_SET_ALLIANCE, alliance);
-        console.log("------Alianza Actualizada-------")
+        resolve();
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {        
+        console.error(e);
+        reject();
+      });
+    })    
   },
   [constants.ALLIANCE_CHANGE_STATE]: ({commit}, alliance) => {
     console.log("-------estare")
     alliance.state = !alliance.state;
     return Vue.axios
       .put(`/updateAllianceState/${alliance.id}`, alliance, { headers: { token: sessionStorage.getItem('token') }})
-      .then(response => commit(constants.ALLIANCE_SET_ALLIANCE, alliance))
-      .catch((e) => console.log(e));
+      .then(() => commit(constants.ALLIANCE_SET_ALLIANCE, alliance))
+      .catch((e) => console.error(e));
   },
   [constants.ALLIANCE_CREATE_ALLIANCE]: ({commit}, alliance) => {
-    return Vue.axios
-      .post('/alliances', alliance, { headers: { token: sessionStorage.getItem('token') }})
-      .then(response => {
-        alliance.id = response.data.id
-        console.log(alliance);
-        commit(constants.ALLIANCE_ADD_ALLIANCE, alliance);
-      })
-      .catch((e) => console.log(e));
+    return new Promise( (resolve, reject) => {
+      Vue.axios
+        .post('/alliances', alliance, { headers: { token: sessionStorage.getItem('token') }})
+        .then(response => {
+          alliance.id = response.data.id          
+          commit(constants.ALLIANCE_ADD_ALLIANCE, alliance);
+          resolve();
+        })
+        .catch((e) => {
+          console.error(e);
+          reject();
+        });
+    })    
   }
 };
 

@@ -69,7 +69,7 @@
       ...mapActions({
         createAlliance: constants.ALLIANCE_CREATE_ALLIANCE
       }),
-      async save() {
+      save() {
         if(!this.data.phone){
           this.data.phone = "";
         }
@@ -80,8 +80,12 @@
         this.data.image = `/images/alianza-${nameImage}.jpg`;
         this.data.state = true;
         this.$refs.imgContent.uploadImage(`alianza-${nameImage}.jpg`);
-        await this.createAlliance(this.data);
-        this.$router.push('/alliances');
+        this.createAlliance(this.data)
+          .then( () => {
+            alert(`Allianza fue creada exitosamente`);
+            this.$router.push('/alliances');
+          })
+          .catch( () => alert("No se pudo crear"))        
       },
       checkForm(submit) {
         this.errors = [];

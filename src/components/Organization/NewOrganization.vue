@@ -74,7 +74,7 @@ export default {
     ...mapActions({
       createOrganization: constants.ORGANIZATION_CREATE_ORGANIZATION
     }),
-    async save() {
+    save() {
       if(!this.data.address){
         this.data.address = "";
       }
@@ -85,8 +85,12 @@ export default {
       this.data.image = `/images/organizacion-${nameImage}.jpg`;
       this.data.state = true;
       this.$refs.imgContent.uploadImage(`organizacion-${nameImage}.jpg`);
-      await this.createOrganization(this.data);
-      this.$router.push('/organizations');
+      this.createOrganization(this.data)
+        .then( () => {
+          alert("Organización creada exitosamente")
+          this.$router.push('/organizations');
+        })
+        .catch( () => alert("No se pudo crear") );
     },    
     checkForm(submit) {
       this.errors = [];

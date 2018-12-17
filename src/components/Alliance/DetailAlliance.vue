@@ -76,7 +76,7 @@
           ...mapActions({
             updateAlliance: constants.ALLIANCE_UPDATE
           }),
-          async save() {
+          save() {
             if(!this.data.phone){
               this.data.phone = "";
             }
@@ -84,9 +84,12 @@
               this.data.website = "";
             }
             this.$refs.imgContent.uploadImage();
-            await this.updateAlliance(this.data);
-            alert("ok");
-            this.$router.push('/alliances');
+            this.updateAlliance(this.data)
+              .then( () => {
+                alert("Alianza fue actualizada exitosamente");
+                this.$router.push('/alliances');
+              })
+              .catch( () => alert('No se pudo actualizar'))    
           },
           checkForm(submit) {
             this.errors = [];

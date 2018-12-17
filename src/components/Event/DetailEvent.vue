@@ -107,15 +107,17 @@ export default {
     ...mapActions({
       updateEvent: constants.EVENT_UPDATE
     }),
-    async save() {
-      this.data.image = `/images/evento-${this.data.title}.jpg`;
+    save() {      
       this.data.state = true;
       this.data.latitude = !parseFloat( this.data.latitude )? 0 : parseFloat( this.data.latitude );
       this.data.longitude = !parseFloat( this.data.longitude ) ? 0 : parseFloat( this.data.longitude );
       this.$refs.imgContent.uploadImage();
-      await this.updateEvent(this.data);
-      alert(`Evento con id ${this.data.id} fue actualizado`)
-      this.$router.push('/events');
+      this.updateEvent(this.data)
+        .then( () => {
+          alert("Evento fue actualizado exitosamente")
+          this.$router.push('/events');
+        })
+        .catch( () => alert("No se pudo actualizar"))  
     },    
     checkForm(event) {
       this.errors = [];
@@ -133,7 +135,7 @@ export default {
       }else{
         let lenDes = this.data.description.length;
         if (lenDes < 150 || lenDes > 800) {
-          this.errors.push('Descipción no válida. Tamaño máximo de 800 caracteres. Tamaño mínimo 150 caracteres.');
+          this.errors.push('La descripción debe contener mínimo 150 y máximo 800 caracteres');
         }
       }
       if (!this.data.address) {

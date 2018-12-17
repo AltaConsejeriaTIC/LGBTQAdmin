@@ -82,7 +82,7 @@
           ...mapActions({
             updateOrganization: constants.ORGANIZATION_UPDATE
           }),
-          async save() {
+          save() {
             if(!this.data.address){
               this.data.address = "";
             }
@@ -90,9 +90,12 @@
               this.data.website = "";
             }
             this.$refs.imgContent.uploadImage();
-            await this.updateOrganization(this.data);
-            alert("ok");
-            this.$router.push('/organizations');
+            this.updateOrganization(this.data)
+              .then( () => {
+                alert("Organización actualizada exitosamente");
+                this.$router.push('/organizations');
+              })
+              .catch( () => alert("No se pudo actualizar"));
           },
           checkForm(submit) {
             this.errors = [];
