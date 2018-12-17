@@ -75,11 +75,14 @@ export default {
     ...mapActions({
       updateNews: constants.NEWS_UPDATE
     }),
-    async save() {
+    save() {
       this.$refs.imgContent.uploadImage();
-      await this.updateNews(this.data);
-      alert("ok");
-      this.$router.push('/news');
+      this.updateNews(this.data)
+        .then( () => {
+          alert("Noticia actualizada exitosamente");
+          this.$router.push('/news');
+        })
+        .catch( () => alert("No se pudo actualizar"))
     },
     checkForm(event) {
       this.errors = [];

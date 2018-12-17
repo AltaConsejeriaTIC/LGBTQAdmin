@@ -11,16 +11,21 @@ const actions = {
       .get(`/allnews`)
       .then((response) => response.data)
       .then((news) => commit(constants.NEWS_SET_NEWS, news))
-      .catch((e) => console.log(e));
+      .catch((e) => console.error(e));
   },
   [constants.NEWS_UPDATE]: ({commit}, news) => {
-    return Vue.axios
-      .put(`/news/${news.id}`, news, { headers: { token: sessionStorage.getItem('token') }})
-      .then(response =>{
-        commit(constants.NEWS_SET_ONE_NEWS, news);
-        console.log("------Noticia Actualizada-------")
-      })
-      .catch((e) => console.log(e));
+    return new Promise((resolve, reject) => {
+      Vue.axios
+        .put(`/news/${news.id}`, news, { headers: { token: sessionStorage.getItem('token') }})
+        .then( () =>{
+          commit(constants.NEWS_SET_ONE_NEWS, news);
+          resolve();
+        })
+        .catch( e => {
+          console.error(e);
+          reject();
+        });
+    })    
   },
   [constants.NEWS_CHANGE_STATE]: ({commit}, news) => {
     news.state = !news.state;
@@ -30,14 +35,19 @@ const actions = {
       .catch((e) => console.log(e));
   },
   [constants.NEWS_CREATE_NEWS]: ({commit}, news) => {
-    return Vue.axios
+    return new Promise( (resolve, reject) => {
+      Vue.axios
       .post('/news', news, { headers: { token: sessionStorage.getItem('token') }})
       .then(response => {
-        news.id = response.data.id
-        console.log(news);
+        news.id = response.data.id;        
         commit(constants.NEWS_ADD_NEWS, news);
+        resolve();
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.error(e);
+        reject();
+      });
+    })    
   }
 };
 

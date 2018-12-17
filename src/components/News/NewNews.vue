@@ -67,7 +67,7 @@
       ...mapActions({
         createNews: constants.NEWS_CREATE_NEWS
       }),
-      async save() {
+      save() {
         if (!this.data.source) {
           this.data.source = "";
         }
@@ -81,8 +81,12 @@
         this.data.image = `/images/noticia-${nameImage}.jpg`;
         this.data.state = true;
         this.$refs.imgContent.uploadImage(`noticia-${nameImage}.jpg`);
-        await this.createNews(this.data);
-        this.$router.push('/news');
+        this.createNews(this.data)
+          .then( () =>  {
+            alert("Noticia creada exitosamente");
+            this.$router.push('/news');
+          })
+          .catch( () => alert("No se pudo crear"));
       },
       checkForm(event) {
         this.errors = [];

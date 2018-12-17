@@ -117,7 +117,7 @@ export default {
           alert("Evento fue actualizado exitosamente")
           this.$router.push('/events');
         })
-        .catch( () => alert("No se pudo actualizar"))    
+        .catch( () => alert("No se pudo actualizar"))  
     },    
     checkForm(event) {
       this.errors = [];
