@@ -39,7 +39,7 @@
     <b-table hover stacked="lg"           :items="events"
              :fields="fields"             :head-variant="'light'"
              :current-page="currentPage"  :per-page="perPage"
-             class="table text table-responsive-xl">
+             class="table text table-responsive-xl" ref="actionsRow">
       <template slot="state" slot-scope="row">{{row.value?'Publicado':'No Publicado'}}</template>
       <template slot="actions" slot-scope="row">
         <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
@@ -68,7 +68,7 @@ export default {
     return {
       title: "Administrar Eventos",
       currentPage: 1,
-      perPage: 5,
+      perPage: window.innerHeight > 992 ? (window.innerHeight-320)/110 : 5,
       fields: {
         id: {
           label: 'ID',
@@ -105,6 +105,7 @@ export default {
       this.getEvents();
     }
     this.events.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
+    window.addEventListener('resize', this.handleResize);
   },
   computed: {
     ...mapGetters({
@@ -114,7 +115,14 @@ export default {
   methods: {
     ...mapActions({
       getEvents: constants.EVENT_GET_EVENTS,
-      changeStateEvent: constants.EVENT_CHANGE_STATE
+      changeStateEvent: constants.EVENT_CHANGE_STATE,
+      handleResize() {
+        let rowHeight = 100;
+        if(this.$refs.actionsRow.$el && this.$refs.actionsRow.$el.children[1] && this.$refs.actionsRow.$el.children[1].children[0]){
+          rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight+2;
+        }
+        this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight) : 2;
+      }
     }),
     formatDate(date) {
       return moment(date).format('DD-MMM-YYYY');
@@ -169,8 +177,7 @@ export default {
     margin-bottom: 0;
     height: auto;
     overflow-y: auto;
-    min-height: 309px;
-    max-height: 70%;
+    max-height: 75%;
   }
 
   table.table td, table.table th{

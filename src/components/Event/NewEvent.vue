@@ -4,14 +4,14 @@
       <h2 class="d-inline float-left text">Agregar Evento</h2>
       <button type="button" class="btn btn-warning d-inline float-right create text"  @click="goBack">Volver?</button>
     </div>
-    <div >
+    <div class="container-fluid row">
       <div v-if="errors.length">
         <b>Por favor corriga los siguientes errores:</b>
         <ul>
           <li v-for="error in errors" >{{ error }}</li>
         </ul>
       </div>
-      <b-form class="p-form" @submit="checkForm">
+      <b-form class="p-form col" @submit="checkForm">
         <b-form-group id="titleGroup" label="Título:" label-for="title">
           <b-form-input id="title" type="text" v-model="data.title"
                         required placeholder="Título">
@@ -109,8 +109,8 @@
         <button class="button" type="submit" >Guardar</button>
       </b-form>
 
-      <div class="">
-        <ImageContent :img="image" :w="350" :h="280" ref="imgContent"></ImageContent>
+      <div class="col-4">
+        <ImageContent :img="image" ref="imgContent" class="image"></ImageContent>
       </div>
     </div>
   </div>
@@ -250,6 +250,7 @@ export default {
   font-size: 13px;
   letter-spacing: 0.01em;
   color: #A8ABBA;
+
 }
 
 input[type=text]{
@@ -260,4 +261,13 @@ input[type=text]{
   height: 143px;
 }
 
+  .image{
+    width: 100%;
+
+  }
+
+  .row{
+    margin: 0;
+    padding: 0;
+  }
 </style>
