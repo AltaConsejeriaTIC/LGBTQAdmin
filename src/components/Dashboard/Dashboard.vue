@@ -92,7 +92,7 @@
                 <!-- Page Content  -->
                 <div id="content">               
                     <img src="../../assets/logo-alcaldia.png" width=30% height=30%>
-                    <router-view class="content"></router-view>                
+                  <router-view class="content"></router-view>
                 </div>
             </div>
         </div>
@@ -118,6 +118,11 @@
       signout() {
         this.logout();
         this.$router.push('/login')
+      },
+      toggle: function() {
+        this.active = !this.active
+        console.log('ACTIVE===',this.active)
+        console.log(window.location.pathname)
       }
     }
   }
