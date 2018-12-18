@@ -110,7 +110,7 @@
       </b-form>
 
       <div class="col-4">
-        <ImageContent :img="image" ref="imgContent" class="image"></ImageContent>
+        <ImageContent :w="350" :h="280" ref="imgContent" class="image"></ImageContent>
       </div>
     </div>
   </div>
@@ -266,7 +266,7 @@ input[type=text]{
 
   }
 
-  .row{
+  .row, .col-4{
     margin: 0;
     padding: 0;
   }

@@ -4,38 +4,6 @@
       <h2 class="d-inline float-left text">{{title}}</h2>
       <button type="button" class="btn btn-warning d-inline float-right create text" @click="newEvent">Agregar Evento</button>
     </div>
-    <!--<table class="table text table-responsive-md">-->
-      <!--<thead class="thead-light">-->
-        <!--<tr>-->
-          <!--<th scope="col" class="id">Id</th>-->
-          <!--<th scope="col">Título</th>-->
-          <!--<th scope="col">Fecha de Inicio</th>-->
-          <!--<th scope="col">Lugar</th>-->
-          <!--<th scope="col">Estado</th>-->
-          <!--<th scope="col">Acciones</th>-->
-
-        <!--</tr>-->
-      <!--</thead>-->
-       <!--<tbody v-for="event in events" :key="event.id">-->
-        <!--<tr :class="{'table-disable': !event.state}">-->
-          <!--<th scope="row" class="id">{{event.id}}</th>-->
-          <!--<td>{{event.title}}</td>-->
-          <!--<td>{{formatDate(event.start_date)}}<br>{{formatDate(event.finish_date)}}</td>-->
-          <!--<td>{{event.place}}</td>-->
-          <!--<td>{{event.state ? "Publicado" : "No Publicado" }}</td>-->
-          <!--<td >-->
-            <!--<button type="button" class="btn btn-light actions" @click="changeState(event)">-->
-              <!--{{event.state ? "Ocultar" : "Publicar" }}-->
-            <!--</button>-->
-            <!--<button type="button" class="btn btn-light actions" @click="editEvent(event.id)" >-->
-              <!--<i class="edit icon"></i>-->
-              <!--Editar-->
-            <!--</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-      <!--</tbody>-->
-    <!--</table>-->
-
     <b-table hover stacked="lg"           :items="events"
              :fields="fields"             :head-variant="'light'"
              :current-page="currentPage"  :per-page="perPage"

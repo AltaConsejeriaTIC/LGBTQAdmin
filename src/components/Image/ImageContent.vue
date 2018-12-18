@@ -1,20 +1,23 @@
 <template>
-  <div class="ui medium image">
-    <croppa v-model="myCroppa"
-            :quality="2"
-            :width="w"
-            :height="h"
-            :prevent-white-space="true"
-            :show-remove-button="false"
-            :file-size-limit="1024000"
-            @file-size-exceed="onFileSizeExceed">
-      <img crossOrigin="anonymous" :src="image" slot="initial">
-    </croppa>
-    <button class="ui button" @click="myCroppa.chooseFile()">
-      <i class="edit icon"></i>
-      Editar
-    </button>
-    <p>Editar Foto(Alejar, acercar, mover)</p>
+  <div>
+    <div class="p-card">
+      <croppa v-model="myCroppa"
+              :quality="2"
+              :width="w"
+              :height="h"
+              :prevent-white-space="true"
+              :show-remove-button="false"
+              :file-size-limit="1024000"
+              @file-size-exceed="onFileSizeExceed"
+              class="card-img-top">
+        <img crossOrigin="anonymous" :src="image" slot="initial">
+      </croppa>
+      <button @click="myCroppa.chooseFile()">
+        <i class="edit icon"></i>
+        Subir imagen
+      </button>
+    </div>
+    <p>Las imágenes subidas serán cortadas para quedar con proporción 9.5. El peso máximo de la imagen es de 1Mb.</p>
   </div>
 </template>
 
@@ -87,5 +90,29 @@
 </script>
 
 <style scoped>
+p{
+  font-weight: normal;
+  line-height: 21px;
+  font-size: 13px;
+
+  color: #737582;
+}
+
+  .p-card .card-img-top, .p-card button{
+    background: #DFE0E1;
+    border: 1px solid #CBCED0;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+.p-card .card-img-top{
+  border-radius: 4px 4px 0 0;
+}
+
+.p-card button{
+  border-radius: 0 0 4px 4px;
+  border-top: 0;
+  height: 45px;
+}
 
 </style>
