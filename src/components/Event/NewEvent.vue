@@ -77,8 +77,8 @@
 
       </b-form>
 
-      <div class="col-12 col-md-4" >
-        <ImageContent ref="imgContent" class="image"></ImageContent>
+      <div class="col-12 col-md-auto" >
+        <ImageContent :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
       </div>
     </div>
   </div>
@@ -202,11 +202,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
 p {
   color: #A8ABBA;
 }
-.p-form{
+.p-form {
   text-align: left;
   font-style: normal;
   font-weight: 800;
@@ -214,23 +215,6 @@ p {
   font-size: 12px;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-
-  color: #575A6D;
-  padding: 0;
-  margin-right: 10%;
-}
-
-.p-form ::placeholder{
-  font-weight: 600;
-  line-height: 20px;
-  font-size: 13px;
-  letter-spacing: 0.01em;
-  color: #A8ABBA;
-
-}
-
-input[type=text]{
-  height: 40px;
 }
 
 #description{
@@ -238,11 +222,11 @@ input[type=text]{
 }
 
   .image{
-    width: 100%;
+    width: min-content;
 
   }
 
-  .row, .col-4, .col-md-4{
+  .row, .col-md-auto, .col-md-4{
     margin: 0;
     padding: 0;
   }
@@ -251,5 +235,13 @@ input[type=text]{
     width: 100%;
     margin-bottom: 15px;
   }
+
+.btn-warning {
+  width: 154px;
+  font-weight: bold;
+  line-height: 21px;
+  border: 1px solid #E0AE0D;
+  color: #161824;
+}
 
 </style>

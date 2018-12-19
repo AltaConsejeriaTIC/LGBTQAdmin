@@ -78,7 +78,7 @@
       </b-form>
 
       <div class="col-12 col-md-4" >
-        <ImageContent :img="data.image" ref="imgContent" class="image"></ImageContent>
+        <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
       </div>
     </div>
   </div>
@@ -108,6 +108,10 @@ export default {
     this.data = this.get(id);
     this.data.start_date = moment(this.data.start_date).format('YYYY-MM-DD');
     this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+
+    this.data.start_time = moment(this.data.start_time,"h:mm a").format('HH:MM');
+    this.data.finish_time = moment(this.data.finish_time,"h:mm a").format('HH:MM');
+    console.log(this.data)
     if(!this.data.place){
       this.data.place = "";
     }
@@ -205,5 +209,19 @@ export default {
  }
  p {
    color: #A8ABBA;
+ }
+
+ .p-form{
+   text-align: left;
+   font-style: normal;
+   font-weight: 800;
+   line-height: 1.4;
+   font-size: 12px;
+   letter-spacing: 0.03em;
+   text-transform: uppercase;
+
+   color: #575A6D;
+   padding: 0;
+   margin-right: 10%;
  }
 </style>
