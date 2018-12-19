@@ -166,12 +166,7 @@ export default {
   table.table td, table.table th{
     vertical-align: middle;
   }
-  td:nth-child(3) {
-    width: 113px;
-  }
-  td:nth-child(6) {
-    width: 183px;
-  }
+
   table.table tr{
     min-height: 43px;
   }
@@ -254,4 +249,13 @@ export default {
     }
   }
 
+</style>
+
+<style scoped>
+  .table >>> td:nth-child(3) {
+    width: 150px;
+  }
+  .table >>> td:nth-child(6) {
+    width: 183px;
+  }
 </style>
