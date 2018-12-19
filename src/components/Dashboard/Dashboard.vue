@@ -21,17 +21,17 @@
             <div class="dashboard">
                 <nav v-if = "active" class="sidebar">
                     <ul class="list-unstyled components">
-                        <router-link tag="li" active-class="active" :to="{name: 'Home'}">
+                        <li class="group-text">
+                                PUBLICACIONES
+                        </li>
+                        <router-link tag="li" active-class="active" :to="{name: 'News'}">
                             <a href="#">
                                 <div class="section">
-                                    <div class="section-text">Destacados</div>
-                                    <div class="section-icon"><i class="far fa-star"></i></div>
+                                    <div class="section-text">Noticias</div>
+                                    <div class="section-icon"><i class="far fa-newspaper"></i></div>
                                 </div>
                             </a>
                         </router-link>
-                        <li class="group-text">
-                                AGRUPACION 1
-                        </li>
                         <router-link tag="li" active-class="active" :to="{name: 'Event'}">
                             <a href="#">
                                 <div class="section">
@@ -40,25 +40,28 @@
                                 </div>
                             </a>
                         </router-link>
-                        <router-link tag="li" active-class="active" :to="{name: 'News'}">
+                        <li class="group-text">
+                                ACTUALIDAD
+                        </li>
+                        <router-link tag="li" active-class="active" :to="{name: 'Home'}">
                             <a href="#">
                                 <div class="section">
-                                    <div class="section-text">Noticias</div>
-                                    <div class="section-icon"><i class="far fa-bell"></i></div>
+                                    <div class="section-text">Destacados</div>
+                                    <div class="section-icon"><i class="far fa-star"></i></div>
+                                </div>
+                            </a>
+                        </router-link>
+                        <router-link tag="li" active-class="active" :to="{name: ''}">
+                            <a href="#">
+                                <div class="section">
+                                    <div class="section-text">Notificaciones</div>
+                                    <div class="section-icon"><i class="far fa-bell "></i></div>
                                 </div>
                             </a>
                         </router-link>
                         <li class="group-text">
-                                AGRUPACION 2
+                                INFORMACIÓN
                         </li>
-                        <router-link tag="li" active-class="active" :to="{name: 'Organization'}">
-                            <a href="#">
-                                <div class="section">
-                                    <div class="section-text">Organizaciones</div>
-                                    <div class="section-icon"><i class="fas fa-users"></i></div>
-                                </div>
-                            </a>
-                        </router-link>
                         <router-link tag="li" active-class="active" :to="{name: 'Alliance'}">
                             <a href="#">
                                 <div class="section">
@@ -67,13 +70,21 @@
                                 </div>
                             </a>
                         </router-link>
+                        <router-link tag="li" active-class="active" :to="{name: 'Organization'}">
+                            <a href="#">
+                                <div class="section">
+                                    <div class="section-text">Organizaciones</div>
+                                    <div class="section-icon"><i class="fas fa-users"></i></div>
+                                </div>
+                            </a>
+                        </router-link>
                         <li class="group-text">
-                                AGRUPACION 3
+                                DATOS DE USUARIO
                         </li>
                         <router-link tag="li" active-class="active" :to="{name: 'PersonalData'}">
                             <a href="#">
                                 <div class="section">
-                                    <div class="section-text">Censo</div>
+                                    <div class="section-text">Censo LGBTI</div>
                                     <div class="section-icon"><i class="far fa-list-alt"></i></div>
                                 </div>
                             </a>
