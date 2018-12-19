@@ -1,9 +1,9 @@
 <template>
     <div class="wrapper">
-        <div class="app-container">            
+        <div class="app-container">
             <nav class="navbar">
-                <div class="toggle-button">                    
-                    <button type="button" id="sidebarCollapse" class="btn btn-info" @click="toggle">
+                <div class="toggle-button">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn" @click="toggle">
                         <i class="fas fa-align-justify"></i>
                     </button>
                 </div>
@@ -11,86 +11,98 @@
                 <div class="title">
                     <h3 class="mainTitle">EN BOGOTÁ SE PUEDE SER</h3>
                     <h5 class="subtitle">ADMINISTRADOR</h5>
-                </div> 
+                </div>
 
                 <div class="logout-button">
                     <button type="button" class="btn btn-link navlink" @click="signout">CERRAR SESIÓN</button>
-                </div>   
+                </div>
             </nav>
-            
+
             <div class="dashboard">
-                <nav v-if = "active" id="sidebar">
-                    <ul class="list-unstyled components">                                     
+                <nav v-if = "active" class="sidebar">
+                    <ul class="list-unstyled components">
+                        <li class="group-text">
+                                PUBLICACIONES
+                        </li>
+                        <router-link tag="li" active-class="active" :to="{name: 'News'}">
+                            <a href="#">
+                                <div class="section">
+                                    <div class="section-text">Noticias</div>
+                                    <div class="section-icon"><i class="far fa-newspaper"></i></div>
+                                </div>
+                            </a>
+                        </router-link>
+                        <router-link tag="li" active-class="active" :to="{name: 'Event'}">
+                            <a href="#">
+                                <div class="section">
+                                    <div class="section-text">Eventos</div>
+                                    <div class="section-icon"><i class="far fa-calendar"></i></div>
+                                </div>
+                            </a>
+                        </router-link>
+                        <li class="group-text">
+                                ACTUALIDAD
+                        </li>
                         <router-link tag="li" active-class="active" :to="{name: 'Home'}">
-                            <a href="#"> 
-                                <div class="section"> 
-                                    <div class="section-text">DESTACADOS</div> 
+                            <a href="#">
+                                <div class="section">
+                                    <div class="section-text">Destacados</div>
                                     <div class="section-icon"><i class="far fa-star"></i></div>
                                 </div>
                             </a>
                         </router-link>
-                        <li class="group-text">                        
-                                AGRUPACION 1
+                        <router-link tag="li" active-class="active" :to="{name: ''}">
+                            <a href="#">
+                                <div class="section">
+                                    <div class="section-text">Notificaciones</div>
+                                    <div class="section-icon"><i class="far fa-bell "></i></div>
+                                </div>
+                            </a>
+                        </router-link>
+                        <li class="group-text">
+                                INFORMACIÓN
                         </li>
-                        <router-link tag="li" active-class="active" :to="{name: 'Event'}">
-                            <a href="#"> 
-                                <div class="section"> 
-                                    <div class="section-text">EVENTOS</div> 
-                                    <div class="section-icon"><i class="far fa-calendar"></i></div>
-                                </div>
-                            </a>                        
-                        </router-link>
-                        <router-link tag="li" active-class="active" :to="{name: 'News'}">
-                            <a href="#"> 
-                                <div class="section"> 
-                                    <div class="section-text">NOTICIAS</div> 
-                                    <div class="section-icon"><i class="far fa-bell"></i></div>
-                                </div>
-                            </a>                        
-                        </router-link>
-                        <li class="group-text">                        
-                                AGRUPACION 2
-                        </li>
-                        <router-link tag="li" active-class="active" :to="{name: 'Organization'}">
-                            <a href="#"> 
-                                <div class="section"> 
-                                    <div class="section-text">ORGANIZACIONES</div> 
-                                    <div class="section-icon"><i class="fas fa-users"></i></div>
-                                </div>
-                            </a>                        
-                        </router-link>
                         <router-link tag="li" active-class="active" :to="{name: 'Alliance'}">
-                            <a href="#"> 
-                                <div class="section"> 
-                                    <div class="section-text">ALIANZAS</div> 
+                            <a href="#">
+                                <div class="section">
+                                    <div class="section-text">Alianzas</div>
                                     <div class="section-icon"><i class="far  fa-handshake"></i></div>
                                 </div>
-                            </a>                        
+                            </a>
                         </router-link>
-                        <li class="group-text">                        
-                                AGRUPACION 3
+                        <router-link tag="li" active-class="active" :to="{name: 'Organization'}">
+                            <a href="#">
+                                <div class="section">
+                                    <div class="section-text">Organizaciones</div>
+                                    <div class="section-icon"><i class="fas fa-users"></i></div>
+                                </div>
+                            </a>
+                        </router-link>
+                        <li class="group-text">
+                                DATOS DE USUARIO
                         </li>
                         <router-link tag="li" active-class="active" :to="{name: 'PersonalData'}">
-                            <a href="#"> 
-                                <div class="section"> 
-                                    <div class="section-text">CENSO</div> 
+                            <a href="#">
+                                <div class="section">
+                                    <div class="section-text">Censo LGBTI</div>
                                     <div class="section-icon"><i class="far fa-list-alt"></i></div>
                                 </div>
-                            </a>                        
+                            </a>
                         </router-link>
                         <router-link tag="li" active-class="active" :to="{name: 'Complaint'}">
-                            <a href="#"> 
-                                <div class="section"> 
-                                    <div class="section-text">DENUNCIA</div> 
+                            <a href="#">
+                                <div class="section">
+                                    <div class="section-text">Denuncias</div>
                                     <div class="section-icon"><i class="fas fa-gavel"></i></div>
                                 </div>
-                            </a>                        
-                        </router-link>                    
-                    </ul>            
+                            </a>
+                        </router-link>
+                    </ul>
                 </nav>
 
+
                 <!-- Page Content  -->
-                <div id="content">               
+                <div id="content">
                     <!--<img src="../../assets/logo-alcaldia.png" width=30% height=30%>-->
                   <router-view class="content"></router-view>
                 </div>
@@ -121,8 +133,6 @@
       },
       toggle: function() {
         this.active = !this.active
-        console.log('ACTIVE===',this.active)
-        console.log(window.location.pathname)
       }
     }
   }
@@ -131,16 +141,18 @@
 
 <style scoped>
 
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+@import "https://fonts.googleapis.com/css?family=Nunito:300,400,500,600,700";
 
 /* navbar */
+
 .navbar {
     font-family:  Nunito  ;
     background: #009de0;
     border: none;
     border-radius: 0;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-    /*padding: 140px !important;*/
+    padding-left: 0px;
+    height: 80px;
 }
 
 .navbar-btn {
@@ -150,49 +162,43 @@
 }
 .navlink {
     color:#fafafa;
+    text-decoration: none;
+}
+.navlink:hover{
+  color:black;
 }
 
 /* sidebar */
 
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    background: #202122;
-    color: #fff;
+.sidebar {
+  width: 237px;
+  background: #202122;
+  color: #fff;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 18px;
+  font-size: 15px;
+  text-align: center;
+  letter-spacing: 0.02em;
 }
 
-#sidebar.active {
-    margin-left: -250px;
-}
-
-#sidebar .sidebar-header {
+.sidebar .sidebar-header {
     padding: 20px;
     background: #202122;
 }
 
-#sidebar ul.components {
-    padding: 20px 0;
-    border-bottom: 1px solid #141313;
-}
-
-#sidebar ul p {
-    color: #fff;
-    padding: 10px;
-}
-
-#sidebar ul li a {
-    padding: 10px;
+a {
+    padding: 10px 0px;
     font-size: 1.1em;
     display: block;
 }
 
-#sidebar ul li a:hover {
-    color: #009DE0;
-    background: rgba(248, 251, 252, 0.1);
+li a:hover {
+    color: #000;
+    background: #009DE0;
 }
 
-#sidebar ul li.active>a,
-a[aria-expanded="true"] {
+li.active>a {
     color:  #009DE0;
     background: rgba(248, 251, 252, 0.1);
 }
@@ -202,9 +208,9 @@ a:hover,
 a:focus {
     color: inherit;
     text-decoration: none;
-    transition: all 0.5s;  
+    transition: all 0.5s;
     height: 39px;
-    font-size: 15px;  
+    font-size: 15px;
 }
 
 /* content */
@@ -215,7 +221,6 @@ a:focus {
     min-height: 497px;
     transition: all 0.3s;
     background-color: #EAEAEC;
-    
 }
 
 .app-container {
@@ -232,7 +237,7 @@ a:focus {
     margin: 40px 0;
 }
 
-.title {  
+.title {
   flex: 1;
   text-align: left;
 }
@@ -256,10 +261,18 @@ a:focus {
 }
 .dashboard{
     display: flex;
+    align-items: stretch;
 }
 
 .toggle-button{
-    width: 250px;
+  width: 237px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-btn:hover {
+  color: #009DE0;
 }
 
 .logout-button{
@@ -267,7 +280,7 @@ a:focus {
 }
 
 .section{
-    display: -webkit-box;
+    display: flex;
 }
 .section-icon {
     min-width: 50px;
@@ -275,12 +288,12 @@ a:focus {
 }
 
 .section-text {
-    min-width: 200px;
-    max-width: 200px;
-    margin-left: -10px;
+    min-width: 187px;
+    max-width: 187px;
+    padding-left: 50px;
 }
 .group-text{
-    height: 54px;    
+    height: 54px;
     color: #7A7B80;
     left: 24px;
     font-size: 12px;
@@ -320,7 +333,7 @@ ul.CTAs a {
 
 li {
     border-bottom: 1px solid #323436;
-    
+
 }
 
 a.download {
@@ -357,28 +370,16 @@ h1, h3, h5 {
   color: black;
 }
 
-
-/* @media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-    #sidebarCollapse span {
-        display: none;
-    }
-} */
-  .content{
+.content{
     width: 80%;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 80px);
     margin: 0 auto;
     padding-top: 36px;
     /*background-image: url("/static/img/logo-alcaldia.png");*/
     /*background-repeat: no-repeat;*/
     /*background-size: contain;*/
     /*background-position: center;*/
-  }
+}
 
 @media (max-width: 1500px){
   .logout-button{

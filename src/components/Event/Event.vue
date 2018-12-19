@@ -24,7 +24,6 @@
 import { mapActions, mapGetters } from 'vuex';
 import * as constants from '@/store/constants';
 import DetailEvent from "./DetailEvent";
-
 import * as moment from 'moment';
 
 export default {
@@ -114,7 +113,6 @@ export default {
     margin: 20px 0;
     height: 44px;
   }
-
   .text{
     font-weight: bold;
     line-height: 27px;
@@ -123,21 +121,18 @@ export default {
     font-family: Nunito,Arial,monospace;
     color: #3F4150;
   }
-
   button.create{
     width: 154px;
     height: 44px;
     border: 1px solid #E0AE0D;
     box-sizing: border-box;
     border-radius: 4px;
-
     font-weight: bold;
     line-height: 21px;
     font-size: 14px;
     text-align: center;
     color: #161824;
   }
-
   table.table{
     text-align: left;
     background-color: #fff;
@@ -151,23 +146,18 @@ export default {
   table.table td, table.table th{
     vertical-align: middle;
   }
-
   td:nth-child(3) {
     width: 113px;
   }
-
   td:nth-child(6) {
     width: 183px;
   }
-
   table.table tr{
     min-height: 43px;
   }
-
   thead{
     text-transform: uppercase;
   }
-
   .table .thead-light th{
     background-color: #F9FAFB;
     line-height: 14px;
@@ -176,12 +166,10 @@ export default {
     text-transform: uppercase;
     color: #7C7F92;
   }
-
   .table .id{
     vertical-align: middle;
     text-align: center;
   }
-
   tbody tr{
     font-weight: 800;
     line-height: 20px;
@@ -193,7 +181,6 @@ export default {
     font-weight: 600;
     color: #999BAA;
   }
-
   button.actions{
     height: 32px;
     width: 73px;
@@ -204,9 +191,7 @@ export default {
     line-height: 20px;
     font-size: 13px;
     text-align: center;
-
   }
-
   button.actions:first-child{
     margin-bottom: 0;
     margin-right: 10px;
@@ -220,12 +205,10 @@ export default {
     td:nth-child(6){
       width: unset;
     }
-
     button.actions:first-child{
       margin-right: 0;
       margin-bottom: 10px;
     }
-
   }
 
   @media (max-width: 992px) {
