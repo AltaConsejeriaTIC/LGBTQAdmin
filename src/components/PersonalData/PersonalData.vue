@@ -1,42 +1,50 @@
 <template>
   <div>
-    <div class="p-title text">
-      <h2 class="d-inline float-left text">{{title}}</h2>
-      <!-- <button type="button" class="btn btn-warning d-inline float-right create text" @onclick="exportTableToExcel('tblData')">Descargar</button> -->
-      <download-excel
-            type="button"
-            class="btn btn-warning d-inline float-right create text"
-            :fields = "jeison_fields"
-            :data   = "json_data">
-          Descargar
-          
-      </download-excel>
+    <div class="section">
+      <div class="section-head">
+        <div class="p-title">
+          <div class="main-title">{{title}}</div>
+          <div class="subtitle">respuestas usuarios</div>
+        </div>
+        <div class="down-exel">
+          <div class="down-exel-icon">
+            <download-excel
+                  type="button"
+                  class="btn btn-warning "
+                  :fields = "jeison_fields"
+                  :data   = "json_data">
+                  <i class="fas fa-download"></i>
+            </download-excel>
+          </div>
+          <div class="icon-text">Descargar la tabla de respuestas</div>
+        </div>
+      </div>
+        <b-table hover stacked="lg"           :items="users"
+                :fields="fields"             :head-variant="'light'"
+                :current-page="currentPage"  :per-page="perPage"
+                class="table text table-responsive-xl" id="tblData">
+          <template slot="state" slot-scope="row">{{row.value?'Publicado':'No Publicado'}}</template>
+          <template slot="actions" slot-scope="row">
+            <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
+            <b-button class="actions" variant="light" @click.stop="viewUser(row.id)">Editar</b-button>
+          </template>
+        </b-table>
+          <b-pagination :total-rows="users.length" :per-page="perPage" v-model="currentPage" align="right"
+                        :limit=1 v-bind:hide-goto-end-buttons="true" next-text="Siguiente" prev-text="Anterior"></b-pagination>
     </div>
-    <b-table hover stacked="lg"           :items="users"
-            :fields="fields"             :head-variant="'light'"
-            :current-page="currentPage"  :per-page="perPage"
-            class="table text table-responsive-xl" id="tblData">
-      <template slot="state" slot-scope="row">{{row.value?'Publicado':'No Publicado'}}</template>
-      <template slot="actions" slot-scope="row">
-        <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->        
-        <b-button class="actions" variant="light" @click.stop="viewUser(row.id)">Editar</b-button>
-      </template>
-    </b-table>  
-      <b-pagination :total-rows="users.length" :per-page="perPage" v-model="currentPage" align="right"
-                    :limit=1 v-bind:hide-goto-end-buttons="true" next-text="Siguiente" prev-text="Anterior"></b-pagination> 
   </div>
 </template>
 
 <script>
   import { mapActions, mapGetters } from 'vuex';
-  import * as constants from '@/store/constants';  
+  import * as constants from '@/store/constants';
 
   import * as moment from 'moment';
 
   export default {
     name: 'PersonalData',
     data() {
-      return {   
+      return {
         json_fields: {
         'Complete name': 'name',
         'City': 'city',
@@ -48,7 +56,7 @@
             }
         },
     },
-     
+
         json_data : [
             {
                 "name"      : "Tony Peña",
@@ -94,7 +102,7 @@
             label: 'NIVEL EDUCATIVO'
           },
           birth_day: {
-            label: 'FECHA DE NACIMIENTO',
+            label: 'FECHA DE    NACIMIENTO ',
             formatter: (value, key, item) => {
               return this.formatDate(item.birth_date)
             }
@@ -118,19 +126,19 @@
             label: 'GÉNERO'
           }
         }
-      }       
+      }
     },
-    
+
     created() {
       if ( !this.users.length ){
         this.getData();
-      }      
-    }, 
+      }
+    },
     computed: {
       ...mapGetters({
         users: constants.USERS
       })
-    },    
+    },
     methods: {
       ...mapActions({
         getData: constants.PERSONALDATA_GET_USERS
@@ -143,15 +151,15 @@
           var dataType = 'application/vnd.ms-excel';
           var tableSelect = document.getElementById(tableID);
           var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-          
+
           // Specify file name
           filename = filename?filename+'.xls':'excel_data.xls';
-          
+
           // Create download link element
           downloadLink = document.createElement("a");
-          
+
           document.body.appendChild(downloadLink);
-          
+
           if(navigator.msSaveOrOpenBlob){
               var blob = new Blob(['\ufeff', tableHTML], {
                   type: dataType
@@ -160,10 +168,10 @@
           }else{
               // Create a link to the file
               downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-          
+
               // Setting the file name
               downloadLink.download = filename;
-              
+
               //triggering the function
               downloadLink.click();
           }
@@ -173,9 +181,39 @@
 </script>
 
 <style scoped>
+  .section {
+    display: flex;
+    flex-direction: column;
+  }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+  }
   .p-title{
-    margin: 20px 0;
-    height: 44px;
+    display: flex;
+    font-size: 24PX;
+    font-weight: bold;
+    color: #3F4150;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .subtitle{
+    font-size: 24PX;
+    line-height: 24px;
+    font-weight: bold;
+    color: #999BAA;
+  }
+  .down-exel {
+    display: flex;
+    width: 140px;
+    color: #7C7F92;
+    align-items: flex-end;
+  }
+  .icon-text {
+    font-size: 10px;
+    text-align: left;
+    line-height: 12px;
+    padding-left: 5px;
   }
   .text{
     font-weight: bold;
@@ -210,8 +248,8 @@
   thead{
     text-transform: uppercase;
   }
-  .table .thead-light th{
-    background-color: #F9FAFB;
+  .table th{
+    background-color: #F9FAFB !important;
     line-height: 14px;
     font-size: 11px;
     letter-spacing: 0.04em;
