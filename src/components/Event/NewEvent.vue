@@ -202,32 +202,7 @@ export default {
 
 <style scoped>
 
-.p-form{
-  text-align: left;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 1.4;
-  font-size: 12px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
 
-  color: #575A6D;
-  padding: 0;
-  margin-right: 10%;
-}
-
-.p-form ::placeholder{
-  font-weight: 600;
-  line-height: 20px;
-  font-size: 13px;
-  letter-spacing: 0.01em;
-  color: #A8ABBA;
-
-}
-
-input[type=text]{
-  height: 40px;
-}
 
 #description{
   height: 143px;
@@ -247,5 +222,13 @@ input[type=text]{
     width: 100%;
     margin-bottom: 15px;
   }
+
+.btn-warning {
+  width: 154px;
+  font-weight: bold;
+  line-height: 21px;
+  border: 1px solid #E0AE0D;
+  color: #161824;
+}
 
 </style>

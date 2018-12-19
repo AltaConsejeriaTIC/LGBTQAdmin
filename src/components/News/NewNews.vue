@@ -1,46 +1,4 @@
 <template>
-  <!--<div class="ui grid">-->
-    <!--<div class="five wide column">-->
-      <!--<ImageContent :img="image" :w="350" :h="280" ref="imgContent"></ImageContent>-->
-    <!--</div>-->
-
-    <!--<div class="ten wide column">-->
-      <!--<div v-if="errors.length">-->
-        <!--<b>Por favor corriga los siguientes errores:</b>-->
-        <!--<ul>-->
-          <!--<li v-for="error in errors" >{{ error }}</li>-->
-        <!--</ul>-->
-      <!--</div>-->
-      <!--<form class="ui form" @submit="checkForm">-->
-        <!--<div class="field">-->
-          <!--<label>Titulo</label>-->
-          <!--<input type="text" v-model="data.title">-->
-          <!--<label>Descripción</label>-->
-          <!--<textarea rows="8" v-model="data.description"></textarea>-->
-        <!--</div>-->
-        <!--<div class="field">-->
-          <!--<label>Fuente</label>-->
-          <!--<input type="text" v-model="data.source">-->
-          <!--<label>Link de la noticia</label>-->
-          <!--<input type="text" v-model="data.source_link">-->
-          <!--<label>Propietario de la imagen</label>-->
-          <!--<input type="text" v-model="data.image_owner">-->
-        <!--</div>-->
-        <!--<div class="field">-->
-          <!--<label>Fecha: {{data.date}}</label>-->
-          <!--<input type="date" v-model="data.date">-->
-        <!--</div>-->
-        <!--<button class="ui button" type="submit" >Guardar</button>-->
-      <!--</form>-->
-    <!--</div>-->
-    <!--<div class="fifteen wide column">-->
-      <!--<button class="ui button back" @click="goBack">-->
-        <!--<i class="caret left icon"></i>-->
-        <!--Volver-->
-      <!--</button>-->
-    <!--</div>-->
-  <!--</div>-->
-
   <div>
     <div class="p-title text">
       <h2 class="d-inline float-left text">Agregar Noticia</h2>
@@ -171,7 +129,7 @@
           let year = currentDate.getFullYear();
           let month = this.addZero(currentDate.getMonth()+1);
           let day = this.addZero(currentDate.getDate());
-          currentDate = `${year}-${month}-${day}`
+          currentDate = `${year}-${month}-${day}`;
           if (this.data.date > currentDate ) {
             this.errors.push('La fecha no puede ser mayor a hoy.')
           }
@@ -244,5 +202,12 @@
 
   .btn.big {
     height: 44px;
+  }
+  .btn-warning {
+    width: 154px;
+    font-weight: bold;
+    line-height: 21px;
+    border: 1px solid #E0AE0D;
+    color: #161824;
   }
 </style>

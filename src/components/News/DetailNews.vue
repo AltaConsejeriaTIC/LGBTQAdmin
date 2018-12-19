@@ -1,43 +1,60 @@
 <template>
-  <div class="ui grid">
-    <div class="five wide column">
-      <ImageContent :img="data.image"  :w="350" :h="280"  ref="imgContent"></ImageContent>
+  <div>
+    <div class="p-title text">
+      <h2 class="d-inline float-left text">Agregar Noticia</h2>
+      <button type="button" class="btn btn-warning d-inline float-right create big text"  @click="goBack">Volver</button>
     </div>
-
-    <div class="ten wide column">
+    <div class="container-fluid row">
       <div v-if="errors.length">
         <b>Por favor corriga los siguientes errores:</b>
         <ul>
           <li v-for="error in errors" >{{ error }}</li>
         </ul>
       </div>
-      <form class="ui form" @submit="checkForm">
-        <div class="field">
-          <label>Titulo</label>
-          <input type="text" v-model="data.title">
-          <label>Descripción</label>
-          <textarea rows="8" v-model="data.description"></textarea>
-        </div>
-        <div class="field">
-          <label>Fuente</label>
-          <input type="text" v-model="data.source">
-          <label>Link de la noticia</label>
-          <input type="text" v-model="data.source_link">
-          <label>Propietario de la imagen</label>
-          <input type="text" v-model="data.image_owner">
-        </div>
-        <div class="field">
-          <label>Fecha: {{data.date}}</label>
-          <input type="date" v-model="data.date">
-        </div>
-        <button class="ui button" type="submit" >Guardar</button>
-      </form>
-    </div>
-    <div class="fifteen wide column">
-      <button class="ui button back" @click="goBack">
-        <i class="caret left icon"></i>
-        Volver
-      </button>
+      <b-form class="p-form col" @submit="checkForm">
+        <b-form-group id="titleGroup" label="Título:" label-for="title">
+          <b-form-input id="title" type="text" v-model="data.title"
+                        required placeholder="Título">
+          </b-form-input>
+        </b-form-group>
+        <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
+          <b-form-textarea  id="description" type="text" v-model="data.description"
+                            required placeholder="Descripción" :rows="3" :max-rows="5"
+                            v-bind:no-resize="true">
+          </b-form-textarea>
+        </b-form-group>
+
+        <b-form-group id="sourceGroup" label="Fuente:" label-for="source">
+          <b-form-input id="source" type="text" v-model="data.source"
+                        required placeholder="Fuente">
+          </b-form-input>
+        </b-form-group>
+
+        <b-form-group id="sourceLinkGroup" label="Link:" label-for="sourceLink">
+          <b-form-input id="sourceLink" type="text" v-model="data.source_link"
+                        required placeholder="Link">
+          </b-form-input>
+        </b-form-group>
+
+        <b-form-group id="imageOwnerGroup" label="Crédito de la imagen:" label-for="imageOwner">
+          <b-form-input id="imageOwner" type="text" v-model="data.image_owner"
+                        required placeholder="Crédito de la imagen">
+          </b-form-input>
+        </b-form-group>
+        <b-form-row class="form-row">
+          <b-col>
+            <b-btn type="button" class="btn btn-light d-inline big text" @click="goBack">Cancelar</b-btn>
+          </b-col>
+          <b-col>
+            <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
+          </b-col>
+        </b-form-row>
+
+      </b-form>
+
+      <div class="col-12 col-md-auto" >
+        <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
+      </div>
     </div>
   </div>
 </template>
@@ -132,11 +149,61 @@ export default {
 }
 </script>
 
-<style>
-  .ui.button.back {
-    float: right;
+<style scoped>
+  .p-form{
+    text-align: left;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1.4;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+
+    color: #575A6D;
+    padding: 0;
+    margin-right: 10%;
   }
-  .ui.grid {
-    width: 80%;
+
+  .p-form ::placeholder{
+    font-weight: 600;
+    line-height: 20px;
+    font-size: 13px;
+    letter-spacing: 0.01em;
+    color: #A8ABBA;
+
+  }
+
+  input[type=text]{
+    height: 40px;
+  }
+
+  #description{
+    height: 143px;
+  }
+
+  .image{
+    width: min-content;
+
+  }
+
+  .row, .col-md-auto, .col-md-4{
+    margin: 0;
+    padding: 0;
+  }
+
+  .form-row button{
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .btn.big {
+    height: 44px;
+  }
+  .btn-warning {
+    width: 154px;
+    font-weight: bold;
+    line-height: 21px;
+    border: 1px solid #E0AE0D;
+    color: #161824;
   }
 </style>

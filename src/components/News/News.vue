@@ -12,8 +12,8 @@
         <template slot="state" slot-scope="row">{{row.value?'Publicado':'No Publicado'}}</template>
         <template slot="actions" slot-scope="row">
           <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
-          <b-button class="actions" variant="light" @click.stop="changeState(row.item)">{{row.item.state ? "Ocultar" : "Publicar" }}</b-button>
-          <b-button class="actions" variant="light" @click.stop="changeStateNews(row.item.id)">Editar</b-button>
+          <b-button class="actions" variant="light" @click.stop="changeStateNews(row.item)">{{row.item.state ? "Ocultar" : "Publicar" }}</b-button>
+          <b-button class="actions" variant="light" @click.stop="editNews(row.item.id)">Editar</b-button>
         </template>
       </b-table>
       <b-pagination :total-rows="news.length" :per-page="perPage" v-model="currentPage" align="right"
@@ -112,6 +112,14 @@ export default {
 </script>
 
 <style scoped>
+  .btn-warning{
+    width: 154px;
+    font-weight: bold;
+    line-height: 21px;
+    border: 1px solid #E0AE0D;
+    color: #161824;
+  }
+
   .table >>> td:nth-child(4) {
     width: 155px;
   }

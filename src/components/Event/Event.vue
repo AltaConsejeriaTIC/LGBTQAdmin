@@ -118,84 +118,6 @@ export default {
 </script>
 
 <style>
-  .p-title{
-    margin: 20px 0;
-    height: 44px;
-  }
-  .text{
-    font-weight: bold;
-    line-height: 27px;
-    font-size: 22px;
-    font-style: normal;
-    font-family: Nunito,Arial,monospace;
-    color: #3F4150;
-  }
-
-  .btn{
-    border: 1px solid #cbced0;
-    box-sizing: border-box;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 14px !important;
-
-  }
-
-  .btn.big{
-    height: 44px;
-  }
-
-  .btn-warning{
-    width: 154px;
-
-    font-weight: bold;
-    line-height: 21px;
-    border: 1px solid #E0AE0D;
-    color: #161824;
-  }
-
-  table.table{
-    text-align: left;
-    background-color: #fff;
-    margin-top: 24px;
-    margin-bottom: 0;
-    height: auto;
-    overflow-y: auto;
-    max-height: 70%;
-  }
-
-  table.table td, table.table th{
-    vertical-align: middle;
-  }
-
-  table.table tr{
-    min-height: 43px;
-  }
-  thead{
-    text-transform: uppercase;
-  }
-  .table .thead-light th{
-    background-color: #F9FAFB;
-    line-height: 14px;
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: #7C7F92;
-  }
-  .table .id{
-    vertical-align: middle;
-    text-align: center;
-  }
-  tbody tr{
-    font-weight: 800;
-    line-height: 20px;
-    font-size: 14px;
-    color: #3F4150;
-  }
-
-  tbody tr.table-disable{
-    font-weight: 600;
-    color: #999BAA;
-  }
 
   .btn-light{
     background: #DFE0E1;
@@ -243,6 +165,14 @@ export default {
 </style>
 
 <style scoped>
+  .btn-warning{
+    width: 154px;
+    font-weight: bold;
+    line-height: 21px;
+    border: 1px solid #E0AE0D;
+    color: #161824;
+  }
+
   .table >>> td:nth-child(3) {
     width: 155px;
   }
