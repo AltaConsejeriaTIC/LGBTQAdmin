@@ -1,29 +1,36 @@
 <template>
-  <form @submit.prevent="sigin" class="ui form" >
-    <img src="../../assets/logo-alcaldia.png" width=30% height=30%>
-    <div class="ui middle aligned center aligned grid">
-      <div class="column">
-        <h2 class="ui image header">
-          <div class="content"></div>
-        </h2>
-          <div class="ui stacked secondary  segment">
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="user icon"></i>
-                <input v-model="form.email" type="text" id="email" class="form-control" placeholder="E-mail">
-              </div>
-            </div>
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="lock icon"></i>
-                <input v-model="form.password" type="password" id="password"  class="form-control" placeholder="Password">
-              </div>
-            </div>
-            <button class="fluid ui blue button" :disabled="isDisabled" type="submit">Login</button>
-          </div>
+  <div class="container">
+    <div class="row">
+      <div class="col col-l">
+        <div>
+        <img class="img-up" src="../../assets/EBSPS.svg">
+        </div>        
+        <div>
+          <img class="img-half" src="../../assets/logo.svg" >
+        </div>
+        <div>
+        <img class="img-down" src="../../assets/manos.svg">
+        </div>
       </div>
-    </div>
-  </form>
+      <div class="col col-r" >
+        <h1 style="margin-left: 22%">Iniciar sesión</h1> 
+        <form>
+          <div class="form-width">
+            <div class="form-group">
+              <label for="Usuario">Usuario</label>
+              <input v-model="form.email" type="text" id="email" class="form-control" placeholder="Usuario">            
+            </div>
+            <div class="form-group">
+              <label for="Contraseña">Contraseña</label>
+              <input v-model="form.password" type="password" id="password"  class="form-control" placeholder="Contraseña">
+            </div>  
+            <button type="button" class="btn btn-primary btn-lg btn-block" :disabled="isDisabled" @click.prevent="sigin">INGRESAR</button>          
+          </div>
+        </form>        
+      </div>
+    </div>    
+  </div>
+  
 </template>
 
 <script>
@@ -70,29 +77,73 @@ export default {
 </script>
 
 <style scoped>
-body > .grid {
-  height: 100%;
-}
-.image {
-  margin-top: 1100px;
-}
-.column {
-  max-width: 450px;
+
+
+
+.col {
+  width: 559px;  
 }
 
-h1,
-h2 {
-  font-weight: normal;
+
+.col-l{    
+  background: #009DE0;
+  border-radius: 10px 0px 0px 10px; 
+  min-height: 600px;
+  min-width: 400px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.col-r{  
+  text-align: left;
+  background: #EAEAEC;
+  border-radius: 0px 10px 10px 0px; 
+  min-width: 400px;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+h1{  
+  margin-top: 20.266%;
+  margin-bottom: 5%;
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: bold;  
+  line-height: 49px;
+  font-size: 30px;
+  color: #282A35;
 }
-a {
-  color: #42b983;
+
+form {
+  margin-bottom: 35.72%;
+}
+
+.form-group {
+  margin-bottom: 8%;  
+}
+
+.form-width{
+  width: 55%;
+  margin: auto;
+}
+.btn-block {
+  margin-top: 4%;
+}
+.img-up {
+  margin-top: 10% ;
+  width: 30%;
+}
+.img-half {
+  margin-top: 10% ;
+  width: 33%;
+}
+.img-down {
+  position: absolute;
+  width: 100%;
+  bottom:0% ;
+  right:0px;
+  margin-top: 10%;
+}
+
+.container {
+  margin-top: 3.266%;
+  display : -webkit-flex;
+  display: flex;  
 }
 </style>

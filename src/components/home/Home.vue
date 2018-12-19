@@ -1,99 +1,71 @@
 <template>
   <div >
-
-    <div class="highlights-section">
-      <h2>Destacados vigentes</h2>
-      <table class="ui celled table">
-        <thead>
-          <tr>
-            <th>Id Destacado</th>
-            <th>Id Noticia/Evento</th>
-            <th>Nombre</th>
-          </tr>
-        </thead>
-        <tbody v-for="highlight in highlights" :key="highlight.id">
-          <tr >
-            <td>{{highlight.id}}</td>
-            <td>{{highlight.section_id}}</td>
-            <td>{{highlight.section}} </td>
-            <td >
-                <div class="ui small button" @click="deleteHighlightById(highlight.id) " >
-                    Quitar
-                </div>
-            </td>
-          </tr>
-        </tbody>
-        <tbody>
-        </tbody>
-      </table>
+    <div class="p-title .text">
+      <h2 class="d-inline float-left text">{{title}}</h2>      
     </div>
 
-   <div class="event-news-section ui container">
-        <div class="ui top attached tabular menu">
-          <a class="item" data-tab="event" :class="{ active: isEventActive }" @click="switchTabs('event')" > Eventos </a>
-          <a class="item" data-tab="news" :class="{ active: isNewsdActive }" @click="switchTabs('news')"> Noticias </a>
-        </div>
-
-        <div class="ui bottom attached tab segment" data-tab="event" :class="{ active: isEventActive }" >
-          <table class="ui celled table">
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Título</th>
-                <th>Fecha de Inicio</th>
-                <th>Fecha de Finalización</th>
-                <th>Lugar</th>
-              </tr>
-            </thead>
-            <tbody v-for="event in events" :key="event.id">
-              <tr >
-                <td>{{event.id}}</td>
-                <td :class="{disabled: !event.state}">{{event.title}}</td>
-                <td>{{formatDate(event.start_date)}}</td>
-                <td>{{formatDate(event.finish_date)}}</td>
-                <td>{{event.place}}</td>
+    <div class="highlights-section">      
+      <b-table hover stacked="lg"          :items="highlights"
+              :fields="fields"             :head-variant="'light'"
+              :current-page="currentPage"  :per-page="perPage"
+              class="table text table-responsive-xl" ref="actionsRow">        
+        <template slot="actions" slot-scope="row">          
+          <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->          
+          <b-button variant="danger" @click.stop="deleteHighlightById(row.item.id) " ><i class="fas fa-trash-alt"></i></b-button>
+        </template>
+      </b-table>     
+      
+    </div>
+    <b-tabs>
+      <b-tab title="Eventos" active>
+        <table class="ui celled table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Título</th>
+              <th>Fecha de Inicio</th>
+              <th>Fecha de Finalización</th>
+              <th>Lugar</th>
+            </tr>
+          </thead>
+          <tbody v-for="event in events" :key="event.id">
+            <tr >
+              <td>{{event.id}}</td>
+              <td :class="{disabled: !event.state}">{{event.title}}</td>
+              <td>{{formatDate(event.start_date)}}</td>
+              <td>{{formatDate(event.finish_date)}}</td>
+              <td>{{event.place}}</td>
+              <td >
+                <b-button  @click="postHighlight( event ,'event')">Destacar</b-button>                
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </b-tab>
+      <b-tab title="Noticias" >
+        <table class="ui celled table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Título</th>
+              <th>Fuente</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody v-for="n in news" :key="n.id">
+            <tr >
+              <td>{{n.id}}</td>
+              <td :class="{disabled: !n.state}">{{n.title}}</td>
+              <td>{{n.source}}</td>
+              <td>{{formatDate(n.date)}}</td>
                 <td >
-                  <div class="ui small button" @click="postHighlight( event ,'event')" >
-                    Destacar
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-        </div>
-
-        <div class="ui bottom attached tab segment" data-tab="news" :class="{ active: isNewsdActive }" >
-
-          <table class="ui celled table">
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Título</th>
-                <th>Fuente</th>
-                <th>Fecha</th>
-              </tr>
-            </thead>
-            <tbody v-for="n in news" :key="n.id">
-              <tr >
-                <td>{{n.id}}</td>
-                <td :class="{disabled: !n.state}">{{n.title}}</td>
-                <td>{{n.source}}</td>
-                <td>{{formatDate(n.date)}}</td>
-                 <td >
-                  <div class="ui small button" @click="postHighlight( n ,'news')" >
-                    Destacar
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-        </div>
-
-    </div>
-
-
+                  <b-button  @click="postHighlight( n ,'news')">Destacar</b-button>                
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </b-tab>      
+    </b-tabs>
   </div>
 </template>
 
@@ -110,6 +82,27 @@ export default {
   name: 'Home',
   data() {
     return {
+      title: "Eventos y noticias destacados",
+      currentPage: 1,
+      perPage: window.innerHeight > 992 ? (window.innerHeight-320)/110 : 5,
+      fields: {
+        id: {
+          label: 'ID',
+          sortable: true,
+          class: 'id'
+        },
+        section_id: {
+          label: 'Id Sección',
+          sortable: false
+        },
+        section: {
+          label: 'Sección',
+          sortable: true,          
+        },
+        actions: {
+          label: 'Acciones'
+        }
+      },
       data: {},
       image: '/images/ImagePlaceholder.png',
       api: ENV.ENDPOINT,
@@ -123,6 +116,13 @@ export default {
       this.getNews();
       this.getHighlights();
   },
+  computed: {
+    ...mapGetters({
+      events: constants.EVENTS,
+      news: constants.NEWS,
+      highlights: constants.HIGHLIGHTS
+    })
+  },
   methods: {
     ...mapActions({
       getEvents: constants.EVENT_GET_ON_EVENTS,
@@ -130,16 +130,7 @@ export default {
       getHighlights: constants.HIGHLIGHT_GET_HIGHLIGHT,
       createHighlight: constants.HIGHLIGHT_CREATE_HIGHLIGHT,
       deleteHighlight: constants.HIGHLIGHT_DELETE_HIGHLIGHT
-    }),
-    switchTabs(tab) {
-      if (tab === 'event') {
-        this.isEventActive = true;
-        this.isNewsdActive = false;
-      } else {
-      	this.isEventActive = false;
-        this.isNewsdActive = true;
-      }
-    },
+    }),    
     postHighlight( data, section ){
       const curr = {
         "section_id": data.id,
@@ -154,13 +145,6 @@ export default {
     formatDate(date) {
       return moment(date).format('YYYY-MMMM-DD');
     },
-  },
-  computed: {
-    ...mapGetters({
-      events: constants.CURRENT_EVENTS,
-      news: constants.CURRENT_NEWS,
-      highlights: constants.HIGHLIGHTS
-    })
   },
 
 }

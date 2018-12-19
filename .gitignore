@@ -13,3 +13,5 @@ src/env.js
 *.ntvs*
 *.njsproj
 *.sln
+
+package-lock\.json
