@@ -252,7 +252,10 @@ a:focus {
 }
 
 .toggle-button{
-    width: 237px;
+  width: 237px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar-btn:hover {
