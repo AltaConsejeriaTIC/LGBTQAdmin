@@ -15,16 +15,28 @@
         <div class="field">
           <label>Nombre</label>
           <input type="text" v-model="data.name">
+          <p>Máx. 45 caracteres</p>
           <label>Descripción</label>
           <textarea rows="8" v-model="data.description"></textarea>
+          <p>Mín. 150, Máx. 300 caracteres</p>
         </div>
         <div class="field">
           <label>Oferta</label>
           <textarea rows="5" v-model="data.offer"></textarea>
+          <p>Mín. 300, Máx. 1000 caracteres</p>
           <label>Sitio Web</label>
           <input type="text" v-model="data.website">
           <label>Teléfono</label>
           <input type="text" v-model="data.phone">
+          <div class="phoneExamples">
+            <p>Ejemplos de telefonos válidos:</p>
+            <ul style="list-style: none;">
+              <li>(+57)(1) 34545345 ext. 12345</li>
+              <li>(1) 34545345 Ext 145</li>
+              <li>+57 2 3454555</li>
+              <li>3454555 ext 12</li>
+            </ul>
+          </div>
           <label>Email</label>
           <input type="email" v-model="data.email">
         </div>
@@ -149,5 +161,9 @@
 <style scoped>
   .ui.grid {
     width: 80%;
+  }
+  .phoneExamples {
+    color: #A8ABBA;
+    text-align: left;
   }
 </style>

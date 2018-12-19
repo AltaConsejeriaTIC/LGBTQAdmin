@@ -12,16 +12,18 @@
         </ul>
       </div>
       <b-form class="p-form col" @submit="checkForm">
-        <b-form-group id="titleGroup" label="Título:" label-for="title">
+        <b-form-group id="titleGroup" label="Título: " label-for="title">
           <b-form-input id="title" type="text" v-model="data.title"
                         required placeholder="Título">
           </b-form-input>
+          <p>Máx. 50 caracteres</p>
         </b-form-group>
         <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
           <b-form-textarea  id="description" type="text" v-model="data.description"
                             required placeholder="Descripción" :rows="3" :max-rows="5"
                             v-bind:no-resize="true">
           </b-form-textarea>
+          <p>Mín. 150, Máx. 800 caracteres</p>
         </b-form-group>
         <b-form-row>
           <b-col>
@@ -139,7 +141,7 @@ export default {
       }else{
         let lenTit = this.data.title.length;
         if (lenTit > 50) {
-          this.errors.push('Título no válido. Tamaño máximo del título 50 caracteres.');
+          this.errors.push('el título puede contener máximo 50 caracteres.');
         }
       }           
       if (!this.data.description) {
@@ -193,12 +195,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
  .btn-danger{
    color: #FFF;
    background: #E75252;
    border-radius: 4px;
    width: 145.88px;
    height: 40px;
+ }
+ p {
+   color: #A8ABBA;
  }
 </style>

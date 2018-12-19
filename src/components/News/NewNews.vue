@@ -15,8 +15,10 @@
         <div class="field">
           <label>Titulo</label>
           <input type="text" v-model="data.title">
+          <p>Máx. 82 caracteres</p>
           <label>Descripción</label>
           <textarea rows="8" v-model="data.description"></textarea>
+          <p>Máx. 1000 caracteres</p>
         </div>
         <div class="field">
           <label>Fuente</label>
@@ -137,6 +139,9 @@
 </script>
 
 <style>
+  p {
+    color: #A8ABBA;
+  }
   .ui.grid {
     width: 80%;
   }
