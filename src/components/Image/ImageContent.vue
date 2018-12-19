@@ -10,6 +10,7 @@
               :placeholder="' + '"
               :height="170"
               class="card-img-top">
+        <img crossOrigin="anonymous" :src="image" slot="initial">
       </croppa>
       <button @click="myCroppa.chooseFile()">
         <i class="edit icon"></i>
@@ -29,6 +30,12 @@
 
   export default {
     name: "ImageContent",
+    props: {
+      img: {
+        type: String,
+        required: true
+      }
+    },
     data() {
       return {
         myCroppa: null,
@@ -76,9 +83,6 @@
 
 <style scoped>
 
-  .p-container{
-    overflow-y: auto;
-  }
 p{
   font-weight: normal;
   line-height: 21px;
