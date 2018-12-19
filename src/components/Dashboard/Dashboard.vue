@@ -180,6 +180,7 @@
   font-size: 15px;
   text-align: center;
   letter-spacing: 0.02em;
+  min-height: calc(100vh - 64px);
 }
 
 .sidebar .sidebar-header {
@@ -217,8 +218,8 @@ a:focus {
 
 #content {
     width: 100%;
-    height: calc(100vh - 64px);
-    min-height: 497px;
+    height: auto;
+    min-height: 550px;
     transition: all 0.3s;
     background-color: #EAEAEC;
 }
@@ -372,7 +373,7 @@ h1, h3, h5 {
 
 .content{
     width: 80%;
-    height: calc(100vh - 80px);
+    height: fit-content;
     margin: 0 auto;
     padding-top: 36px;
     /*background-image: url("/static/img/logo-alcaldia.png");*/

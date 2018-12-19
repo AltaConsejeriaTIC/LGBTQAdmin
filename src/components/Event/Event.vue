@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div v-resize="handleResize">
     <div class="p-title .text">
       <h2 class="d-inline float-left text">{{title}}</h2>
-      <button type="button" class="btn btn-warning d-inline float-right create text" @click="newEvent">Agregar Evento</button>
+      <button type="button" class="btn btn-warning d-inline float-right big text" @click="newEvent">Agregar Evento</button>
     </div>
     <b-table hover stacked="lg"           :items="events"
              :fields="fields"             :head-variant="'light'"
@@ -12,7 +12,7 @@
       <template slot="actions" slot-scope="row">
         <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
         <b-button class="actions" variant="light" @click.stop="changeState(row.item)">{{row.item.state ? "Ocultar" : "Publicar" }}</b-button>
-        <b-button class="actions" variant="light" @click.stop="editEvent(row.id)">Editar</b-button>
+        <b-button class="actions" variant="light" @click.stop="editEvent(row.item.id)">Editar</b-button>
       </template>
     </b-table>
     <b-pagination :total-rows="events.length" :per-page="perPage" v-model="currentPage" align="right"
@@ -72,7 +72,6 @@ export default {
       this.getEvents();
     }
     this.events.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
-    window.addEventListener('resize', this.handleResize);
   },
   computed: {
     ...mapGetters({
@@ -84,11 +83,11 @@ export default {
       getEvents: constants.EVENT_GET_EVENTS,
       changeStateEvent: constants.EVENT_CHANGE_STATE,
       handleResize() {
-        let rowHeight = 100;
+        let rowHeight = 140;
         if(this.$refs.actionsRow.$el && this.$refs.actionsRow.$el.children[1] && this.$refs.actionsRow.$el.children[1].children[0]){
-          rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight+2;
+          rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
         }
-        this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight) : 2;
+        this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 5;
       }
     }),
     formatDate(date) {
@@ -121,18 +120,29 @@ export default {
     font-family: Nunito,Arial,monospace;
     color: #3F4150;
   }
-  button.create{
-    width: 154px;
-    height: 44px;
-    border: 1px solid #E0AE0D;
+
+  .btn{
+    border: 1px solid #cbced0;
     box-sizing: border-box;
     border-radius: 4px;
+    text-align: center;
+    font-size: 14px !important;
+
+  }
+
+  .btn.big{
+    height: 44px;
+  }
+
+  .btn-warning{
+    width: 154px;
+
     font-weight: bold;
     line-height: 21px;
-    font-size: 14px;
-    text-align: center;
+    border: 1px solid #E0AE0D;
     color: #161824;
   }
+
   table.table{
     text-align: left;
     background-color: #fff;
@@ -140,7 +150,7 @@ export default {
     margin-bottom: 0;
     height: auto;
     overflow-y: auto;
-    max-height: 75%;
+    max-height: 70%;
   }
 
   table.table td, table.table th{
@@ -181,16 +191,20 @@ export default {
     font-weight: 600;
     color: #999BAA;
   }
-  button.actions{
-    height: 32px;
-    width: 73px;
+
+  .btn-light{
     background: #DFE0E1;
     border: 1px solid #CBCED0;
     box-sizing: border-box;
     border-radius: 4px;
+
+  }
+
+  button.actions{
+    height: 32px;
+    width: 73px;
     line-height: 20px;
     font-size: 13px;
-    text-align: center;
   }
   button.actions:first-child{
     margin-bottom: 0;

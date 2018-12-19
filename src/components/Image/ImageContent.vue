@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div class="p-container">
     <div class="p-card">
       <croppa v-model="myCroppa"
               :quality="2"
-              :width="w"
-              :height="h"
               :prevent-white-space="true"
               :show-remove-button="false"
               :file-size-limit="1024000"
               @file-size-exceed="onFileSizeExceed"
+              :placeholder="' + '"
+              :height="170"
               class="card-img-top">
         <img crossOrigin="anonymous" :src="image" slot="initial">
       </croppa>
@@ -33,14 +33,6 @@
     props: {
       img: {
         type: String,
-        required: true
-      },
-      w: {
-        type: Number,
-        required: true
-      },
-      h: {
-        type: Number,
         required: true
       }
     },
@@ -90,20 +82,27 @@
 </script>
 
 <style scoped>
+
 p{
   font-weight: normal;
   line-height: 21px;
   font-size: 13px;
 
   color: #737582;
+  text-align: left;
+  padding: 4px;
 }
 
-  .p-card .card-img-top, .p-card button{
-    background: #DFE0E1;
-    border: 1px solid #CBCED0;
-    box-sizing: border-box;
-    width: 100%;
-  }
+.card-img-top >>> canvas{
+  width: 100% !important;
+}
+
+.p-card .card-img-top, .p-card button{
+background: #DFE0E1;
+border: 1px solid #CBCED0;
+box-sizing: border-box;
+width: 100%;
+}
 
 .p-card .card-img-top{
   border-radius: 4px 4px 0 0;
@@ -116,3 +115,4 @@ p{
 }
 
 </style>
+

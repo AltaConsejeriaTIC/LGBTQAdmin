@@ -1,74 +1,86 @@
 <template>
-  <div class="ui grid">
-    <div class="five wide column">
-      <ImageContent :img="data.image" :w="350" :h="280" ref="imgContent"></ImageContent>
+  <div>
+    <div class="p-title text">
+      <h2 class="d-inline float-left text">Agregar Evento</h2>
+      <button type="button" class="btn btn-danger d-inline float-right create big text"  @click="goBack">Eliminar evento</button>
     </div>
-    <div class="ten wide column">
+    <div class="container-fluid row">
       <div v-if="errors.length">
         <b>Por favor corriga los siguientes errores:</b>
         <ul>
           <li v-for="error in errors" >{{ error }}</li>
         </ul>
       </div>
-      <form class="ui form" @submit="checkForm">
-        <div class="field">
-          <label>Titulo</label>
-          <input type="text" v-model="data.title">
-          <label>Descripción</label>
-          <textarea rows="5" v-model="data.description"></textarea>
-        </div>
-        <div class="ui two column grid">
-          <div class="row">
-            <div class="column">
-              <div class="field">
-                <label>Fecha de inicio: {{data.start_date}}</label>
-                <input type="date" v-model="data.start_date">
-                <label>Hora de inicio: {{data.start_time}}</label>
-                <input type="time" v-model="data.start_time">
-              </div>
-            </div>
-            <div class="column">
-              <div class="field">
-                <label>Fecha de fin: {{data.finish_date}}</label>
-                <input type="date" v-model="data.finish_date">
-                <label>Hora de fin: {{data.finish_time}}</label>
-                <input type="time" v-model="data.finish_time">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="field">
-          <label>Lugar</label>
-          <input type="text" v-model="data.place">
-        </div>
-        <div class="ui two column grid">
-          <div class="row">
-            <div class="column">
-              <label>Latitud</label>
-              <input type="number" step="0.0000001" v-model="data.latitude">
-            </div>
-             <div class="column">
-              <label>longitud</label>
-              <input type="number" step="0.0000001" v-model="data.longitude">
-            </div>
-          </div>
-        </div>
-        <div class="field">
-          <label>Dirección</label>
-          <input type="text" v-model="data.address">
-        </div>
-        <button class="ui button" type="submit" >Guardar</button>
-      </form>
-    </div>
-    <div class="fifteen wide column">
-      <button class="ui button back" @click="goBack">
-        <i class="caret left icon"></i>
-        Volver
-      </button>
+      <b-form class="p-form col" @submit="checkForm">
+        <b-form-group id="titleGroup" label="Título:" label-for="title">
+          <b-form-input id="title" type="text" v-model="data.title"
+                        required placeholder="Título">
+          </b-form-input>
+        </b-form-group>
+        <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
+          <b-form-textarea  id="description" type="text" v-model="data.description"
+                            required placeholder="Descripción" :rows="3" :max-rows="5"
+                            v-bind:no-resize="true">
+          </b-form-textarea>
+        </b-form-group>
+        <b-form-row>
+          <b-col>
+            <b-form-group id="start_dateGroup" label="Fecha de inicio:" label-for="start_date">
+              <b-form-input id="start_date" type="date" v-model="data.start_date"
+                            required placeholder="Fecha de inicio">
+              </b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group id="finish_dateGroup" label="Fecha de fin:" label-for="finish_date">
+              <b-form-input id="finish_date" type="date" v-model="data.finish_date"
+                            required placeholder="Fecha de fin">
+              </b-form-input>
+            </b-form-group>
+          </b-col>
+          <div class="w-100"></div>
+          <b-col>
+            <b-form-group id="start_timeGroup" label="Hora de inicio:" label-for="start_time">
+              <b-form-input id="start_time" type="time" v-model="data.start_time.split(' ')[0]"
+                            required placeholder="Hora de inicio" >
+              </b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group id="finish_timeGroup" label="Hora de fin:" label-for="finish_time">
+              <b-form-input id="finish_time" type="time" v-model="data.finish_time.split(' ')[0]"
+                            required placeholder="Hora de fin">
+              </b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
+        <b-form-group id="placeGroup" label="Lugar:" label-for="place">
+          <b-form-input id="place" type="text" v-model="data.place"
+                        required placeholder="Lugar">
+          </b-form-input>
+        </b-form-group>
+        <b-form-group id="addressGroup" label="Dirección:" label-for="address">
+          <b-form-input id="address" type="text" v-model="data.address"
+                        required placeholder="Dirección">
+          </b-form-input>
+        </b-form-group>
+        <b-form-row class="form-row">
+          <b-col>
+            <b-btn type="button" class="btn btn-light d-inline big text" @click="goBack">Cancelar</b-btn>
+          </b-col>
+          <b-col>
+            <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
+          </b-col>
+        </b-form-row>
+
+      </b-form>
+
+      <div class="col-12 col-md-4" >
+        <ImageContent :img="data.image" ref="imgContent" class="image"></ImageContent>
+      </div>
     </div>
   </div>
 </template>
-
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import ImageContent from '../Image/ImageContent'
@@ -180,10 +192,11 @@ export default {
 </script>
 
 <style>
-  .ui.button.back {
-    float: right;
-  }
-  .ui.grid {
-    width: 80%;
-  }
+ .btn-danger{
+   color: #FFF;
+   background: #E75252;
+   border-radius: 4px;
+   width: 145.88px;
+   height: 40px;
+ }
 </style>
