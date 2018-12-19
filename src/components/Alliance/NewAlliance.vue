@@ -78,7 +78,7 @@
         }
         let nameImage = this.data.name.replace(/\s/g,"");
         this.data.image = `/images/alianza-${nameImage}.jpg`;
-        this.data.state = true;
+        this.$set(this.data,'state',true);
         this.$refs.imgContent.uploadImage(`alianza-${nameImage}.jpg`);
         this.createAlliance(this.data)
           .then( () => {

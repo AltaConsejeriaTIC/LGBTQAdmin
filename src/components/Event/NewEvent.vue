@@ -97,7 +97,7 @@ export default {
     save() {
       let nameImage = this.data.title.replace(/\s/g,"");
       this.data.image = `/images/evento-${nameImage}.jpg`;
-      this.data.state = true;
+      this.$set(this.data,'state',true);
       this.data.latitude = !parseFloat( this.data.latitude )? 0 : parseFloat( this.data.latitude );
       this.data.longitude = !parseFloat( this.data.longitude ) ? 0 : parseFloat( this.data.longitude );
       this.$refs.imgContent.uploadImage(`evento-${nameImage}.jpg`);

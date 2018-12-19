@@ -79,7 +79,7 @@
         }
         let nameImage = this.data.title.replace(/\s/g,"");
         this.data.image = `/images/noticia-${nameImage}.jpg`;
-        this.data.state = true;
+        this.$set(this.data,'state',true);
         this.$refs.imgContent.uploadImage(`noticia-${nameImage}.jpg`);
         this.createNews(this.data)
           .then( () =>  {
