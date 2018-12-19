@@ -218,7 +218,7 @@ a:focus {
 #content {
     width: 100%;
     height: calc(100vh - 64px);
-    min-height: 497px;
+    min-height: 550px;
     transition: all 0.3s;
     background-color: #EAEAEC;
 }
