@@ -2,7 +2,7 @@
   <div>
     <div class="p-title text">
       <h2 class="d-inline float-left text">Agregar Evento</h2>
-      <button type="button" class="btn btn-warning d-inline float-right create big text"  @click="goBack">Volver</button>
+      <button type="button" class="btn btn-danger d-inline float-right create big text"  @click="goBack">Eliminar evento</button>
     </div>
     <div class="container-fluid row">
       <div v-if="errors.length">
@@ -81,7 +81,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import ImageContent from '../Image/ImageContent'
@@ -193,5 +192,11 @@ export default {
 </script>
 
 <style>
-
+ .btn-danger{
+   color: #FFF;
+   background: #E75252;
+   border-radius: 4px;
+   width: 145.88px;
+   height: 40px;
+ }
 </style>
