@@ -5,6 +5,7 @@ export const EVENT_GET_EVENTS = 'event/GET_EVENTS';
 export const EVENT_UPDATE = 'event/UPDATE_EVENT';
 export const EVENT_CHANGE_STATE = 'event/CHANGE_STATE';
 export const EVENT_CREATE_EVENT = 'event/CREATE_EVENT';
+export const EVENT_CALL_BY_ID = 'event/GET_EVENT_BY_ID';
 export const NEWS_GET_NEWS = 'news/GET_NEWS';
 export const NEWS_UPDATE = 'news/UPDATE_NEWS';
 export const NEWS_CHANGE_STATE = 'news/CHANGE_STATE';
