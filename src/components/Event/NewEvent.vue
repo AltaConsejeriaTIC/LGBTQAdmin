@@ -16,12 +16,14 @@
           <b-form-input id="title" type="text" v-model="data.title"
                         required placeholder="Título">
           </b-form-input>
+          <p>Máx. 50 caracteres</p>
         </b-form-group>
         <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
           <b-form-textarea  id="description" type="text" v-model="data.description"
                             required placeholder="Descripción" :rows="3" :max-rows="5"
                             v-bind:no-resize="true">
           </b-form-textarea>
+          <p>Mín. 150, Máx. 800 caracteres</p>
         </b-form-group>
         <b-form-row>
           <b-col>
@@ -201,7 +203,9 @@ export default {
 </script>
 
 <style>
-
+p {
+  color: #A8ABBA;
+}
 .p-form{
   text-align: left;
   font-style: normal;
