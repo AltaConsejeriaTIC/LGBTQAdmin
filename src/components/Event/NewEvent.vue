@@ -2,7 +2,7 @@
   <div>
     <div class="p-title text">
       <h2 class="d-inline float-left text">Agregar Evento</h2>
-      <button type="button" class="btn btn-warning d-inline float-right create text"  @click="goBack">Volver?</button>
+      <button type="button" class="btn btn-warning d-inline float-right create big text"  @click="goBack">Volver</button>
     </div>
     <div class="container-fluid row">
       <div v-if="errors.length">
@@ -64,60 +64,26 @@
                         required placeholder="Dirección">
           </b-form-input>
         </b-form-group>
+        <b-form-row class="form-row">
+          <b-col>
+            <b-btn type="button" class="btn btn-light d-inline big text" @click="goBack">Cancelar</b-btn>
+          </b-col>
+          <b-col>
+            <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
+          </b-col>
+        </b-form-row>
 
-
-        <!--<div class="">-->
-          <!--<div class="">-->
-            <!--<div class="">-->
-              <!--<div class="">-->
-                <!--<label>Fecha de inicio: {{data.start_date}}</label>-->
-                <!--<input type="date" v-model="data.start_date">-->
-                <!--<label>Hora de inicio: {{data.start_time}}</label>-->
-                <!--<input type="time" v-model="data.start_time">-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="">-->
-              <!--<div class="">-->
-                <!--<label>Fecha de fin: {{data.finish_date}}</label>-->
-                <!--<input type="date" v-model="data.finish_date">-->
-                <!--<label>Hora de fin: {{data.finish_time}}</label>-->
-                <!--<input type="time" v-model="data.finish_time">-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="">-->
-          <!--<label>Lugar</label>-->
-          <!--<input type="text" v-model="data.place">-->
-        <!--</div>-->
-        <!--<div class="">-->
-          <!--<div class="">-->
-            <!--<div class="">-->
-              <!--<label>Latitud</label>-->
-              <!--<input type="number" step="0.0000001" v-model="data.latitude">-->
-            <!--</div>-->
-             <!--<div class="">-->
-              <!--<label>longitud</label>-->
-              <!--<input type="number" step="0.0000001" v-model="data.longitude">-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="">-->
-          <!--<label>Dirección</label>-->
-          <!--<input type="text" v-model="data.address">-->
-        <!--</div>-->
-        <button class="button" type="submit" >Guardar</button>
       </b-form>
 
-      <div class="col-4">
-        <ImageContent :w="350" :h="280" ref="imgContent" class="image"></ImageContent>
+      <div class="col-12 col-md-4" >
+        <ImageContent ref="imgContent" class="image"></ImageContent>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions} from 'vuex';
 import * as constants from '@/store/constants';
 import * as ENV from '../../env';
 import ImageContent from '../Image/ImageContent';
@@ -242,6 +208,8 @@ export default {
   text-transform: uppercase;
 
   color: #575A6D;
+  padding: 0;
+  margin-right: 10%;
 }
 
 .p-form ::placeholder{
@@ -266,8 +234,14 @@ input[type=text]{
 
   }
 
-  .row, .col-4{
+  .row, .col-4, .col-md-4{
     margin: 0;
     padding: 0;
   }
+
+  .form-row button{
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
 </style>
