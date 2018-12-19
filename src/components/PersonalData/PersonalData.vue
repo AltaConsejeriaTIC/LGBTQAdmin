@@ -22,12 +22,7 @@
         <b-table hover stacked="lg"           :items="users"
                 :fields="fields"             :head-variant="'light'"
                 :current-page="currentPage"  :per-page="perPage"
-                class="table text table-responsive-xl" id="tblData">
-          <template slot="state" slot-scope="row">{{row.value?'Publicado':'No Publicado'}}</template>
-          <template slot="actions" slot-scope="row">
-            <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
-            <b-button class="actions" variant="light" @click.stop="viewUser(row.id)">Editar</b-button>
-          </template>
+                class="table text table-responsive-xl" id="tblData">          
         </b-table>
           <b-pagination :total-rows="users.length" :per-page="perPage" v-model="currentPage" align="right"
                         :limit=1 v-bind:hide-goto-end-buttons="true" next-text="Siguiente" prev-text="Anterior"></b-pagination>
