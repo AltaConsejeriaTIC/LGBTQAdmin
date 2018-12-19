@@ -75,8 +75,8 @@
 
       </b-form>
 
-      <div class="col-12 col-md-4" >
-        <ImageContent ref="imgContent" class="image"></ImageContent>
+      <div class="col-12 col-md-auto" >
+        <ImageContent :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
       </div>
     </div>
   </div>
@@ -200,7 +200,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 .p-form{
   text-align: left;
@@ -234,11 +234,11 @@ input[type=text]{
 }
 
   .image{
-    width: 100%;
+    width: min-content;
 
   }
 
-  .row, .col-4, .col-md-4{
+  .row, .col-md-auto, .col-md-4{
     margin: 0;
     padding: 0;
   }

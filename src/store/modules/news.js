@@ -84,9 +84,6 @@ const getters = {
   [constants.CURRENT_NEWS]: (state) => {
     return state.currentNews;
   },
-  [constants.NEWS]: (state) => {
-    return state.news;
-  },
   [constants.NEWS_BY_ID]: (state) => (id) => {
     return state.news.find(news => news.id === id);
   }

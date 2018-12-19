@@ -8,7 +8,8 @@
               :file-size-limit="1024000"
               @file-size-exceed="onFileSizeExceed"
               :placeholder="' + '"
-              :height="170"
+              :width="w"
+              :height="h"
               class="card-img-top">
         <img crossOrigin="anonymous" :src="image" slot="initial">
       </croppa>
@@ -17,7 +18,7 @@
         Subir imagen
       </button>
     </div>
-    <p>Las imágenes subidas serán cortadas para quedar con proporción 9.5. El peso máximo de la imagen es de 1Mb.</p>
+    <p>Las imágenes subidas serán cortadas para quedar con proporción 5:4. El peso máximo de la imagen es de 1Mb.</p>
   </div>
 </template>
 
@@ -33,6 +34,14 @@
     props: {
       img: {
         type: String,
+        required: true
+      },
+      w: {
+        type: Number,
+        required: true
+      },
+      h: {
+        type: Number,
         required: true
       }
     },
@@ -94,7 +103,7 @@ p{
 }
 
 .card-img-top >>> canvas{
-  width: 100% !important;
+
 }
 
 .p-card .card-img-top, .p-card button{

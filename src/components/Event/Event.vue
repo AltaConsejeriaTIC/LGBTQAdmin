@@ -42,7 +42,7 @@ export default {
     return {
       title: "Administrar Eventos",
       currentPage: 1,
-      perPage: window.innerHeight > 992 ? (window.innerHeight-320)/110 : 5,
+      perPage: 5,
       fields: {
         id: {
           label: 'ID',
@@ -92,13 +92,6 @@ export default {
     ...mapActions({
       getEvents: constants.EVENT_GET_EVENTS,
       changeStateEvent: constants.EVENT_CHANGE_STATE,
-      handleResize() {
-        let rowHeight = 140;
-        if(this.$refs.actionsRow.$el && this.$refs.actionsRow.$el.children[1] && this.$refs.actionsRow.$el.children[1].children[0]){
-          rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
-        }
-        this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 5;
-      }
     }),
     formatDate(date) {
       return moment(date).format('DD-MMMM-YYYY');
@@ -112,6 +105,13 @@ export default {
     changeState(event) {
       this.changeStateEvent(event);
       this.events.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
+    },
+    handleResize() {
+      let rowHeight = 140;
+      if(this.$refs.actionsRow && this.$refs.actionsRow.$el && this.$refs.actionsRow.$el.children[1] && this.$refs.actionsRow.$el.children[1].children[0]){
+        rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
+      }
+      this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 6;
     }
   },
 };
@@ -221,9 +221,6 @@ export default {
   }
 
   @media (max-width: 1100px){
-    td:nth-child(6){
-      width: unset;
-    }
     button.actions:first-child{
       margin-right: 0;
       margin-bottom: 10px;
@@ -231,12 +228,6 @@ export default {
   }
 
   @media (max-width: 992px) {
-    td:nth-child(3){
-      width: unset;
-    }
-
-
-
     button.actions:first-child{
       margin-bottom: 0;
       margin-right: 7px;
@@ -253,9 +244,21 @@ export default {
 
 <style scoped>
   .table >>> td:nth-child(3) {
-    width: 150px;
+    width: 155px;
   }
   .table >>> td:nth-child(6) {
     width: 183px;
+  }
+
+  @media (max-width: 1100px) {
+    .table >>> td:nth-child(6) {
+      width: unset;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .table >>> td:nth-child(3) {
+      width: unset;
+    }
   }
 </style>
