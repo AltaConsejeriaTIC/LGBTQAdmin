@@ -118,8 +118,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      events: constants.EVENTS,
-      news: constants.NEWS,
+      events: constants.CURRENT_EVENTS,
+      news: constants.CURRENT_NEWS,
       highlights: constants.HIGHLIGHTS
     })
   },
