@@ -106,8 +106,8 @@
           this.errors.push('Campo oferta es requerido.')
         }else{
           let lenOfer = this.data.offer.length;
-          if( lenOfer < 300 ||  lenOfer > 700){
-            this.errors.push('La oferta debe contener mínimo 300 y máximo 700  caracteres.');
+          if( lenOfer < 300 ||  lenOfer > 1000){
+            this.errors.push('La oferta debe contener mínimo 300 y máximo 1000  caracteres.');
           } 
         }                    
         if (!this.data.email) {
