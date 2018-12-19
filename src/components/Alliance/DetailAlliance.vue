@@ -134,7 +134,7 @@
             return regex.test(email);
           },
           validPhone( phone ) {
-            let regex = /^([\(]?\+[0-9]{1,3}[\)]?)?[0-9\s]{7,20}$/
+            let regex = /^([\(]?\+?[0-9]{1,3}[\)]?){0,2}[0-9\s]{7,20}((ext|ext\.|Ext|Ext\.){1}\s[0-9\s]{1,7})?$/
             return regex.test(phone)
           },          
           goBack() {
