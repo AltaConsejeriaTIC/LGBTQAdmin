@@ -1,26 +1,25 @@
 <template>
-  <!-- <div v-resize="handleResize"> -->
-  <div>
-
+  <div v-resize="handleResize">
     <div class="p-title .text">
       <h2 class="d-inline float-left text">{{title}}</h2>
     </div>
-    <!-- <div v-if="thereAreComplaints"> -->
-    <b-table hover stacked="lg"           :items="complaints"
-             :fields="fields"             :head-variant="'light'"
-             :current-page="currentPage"  :per-page="perPage"
-             class="table text table-responsive-xl" ref="actionsRow">
-      <template slot="actions" slot-scope="row">
-        <b-button class="actions" variant="light" @click.stop="viewComplaint(row.item.id)">Ver</b-button>
-      </template>
-    </b-table>
-    <b-pagination :total-rows="complaints.length" :per-page="perPage" v-model="currentPage" align="right"
-                  :limit=5 v-bind:hide-goto-end-buttons="true" next-text="Siguiente" prev-text="Anterior"></b-pagination>
-    <!-- </div> -->
-  </div>
-    <!-- <div v-else>
+    <div v-if="thereAreComplaints">
+      <b-table hover stacked="lg"           :items="complaints"
+              :fields="fields"             :head-variant="'light'"
+              :current-page="currentPage"  :per-page="perPage"
+              class="table text table-responsive-xl" ref="actionsRow">
+        <template slot="actions" slot-scope="row">
+          <b-button class="actions" variant="light" @click.stop="viewComplaint(row.item.id)">Ver</b-button>
+        </template>
+      </b-table>
+      <b-pagination :total-rows="complaints.length" :per-page="perPage" v-model="currentPage" align="right"
+                    :limit=5 v-bind:hide-goto-end-buttons="true" next-text="Siguiente" prev-text="Anterior"></b-pagination>
+    </div>
+
+    <div v-else>
       <h3>No hay Denuncias para mostrar</h3>
-    </div> -->
+    </div>
+  </div>
 
 
 </template>
@@ -77,7 +76,10 @@
     computed: {
       ...mapGetters({
         complaints: constants.COMPLAINTS
-      })
+      }),
+      thereAreComplaints() {
+      return this.complaints.length !== 0;
+    }
     },
     methods: {
       ...mapActions({
