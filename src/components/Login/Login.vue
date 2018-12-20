@@ -17,14 +17,14 @@
         <form>
           <div class="form-width">
             <div class="form-group">
-              <label for="Usuario">Usuario</label>
+              <label for="email">Usuario</label>
               <input v-model="form.email" type="text" id="email" class="form-control" placeholder="Usuario">            
             </div>
             <div class="form-group">
-              <label for="Contraseña">Contraseña</label>
+              <label for="password">Contraseña</label>
               <input v-model="form.password" type="password" id="password"  class="form-control" placeholder="Contraseña">
             </div>  
-            <button type="button" class="btn btn-primary btn-lg btn-block" :disabled="isDisabled" @click="sigin">INGRESAR</button>          
+            <button type="button" class="btn btn-primary btn-lg btn-block" :disabled="isDisabled" @click.prevent="sigin">INGRESAR</button>          
           </div>
         </form>        
       </div>
@@ -67,7 +67,7 @@ export default {
     }
   },
   watch: {
-    token(data) {
+    token() {
       if (this.isLogged) {
         this.$router.push({ name: 'Dashboard'  });
       }

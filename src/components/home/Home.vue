@@ -125,8 +125,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      getEvents: constants.EVENT_GET_EVENTS,
-      getNews: constants.NEWS_GET_NEWS,
+      getEvents: constants.EVENT_GET_ON_EVENTS,
+      getNews: constants.NEWS_GET_ON_NEWS,
       getHighlights: constants.HIGHLIGHT_GET_HIGHLIGHT,
       createHighlight: constants.HIGHLIGHT_CREATE_HIGHLIGHT,
       deleteHighlight: constants.HIGHLIGHT_DELETE_HIGHLIGHT

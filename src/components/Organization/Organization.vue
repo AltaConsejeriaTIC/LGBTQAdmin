@@ -1,36 +1,41 @@
 <template>
   <div class='organization'>
     <button class="ui button" @click="newOrganization">Crear Organización </button>
-    <h2>{{title}}</h2>
-    <table class="ui celled table">
-      <thead>
-      <tr>
-        <th>Id</th>
-        <th>Nombre</th>
-        <th>Sitio Web</th>
-        <th>Estado</th>
-      </tr>
-      </thead>
-      <tbody v-for="organization in organizations" :key="organization.id">
-      <tr >
-        <td>{{organization.id}}</td>
-        <td :class="{disabled: !organization.state}">{{organization.name}}</td>
-        <td>{{organization.website}}</td>
-        <td>{{organization.state ? "Publicado" : "No Publicado" }}</td>
-        <td >
-          <div class="ui small button" @click="changeStateOrganization(organization)">
-            {{organization.state ? "Ocultar" : "Publicar" }}
-          </div>
-        </td>
-        <td >
-          <div class="ui small button" @click="editOrganization(organization.id)" >
-            <i class="edit icon"></i>
-            Editar
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div v-if="thereAreOrganizations">
+      <h2>{{title}}</h2>
+      <table class="ui celled table">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nombre</th>
+          <th>Sitio Web</th>
+          <th>Estado</th>
+        </tr>
+        </thead>
+        <tbody v-for="organization in organizations" :key="organization.id">
+        <tr >
+          <td>{{organization.id}}</td>
+          <td :class="{disabled: !organization.state}">{{organization.name}}</td>
+          <td>{{organization.website}}</td>
+          <td>{{organization.state ? "Publicado" : "No Publicado" }}</td>
+          <td >
+            <div class="ui small button" @click="changeStateOrganization(organization)">
+              {{organization.state ? "Ocultar" : "Publicar" }}
+            </div>
+          </td>
+          <td >
+            <div class="ui small button" @click="editOrganization(organization.id)" >
+              <i class="edit icon"></i>
+              Editar
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div v-else>
+      <h3>No hay Organizaciones</h3>
+    </div>
   </div>
 </template>
 
@@ -52,7 +57,10 @@ export default {
     computed: {
       ...mapGetters({
         organizations: constants.ORGANIZATIONS
-      })
+      }),
+      thereAreOrganizations() {
+        return this.organizations.length
+      }
     },
     methods: {
       ...mapActions({

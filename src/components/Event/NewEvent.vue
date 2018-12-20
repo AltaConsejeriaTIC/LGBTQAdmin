@@ -16,12 +16,14 @@
           <b-form-input id="title" type="text" v-model="data.title"
                         required placeholder="Título">
           </b-form-input>
+          <p>Máx. 50 caracteres</p>
         </b-form-group>
         <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
           <b-form-textarea  id="description" type="text" v-model="data.description"
                             required placeholder="Descripción" :rows="3" :max-rows="5"
                             v-bind:no-resize="true">
           </b-form-textarea>
+          <p>Mín. 150, Máx. 800 caracteres</p>
         </b-form-group>
         <b-form-row>
           <b-col>
@@ -75,8 +77,8 @@
 
       </b-form>
 
-      <div class="col-12 col-md-4" >
-        <ImageContent :img="data.image" ref="imgContent" class="image"></ImageContent>
+      <div class="col-12 col-md-auto" >
+        <ImageContent :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
       </div>
     </div>
   </div>
@@ -124,15 +126,19 @@ export default {
     ...mapActions({
       createEvent: constants.EVENT_CREATE_EVENT
     }),
-    async save() {
-      this.data.image = `/images/evento-${this.data.title}.jpg`;
-      this.data.state = true;
+    save() {
+      let nameImage = this.data.title.replace(/\s/g,"");
+      this.data.image = `/images/evento-${nameImage}.jpg`;
+      this.$set(this.data,'state',true);
       this.data.latitude = !parseFloat( this.data.latitude )? 0 : parseFloat( this.data.latitude );
       this.data.longitude = !parseFloat( this.data.longitude ) ? 0 : parseFloat( this.data.longitude );
-      this.$refs.imgContent.uploadImage(`evento-${this.data.title}.jpg`);
-      await this.createEvent(this.data);        
-      alert(`Evento creado`);
-      this.$router.push('/events'); 
+      this.$refs.imgContent.uploadImage(`evento-${nameImage}.jpg`);
+      this.createEvent(this.data)
+        .then( () => {
+          alert(`Evento fue creado exitosamente`);
+          this.$router.push('/events');
+        })
+        .catch( () => alert("No se pudo crear"))
     },
     checkForm(event) {
       this.errors = [];
@@ -213,9 +219,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
-.p-form{
+p {
+  color: #A8ABBA;
+}
+.p-form {
   text-align: left;
   font-style: normal;
   font-weight: 800;
@@ -223,23 +232,6 @@ export default {
   font-size: 12px;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-
-  color: #575A6D;
-  padding: 0;
-  margin-right: 10%;
-}
-
-.p-form ::placeholder{
-  font-weight: 600;
-  line-height: 20px;
-  font-size: 13px;
-  letter-spacing: 0.01em;
-  color: #A8ABBA;
-
-}
-
-input[type=text]{
-  height: 40px;
 }
 
 #description{
@@ -247,11 +239,11 @@ input[type=text]{
 }
 
   .image{
-    width: 100%;
+    width: min-content;
 
   }
 
-  .row, .col-4, .col-md-4{
+  .row, .col-md-auto, .col-md-4{
     margin: 0;
     padding: 0;
   }
@@ -260,6 +252,14 @@ input[type=text]{
     width: 100%;
     margin-bottom: 15px;
   }
+
+.btn-warning {
+  width: 154px;
+  font-weight: bold;
+  line-height: 21px;
+  border: 1px solid #E0AE0D;
+  color: #161824;
+}
 
 @media (max-width: 767px) {
   .p-form{

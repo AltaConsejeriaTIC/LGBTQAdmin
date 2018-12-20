@@ -12,16 +12,18 @@
         </ul>
       </div>
       <b-form class="p-form col" @submit="checkForm">
-        <b-form-group id="titleGroup" label="Título:" label-for="title">
+        <b-form-group id="titleGroup" label="Título: " label-for="title">
           <b-form-input id="title" type="text" v-model="data.title"
                         required placeholder="Título">
           </b-form-input>
+          <p>Máx. 50 caracteres</p>
         </b-form-group>
         <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
           <b-form-textarea  id="description" type="text" v-model="data.description"
                             required placeholder="Descripción" :rows="3" :max-rows="5"
                             v-bind:no-resize="true">
           </b-form-textarea>
+          <p>Mín. 150, Máx. 800 caracteres</p>
         </b-form-group>
         <b-form-row>
           <b-col>
@@ -76,7 +78,7 @@
       </b-form>
 
       <div class="col-12 col-md-4" >
-        <ImageContent :img="data.image" ref="imgContent" class="image"></ImageContent>
+        <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
       </div>
     </div>
   </div>
@@ -106,6 +108,10 @@ export default {
     this.data = this.get(id);
     this.data.start_date = moment(this.data.start_date).format('YYYY-MM-DD');
     this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+
+    this.data.start_time = moment(this.data.start_time,"h:mm a").format('HH:MM');
+    this.data.finish_time = moment(this.data.finish_time,"h:mm a").format('HH:MM');
+    console.log(this.data)
     if(!this.data.place){
       this.data.place = "";
     }
@@ -119,15 +125,17 @@ export default {
     ...mapActions({
       updateEvent: constants.EVENT_UPDATE
     }),
-    async save() {
-      this.data.image = `/images/evento-${this.data.title}.jpg`;
+    save() {      
       this.data.state = true;
       this.data.latitude = !parseFloat( this.data.latitude )? 0 : parseFloat( this.data.latitude );
       this.data.longitude = !parseFloat( this.data.longitude ) ? 0 : parseFloat( this.data.longitude );
       this.$refs.imgContent.uploadImage();
-      await this.updateEvent(this.data);
-      alert(`Evento con id ${this.data.id} fue actualizado`)
-      this.$router.push('/events');
+      this.updateEvent(this.data)
+        .then( () => {
+          alert("Evento fue actualizado exitosamente")
+          this.$router.push('/events');
+        })
+        .catch( () => alert("No se pudo actualizar"))  
     },    
     checkForm(event) {
       this.errors = [];
@@ -137,7 +145,7 @@ export default {
       }else{
         let lenTit = this.data.title.length;
         if (lenTit > 50) {
-          this.errors.push('Título no válido. Tamaño máximo del título 50 caracteres.');
+          this.errors.push('el título puede contener máximo 50 caracteres.');
         }
       }           
       if (!this.data.description) {
@@ -145,7 +153,7 @@ export default {
       }else{
         let lenDes = this.data.description.length;
         if (lenDes < 150 || lenDes > 800) {
-          this.errors.push('Descipción no válida. Tamaño máximo de 800 caracteres. Tamaño mínimo 150 caracteres.');
+          this.errors.push('La descripción debe contener mínimo 150 y máximo 800 caracteres');
         }
       }
       if (!this.data.address) {
@@ -191,12 +199,29 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
  .btn-danger{
    color: #FFF;
    background: #E75252;
    border-radius: 4px;
    width: 145px;
    height: 40px;
+ }
+ p {
+   color: #A8ABBA;
+ }
+
+ .p-form{
+   text-align: left;
+   font-style: normal;
+   font-weight: 800;
+   line-height: 1.4;
+   font-size: 12px;
+   letter-spacing: 0.03em;
+   text-transform: uppercase;
+
+   color: #575A6D;
+   padding: 0;
+   margin-right: 10%;
  }
 </style>

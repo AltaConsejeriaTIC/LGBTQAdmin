@@ -17,14 +17,25 @@
           <input type="text" v-model="data.name">
           <label>Descripción</label>
           <textarea rows="8" v-model="data.description"></textarea>
+          <p>Máx. 45 caracteres</p>          
         </div>
         <div class="field">
           <label>Oferta</label>
           <textarea rows="5" v-model="data.offer"></textarea>
+          <p>Mín. 300, Máx. 1000 caracteres</p>
           <label>Sitio Web</label>
           <input type="text" v-model="data.website">
           <label>Teléfono</label>
           <input type="text" v-model="data.phone">
+          <div class="phoneExamples">
+            <p>Ejemplos de telefonos válidos:</p>
+            <ul style="list-style: none;">
+              <li>(+57)(1) 34545345 ext. 12345</li>
+              <li>(1) 34545345 Ext 145</li>
+              <li>+57 2 3454555</li>
+              <li>3454555 ext 12</li>
+            </ul>
+          </div>
           <label>Email</label>
           <input type="email" v-model="data.email">
         </div>
@@ -69,18 +80,23 @@
       ...mapActions({
         createAlliance: constants.ALLIANCE_CREATE_ALLIANCE
       }),
-      async save() {
+      save() {
         if(!this.data.phone){
           this.data.phone = "";
         }
         if(!this.data.website){
           this.data.website = "";
         }
-        this.data.image = `/images/alianza-${this.data.name}.jpg`;
-        this.data.state = true;
-        this.$refs.imgContent.uploadImage(`alianza-${this.data.name}.jpg`);
-        await this.createAlliance(this.data);
-        this.$router.push('/alliances');
+        let nameImage = this.data.name.replace(/\s/g,"");
+        this.data.image = `/images/alianza-${nameImage}.jpg`;
+        this.$set(this.data,'state',true);
+        this.$refs.imgContent.uploadImage(`alianza-${nameImage}.jpg`);
+        this.createAlliance(this.data)
+          .then( () => {
+            alert(`Allianza fue creada exitosamente`);
+            this.$router.push('/alliances');
+          })
+          .catch( () => alert("No se pudo crear"))        
       },
       checkForm(submit) {
         this.errors = [];
@@ -101,8 +117,8 @@
           this.errors.push('Campo oferta es requerido.')
         }else{
           let lenOfer = this.data.offer.length;
-          if( lenOfer < 300 ||  lenOfer > 700){
-            this.errors.push('La oferta debe contener mínimo 300 y máximo 700  caracteres.');
+          if( lenOfer < 300 ||  lenOfer > 1000){
+            this.errors.push('La oferta debe contener mínimo 300 y máximo 1000  caracteres.');
           } 
         }                    
         if (!this.data.email) {
@@ -110,14 +126,11 @@
         }else if (!this.validEmail(this.data.email)) {
           this.errors.push("Correo ingresado no es válido.")
         }
-        if ( !this.data.finish_date ) {
-          this.errors.push('Campo Fecha es requerido.')
-        }
         if (this.data.phone && !this.validPhone(this.data.phone)) {
           this.errors.push("Teléfono ingresado no es válido.")
         }
         if (!this.data.finish_date){
-          this.errors.push('Fecha de inicio requerida.');
+          this.errors.push('Campo Fecha es requerido.')
         }else{
           let currentDate = new Date();
           let year = currentDate.getFullYear();
@@ -137,7 +150,7 @@
         return regex.test(email);
       },
       validPhone( phone ) {
-        let regex = /^([\(]?\+[0-9]{1,3}[\)]?)?[0-9\s]{7,20}$/
+        let regex = /^([\(]?\+?[0-9]{1,3}[\)]?){0,2}[0-9\s]{7,20}((ext|ext\.|Ext|Ext\.){1}\s[0-9\s]{1,7})?$/
         return regex.test(phone)
       },
       addZero(number){
@@ -161,5 +174,9 @@
   }
   .ui.grid {
     width: 80%;
+  }
+  .phoneExamples {
+    color: #A8ABBA;
+    text-align: left;
   }
 </style>

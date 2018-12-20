@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import * as constants from '@/store/constants';
+import { rejects } from 'assert';
 
 const state = {
     organizations: []
@@ -14,17 +15,20 @@ const actions = {
             .catch((e) => console.log(e));
     },
     [constants.ORGANIZATION_UPDATE]: ({ commit }, organization) => {
-      console.log(organization);
-      return Vue.axios
+      return new Promise((resolve,reject) => {
+        Vue.axios
           .put(`/organizations/${organization.id}`, organization, { headers: { token: sessionStorage.getItem('token') } })
           .then(response => {
               commit(constants.ORGANIZATION_SET_ORGANIZATION, organization);
-              console.log("------Organizacion  Actualizada-------")
+              resolve();
           })
-          .catch((e) => console.log(e));
+          .catch((e) => {
+              console.error(e);
+              reject();
+            });
+      });
     },
-    [constants.ORGANIZATION_CHANGE_STATE]: ({ commit }, organization) => {
-        console.log('ORGANIZATION==', organization);
+    [constants.ORGANIZATION_CHANGE_STATE]: ({ commit }, organization) => {        
         organization.state = !organization.state;
         return Vue.axios
             .put(`/updateOrganizationState/${organization.id}`, organization, { headers: { token: sessionStorage.getItem('token') } })
@@ -32,14 +36,19 @@ const actions = {
             .catch((e) => console.log(e));
     },
     [constants.ORGANIZATION_CREATE_ORGANIZATION]: ({ commit }, organization) => {
-        return Vue.axios
-            .post('/organizations', organization, { headers: { token: sessionStorage.getItem('token') } })
-            .then(response => {
-                organization.id = response.data.id
-                console.log(organization);
-                commit(constants.ORGANIZATION_ADD_ORGANIZATION, organization);
-            })
-            .catch((e) => console.log(e));
+        return new Promise( (resolve,reject) => {
+            Vue.axios
+                .post('/organizations', organization, { headers: { token: sessionStorage.getItem('token') } })
+                .then(response => {
+                    organization.id = response.data.id                    
+                    commit(constants.ORGANIZATION_ADD_ORGANIZATION, organization);
+                    resolve();
+                })
+                .catch((e) => {
+                    console.error(e);
+                    reject();
+                });
+        })        
     }
 };
 

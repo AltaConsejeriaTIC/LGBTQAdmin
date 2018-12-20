@@ -14,8 +14,10 @@
         <div class="field">
           <label>Nombre</label>
           <input type="text" v-model="data.name">
+          <p>Máx. 45 caracteres</p>
           <label>Descripción</label>
           <textarea rows="5" v-model="data.description"></textarea>
+          <p>Mín. 200, Máx. 700 caracteres</p>
         </div>
         <div>
           <div class="ui two column grid">
@@ -32,6 +34,15 @@
                 <div class="field">
                   <label>Teléfono</label>
                   <input type="text" v-model="data.phone">
+                  <div class="phoneExamples">
+                    <p>Ejemplos de telefonos válidos:</p>
+                    <ul style="list-style: none;">
+                      <li>(+57)(1) 34545345 ext. 12345</li>
+                      <li>(1) 34545345 Ext 145</li>
+                      <li>+57 2 3454555</li>
+                      <li>3454555 ext 12</li>
+                    </ul>
+                  </div>
                   <label>Email</label>
                   <input type="email" v-model="data.email">
                 </div>
@@ -82,7 +93,7 @@
           ...mapActions({
             updateOrganization: constants.ORGANIZATION_UPDATE
           }),
-          async save() {
+          save() {
             if(!this.data.address){
               this.data.address = "";
             }
@@ -90,9 +101,12 @@
               this.data.website = "";
             }
             this.$refs.imgContent.uploadImage();
-            await this.updateOrganization(this.data);
-            alert("ok");
-            this.$router.push('/organizations');
+            this.updateOrganization(this.data)
+              .then( () => {
+                alert("Organización actualizada exitosamente");
+                this.$router.push('/organizations');
+              })
+              .catch( () => alert("No se pudo actualizar"));
           },
           checkForm(submit) {
             this.errors = [];
@@ -129,7 +143,7 @@
             return regex.test(email);
           },
           validatePhone( phone ) {
-            let regex = /^([\(]?\+[0-9]{1,3}[\)]?)?[0-9\s]{7,20}$/
+            let regex = /^([\(]?\+?[0-9]{1,3}[\)]?){0,2}[0-9\s]{7,20}((ext|ext\.|Ext|Ext\.){1}\s[0-9\s]{1,7})?$/
             return regex.test(phone)
           },
           goBack() {
@@ -142,5 +156,8 @@
 </script>
 
 <style scoped>
-
+  .phoneExamples {
+    color: #A8ABBA;
+    text-align: left;
+  }
 </style>
