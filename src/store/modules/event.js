@@ -14,6 +14,16 @@ const actions = {
       .then((events) => commit(constants.EVENT_SET_EVENTS, events))
       .catch((e) => console.error(e));
   },
+  [constants.EVENT_CALL_BY_ID]: ({ commit }, id) => {
+    return new Promise( (resolve,reject) => {
+      Vue.axios.get(`/events/${id}`)
+        .then( event => resolve(event.data))      
+        .catch((e) => {
+          console.error(e);
+          reject();
+        });
+    })    
+  },
   [constants.EVENT_UPDATE]: ({commit}, event) => {
     return new Promise((resolve, reject) => {
       Vue.axios

@@ -1,86 +1,95 @@
 <template>
   <div>
-    <div class="p-title text">
-      <h2 class="d-inline float-left text">Agregar Evento</h2>
-      <button type="button" class="btn btn-danger d-inline float-right create big text"  @click="goBack">Eliminar evento</button>
-    </div>
-    <div class="container-fluid row">
-      <div v-if="errors.length">
+    <div v-if="data">
+      <div class="p-title text">
+       <a class="d-block p-link" href="#" @click="goBack"><i class="fas fa-angle-left"></i>Regresar</a>
+        <h2 class="d-inline float-left text">Editar Evento</h2>
+      </div>
+      <div v-if="errors.length" class="p-errors">
         <b>Por favor corriga los siguientes errores:</b>
         <ul>
           <li v-for="error in errors" >{{ error }}</li>
         </ul>
       </div>
-      <b-form class="p-form col" @submit="checkForm">
-        <b-form-group id="titleGroup" label="Título:" label-for="title">
-          <b-form-input id="title" type="text" v-model="data.title"
-                        required placeholder="Título">
-          </b-form-input>
-        </b-form-group>
-        <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
-          <b-form-textarea  id="description" type="text" v-model="data.description"
-                            required placeholder="Descripción" :rows="3" :max-rows="5"
-                            v-bind:no-resize="true">
-          </b-form-textarea>
-        </b-form-group>
-        <b-form-row>
-          <b-col>
-            <b-form-group id="start_dateGroup" label="Fecha de inicio:" label-for="start_date">
-              <b-form-input id="start_date" type="date" v-model="data.start_date"
-                            required placeholder="Fecha de inicio">
-              </b-form-input>
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group id="finish_dateGroup" label="Fecha de fin:" label-for="finish_date">
-              <b-form-input id="finish_date" type="date" v-model="data.finish_date"
-                            required placeholder="Fecha de fin">
-              </b-form-input>
-            </b-form-group>
-          </b-col>
-          <div class="w-100"></div>
-          <b-col>
-            <b-form-group id="start_timeGroup" label="Hora de inicio:" label-for="start_time">
-              <b-form-input id="start_time" type="time" v-model="data.start_time.split(' ')[0]"
-                            required placeholder="Hora de inicio" >
-              </b-form-input>
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group id="finish_timeGroup" label="Hora de fin:" label-for="finish_time">
-              <b-form-input id="finish_time" type="time" v-model="data.finish_time.split(' ')[0]"
-                            required placeholder="Hora de fin">
-              </b-form-input>
-            </b-form-group>
-          </b-col>
-        </b-form-row>
-        <b-form-group id="placeGroup" label="Lugar:" label-for="place">
-          <b-form-input id="place" type="text" v-model="data.place"
-                        required placeholder="Lugar">
-          </b-form-input>
-        </b-form-group>
-        <b-form-group id="addressGroup" label="Dirección:" label-for="address">
-          <b-form-input id="address" type="text" v-model="data.address"
-                        required placeholder="Dirección">
-          </b-form-input>
-        </b-form-group>
-        <b-form-row class="form-row">
-          <b-col>
-            <b-btn type="button" class="btn btn-light d-inline big text" @click="goBack">Cancelar</b-btn>
-          </b-col>
-          <b-col>
-            <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
-          </b-col>
-        </b-form-row>
+      <div class="container-fluid row">        
+        <b-form class="p-form col" @submit="checkForm">
+          <b-form-group id="titleGroup" label="Título: " label-for="title">
+            <b-form-input id="title" type="text" v-model="data.title"
+                          required placeholder="Título">
+            </b-form-input>
+            <p>Máx. 50 caracteres</p>
+          </b-form-group>
+          <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
+            <b-form-textarea  id="description" type="text" v-model="data.description"
+                              required placeholder="Descripción" :rows="3" :max-rows="5"
+                              v-bind:no-resize="true">
+            </b-form-textarea>
+            <p>Mín. 150, Máx. 800 caracteres</p>
+          </b-form-group>
+          <b-form-row>
+            <b-col>
+              <b-form-group id="start_dateGroup" label="Fecha de inicio:" label-for="start_date">
+                <b-form-input id="start_date" type="date" v-model="data.start_date"
+                              required placeholder="Fecha de inicio">
+                </b-form-input>
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-group id="finish_dateGroup" label="Fecha de fin:" label-for="finish_date">
+                <b-form-input id="finish_date" type="date" v-model="data.finish_date"
+                              required placeholder="Fecha de fin">
+                </b-form-input>
+              </b-form-group>
+            </b-col>
+            <div class="w-100"></div>
+            <b-col>
+              <b-form-group id="start_timeGroup" label="Hora de inicio:" label-for="start_time">
+                <b-form-input id="start_time" type="time" v-model="data.start_time.split(' ')[0]"
+                              required placeholder="Hora de inicio" >
+                </b-form-input>
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-group id="finish_timeGroup" label="Hora de fin:" label-for="finish_time">
+                <b-form-input id="finish_time" type="time" v-model="data.finish_time.split(' ')[0]"
+                              required placeholder="Hora de fin">
+                </b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-form-row>
+          <b-form-group id="placeGroup" label="Lugar:" label-for="place">
+            <b-form-input id="place" type="text" v-model="data.place"
+                          required placeholder="Lugar">
+            </b-form-input>
+          </b-form-group>
+          <b-form-group id="addressGroup" label="Dirección:" label-for="address">
+            <b-form-input id="address" type="text" v-model="data.address"
+                          required placeholder="Dirección">
+            </b-form-input>
+          </b-form-group>
+          <b-form-row class="form-row">
+            <b-col>
+              <b-btn type="button" class="btn btn-light d-inline big text" @click="goBack">Cancelar</b-btn>
+            </b-col>
+            <b-col>
+              <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
+            </b-col>
+          </b-form-row>
+     
 
-      </b-form>
-
-      <div class="col-12 col-md-4" >
-        <ImageContent :img="data.image" ref="imgContent" class="image"></ImageContent>
-      </div>
+        </b-form>
+        <div class="col-12 col-md-auto" >
+          <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
+        </div>
+      </div>      
     </div>
+    <div v-else>
+      <h2>Cargando ...</h2>
+    </div>
+    
   </div>
 </template>
+
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import ImageContent from '../Image/ImageContent'
@@ -103,12 +112,19 @@ export default {
   },
   created() {
     let id = this.$route.params.id;
-    this.data = this.get(id);
-    this.data.start_date = moment(this.data.start_date).format('YYYY-MM-DD');
-    this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
-    if(!this.data.place){
-      this.data.place = "";
-    }
+    this.data = this.get(id);    
+    if( typeof this.data === 'undefined'){
+      this.getById(id)
+        .then( event =>{
+          this.data = event
+          this.parseDate()
+        })
+    }else{
+      this.parseDate();
+      if(!this.data.place){
+        this.data.place = "";
+      }
+    }    
   },
   computed: {
     ...mapGetters({
@@ -117,7 +133,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateEvent: constants.EVENT_UPDATE
+      updateEvent: constants.EVENT_UPDATE,
+      getById: constants.EVENT_CALL_BY_ID
     }),
     save() {      
       this.data.state = true;
@@ -130,7 +147,11 @@ export default {
           this.$router.push('/events');
         })
         .catch( () => alert("No se pudo actualizar"))  
-    },    
+    },
+    parseDate() {
+      this.data.start_date = moment(this.data.start_date).format('YYYY-MM-DD');
+      this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+    }, 
     checkForm(event) {
       this.errors = [];
 
@@ -139,7 +160,7 @@ export default {
       }else{
         let lenTit = this.data.title.length;
         if (lenTit > 50) {
-          this.errors.push('Título no válido. Tamaño máximo del título 50 caracteres.');
+          this.errors.push('el título puede contener máximo 50 caracteres.');
         }
       }           
       if (!this.data.description) {
@@ -193,12 +214,29 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
  .btn-danger{
    color: #FFF;
    background: #E75252;
    border-radius: 4px;
-   width: 145.88px;
+   width: 145px;
    height: 40px;
+ }
+ p {
+   color: #A8ABBA;
+ }
+
+ .p-form{
+   text-align: left;
+   font-style: normal;
+   font-weight: 800;
+   line-height: 1.4;
+   font-size: 12px;
+   letter-spacing: 0.03em;
+   text-transform: uppercase;
+
+   color: #575A6D;
+   padding: 0;
+   margin-right: 10%;
  }
 </style>

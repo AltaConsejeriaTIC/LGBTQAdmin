@@ -1,27 +1,29 @@
 <template>
   <div>
     <div class="p-title text">
-      <h2 class="d-inline float-left text">Agregar Evento</h2>
-      <button type="button" class="btn btn-warning d-inline float-right create big text"  @click="goBack">Volver</button>
+      <a class="d-block p-link" href="#" @click="goBack"><i class="fas fa-angle-left"></i>Regresar</a>
+      <h2 class="d-block text">Agregar Evento </h2>
+    </div>
+    <div v-if="errors.length" class="p-errors">
+      <b>Por favor corriga los siguientes errores:</b>
+      <ul>
+        <li v-for="error in errors" >{{ error }}</li>
+      </ul>
     </div>
     <div class="container-fluid row">
-      <div v-if="errors.length">
-        <b>Por favor corriga los siguientes errores:</b>
-        <ul>
-          <li v-for="error in errors" >{{ error }}</li>
-        </ul>
-      </div>
       <b-form class="p-form col" @submit="checkForm">
         <b-form-group id="titleGroup" label="Título:" label-for="title">
           <b-form-input id="title" type="text" v-model="data.title"
                         required placeholder="Título">
           </b-form-input>
+          <p>Máx. 50 caracteres</p>
         </b-form-group>
         <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
           <b-form-textarea  id="description" type="text" v-model="data.description"
                             required placeholder="Descripción" :rows="3" :max-rows="5"
                             v-bind:no-resize="true">
           </b-form-textarea>
+          <p>Mín. 150, Máx. 800 caracteres</p>
         </b-form-group>
         <b-form-row>
           <b-col>
@@ -53,6 +55,21 @@
               </b-form-input>
             </b-form-group>
           </b-col>
+          <div class="w-100"></div>
+          <b-col>
+            <b-form-group id="latitudeGroup" label="Latitud:" label-for="latitude">
+              <b-form-input id="latitude" type="number" v-model="data.latitude"
+                            required placeholder="Latitud">
+              </b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group id="longitudeGroup" label="Longitud:" label-for="longitude">
+              <b-form-input id="longitude" type="number" v-model="data.longitude"
+                            required placeholder="Longitud">
+              </b-form-input>
+            </b-form-group>
+          </b-col>
         </b-form-row>
         <b-form-group id="placeGroup" label="Lugar:" label-for="place">
           <b-form-input id="place" type="text" v-model="data.place"
@@ -64,10 +81,7 @@
                         required placeholder="Dirección">
           </b-form-input>
         </b-form-group>
-        <b-form-row class="form-row">
-          <b-col>
-            <b-btn type="button" class="btn btn-light d-inline big text" @click="goBack">Cancelar</b-btn>
-          </b-col>
+        <b-form-row class="form-row float-right">
           <b-col>
             <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
           </b-col>
@@ -75,15 +89,15 @@
 
       </b-form>
 
-      <div class="col-12 col-md-4" >
-        <ImageContent ref="imgContent" class="image"></ImageContent>
+      <div class="col-12 col-md-auto" >
+        <ImageContent :w="420" :h="336" ref="imgContent" class="image" ></ImageContent>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions} from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import * as constants from '@/store/constants';
 import * as ENV from '../../env';
 import ImageContent from '../Image/ImageContent';
@@ -98,9 +112,14 @@ export default {
   data() {
     return {
       data: {},
-      image: '/images/ImagePlaceholder.png',
+      image: '',//'/images/ImagePlaceholder.png',
       api: ENV.ENDPOINT,
       errors: []
+    }
+  },
+  created(){
+    if(!this.data.place){
+      this.data.place = "";
     }
   },
   methods: {
@@ -200,9 +219,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
-.p-form{
+p {
+  color: #A8ABBA;
+}
+.p-form {
   text-align: left;
   font-style: normal;
   font-weight: 800;
@@ -210,42 +232,29 @@ export default {
   font-size: 12px;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-
-  color: #575A6D;
-  padding: 0;
-  margin-right: 10%;
-}
-
-.p-form ::placeholder{
-  font-weight: 600;
-  line-height: 20px;
-  font-size: 13px;
-  letter-spacing: 0.01em;
-  color: #A8ABBA;
-
-}
-
-input[type=text]{
-  height: 40px;
 }
 
 #description{
   height: 143px;
 }
 
-  .image{
-    width: 100%;
-
-  }
-
-  .row, .col-4, .col-md-4{
+  .row, .col-md-auto, .col-md-4{
     margin: 0;
     padding: 0;
   }
 
-  .form-row button{
-    width: 100%;
-    margin-bottom: 15px;
+@media (max-width: 1010px) {
+  .p-form{
+    margin: 0;
   }
+
+  .container-fluid.row{
+    flex-direction: column-reverse;
+  }
+
+  .col{
+    min-height: unset;
+  }
+}
 
 </style>
