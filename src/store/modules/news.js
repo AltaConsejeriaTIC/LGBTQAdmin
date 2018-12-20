@@ -14,6 +14,17 @@ const actions = {
       .then((news) => commit(constants.NEWS_SET_NEWS, news))
       .catch((e) => console.error(e));
   },
+  [constants.NEWS_CALL_BY_ID]: ({ commit }, id) => {
+    return new Promise( (resolve,reject) => {
+      Vue.axios
+        .get(`/news/${id}`)      
+        .then(news => resolve(news.data))
+        .catch((e) => {
+          console.error(e);
+          reject();
+        });
+    })      
+  },
   [constants.NEWS_UPDATE]: ({commit}, news) => {
     return new Promise((resolve, reject) => {
       Vue.axios

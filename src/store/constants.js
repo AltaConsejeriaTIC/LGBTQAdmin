@@ -10,6 +10,7 @@ export const NEWS_GET_NEWS = 'news/GET_NEWS';
 export const NEWS_UPDATE = 'news/UPDATE_NEWS';
 export const NEWS_CHANGE_STATE = 'news/CHANGE_STATE';
 export const NEWS_CREATE_NEWS = 'news/CREATE_NEWS';
+export const NEWS_CALL_BY_ID = 'news/GET_NEWS_BY_ID';
 export const HIGHLIGHT_GET_HIGHLIGHT = 'highlight/GET_HIGHLIGHT';
 export const HIGHLIGHT_CREATE_HIGHLIGHT = 'highlight/CREATE_HIGHLIGHT';
 export const HIGHLIGHT_DELETE_HIGHLIGHT = 'highlight/DELETE_HIGHLIGHT';
