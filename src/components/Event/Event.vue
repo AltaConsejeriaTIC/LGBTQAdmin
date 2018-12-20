@@ -119,48 +119,7 @@ export default {
 
 <style>
 
-  .btn-light{
-    background: #DFE0E1;
-    border: 1px solid #CBCED0;
-    box-sizing: border-box;
-    border-radius: 4px;
 
-  }
-
-  button.actions{
-    height: 32px;
-    width: 73px;
-    line-height: 20px;
-    font-size: 13px;
-  }
-  button.actions:first-child{
-    margin-bottom: 0;
-    margin-right: 10px;
-  }
-
-  .white-space-pre {
-    white-space: pre-wrap;
-  }
-
-  @media (max-width: 1100px){
-    button.actions:first-child{
-      margin-right: 0;
-      margin-bottom: 10px;
-    }
-  }
-
-  @media (max-width: 992px) {
-    button.actions:first-child{
-      margin-bottom: 0;
-      margin-right: 7px;
-    }
-  }
-
-  @media (max-width: 629px) {
-    button.actions:first-child{
-      margin-bottom: 10px;
-    }
-  }
 
 </style>
 

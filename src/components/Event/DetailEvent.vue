@@ -1,18 +1,18 @@
 <template>
   <div>
     <div class="p-title text">
-      <h2 class="d-inline float-left text">Agregar Evento</h2>
-      <button type="button" class="btn btn-danger d-inline float-right create big text"  @click="goBack">Eliminar evento</button>
+      <a class="d-block p-link" href="#" @click="goBack"><i class="fas fa-angle-left"></i>Regresar</a>
+      <h2 class="d-block text">Agregar Evento </h2>
+    </div>
+    <div v-if="errors.length" class="p-errors">
+      <b>Por favor corriga los siguientes errores:</b>
+      <ul>
+        <li v-for="error in errors" >{{ error }}</li>
+      </ul>
     </div>
     <div class="container-fluid row">
-      <div v-if="errors.length">
-        <b>Por favor corriga los siguientes errores:</b>
-        <ul>
-          <li v-for="error in errors" >{{ error }}</li>
-        </ul>
-      </div>
       <b-form class="p-form col" @submit="checkForm">
-        <b-form-group id="titleGroup" label="Título: " label-for="title">
+        <b-form-group id="titleGroup" label="Título:" label-for="title">
           <b-form-input id="title" type="text" v-model="data.title"
                         required placeholder="Título">
           </b-form-input>
@@ -43,15 +43,30 @@
           <div class="w-100"></div>
           <b-col>
             <b-form-group id="start_timeGroup" label="Hora de inicio:" label-for="start_time">
-              <b-form-input id="start_time" type="time" v-model="data.start_time.split(' ')[0]"
-                            required placeholder="Hora de inicio" >
+              <b-form-input id="start_time" type="time" v-model="data.start_time"
+                            required placeholder="Hora de inicio">
               </b-form-input>
             </b-form-group>
           </b-col>
           <b-col>
             <b-form-group id="finish_timeGroup" label="Hora de fin:" label-for="finish_time">
-              <b-form-input id="finish_time" type="time" v-model="data.finish_time.split(' ')[0]"
+              <b-form-input id="finish_time" type="time" v-model="data.finish_time"
                             required placeholder="Hora de fin">
+              </b-form-input>
+            </b-form-group>
+          </b-col>
+          <div class="w-100"></div>
+          <b-col>
+            <b-form-group id="latitudeGroup" label="Latitud:" label-for="latitude">
+              <b-form-input id="latitude" type="number" v-model="data.latitude"
+                            required placeholder="Latitud">
+              </b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group id="longitudeGroup" label="Longitud:" label-for="longitude">
+              <b-form-input id="longitude" type="number" v-model="data.longitude"
+                            required placeholder="Longitud">
               </b-form-input>
             </b-form-group>
           </b-col>
@@ -66,10 +81,7 @@
                         required placeholder="Dirección">
           </b-form-input>
         </b-form-group>
-        <b-form-row class="form-row">
-          <b-col>
-            <b-btn type="button" class="btn btn-light d-inline big text" @click="goBack">Cancelar</b-btn>
-          </b-col>
+        <b-form-row class="form-row float-right">
           <b-col>
             <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
           </b-col>
@@ -78,11 +90,12 @@
       </b-form>
 
       <div class="col-12 col-md-auto" >
-        <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
+        <ImageContent :w="420" :h="336" ref="imgContent" class="image" ></ImageContent>
       </div>
     </div>
   </div>
 </template>
+
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import ImageContent from '../Image/ImageContent'

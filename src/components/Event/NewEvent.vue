@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="p-title text">
-      <h2 class="d-inline float-left text">Agregar Evento</h2>
-      <button type="button" class="btn btn-warning d-inline float-right create big text"  @click="goBack">Volver</button>
+      <a class="d-block p-link" href="#" @click="goBack"><i class="fas fa-angle-left"></i>Regresar</a>
+      <h2 class="d-block text">Agregar Evento </h2>
     </div>
     <div v-if="errors.length" class="p-errors">
       <b>Por favor corriga los siguientes errores:</b>
@@ -55,6 +55,21 @@
               </b-form-input>
             </b-form-group>
           </b-col>
+          <div class="w-100"></div>
+          <b-col>
+            <b-form-group id="latitudeGroup" label="Latitud:" label-for="latitude">
+              <b-form-input id="latitude" type="number" v-model="data.latitude"
+                            required placeholder="Latitud">
+              </b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group id="longitudeGroup" label="Longitud:" label-for="longitude">
+              <b-form-input id="longitude" type="number" v-model="data.longitude"
+                            required placeholder="Longitud">
+              </b-form-input>
+            </b-form-group>
+          </b-col>
         </b-form-row>
         <b-form-group id="placeGroup" label="Lugar:" label-for="place">
           <b-form-input id="place" type="text" v-model="data.place"
@@ -66,10 +81,7 @@
                         required placeholder="Dirección">
           </b-form-input>
         </b-form-group>
-        <b-form-row class="form-row">
-          <b-col>
-            <b-btn type="button" class="btn btn-light d-inline big text" @click="goBack">Cancelar</b-btn>
-          </b-col>
+        <b-form-row class="form-row float-right">
           <b-col>
             <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
           </b-col>

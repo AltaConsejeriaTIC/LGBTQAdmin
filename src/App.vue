@@ -72,8 +72,13 @@ input[type=text]{
 }
 
 .p-title{
+  text-align: left;
   margin: 20px 0;
   height: 44px;
+}
+
+.p-title h2{
+  margin-top: 7px;
 }
 .text{
   font-weight: bold;
@@ -163,7 +168,7 @@ tbody tr.table-disable{
 }
 
 .form-row button{
-  width: 100%;
+  width: 30%;
   margin-bottom: 15px;
 }
 
@@ -183,6 +188,65 @@ form .btn-warning {
   text-align: -webkit-left;
   color: #ff6347;
 }
+
+.p-link {
+  color: #009bdc99;
+  text-decoration: none;
+  background-color: transparent;
+  font-size: 16px;
+}
+
+.fa-angle-left{
+  font-size: 14px;
+}
+#content > div > div.container-fluid.row{
+  margin: 0;
+  padding: 0;
+}
+
+.btn-light{
+  background: #DFE0E1;
+  border: 1px solid #CBCED0;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+}
+
+button.actions{
+  height: 32px;
+  width: 73px;
+  line-height: 20px;
+  font-size: 13px;
+}
+button.actions:first-child{
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+.white-space-pre {
+  white-space: pre-wrap;
+}
+
+@media (max-width: 1100px){
+  button.actions:first-child{
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 992px) {
+  button.actions:first-child{
+    margin-bottom: 0;
+    margin-right: 7px;
+  }
+}
+
+@media (max-width: 629px) {
+  button.actions:first-child{
+    margin-bottom: 10px;
+  }
+}
+
 @media (max-width: 1010px) {
   .p-form{
     margin: 0;
