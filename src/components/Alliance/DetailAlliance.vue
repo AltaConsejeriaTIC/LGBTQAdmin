@@ -1,74 +1,80 @@
 <template>
   <div>
-    <div class="p-title text">
-      <h2 class="d-inline float-left text">Agregar Alianza</h2>
-      <button type="button" class="btn btn-danger d-inline float-right create big text"  @click="goBack">Eliminar evento</button>
-    </div>
-    <div v-if="errors.length" class="p-errors">
-      <b>Por favor corriga los siguientes errores:</b>
-      <ul>
-        <li v-for="error in errors" >{{ error }}</li>
-      </ul>
-    </div>
-    <div class="container-fluid row">
-      <b-form class="p-form col" @submit="checkForm">
-        <b-form-group id="nameGroup" label="Nombre:" label-for="name">
-          <b-form-input id="name" type="text" v-model="data.name"
-                        required placeholder="Nombre">
-          </b-form-input>
-          <p>Máx. 45 caracteres</p>
-        </b-form-group>
-        <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
-          <b-form-textarea  id="description" type="text" v-model="data.description"
-                            required placeholder="Descripción" :rows="3" :max-rows="5"
-                            v-bind:no-resize="true">
-          </b-form-textarea>
-          <p>Máx. 45 caracteres</p>
-        </b-form-group>
-
-        <b-form-group id="offerGroup" label="Oferta:" label-for="offer">
-          <b-form-input id="offer" type="text" v-model="data.offer"
-                        required placeholder="Oferta">
-          </b-form-input>
-          <p>Mín. 300, Máx. 1000 caracteres</p>
-        </b-form-group>
-
-        <b-form-group id="websiteGroup" label="Sitio Web:" label-for="website">
-          <b-form-input id="website" type="text" v-model="data.website"
-                        required placeholder="Sitio Web">
-          </b-form-input>
-        </b-form-group>
-
-        <b-form-group id="phoneGroup" label="Teléfono:" label-for="phone">
-          <b-form-input id="phone" type="text" v-model="data.phone"
-                        required placeholder="(+57)(1) 1234567 ext. 12345">
-          </b-form-input>
-        </b-form-group>
-
-        <b-form-group id="emailGroup" label="Email:" label-for="email">
-          <b-form-input id="email" type="text" v-model="data.email"
-                        required placeholder="Email">
-          </b-form-input>
-        </b-form-group>
-        <b-form-group id="finish_dateGroup" label="Fecha:" label-for="finish_date">
-          <b-form-input id="finish_date" type="date" v-model="data.finish_date"
-                        required placeholder="Fecha">
-          </b-form-input>
-        </b-form-group>
-        <b-form-row class="form-row">
-          <b-col>
-            <b-btn type="button" class="btn btn-light d-inline big text" @click="goBack">Cancelar</b-btn>
-          </b-col>
-          <b-col>
-            <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
-          </b-col>
-        </b-form-row>
-
-      </b-form>
-
-      <div class="col-12 col-md-auto" >
-        <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
+    <div v-if="data">
+      <div class="p-title text">
+        <h2 class="d-inline float-left text">Editar Alianza</h2>
+        <button type="button" class="btn btn-danger d-inline float-right create big text"  @click="goBack">Eliminar evento</button>
       </div>
+      <div v-if="errors.length" class="p-errors">
+        <b>Por favor corriga los siguientes errores:</b>
+        <ul>
+          <li v-for="error in errors" >{{ error }}</li>
+        </ul>
+      </div>
+      <div class="container-fluid row">
+        <b-form class="p-form col" @submit="checkForm">
+          <b-form-group id="nameGroup" label="Nombre:" label-for="name">
+            <b-form-input id="name" type="text" v-model="data.name"
+                          required placeholder="Nombre">
+            </b-form-input>
+            <p>Máx. 45 caracteres</p>
+          </b-form-group>
+          <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
+            <b-form-textarea  id="description" type="text" v-model="data.description"
+                              required placeholder="Descripción" :rows="4" :max-rows="5"
+                              v-bind:no-resize="true">
+            </b-form-textarea>
+            <p>Mín. 150, Máx. 300 caracteres</p>
+          </b-form-group>
+
+          <b-form-group id="offerGroup" label="Oferta:" label-for="offer">
+            <b-form-textarea id="offer" type="text" v-model="data.offer"
+                          required placeholder="Oferta" :rows="6" :max-rows="8"
+                          v-bind:no-resize="true"> 
+            </b-form-textarea>
+            <p>Mín. 300, Máx. 1000 caracteres</p>
+          </b-form-group>
+
+          <b-form-group id="websiteGroup" label="Sitio Web:" label-for="website">
+            <b-form-input id="website" type="text" v-model="data.website"
+                          required placeholder="Sitio Web">
+            </b-form-input>
+          </b-form-group>
+
+          <b-form-group id="phoneGroup" label="Teléfono:" label-for="phone">
+            <b-form-input id="phone" type="text" v-model="data.phone"
+                          required placeholder="(+57)(1) 1234567 ext. 12345">
+            </b-form-input>
+          </b-form-group>
+
+          <b-form-group id="emailGroup" label="Email:" label-for="email">
+            <b-form-input id="email" type="text" v-model="data.email"
+                          required placeholder="Email">
+            </b-form-input>
+          </b-form-group>
+          <b-form-group id="finish_dateGroup" label="Fecha:" label-for="finish_date">
+            <b-form-input id="finish_date" type="date" v-model="data.finish_date"
+                          required placeholder="Fecha">
+            </b-form-input>
+          </b-form-group>
+          <b-form-row class="form-row">
+            <b-col>
+              <b-btn type="button" class="btn btn-light d-inline big text" @click="goBack">Cancelar</b-btn>
+            </b-col>
+            <b-col>
+              <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
+            </b-col>
+          </b-form-row>
+
+        </b-form>
+
+        <div class="col-12 col-md-auto" >
+          <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <h2>Cargando ...</h2>
     </div>
   </div>
 </template>
@@ -94,7 +100,16 @@
         created() {
           let id = this.$route.params.id;
           this.data = this.get(id);
-          this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');          
+          if(typeof this.data === 'undefined'){
+            this.getByID(id)
+              .then( alliance => {
+                this.data = alliance;
+                this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+              })
+          }else{
+            this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+          }
+          
         },
         computed: {
           ...mapGetters({
@@ -103,7 +118,8 @@
         },
         methods: {
           ...mapActions({
-            updateAlliance: constants.ALLIANCE_UPDATE
+            updateAlliance: constants.ALLIANCE_UPDATE,
+            getByID: constants.ALLIANCE_CALL_BY_ID
           }),
           save() {
             if(!this.data.phone){
@@ -176,6 +192,9 @@
 </script>
 
 <style scoped>
+  p {
+    color: #A8ABBA;
+  }
   .row, .col-md-auto, .col-md-4{
     margin: 0;
     padding: 0;

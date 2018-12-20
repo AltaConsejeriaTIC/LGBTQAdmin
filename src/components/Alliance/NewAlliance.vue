@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <div class="p-title text">
@@ -21,16 +20,17 @@
         </b-form-group>
         <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
           <b-form-textarea  id="description" type="text" v-model="data.description"
-                            required placeholder="Descripción" :rows="3" :max-rows="5"
+                            required placeholder="Descripción" :rows="4" :max-rows="5"
                             v-bind:no-resize="true">
           </b-form-textarea>
-          <p>Máx. 45 caracteres</p>
+          <p>Mín. 150, Máx. 300 caracteres</p>
         </b-form-group>
 
         <b-form-group id="offerGroup" label="Oferta:" label-for="offer">
-          <b-form-input id="offer" type="text" v-model="data.offer"
-                        required placeholder="Oferta">
-          </b-form-input>
+          <b-form-textarea id="offer" type="text" v-model="data.offer"
+                        required placeholder="Oferta" :rows="6" :max-rows="8"
+                        v-bind:no-resize="true">
+          </b-form-textarea>
           <p>Mín. 300, Máx. 1000 caracteres</p>
         </b-form-group>
 
@@ -190,6 +190,9 @@
 </script>
 
 <style scoped>
+  p {
+    color: #A8ABBA;
+  }
   .row, .col-md-auto, .col-md-4{
     margin: 0;
     padding: 0;

@@ -1,7 +1,8 @@
 <template>
   <div>
+  <div v-if="data">
     <div class="p-title text">
-      <h2 class="d-inline float-left text">Agregar Organización</h2>
+      <h2 class="d-inline float-left text">Editar Organización</h2>
       <button type="button" class="btn btn-danger d-inline float-right create big text"  @click="goBack">Eliminar Organización</button>
     </div>
     <div v-if="errors.length" class="p-errors">
@@ -60,11 +61,15 @@
 
       </b-form>
 
-      <!--<div class="col-12 col-md-auto" >-->
-        <!--<ImageContent :w="420" :h="336" ref="imgContent" class="image"></ImageContent>-->
-      <!--</div>-->
+      <div class="col-12 col-md-auto" >
+        <ImageContent :w="400" :h="400" ref="imgContent" class="image"></ImageContent>
+      </div>
     </div>
-  </div>
+ </div>
+    <div v-else>
+      <h2>Cargando ...</h2>
+    </div>
+  </div>  
 </template>
 
 <script>
@@ -87,7 +92,11 @@
         },
         created() {
           let id = this.$route.params.id;
-          this.data = this.get(id);                   
+          this.data = this.get(id);
+          if(typeof this.data === 'undefined'){
+            this.getById(id)
+              .then( organization => this.data = organization)
+          }
         },
         computed: {
           ...mapGetters({
@@ -96,7 +105,8 @@
         },
         methods: {
           ...mapActions({
-            updateOrganization: constants.ORGANIZATION_UPDATE
+            updateOrganization: constants.ORGANIZATION_UPDATE,
+            getById: constants.ORGANIZATION_CALL_BY_ID
           }),
           save() {
             if(!this.data.address){
@@ -161,6 +171,9 @@
 </script>
 
 <style scoped>
+  p {
+    color: #A8ABBA;
+  }
   .row, .col-md-auto, .col-md-4{
     margin: 0;
     padding: 0;

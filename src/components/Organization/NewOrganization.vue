@@ -60,9 +60,9 @@
 
       </b-form>
 
-      <!--<div class="col-12 col-md-auto" >-->
-        <!--<ImageContent :w="420" :h="336" ref="imgContent" class="image"></ImageContent>-->
-      <!--</div>-->
+      <div class="col-12 col-md-auto" >
+        <ImageContent :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
+      </div>
     </div>
   </div>
 </template>
@@ -157,6 +157,9 @@ export default {
 </script>
 
 <style scoped>
+  p {
+    color: #A8ABBA;
+  }
   .row, .col-md-auto, .col-md-4{
     margin: 0;
     padding: 0;

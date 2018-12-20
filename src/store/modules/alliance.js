@@ -13,6 +13,17 @@ const actions = {
       .then((alliances) => commit(constants.ALLIANCE_SET_ALLIANCES, alliances))
       .catch((e) => console.error(e));
   },
+  [constants.ALLIANCE_CALL_BY_ID]: ({ commit }, id) => {
+    return new Promise( (resolve, reject) => {
+      Vue.axios
+      .get(`/alliance/${id}`)      
+      .then( alliance => resolve(alliance.data))
+      .catch((e) => {
+        console.error(e);
+        reject();
+      });
+    })    
+  },
   [constants.ALLIANCE_UPDATE]: ({commit}, alliance) => {
     return new Promise( (resolve, reject ) => {
       Vue.axios
@@ -27,8 +38,7 @@ const actions = {
       });
     })    
   },
-  [constants.ALLIANCE_CHANGE_STATE]: ({commit}, alliance) => {
-    console.log("-------estare")
+  [constants.ALLIANCE_CHANGE_STATE]: ({commit}, alliance) => {    
     alliance.state = !alliance.state;
     return Vue.axios
       .put(`/updateAllianceState/${alliance.id}`, alliance, { headers: { token: sessionStorage.getItem('token') }})

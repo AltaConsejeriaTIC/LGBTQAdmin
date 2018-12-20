@@ -6,14 +6,14 @@
         <tr>          
           <th>Número de Documento</th>
           <th>Correo</th>
-          <th>Día del Evento</th>
+          <th>Día de la Denuncia</th>
         </tr>
       </thead>
        <tbody v-for="complaint in complaints" :key="complaint.id">
         <tr >
           <td>{{complaint.document_number}}</td>          
           <td>{{complaint.email}}</td>
-          <td>{{formatDate(complaint.event_day)}}</td>          
+          <td>{{formatDate(complaint.created_at)}}</td>          
           <td >
             <div class="ui small button" @click="viewComplaint(complaint)" >
               <i class="external alternate icon"></i>
