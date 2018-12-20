@@ -4,7 +4,7 @@
       <h2 class="d-inline float-left text">Agregar Alianza</h2>
       <button type="button" class="btn btn-danger d-inline float-right create big text"  @click="goBack">Eliminar evento</button>
     </div>
-    <div v-if="errors.length" class="errors">
+    <div v-if="errors.length" class="p-errors">
       <b>Por favor corriga los siguientes errores:</b>
       <ul>
         <li v-for="error in errors" >{{ error }}</li>

@@ -59,7 +59,6 @@ export default {
               return this.formatDate(value);
             }
           },
-
           state: {
             label: 'Estado'
           },
@@ -108,7 +107,6 @@ export default {
           rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
         }
         this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 6;
-        console.log(this.alliances);
       }
     }
 }
