@@ -11,8 +11,7 @@
             <download-excel
                   type="button"
                   class="btn btn-warning "
-                  :fields = "jeison_fields"
-                  :data   = "json_data">
+                  :data   = users>
                   <i class="fas fa-download"></i>
             </download-excel>
           </div>
@@ -40,34 +39,6 @@
     name: 'PersonalData',
     data() {
       return {
-        json_fields: {
-        'Complete name': 'name',
-        'City': 'city',
-        'Telephone': 'phone.mobile',
-        'Telephone 2' : {
-            field: 'phone',
-            callback: (value) => {
-                return `Landline Phone - ${value.landline}`;
-            }
-        },
-    },
-
-        json_data : [
-            {
-                "name"      : "Tony Peña",
-                "city"      : "New York",
-                "country"   : "United States",
-                "birthdate" : "1978-03-15",
-                "amount"    : 42
-            },
-            {
-                "name"      : "Thessaloniki",
-                "city"      : "Athens",
-                "country"   : "Greece",
-                "birthdate" : "1987-11-23",
-                "amount"    : 42
-            }
-        ],
         title: 'Datos personales',
         currentPage: 1,
         perPage: 5,

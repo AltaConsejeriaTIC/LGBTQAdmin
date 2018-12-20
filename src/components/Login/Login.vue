@@ -1,22 +1,25 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col col-l">
-        <div>
-        <img class="img-up" src="../../assets/EBSPS.svg">
-        </div>
-        <div>
-          <img class="img-half" src="../../assets/logo.svg" >
-        </div>
-        <div>
-        <img class="img-down" src="../../assets/manos.svg">
+  <div class="app-background">
+    <div class="app-login app-wrapper">
+      <div class="col col-l" >
+        <div class="app-login__image">
+          <div>
+            <img src="../../assets/EBSPS.svg">
+          </div>
+          <div>
+            <img src="../../assets/logo.svg">
+          </div>
+          <div class="app-login__image-down">
+            <img class="app-login--cover" src="../../assets/manos.svg">
+          </div>
         </div>
       </div>
       <div class="col col-r" >
-        <h1 style="margin-left: 22%">Iniciar sesión</h1>
+        <div class="form-center">
         <form>
           <div class="form-width">
             <div class="form-group">
+              <h1>Iniciar sesión</h1>
               <label for="email">Usuario</label>
               <input v-model="form.email" type="text" id="email" class="form-control" placeholder="Usuario">
             </div>
@@ -27,6 +30,7 @@
             <button type="button" class="btn btn-primary btn-lg btn-block" :disabled="isDisabled" @click.prevent="sigin">INGRESAR</button>
           </div>
         </form>
+        </div>
       </div>
     </div>
   </div>
@@ -78,6 +82,50 @@ export default {
 
 <style scoped>
 
+.app-background {
+    background-color: #202122;
+    height: 100vh;
+    display: flex;
+}
+
+.app-wrapper {
+
+    max-width: 968px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.app-login {
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    overflow: hidden;
+}
+
+.app-login__image,
+.app-login__form {
+    flex: 1;
+}
+
+.app-login__image {
+    background-color: #009de0;
+}
+
+.app-login__image>div {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.app-login--cover {
+    object-fit: cover;
+}
+
+.app-login__image-down {
+    width: 100%;
+}
 
 
 .col {
@@ -87,33 +135,21 @@ export default {
 
 .col-l{
   background: #009DE0;
-  border-radius: 10px 0px 0px 10px;
-  min-height: 600px;
   min-width: 400px;
+  max-width: 484px;
 }
-
 .col-r{
   text-align: left;
   background: #EAEAEC;
   border-radius: 0px 10px 10px 0px;
   min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 484px;
+  padding-bottom: 4rem;
+  padding-top: 4rem;
 }
-
-h1{
-  margin-top: 20.266%;
-  margin-bottom: 5%;
-  font-family: Nunito;
-  font-style: normal;
-  font-weight: bold;
-  line-height: 49px;
-  font-size: 30px;
-  color: #282A35;
-}
-
-form {
-  margin-bottom: 35.72%;
-}
-
 .form-group {
   margin-bottom: 8%;
 }
@@ -121,10 +157,40 @@ form {
 .form-width{
   width: 55%;
   margin: auto;
+
 }
+form {
+
+  /* justify-content: center; */
+}
+
 .btn-block {
   margin-top: 4%;
 }
+h1{
+  font-weight: bold;
+  line-height: 49px;
+  font-size: 30px;
+  color: #282A35;
+}
+
+@media only screen and (max-width: 1000px) {
+    .app-login {
+        display: block;
+    }
+    .app-login__image {
+        display: flex;
+        justify-content: center;
+    }
+    .app-login__image>div {
+        margin: 1rem 2rem;
+    }
+    .app-login__image-down {
+        display: none !important;
+    }
+}
+
+/*
 .img-up {
   margin-top: 10% ;
   width: 30%;
@@ -145,5 +211,5 @@ form {
   margin-top: 3.266%;
   display : -webkit-flex;
   display: flex;
-}
+} */
 </style>
