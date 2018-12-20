@@ -58,7 +58,7 @@
       </b-form>
 
       <div class="col-12 col-md-auto" >
-        <ImageContent :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
+        <ImageContent :w="400" :h="400" ref="imgContent" class="image"></ImageContent>
       </div>
     </div>
   </div>

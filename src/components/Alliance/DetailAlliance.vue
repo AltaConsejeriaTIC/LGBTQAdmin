@@ -127,6 +127,7 @@
               this.data.website = "";
             }
             this.$refs.imgContent.uploadImage();
+            delete this.data._rowVariant;
             this.updateAlliance(this.data)
               .then( () => {
                 alert("Alianza fue actualizada exitosamente");
