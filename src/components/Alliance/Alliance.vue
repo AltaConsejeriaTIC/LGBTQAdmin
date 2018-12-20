@@ -2,7 +2,7 @@
   <div v-resize="handleResize">
     <div class="p-title .text">
       <h2 class="d-inline float-left text">{{title}}</h2>
-      <button type="button" class="btn btn-warning d-inline float-right big text" @click="newAlliance">Agregar Evento</button>
+      <button type="button" class="btn btn-warning d-inline float-right big text" @click="newAlliance">Agregar Alianza</button>
     </div>
     <div v-if="thereAreAliances">
       <b-table hover stacked="lg"           :items="alliances"
@@ -72,6 +72,8 @@ export default {
     created() {
       if ( !this.alliances.length )
         this.getAlliances()
+      this.alliances.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
+
     },
     computed: {
       ...mapGetters({
@@ -96,12 +98,17 @@ export default {
       newAlliance() {
         this.$router.push({ name: 'NewAlliance' });
       },
+      changeState(alliance) {
+        this.changeStateAlliance(alliance);
+        this.alliances.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
+      },
       handleResize() {
         let rowHeight = 140;
         if(this.$refs.actionsRow && this.$refs.actionsRow.$el && this.$refs.actionsRow.$el.children[1] && this.$refs.actionsRow.$el.children[1].children[0]){
           rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
         }
         this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 6;
+        console.log(this.alliances);
       }
     }
 }
