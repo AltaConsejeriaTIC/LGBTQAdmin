@@ -22,6 +22,17 @@
                 <nav v-if = "active" class="sidebar">
                     <ul class="list-unstyled components">
                         <li class="group-text">
+                                CARRUSEL
+                        </li>
+                        <router-link tag="li" active-class="active" :to="{name: 'Home'}">
+                            <a href="#">
+                                <div class="section">
+                                    <div class="section-text">Destacados</div>
+                                    <div class="section-icon"><i class="far fa-star"></i></div>
+                                </div>
+                            </a>
+                        </router-link>
+                        <li class="group-text">
                                 PUBLICACIONES
                         </li>
                         <router-link tag="li" active-class="active" :to="{name: 'News'}">
@@ -43,24 +54,16 @@
                         <li class="group-text">
                                 ACTUALIDAD
                         </li>
-                        <router-link tag="li" active-class="active" :to="{name: 'Home'}">
-                            <a href="#">
-                                <div class="section">
-                                    <div class="section-text">Destacados</div>
-                                    <div class="section-icon"><i class="far fa-star"></i></div>
-                                </div>
-                            </a>
-                        </router-link>
-                        <router-link tag="li" active-class="active" :to="{name: ''}">
-                            <a href="#">
+                        <!-- <router-link tag="li" active-class="active" :to="{name: ''}"> -->
+                            <a>
                                 <div class="section">
                                     <div class="section-text">Notificaciones</div>
                                     <div class="section-icon"><i class="far fa-bell "></i></div>
                                 </div>
                             </a>
-                        </router-link>
+                        <!-- </router-link> -->
                         <li class="group-text">
-                                INFORMACIÓN
+                                ALIADOS
                         </li>
                         <router-link tag="li" active-class="active" :to="{name: 'Alliance'}">
                             <a href="#">
@@ -79,12 +82,12 @@
                             </a>
                         </router-link>
                         <li class="group-text">
-                                DATOS DE USUARIO
+                                FORMULARIOS
                         </li>
                         <router-link tag="li" active-class="active" :to="{name: 'PersonalData'}">
                             <a href="#">
                                 <div class="section">
-                                    <div class="section-text">Censo LGBTI</div>
+                                    <div class="section-text">Datos de usuarios</div>
                                     <div class="section-icon"><i class="far fa-list-alt"></i></div>
                                 </div>
                             </a>
@@ -180,7 +183,7 @@
   font-size: 15px;
   text-align: center;
   letter-spacing: 0.02em;
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - 80px);
 }
 
 .sidebar .sidebar-header {
@@ -195,13 +198,13 @@ a {
 }
 
 li a:hover {
-    color: #000;
-    background: #009DE0;
+  color:  #009DE0;
+  background: rgba(248, 251, 252, 0.1);
 }
 
 li.active>a {
-    color:  #009DE0;
-    background: rgba(248, 251, 252, 0.1);
+  color: #000;
+  background: #009DE0;
 }
 
 a,
@@ -263,6 +266,7 @@ a:focus {
 .dashboard{
     display: flex;
     align-items: stretch;
+    height: 100%;
 }
 
 .toggle-button{

@@ -4,7 +4,7 @@
       <div class="col col-l">
         <div>
         <img class="img-up" src="../../assets/EBSPS.svg">
-        </div>        
+        </div>
         <div>
           <img class="img-half" src="../../assets/logo.svg" >
         </div>
@@ -13,24 +13,24 @@
         </div>
       </div>
       <div class="col col-r" >
-        <h1 style="margin-left: 22%">Iniciar sesión</h1> 
+        <h1 style="margin-left: 22%">Iniciar sesión</h1>
         <form>
           <div class="form-width">
             <div class="form-group">
               <label for="email">Usuario</label>
-              <input v-model="form.email" type="text" id="email" class="form-control" placeholder="Usuario">            
+              <input v-model="form.email" type="text" id="email" class="form-control" placeholder="Usuario">
             </div>
             <div class="form-group">
               <label for="password">Contraseña</label>
               <input v-model="form.password" type="password" id="password"  class="form-control" placeholder="Contraseña">
-            </div>  
-            <button type="button" class="btn btn-primary btn-lg btn-block" :disabled="isDisabled" @click.prevent="sigin">INGRESAR</button>          
+            </div>
+            <button type="button" class="btn btn-primary btn-lg btn-block" :disabled="isDisabled" @click.prevent="sigin">INGRESAR</button>
           </div>
-        </form>        
+        </form>
       </div>
-    </div>    
+    </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -69,7 +69,7 @@ export default {
   watch: {
     token() {
       if (this.isLogged) {
-        this.$router.push({ name: 'Dashboard'  });
+        this.$router.push({ name: 'Home'  });
       }
     }
   }
@@ -81,30 +81,30 @@ export default {
 
 
 .col {
-  width: 559px;  
+  width: 559px;
 }
 
 
-.col-l{    
+.col-l{
   background: #009DE0;
-  border-radius: 10px 0px 0px 10px; 
+  border-radius: 10px 0px 0px 10px;
   min-height: 600px;
   min-width: 400px;
 }
 
-.col-r{  
+.col-r{
   text-align: left;
   background: #EAEAEC;
-  border-radius: 0px 10px 10px 0px; 
+  border-radius: 0px 10px 10px 0px;
   min-width: 400px;
 }
 
-h1{  
+h1{
   margin-top: 20.266%;
   margin-bottom: 5%;
   font-family: Nunito;
   font-style: normal;
-  font-weight: bold;  
+  font-weight: bold;
   line-height: 49px;
   font-size: 30px;
   color: #282A35;
@@ -115,7 +115,7 @@ form {
 }
 
 .form-group {
-  margin-bottom: 8%;  
+  margin-bottom: 8%;
 }
 
 .form-width{
@@ -144,6 +144,6 @@ form {
 .container {
   margin-top: 3.266%;
   display : -webkit-flex;
-  display: flex;  
+  display: flex;
 }
 </style>

@@ -144,15 +144,6 @@ export default {
     height: 44px;
   }
 
-  .btn-warning{
-    width: 154px;
-
-    font-weight: bold;
-    line-height: 21px;
-    border: 1px solid #E0AE0D;
-    color: #161824;
-  }
-
   table.table{
     text-align: left;
     background-color: #fff;
@@ -257,5 +248,14 @@ export default {
   }
   .table >>> td:nth-child(6) {
     width: 183px;
+  }
+
+  .btn-warning{
+    width: 154px;
+
+    font-weight: bold;
+    line-height: 21px;
+    border: 1px solid #E0AE0D;
+    color: #161824;
   }
 </style>

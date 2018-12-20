@@ -22,7 +22,7 @@
         <b-table hover stacked="lg"           :items="users"
                 :fields="fields"             :head-variant="'light'"
                 :current-page="currentPage"  :per-page="perPage"
-                class="table text table-responsive-xl" id="tblData">          
+                class="table text table-responsive-xl" id="tblData">
         </b-table>
           <b-pagination :total-rows="users.length" :per-page="perPage" v-model="currentPage" align="right"
                         :limit=1 v-bind:hide-goto-end-buttons="true" next-text="Siguiente" prev-text="Anterior"></b-pagination>
