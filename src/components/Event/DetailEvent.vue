@@ -196,7 +196,7 @@ export default {
    color: #FFF;
    background: #E75252;
    border-radius: 4px;
-   width: 145.88px;
+   width: 145px;
    height: 40px;
  }
 </style>

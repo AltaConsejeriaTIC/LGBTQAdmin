@@ -76,14 +76,14 @@
       </b-form>
 
       <div class="col-12 col-md-4" >
-        <ImageContent ref="imgContent" class="image"></ImageContent>
+        <ImageContent :img="data.image" ref="imgContent" class="image"></ImageContent>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions} from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import * as constants from '@/store/constants';
 import * as ENV from '../../env';
 import ImageContent from '../Image/ImageContent';
@@ -102,6 +102,23 @@ export default {
       api: ENV.ENDPOINT,
       errors: []
     }
+  },
+  created(){
+    this.data = this.get(10);
+    this.data.start_date = moment(this.data.start_date).format('YYYY-MM-DD');
+    this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+    this.data.start_time = moment(this.data.start_time.replace(/\./g,""), 'h:mm A').format("HH:mm");
+    this.data.finish_time = moment(this.data.finish_time.replace(/\./g,""), 'h:mm A').format("HH:mm");
+
+    if(!this.data.place){
+      this.data.place = "";
+    }
+    console.log(this.data);
+  },
+  computed: {
+    ...mapGetters({
+      get: constants.EVENT_BY_ID
+    })
   },
   methods: {
     ...mapActions({
@@ -243,5 +260,19 @@ input[type=text]{
     width: 100%;
     margin-bottom: 15px;
   }
+
+@media (max-width: 767px) {
+  .p-form{
+    margin: 0;
+  }
+
+  .container-fluid.row{
+    flex-direction: column-reverse;
+  }
+
+  .col{
+    min-height: unset;
+  }
+}
 
 </style>
