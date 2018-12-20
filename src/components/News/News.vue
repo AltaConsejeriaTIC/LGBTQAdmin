@@ -91,7 +91,6 @@ export default {
       changeStateNews: constants.NEWS_CHANGE_STATE
     }),
     formatDate(date) {
-      console.log(this.news);
       return moment(date).format('YYYY-MMMM-DD');
     },
     editNews(newsId){

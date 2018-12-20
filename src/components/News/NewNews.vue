@@ -95,6 +95,7 @@
         if (!this.data.image_owner) {
           this.data.image_owner = "";
         }
+        this.data.date = this.getCurrentDate();
         let nameImage = this.data.title.replace(/\s/g,"");
         this.data.image = `/images/noticia-${nameImage}.jpg`;
         this.$set(this.data,'state',true);
@@ -123,18 +124,6 @@
             this.errors.push('La descripción puede tener máximo 1000 caracteres.')
           }
         }
-        if (!this.data.date) {
-          this.errors.push('Fecha es requrida.')
-        }else{
-          let currentDate = new Date();
-          let year = currentDate.getFullYear();
-          let month = this.addZero(currentDate.getMonth()+1);
-          let day = this.addZero(currentDate.getDate());
-          currentDate = `${year}-${month}-${day}`;
-          if (this.data.date > currentDate ) {
-            this.errors.push('La fecha no puede ser mayor a hoy.')
-          }
-        }
         event.preventDefault();
         if(this.errors.length === 0)
           this.save();
@@ -149,6 +138,13 @@
         window.history.length > 1
           ? this.$router.go(-1)
           : this.$router.push('/dashboard')
+      },
+      getCurrentDate() {
+        let currentDate = new Date();
+        let year = currentDate.getFullYear();
+        let month = this.addZero(currentDate.getMonth()+1);
+        let day = this.addZero(currentDate.getDate());
+        return `${year}-${month}-${day}`;
       }
     }
   }
