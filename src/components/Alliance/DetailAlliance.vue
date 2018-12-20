@@ -1,59 +1,64 @@
 <template>
-  <div class="ui grid">
-    <div class="five wide column">
-      <ImageContent :img="data.image"  :w="200" :h="200"  ref="imgContent"></ImageContent>
-    </div>
-
-    <div class="ten wide column">
-      <div v-if="errors.length">
-        <b>Por favor corriga los siguientes errores:</b>
-        <ul>
-          <li v-for="error in errors" >{{ error }}</li>
-        </ul>
+  <div>
+    <div class="ui grid" v-if="data">
+      <div class="five wide column">
+        <ImageContent :img="data.image"  :w="200" :h="200"  ref="imgContent"></ImageContent>
       </div>
-      <form class="ui form" @submit="checkForm">
-        <div class="field">
-          <label>Nombre</label>
-          <input type="text" v-model="data.name">
-          <p>Máx. 45 caracteres</p>
-          <label>Descripción</label>
-          <textarea rows="8" v-model="data.description"></textarea>
-          <p>Mín. 150, Máx. 300 caracteres</p>
+
+      <div class="ten wide column">
+        <div v-if="errors.length">
+          <b>Por favor corriga los siguientes errores:</b>
+          <ul>
+            <li v-for="error in errors" >{{ error }}</li>
+          </ul>
         </div>
-        <div class="field">
-          <label>Oferta</label>
-          <textarea rows="5" v-model="data.offer"></textarea>
-          <p>Mín. 300, Máx. 1000 caracteres</p>
-          <label>Sitio Web</label>
-          <input type="text" v-model="data.website">
-          <label>Teléfono</label>
-          <input type="text" v-model="data.phone">
-          <div class="phoneExamples">
-            <p>Ejemplos de telefonos válidos:</p>
-            <ul style="list-style: none;">
-              <li>(+57)(1) 34545345 ext. 12345</li>
-              <li>(1) 34545345 Ext 145</li>
-              <li>+57 2 3454555</li>
-              <li>3454555 ext 12</li>
-            </ul>
+        <form class="ui form" @submit="checkForm">
+          <div class="field">
+            <label>Nombre</label>
+            <input type="text" v-model="data.name">
+            <p>Máx. 45 caracteres</p>
+            <label>Descripción</label>
+            <textarea rows="8" v-model="data.description"></textarea>
+            <p>Mín. 150, Máx. 300 caracteres</p>
           </div>
-          <label>Email</label>
-          <input type="email" v-model="data.email">
-        </div>
-        <div class="field">
-          <label>Fecha: {{data.finish_date}}</label>
-          <input type="date" v-model="data.finish_date">
-        </div>
-        <button class="ui button" type="submit" >Guardar</button>
-      </form>
+          <div class="field">
+            <label>Oferta</label>
+            <textarea rows="5" v-model="data.offer"></textarea>
+            <p>Mín. 300, Máx. 1000 caracteres</p>
+            <label>Sitio Web</label>
+            <input type="text" v-model="data.website">
+            <label>Teléfono</label>
+            <input type="text" v-model="data.phone">
+            <div class="phoneExamples">
+              <p>Ejemplos de telefonos válidos:</p>
+              <ul style="list-style: none;">
+                <li>(+57)(1) 34545345 ext. 12345</li>
+                <li>(1) 34545345 Ext 145</li>
+                <li>+57 2 3454555</li>
+                <li>3454555 ext 12</li>
+              </ul>
+            </div>
+            <label>Email</label>
+            <input type="email" v-model="data.email">
+          </div>
+          <div class="field">
+            <label>Fecha de expiración: </label>
+            <input type="date" v-model="data.finish_date">
+          </div>
+          <button class="ui button" type="submit" >Guardar</button>
+        </form>
+      </div>
+      <div class="fifteen wide column">
+        <button class="ui button back" @click="goBack">
+          <i class="caret left icon"></i>
+          Volver
+        </button>
+      </div>
     </div>
-    <div class="fifteen wide column">
-      <button class="ui button back" @click="goBack">
-        <i class="caret left icon"></i>
-        Volver
-      </button>
+    <div v-else>
+      <h2>Cargando ...</h2>
     </div>
-  </div>
+  </div>  
 </template>
 
 <script>
@@ -77,7 +82,16 @@
         created() {
           let id = this.$route.params.id;
           this.data = this.get(id);
-          this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');          
+          if(typeof this.data === 'undefined'){
+            this.getByID(id)
+              .then( alliance => {
+                this.data = alliance;
+                this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+              })
+          }else{
+            this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+          }
+          
         },
         computed: {
           ...mapGetters({
@@ -86,7 +100,8 @@
         },
         methods: {
           ...mapActions({
-            updateAlliance: constants.ALLIANCE_UPDATE
+            updateAlliance: constants.ALLIANCE_UPDATE,
+            getByID: constants.ALLIANCE_CALL_BY_ID
           }),
           save() {
             if(!this.data.phone){

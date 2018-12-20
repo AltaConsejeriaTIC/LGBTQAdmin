@@ -14,6 +14,17 @@ const actions = {
             .then((organizations) => commit(constants.ORGANIZATION_SET_ORGANIZATIONS, organizations))
             .catch((e) => console.log(e));
     },
+    [constants.ORGANIZATION_CALL_BY_ID]: ({ commit }, id) => {
+        return new Promise( (resolve,reject) => {
+            Vue.axios
+              .get(`/organizations/${id}`)            
+              .then( organization => resolve(organization.data))
+              .catch((e) => {
+                console.log(e);
+                reject();
+              });
+        })            
+    },
     [constants.ORGANIZATION_UPDATE]: ({ commit }, organization) => {
       return new Promise((resolve,reject) => {
         Vue.axios
