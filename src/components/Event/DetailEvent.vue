@@ -148,6 +148,8 @@ export default {
     parseDate() {
       this.data.start_date = moment(this.data.start_date).format('YYYY-MM-DD');
       this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+      this.data.start_time = moment(this.data.start_time,"h:mm a").format('HH:MM');
+      this.data.finish_time = moment(this.data.finish_time,"h:mm a").format('HH:MM');
     }, 
     checkForm(event) {
       this.errors = [];
