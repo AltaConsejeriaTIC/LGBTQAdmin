@@ -3,7 +3,7 @@
   <div v-if="data">
     <div class="p-title text">
       <a class="d-block p-link" href="#" @click="goBack"><i class="fas fa-angle-left"></i>Regresar</a>
-      <h2 class="d-inline float-left text">Agregar Organización</h2>
+      <h2 class="d-inline float-left text">Editar Organización</h2>
     </div>
     <div v-if="errors.length" class="p-errors">
       <b>Por favor corriga los siguientes errores:</b>

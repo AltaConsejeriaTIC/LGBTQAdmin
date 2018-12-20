@@ -20,7 +20,7 @@
                     :limit=5 v-bind:hide-goto-end-buttons="true" next-text="Siguiente" prev-text="Anterior"></b-pagination>
     </div>
     <div v-else>
-      <h3>No hay Alianzas Vigentes</h3>
+      <h3>No hay Organizaciones Vigentes</h3>
     </div>
   </div>
 </template>
