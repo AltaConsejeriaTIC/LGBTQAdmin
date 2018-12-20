@@ -2,8 +2,8 @@
   <div>
     <div v-if="data">
       <div class="p-title text">
+        <a class="d-block p-link" href="#" @click="goBack"><i class="fas fa-angle-left"></i>Regresar</a>
         <h2 class="d-inline float-left text">Editar Alianza</h2>
-        <button type="button" class="btn btn-danger d-inline float-right create big text"  @click="goBack">Eliminar evento</button>
       </div>
       <div v-if="errors.length" class="p-errors">
         <b>Por favor corriga los siguientes errores:</b>
@@ -26,6 +26,7 @@
             </b-form-textarea>
             <p>Mín. 150, Máx. 300 caracteres</p>
           </b-form-group>
+    
 
           <b-form-group id="offerGroup" label="Oferta:" label-for="offer">
             <b-form-textarea id="offer" type="text" v-model="data.offer"

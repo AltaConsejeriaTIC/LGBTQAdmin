@@ -2,8 +2,8 @@
   <div>
     <div v-if="data">
       <div class="p-title text">
+       <a class="d-block p-link" href="#" @click="goBack"><i class="fas fa-angle-left"></i>Regresar</a>
         <h2 class="d-inline float-left text">Editar Noticia</h2>
-        <button type="button" class="btn btn-warning d-inline float-right create big text"  @click="goBack">Volver</button>
       </div>
       <div v-if="errors.length" class="p-errors">
         <b>Por favor corriga los siguientes errores:</b>

@@ -375,7 +375,7 @@ h1, h3, h5 {
     width: 80%;
     height: fit-content;
     margin: 0 auto;
-    padding-top: 36px;
+    padding-top: 20px;
     /*background-image: url("/static/img/logo-alcaldia.png");*/
     /*background-repeat: no-repeat;*/
     /*background-size: contain;*/
