@@ -7,11 +7,11 @@
               :show-remove-button="false"
               :file-size-limit="1024000"
               @file-size-exceed="onFileSizeExceed"
-              :placeholder="' + '"
+              :placeholder="'  +  '"
               :width="w"
               :height="h"
               class="card-img-top">
-        <img crossOrigin="anonymous" :src="image" slot="initial">
+        <img v-if="image" crossOrigin="anonymous" :src="image" slot="initial">
       </croppa>
       <button @click="myCroppa.chooseFile()">
         <i class="edit icon"></i>
@@ -34,7 +34,7 @@
     props: {
       img: {
         type: String,
-        required: true
+        default: ""
       },
       w: {
         type: Number,
@@ -52,13 +52,15 @@
       }
     },
     created(){
-      Vue.axios.get(`${ENV.ENDPOINT}${this.img}`,{responseType: 'blob'})
-        .then(response => {
-          this.image = window.URL.createObjectURL(new Blob([response.data],{type: 'image/jpeg'}))
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      if(this.img){
+        Vue.axios.get(`${ENV.ENDPOINT}${this.img}`,{responseType: 'blob'})
+          .then(response => {
+            this.image = window.URL.createObjectURL(new Blob([response.data],{type: 'image/jpeg'}))
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
     },
     methods: {
       uploadImage( name ) {

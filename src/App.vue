@@ -178,6 +178,11 @@ form .btn-warning {
   border: 1px solid #E0AE0D;
   color: #161824;
 }
+
+.p-errors {
+  text-align: -webkit-left;
+  color: #ff6347;
+}
 @media (max-width: 1010px) {
   .p-form{
     margin: 0;

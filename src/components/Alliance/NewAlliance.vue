@@ -5,13 +5,13 @@
       <h2 class="d-inline float-left text">Agregar Alianza</h2>
       <button type="button" class="btn btn-warning d-inline float-right create big text"  @click="goBack">Volver</button>
     </div>
+    <div v-if="errors.length" class="errors">
+      <b>Por favor corriga los siguientes errores:</b>
+      <ul>
+        <li v-for="error in errors" >{{ error }}</li>
+      </ul>
+    </div>
     <div class="container-fluid row">
-      <div v-if="errors.length">
-        <b>Por favor corriga los siguientes errores:</b>
-        <ul>
-          <li v-for="error in errors" >{{ error }}</li>
-        </ul>
-      </div>
       <b-form class="p-form col" @submit="checkForm">
         <b-form-group id="nameGroup" label="Nombre:" label-for="name">
           <b-form-input id="name" type="text" v-model="data.name"
