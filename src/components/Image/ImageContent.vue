@@ -11,7 +11,7 @@
               :width="w"
               :height="h"
               class="card-img-top">
-        <img v-if="image" crossOrigin="anonymous" :src="image" slot="initial">
+        <img v-if="img!=''" crossOrigin="anonymous" :src="image" slot="initial">
       </croppa>
       <button @click="myCroppa.chooseFile()">
         <i class="edit icon"></i>

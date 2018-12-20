@@ -56,10 +56,7 @@
                         required placeholder="Fecha">
           </b-form-input>
         </b-form-group>
-        <b-form-row class="form-row">
-          <b-col>
-            <b-btn type="button" class="btn btn-light d-inline big text" @click="goBack">Cancelar</b-btn>
-          </b-col>
+        <b-form-row class="form-row float-right">
           <b-col>
             <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
           </b-col>
