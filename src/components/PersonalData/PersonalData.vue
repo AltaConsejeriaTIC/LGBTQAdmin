@@ -277,4 +277,11 @@
       margin-bottom: 10px;
     }
   }
+
+  @media (max-width: 1724px){
+    table.b-table.b-table-stacked-lg, table.b-table.b-table-stacked-lg > tbody, table.b-table.b-table-stacked-lg > tbody > tr, table.b-table.b-table-stacked-lg > tbody > tr > td, table.b-table.b-table-stacked-lg > tbody > tr > th, table.b-table.b-table-stacked-lg > caption {
+      display: block;
+    }
+  }
+
 </style>
