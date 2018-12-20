@@ -78,7 +78,7 @@
       </b-form>
 
       <div class="col-12 col-md-auto" >
-        <ImageContent :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
+        <ImageContent :w="420" :h="336" ref="imgContent" class="image" ></ImageContent>
       </div>
     </div>
   </div>
@@ -100,27 +100,15 @@ export default {
   data() {
     return {
       data: {},
-      image: '/images/ImagePlaceholder.png',
+      image: '',//'/images/ImagePlaceholder.png',
       api: ENV.ENDPOINT,
       errors: []
     }
   },
   created(){
-    this.data = this.get(10);
-    this.data.start_date = moment(this.data.start_date).format('YYYY-MM-DD');
-    this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
-    this.data.start_time = moment(this.data.start_time.replace(/\./g,""), 'h:mm A').format("HH:mm");
-    this.data.finish_time = moment(this.data.finish_time.replace(/\./g,""), 'h:mm A').format("HH:mm");
-
     if(!this.data.place){
       this.data.place = "";
     }
-    console.log(this.data);
-  },
-  computed: {
-    ...mapGetters({
-      get: constants.EVENT_BY_ID
-    })
   },
   methods: {
     ...mapActions({
@@ -238,30 +226,12 @@ p {
   height: 143px;
 }
 
-  .image{
-    width: min-content;
-
-  }
-
   .row, .col-md-auto, .col-md-4{
     margin: 0;
     padding: 0;
   }
 
-  .form-row button{
-    width: 100%;
-    margin-bottom: 15px;
-  }
-
-.btn-warning {
-  width: 154px;
-  font-weight: bold;
-  line-height: 21px;
-  border: 1px solid #E0AE0D;
-  color: #161824;
-}
-
-@media (max-width: 767px) {
+@media (max-width: 1010px) {
   .p-form{
     margin: 0;
   }

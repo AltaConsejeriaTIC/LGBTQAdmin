@@ -102,26 +102,9 @@ p{
   padding: 4px;
 }
 
-.card-img-top >>> canvas{
 
-}
 
-.p-card .card-img-top, .p-card button{
-background: #DFE0E1;
-border: 1px solid #CBCED0;
-box-sizing: border-box;
-width: 100%;
-}
 
-.p-card .card-img-top{
-  border-radius: 4px 4px 0 0;
-}
-
-.p-card button{
-  border-radius: 0 0 4px 4px;
-  border-top: 0;
-  height: 45px;
-}
 
 </style>
 

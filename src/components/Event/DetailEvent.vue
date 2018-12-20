@@ -77,7 +77,7 @@
 
       </b-form>
 
-      <div class="col-12 col-md-4" >
+      <div class="col-12 col-md-auto" >
         <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
       </div>
     </div>
