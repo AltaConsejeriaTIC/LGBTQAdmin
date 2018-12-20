@@ -1,57 +1,74 @@
 <template>
-  <div class="ui grid">
-    <div class="five wide column">
-      <ImageContent :img="data.image"  :w="200" :h="200"  ref="imgContent"></ImageContent>
+  <div>
+    <div class="p-title text">
+      <h2 class="d-inline float-left text">Agregar Alianza</h2>
+      <button type="button" class="btn btn-danger d-inline float-right create big text"  @click="goBack">Eliminar evento</button>
     </div>
-
-    <div class="ten wide column">
-      <div v-if="errors.length">
-        <b>Por favor corriga los siguientes errores:</b>
-        <ul>
-          <li v-for="error in errors" >{{ error }}</li>
-        </ul>
-      </div>
-      <form class="ui form" @submit="checkForm">
-        <div class="field">
-          <label>Nombre</label>
-          <input type="text" v-model="data.name">
+    <div v-if="errors.length" class="errors">
+      <b>Por favor corriga los siguientes errores:</b>
+      <ul>
+        <li v-for="error in errors" >{{ error }}</li>
+      </ul>
+    </div>
+    <div class="container-fluid row">
+      <b-form class="p-form col" @submit="checkForm">
+        <b-form-group id="nameGroup" label="Nombre:" label-for="name">
+          <b-form-input id="name" type="text" v-model="data.name"
+                        required placeholder="Nombre">
+          </b-form-input>
           <p>Máx. 45 caracteres</p>
-          <label>Descripción</label>
-          <textarea rows="8" v-model="data.description"></textarea>
-          <p>Mín. 150, Máx. 300 caracteres</p>
-        </div>
-        <div class="field">
-          <label>Oferta</label>
-          <textarea rows="5" v-model="data.offer"></textarea>
+        </b-form-group>
+        <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
+          <b-form-textarea  id="description" type="text" v-model="data.description"
+                            required placeholder="Descripción" :rows="3" :max-rows="5"
+                            v-bind:no-resize="true">
+          </b-form-textarea>
+          <p>Máx. 45 caracteres</p>
+        </b-form-group>
+
+        <b-form-group id="offerGroup" label="Oferta:" label-for="offer">
+          <b-form-input id="offer" type="text" v-model="data.offer"
+                        required placeholder="Oferta">
+          </b-form-input>
           <p>Mín. 300, Máx. 1000 caracteres</p>
-          <label>Sitio Web</label>
-          <input type="text" v-model="data.website">
-          <label>Teléfono</label>
-          <input type="text" v-model="data.phone">
-          <div class="phoneExamples">
-            <p>Ejemplos de telefonos válidos:</p>
-            <ul style="list-style: none;">
-              <li>(+57)(1) 34545345 ext. 12345</li>
-              <li>(1) 34545345 Ext 145</li>
-              <li>+57 2 3454555</li>
-              <li>3454555 ext 12</li>
-            </ul>
-          </div>
-          <label>Email</label>
-          <input type="email" v-model="data.email">
-        </div>
-        <div class="field">
-          <label>Fecha: {{data.finish_date}}</label>
-          <input type="date" v-model="data.finish_date">
-        </div>
-        <button class="ui button" type="submit" >Guardar</button>
-      </form>
-    </div>
-    <div class="fifteen wide column">
-      <button class="ui button back" @click="goBack">
-        <i class="caret left icon"></i>
-        Volver
-      </button>
+        </b-form-group>
+
+        <b-form-group id="websiteGroup" label="Sitio Web:" label-for="website">
+          <b-form-input id="website" type="text" v-model="data.website"
+                        required placeholder="Sitio Web">
+          </b-form-input>
+        </b-form-group>
+
+        <b-form-group id="phoneGroup" label="Teléfono:" label-for="phone">
+          <b-form-input id="phone" type="text" v-model="data.phone"
+                        required placeholder="(+57)(1) 1234567 ext. 12345">
+          </b-form-input>
+        </b-form-group>
+
+        <b-form-group id="emailGroup" label="Email:" label-for="email">
+          <b-form-input id="email" type="text" v-model="data.email"
+                        required placeholder="Email">
+          </b-form-input>
+        </b-form-group>
+        <b-form-group id="finish_dateGroup" label="Fecha:" label-for="finish_date">
+          <b-form-input id="finish_date" type="date" v-model="data.finish_date"
+                        required placeholder="Fecha">
+          </b-form-input>
+        </b-form-group>
+        <b-form-row class="form-row">
+          <b-col>
+            <b-btn type="button" class="btn btn-light d-inline big text" @click="goBack">Cancelar</b-btn>
+          </b-col>
+          <b-col>
+            <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
+          </b-col>
+        </b-form-row>
+
+      </b-form>
+
+      <div class="col-12 col-md-auto" >
+        <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
+      </div>
     </div>
   </div>
 </template>
@@ -159,11 +176,8 @@
 </script>
 
 <style scoped>
-  .ui.grid {
-    width: 80%;
-  }
-  .phoneExamples {
-    color: #A8ABBA;
-    text-align: left;
+  .row, .col-md-auto, .col-md-4{
+    margin: 0;
+    padding: 0;
   }
 </style>

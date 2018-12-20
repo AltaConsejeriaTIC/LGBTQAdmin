@@ -139,4 +139,67 @@ tbody tr.table-disable{
   font-weight: 600;
   color: #999BAA;
 }
+
+.image{
+  margin: 0 auto;
+  width: min-content;
+}
+
+.p-card .card-img-top, .p-card button{
+  background: #DFE0E1;
+  border: 1px solid #CBCED0;
+  box-sizing: border-box;
+}
+
+.p-card button{
+  border-radius: 0 0 4px 4px;
+  border-top: 0;
+  height: 45px;
+  width: 100%;
+}
+
+.p-card .card-img-top{
+  border-radius: 4px 4px 0 0;
+}
+
+.form-row button{
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.big.btn-warning{
+  min-width: 154px;
+}
+
+form .btn-warning {
+  min-width: 154px;
+  font-weight: bold;
+  line-height: 21px;
+  border: 1px solid #E0AE0D;
+  color: #161824;
+}
+
+.p-errors {
+  text-align: -webkit-left;
+  color: #ff6347;
+}
+@media (max-width: 1010px) {
+  .p-form{
+    margin: 0;
+  }
+
+  .container-fluid.row{
+    flex-direction: column-reverse;
+  }
+
+  .col{
+    min-height: unset;
+  }
+}
+@media (max-width: 1200px) {
+  .card-img-top.croppa-container canvas{
+    width: 300px !important;
+    height: 240px !important;
+  }
+}
 </style>

@@ -4,13 +4,13 @@
       <h2 class="d-inline float-left text">Agregar Evento</h2>
       <button type="button" class="btn btn-warning d-inline float-right create big text"  @click="goBack">Volver</button>
     </div>
+    <div v-if="errors.length" class="errors">
+      <b>Por favor corriga los siguientes errores:</b>
+      <ul>
+        <li v-for="error in errors" >{{ error }}</li>
+      </ul>
+    </div>
     <div class="container-fluid row">
-      <div v-if="errors.length">
-        <b>Por favor corriga los siguientes errores:</b>
-        <ul>
-          <li v-for="error in errors" >{{ error }}</li>
-        </ul>
-      </div>
       <b-form class="p-form col" @submit="checkForm">
         <b-form-group id="titleGroup" label="Título:" label-for="title">
           <b-form-input id="title" type="text" v-model="data.title"
@@ -78,14 +78,14 @@
       </b-form>
 
       <div class="col-12 col-md-auto" >
-        <ImageContent :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
+        <ImageContent :w="420" :h="336" ref="imgContent" class="image" ></ImageContent>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions} from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import * as constants from '@/store/constants';
 import * as ENV from '../../env';
 import ImageContent from '../Image/ImageContent';
@@ -100,9 +100,14 @@ export default {
   data() {
     return {
       data: {},
-      image: '/images/ImagePlaceholder.png',
+      image: '',//'/images/ImagePlaceholder.png',
       api: ENV.ENDPOINT,
       errors: []
+    }
+  },
+  created(){
+    if(!this.data.place){
+      this.data.place = "";
     }
   },
   methods: {
@@ -221,27 +226,23 @@ p {
   height: 143px;
 }
 
-  .image{
-    width: min-content;
-
-  }
-
   .row, .col-md-auto, .col-md-4{
     margin: 0;
     padding: 0;
   }
 
-  .form-row button{
-    width: 100%;
-    margin-bottom: 15px;
+@media (max-width: 1010px) {
+  .p-form{
+    margin: 0;
   }
 
-.btn-warning {
-  width: 154px;
-  font-weight: bold;
-  line-height: 21px;
-  border: 1px solid #E0AE0D;
-  color: #161824;
+  .container-fluid.row{
+    flex-direction: column-reverse;
+  }
+
+  .col{
+    min-height: unset;
+  }
 }
 
 </style>
