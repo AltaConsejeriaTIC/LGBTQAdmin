@@ -1,20 +1,20 @@
 <template>
   <div >
     <div class="p-title .text">
-      <h2 class="d-inline float-left text">{{title}}</h2>      
+      <h2 class="d-inline float-left text">{{title}}</h2>
     </div>
 
-    <div class="highlights-section">      
+    <div class="highlights-section">
       <b-table hover stacked="lg"          :items="highlights"
               :fields="fields"             :head-variant="'light'"
               :current-page="currentPage"  :per-page="perPage"
-              class="table text table-responsive-xl" ref="actionsRow">        
-        <template slot="actions" slot-scope="row">          
-          <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->          
+              class="table text table-responsive-xl" ref="actionsRow">
+        <template slot="actions" slot-scope="row">
+          <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
           <b-button variant="danger" @click.stop="deleteHighlightById(row.item.id) " ><i class="fas fa-trash-alt"></i></b-button>
         </template>
-      </b-table>     
-      
+      </b-table>
+
     </div>
     <b-tabs>
       <b-tab title="Eventos" active>
@@ -36,7 +36,7 @@
               <td>{{formatDate(event.finish_date)}}</td>
               <td>{{event.place}}</td>
               <td >
-                <b-button  @click="postHighlight( event ,'event')">Destacar</b-button>                
+                <b-button  @click="postHighlight( event ,'event')" class="btn actions btn-light" >Destacar</b-button>
               </td>
             </tr>
           </tbody>
@@ -59,12 +59,12 @@
               <td>{{n.source}}</td>
               <td>{{formatDate(n.date)}}</td>
                 <td >
-                  <b-button  @click="postHighlight( n ,'news')">Destacar</b-button>                
+                  <b-button  @click="postHighlight( n ,'news')">Destacar</b-button>
               </td>
             </tr>
           </tbody>
         </table>
-      </b-tab>      
+      </b-tab>
     </b-tabs>
   </div>
 </template>
@@ -97,7 +97,7 @@ export default {
         },
         section: {
           label: 'Sección',
-          sortable: true,          
+          sortable: true,
         },
         actions: {
           label: 'Acciones'
@@ -118,8 +118,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      events: constants.EVENTS,
-      news: constants.NEWS,
+      events: constants.CURRENT_EVENTS,
+      news: constants.CURRENT_NEWS,
       highlights: constants.HIGHLIGHTS
     })
   },
@@ -130,7 +130,7 @@ export default {
       getHighlights: constants.HIGHLIGHT_GET_HIGHLIGHT,
       createHighlight: constants.HIGHLIGHT_CREATE_HIGHLIGHT,
       deleteHighlight: constants.HIGHLIGHT_DELETE_HIGHLIGHT
-    }),    
+    }),
     postHighlight( data, section ){
       const curr = {
         "section_id": data.id,

@@ -150,4 +150,13 @@ export default {
       width: unset;
     }
   }
+
+  .btn-warning{
+    width: 154px;
+
+    font-weight: bold;
+    line-height: 21px;
+    border: 1px solid #E0AE0D;
+    color: #161824;
+  }
 </style>
