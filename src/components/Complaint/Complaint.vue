@@ -91,7 +91,7 @@
         }
       }),
       viewComplaint(complaint){
-        this.$router.push({ name: 'DetailComplaint', params: { id: complaint.id } });
+        this.$router.push({ name: 'DetailComplaint', params: { id: complaint } });
       },
       formatDate(date) {
         return moment(date).format('YYYY-MMMM-DD');
