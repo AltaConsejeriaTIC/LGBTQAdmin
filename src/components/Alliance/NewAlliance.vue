@@ -14,13 +14,13 @@
       <b-form class="p-form col" @submit="checkForm">
         <b-form-group id="nameGroup" label="Nombre:" label-for="name">
           <b-form-input id="name" type="text" v-model="data.name"
-                        required placeholder="Nombre">
+                         placeholder="Nombre">
           </b-form-input>
           <p>Máx. 45 caracteres</p>
         </b-form-group>
         <b-form-group id="descriptionGroup" label="Descripción aliado:" label-for="description">
           <b-form-textarea  id="description" type="text" v-model="data.description"
-                            required placeholder="Descripción aliado" :rows="4" :max-rows="5"
+                             placeholder="Descripción aliado" :rows="4" :max-rows="5"
                             v-bind:no-resize="true">
           </b-form-textarea>
           <p>Mín. 150, Máx. 300 caracteres</p>
@@ -28,7 +28,7 @@
 
         <b-form-group id="offerGroup" label="Oferta aliado:" label-for="offer">
           <b-form-textarea id="offer" type="text" v-model="data.offer"
-                        required placeholder="Oferta aliado" :rows="6" :max-rows="8"
+                         placeholder="Oferta aliado" :rows="6" :max-rows="8"
                         v-bind:no-resize="true">
           </b-form-textarea>
           <p>Mín. 300, Máx. 1000 caracteres</p>
@@ -36,24 +36,24 @@
 
         <b-form-group id="websiteGroup" label="Sitio Web:" label-for="website">
           <b-form-input id="website" type="text" v-model="data.website"
-                        required placeholder="Sitio Web">
+                         placeholder="Sitio Web">
           </b-form-input>
         </b-form-group>
 
         <b-form-group id="phoneGroup" label="Teléfono:" label-for="phone">
           <b-form-input id="phone" type="text" v-model="data.phone"
-                        required placeholder="(+57)(1) 1234567 ext. 12345">
+                         placeholder="(+57)(1) 1234567 ext. 12345">
           </b-form-input>
         </b-form-group>
 
         <b-form-group id="emailGroup" label="Email:" label-for="email">
           <b-form-input id="email" type="text" v-model="data.email"
-                        required placeholder="Email">
+                         placeholder="Email">
           </b-form-input>
         </b-form-group>
         <b-form-group id="finish_dateGroup" label="Fecha de expiración:" label-for="finish_date">
           <b-form-input id="finish_date" type="date" v-model="data.finish_date"
-                        required placeholder="Fecha">
+                         placeholder="Fecha">
           </b-form-input>
         </b-form-group>
         <b-form-row class="form-row float-right">

@@ -14,13 +14,13 @@
       <b-form class="p-form col" @submit="checkForm">
         <b-form-group id="nameGroup" label="Nombre:" label-for="name">
           <b-form-input id="name" type="text" v-model="data.name"
-                        required placeholder="Nombre">
+                         placeholder="Nombre">
           </b-form-input>
           <p>Máx. 45 caracteres</p>
         </b-form-group>
         <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
           <b-form-textarea  id="description" type="text" v-model="data.description"
-                            required placeholder="Descripción" :rows="3" :max-rows="5"
+                             placeholder="Descripción" :rows="3" :max-rows="5"
                             v-bind:no-resize="true">
           </b-form-textarea>
           <p>Mín. 200, Máx. 700 caracteres</p>
@@ -28,25 +28,25 @@
 
         <b-form-group id="addressGroup" label="Dirección:" label-for="address">
           <b-form-input id="address" type="text" v-model="data.address"
-                        required placeholder="Dirección">
+                         placeholder="Dirección">
           </b-form-input>
         </b-form-group>
 
         <b-form-group id="websiteGroup" label="Sitio Web:" label-for="website">
           <b-form-input id="website" type="text" v-model="data.website"
-                        required placeholder="Sitio Web">
+                         placeholder="Sitio Web">
           </b-form-input>
         </b-form-group>
 
         <b-form-group id="phoneGroup" label="Teléfono:" label-for="phone">
           <b-form-input id="phone" type="text" v-model="data.phone"
-                        required placeholder="(+57)(1) 1234567 ext. 12345">
+                         placeholder="(+57)(1) 1234567 ext. 12345">
           </b-form-input>
         </b-form-group>
 
         <b-form-group id="emailGroup" label="Email:" label-for="email">
           <b-form-input id="email" type="text" v-model="data.email"
-                        required placeholder="Email">
+                         placeholder="Email">
           </b-form-input>
         </b-form-group>
         <b-form-row class="form-row float-right">

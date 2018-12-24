@@ -14,13 +14,13 @@
       <b-form class="p-form col" @submit="checkForm">
         <b-form-group id="titleGroup" label="Título:" label-for="title">
           <b-form-input id="title" type="text" v-model="data.title"
-                        required placeholder="Título">
+                         placeholder="Título" formnovalidate>
           </b-form-input>
           <p>Máx. 50 caracteres</p>
         </b-form-group>
         <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
           <b-form-textarea  id="description" type="text" v-model="data.description"
-                            required placeholder="Descripción" :rows="3" :max-rows="5"
+                             placeholder="Descripción" :rows="3" :max-rows="5"
                             v-bind:no-resize="true">
           </b-form-textarea>
           <p>Mín. 150, Máx. 800 caracteres</p>
@@ -29,14 +29,14 @@
           <b-col>
             <b-form-group id="start_dateGroup" label="Fecha de inicio:" label-for="start_date">
               <b-form-input id="start_date" type="date" v-model="data.start_date"
-                            required placeholder="Fecha de inicio">
+                             placeholder="Fecha de inicio">
               </b-form-input>
             </b-form-group>
           </b-col>
           <b-col>
             <b-form-group id="finish_dateGroup" label="Fecha de fin:" label-for="finish_date">
               <b-form-input id="finish_date" type="date" v-model="data.finish_date"
-                            required placeholder="Fecha de fin">
+                             placeholder="Fecha de fin">
               </b-form-input>
             </b-form-group>
           </b-col>
@@ -44,14 +44,14 @@
           <b-col>
             <b-form-group id="start_timeGroup" label="Hora de inicio:" label-for="start_time">
               <b-form-input id="start_time" type="time" v-model="data.start_time"
-                            required placeholder="Hora de inicio">
+                             placeholder="Hora de inicio">
               </b-form-input>
             </b-form-group>
           </b-col>
           <b-col>
             <b-form-group id="finish_timeGroup" label="Hora de fin:" label-for="finish_time">
               <b-form-input id="finish_time" type="time" v-model="data.finish_time"
-                            required placeholder="Hora de fin">
+                             placeholder="Hora de fin">
               </b-form-input>
             </b-form-group>
           </b-col>
@@ -59,26 +59,26 @@
           <b-col>
             <b-form-group id="latitudeGroup" label="Latitud:" label-for="latitude">
               <b-form-input id="latitude" type="number" v-model="data.latitude"
-                            required placeholder="Latitud">
+                             placeholder="Latitud">
               </b-form-input>
             </b-form-group>
           </b-col>
           <b-col>
             <b-form-group id="longitudeGroup" label="Longitud:" label-for="longitude">
               <b-form-input id="longitude" type="number" v-model="data.longitude"
-                            required placeholder="Longitud">
+                             placeholder="Longitud">
               </b-form-input>
             </b-form-group>
           </b-col>
         </b-form-row>
         <b-form-group id="placeGroup" label="Lugar:" label-for="place">
           <b-form-input id="place" type="text" v-model="data.place"
-                        required placeholder="Lugar">
+                         placeholder="Lugar">
           </b-form-input>
         </b-form-group>
         <b-form-group id="addressGroup" label="Dirección:" label-for="address">
           <b-form-input id="address" type="text" v-model="data.address"
-                        required placeholder="Dirección">
+                         placeholder="Dirección">
           </b-form-input>
         </b-form-group>
         <b-form-row class="form-row float-right">

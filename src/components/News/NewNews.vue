@@ -14,13 +14,13 @@
       <b-form class="p-form col" @submit="checkForm">
         <b-form-group id="titleGroup" label="Título:" label-for="title">
           <b-form-input id="title" type="text" v-model="data.title"
-                        required placeholder="Título">
+                         placeholder="Título">
           </b-form-input>
           <p>Máx. 82 caracteres</p>
         </b-form-group>
         <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
           <b-form-textarea  id="description" type="text" v-model="data.description"
-                            required placeholder="Descripción" :rows="3" :max-rows="5"
+                             placeholder="Descripción" :rows="3" :max-rows="5"
                             v-bind:no-resize="true">
           </b-form-textarea>
           <p>Máx. 1000 caracteres</p>
@@ -28,19 +28,19 @@
 
         <b-form-group id="sourceGroup" label="Fuente:" label-for="source">
           <b-form-input id="source" type="text" v-model="data.source"
-                        required placeholder="Fuente">
+                         placeholder="Fuente">
           </b-form-input>
         </b-form-group>
 
         <b-form-group id="sourceLinkGroup" label="Link:" label-for="sourceLink">
           <b-form-input id="sourceLink" type="text" v-model="data.source_link"
-                        required placeholder="Link">
+                         placeholder="Link">
           </b-form-input>
         </b-form-group>
 
         <b-form-group id="imageOwnerGroup" label="Crédito de la imagen:" label-for="imageOwner">
           <b-form-input id="imageOwner" type="text" v-model="data.image_owner"
-                        required placeholder="Crédito de la imagen">
+                         placeholder="Crédito de la imagen">
           </b-form-input>
         </b-form-group>
         <b-form-row class="form-row float-right">

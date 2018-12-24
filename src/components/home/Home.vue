@@ -59,7 +59,7 @@
               <td>{{n.source}}</td>
               <td>{{formatDate(n.date)}}</td>
                 <td >
-                  <b-button  @click="postHighlight( n ,'news')">Destacar</b-button>
+                  <b-button  @click="postHighlight( n ,'news')" class="btn actions btn-light">Destacar</b-button>
               </td>
             </tr>
           </tbody>
@@ -168,4 +168,7 @@ export default {
     justify-content: center;
   }
 
+  button.actions {
+    width: 80px;
+  }
 </style>
