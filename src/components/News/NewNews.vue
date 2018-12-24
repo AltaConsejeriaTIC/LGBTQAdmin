@@ -67,6 +67,7 @@
   import ImageContent from '../Image/ImageContent';
 
   var moment = require('moment');
+  var hash = require('object-hash');
 
   export default {
     name: 'NewNews',
@@ -96,7 +97,8 @@
           this.data.image_owner = "";
         }
         this.data.date = this.getCurrentDate();
-        let nameImage = this.data.title.replace(/\s/g,"");
+        let hashImageName = hash( this.data.title.replace(/\s/g,"") );
+        let nameImage = hashImageName;
         this.data.image = `/images/noticia-${nameImage}.jpg`;
         this.$set(this.data,'state',true);
         this.$refs.imgContent.uploadImage(`noticia-${nameImage}.jpg`);

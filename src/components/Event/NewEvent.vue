@@ -103,6 +103,7 @@ import * as ENV from '../../env';
 import ImageContent from '../Image/ImageContent';
 
 var moment = require('moment');
+var hash = require('object-hash');
 
 export default {
   name: 'NewEvent',
@@ -127,7 +128,8 @@ export default {
       createEvent: constants.EVENT_CREATE_EVENT
     }),
     save() {
-      let nameImage = this.data.title.replace(/\s/g,"");
+      let hashImageName = hash( this.data.title.replace(/\s/g,"") );
+      let nameImage = hashImageName;
       this.data.image = `/images/evento-${nameImage}.jpg`;
       this.$set(this.data,'state',true);
       this.data.latitude = !parseFloat( this.data.latitude )? 0 : parseFloat( this.data.latitude );
