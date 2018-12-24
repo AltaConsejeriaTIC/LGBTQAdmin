@@ -14,6 +14,7 @@
           <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
           <b-button class="actions" variant="light" @click.stop="changeState(row.item)">{{row.item.state ? "Ocultar" : "Publicar" }}</b-button>
           <b-button class="actions" variant="light" @click.stop="editOrganization(row.item.id)">Editar</b-button>
+          <b-button class="actions" variant="danger" @click.stop="deleteItem(row.item)">Borrar</b-button>
         </template>
       </b-table>
       <b-pagination :total-rows="organizations.length" :per-page="perPage" v-model="currentPage" align="right"
@@ -75,8 +76,12 @@ export default {
     methods: {
       ...mapActions({
         getOrganizations: constants.ORGANIZATION_GET_ORGANIZATIONS,
-        changeStateOrganization: constants.ORGANIZATION_CHANGE_STATE
+        changeStateOrganization: constants.ORGANIZATION_CHANGE_STATE,
+        deleteOrganization: constants.ORGANIZATION_DELETE_ORGANIZATION
       }),
+      deleteItem(organization){
+        this.deleteOrganization(organization)
+      },
       editOrganization(organizationId){
         this.$router.push({ name: 'DetailOrganization', params: { id: organizationId } });
       },

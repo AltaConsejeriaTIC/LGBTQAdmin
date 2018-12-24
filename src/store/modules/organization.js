@@ -46,6 +46,22 @@ const actions = {
             .then(response => commit(constants.ORGANIZATION_SET_ORGANIZATION, organization))
             .catch((e) => console.log(e));
     },
+    [constants.ORGANIZATION_DELETE]: ({ commit }, organization) => {
+        let id = organization.id;
+        let index = state.organizations.indexOf(organization);
+        return new Promise( (resolve, reject) => {
+            Vue.axios
+              .put(`/updateOrganizationDeleted/${id}`, {deleted: true}, { headers: { token: sessionStorage.getItem('token') } })
+              .then(response => {
+                  commit(constants.ORGANIZATION_DELETE_ORGANIZATION, index);
+                  resolve();
+              })
+              .catch((e) => {
+                  console.error(e);
+                  reject();
+              });
+        })
+    },
     [constants.ORGANIZATION_CREATE_ORGANIZATION]: ({ commit }, organization) => {
         return new Promise( (resolve,reject) => {
             Vue.axios
@@ -76,6 +92,9 @@ const mutations = {
     },
     [constants.ORGANIZATION_ADD_ORGANIZATION]: (state, organization) => {
         state.organizations.push(organization);
+    },
+    [constants.ORGANIZATION_DELETE_ORGANIZATION]: (state, organization) => {
+        state.organizations.splice(organization, 1);
     }
 };
 
