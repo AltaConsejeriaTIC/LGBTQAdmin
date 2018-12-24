@@ -59,7 +59,7 @@
       </b-form>
 
       <div class="col-12 col-md-auto" >
-        <ImageContent :w="400" :h="400" ref="imgContent" class="image"></ImageContent>
+        <ImageContent :img="data.image" :w="400" :h="400" ref="imgContent" class="image"></ImageContent>
       </div>
     </div>
  </div>
@@ -113,6 +113,7 @@
               this.data.website = "";
             }
             this.$refs.imgContent.uploadImage();
+            delete this.data._rowVariant;
             this.updateOrganization(this.data)
               .then( () => {
                 alert("Organización actualizada exitosamente");
