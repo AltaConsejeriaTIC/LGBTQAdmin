@@ -52,7 +52,7 @@ export default {
             label: 'Sitio web'
           },
           finish_date: {
-            label: 'Fecha de finalización',
+            label: 'Fecha de expiración',
             sortable: true,
             class: 'white-space-pre',
             formatter: (value) => {

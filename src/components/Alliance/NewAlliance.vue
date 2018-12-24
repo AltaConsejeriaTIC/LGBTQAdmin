@@ -18,17 +18,17 @@
           </b-form-input>
           <p>Máx. 45 caracteres</p>
         </b-form-group>
-        <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
+        <b-form-group id="descriptionGroup" label="Descripción aliado:" label-for="description">
           <b-form-textarea  id="description" type="text" v-model="data.description"
-                            required placeholder="Descripción" :rows="4" :max-rows="5"
+                            required placeholder="Descripción aliado" :rows="4" :max-rows="5"
                             v-bind:no-resize="true">
           </b-form-textarea>
           <p>Mín. 150, Máx. 300 caracteres</p>
         </b-form-group>
 
-        <b-form-group id="offerGroup" label="Oferta:" label-for="offer">
+        <b-form-group id="offerGroup" label="Oferta aliado:" label-for="offer">
           <b-form-textarea id="offer" type="text" v-model="data.offer"
-                        required placeholder="Oferta" :rows="6" :max-rows="8"
+                        required placeholder="Oferta aliado" :rows="6" :max-rows="8"
                         v-bind:no-resize="true">
           </b-form-textarea>
           <p>Mín. 300, Máx. 1000 caracteres</p>
@@ -51,7 +51,7 @@
                         required placeholder="Email">
           </b-form-input>
         </b-form-group>
-        <b-form-group id="finish_dateGroup" label="Fecha:" label-for="finish_date">
+        <b-form-group id="finish_dateGroup" label="Fecha de expiración:" label-for="finish_date">
           <b-form-input id="finish_date" type="date" v-model="data.finish_date"
                         required placeholder="Fecha">
           </b-form-input>
