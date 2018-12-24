@@ -1,25 +1,69 @@
 <template>
-  <div>
-    <h2>Detalle Denuncia</h2>
-    <h3>Tipo de Documento</h3>
-    <p>{{complaint.document_type}}</p>
-    <h3>Número de Documento</h3>
-    <p>{{complaint.document_number}}</p>
-    <h3>Denunciante</h3>
-    <p>{{complaint.first_name + " " + complaint.last_name}}</p>    
-    <h3>Correo</h3>
-    <p>{{complaint.email}}</p>
-    <h3>Teléfono</h3>
-    <p>{{complaint.phone}}</p>
-    <h3>Descripción</h3>
-    <p>{{complaint.description}}</p>
-    <h3>Lugar</h3>
-    <p>{{complaint.event_place}}</p>
-    <h3>Día del Evento</h3>
-    <p>{{formatDate(complaint.event_day)}}</p>   
-    <h3>Fecha de la Denuncia</h3>
-    <p>{{formatDate(complaint.created_at)}}</p>    
-  </div> 
+  <div>   
+    <h2>Detalle Denuncia</h2> 
+    <div class="complaint">      
+      <div class="flex-item">
+        <div>
+          <div class="item">            
+            <h3>Denunciante</h3>
+            <div class="box">
+              <p>{{complaint.first_name + " " + complaint.last_name}}</p>       
+            </div>
+          </div>
+          <div class="item">            
+            <h3>Teléfono</h3>
+            <div class="box">
+              <p>{{complaint.phone}}</p>       
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="item">
+            <h3>Tipo de Documento</h3>
+            <div class="box">
+              <p>{{complaint.document_type}}</p>
+            </div>
+            <h3>Número de Documento</h3>
+            <div class="box">
+              <p>{{complaint.document_number}}</p>       
+            </div> 
+          </div>
+        </div>
+        <div>
+          <div class="item">           
+            <h3>Correo</h3>
+            <div class="box">
+              <p>{{complaint.email}}</p>       
+            </div>
+            <h3>Lugar</h3>
+            <div class="box">
+              <p>{{complaint.event_place}}</p>      
+            </div> 
+          </div>
+        </div>  
+        <div>
+          <div class="item">   
+            <h3>Día del Evento</h3>
+            <div class="box">
+              <p>{{formatDate(complaint.event_day)}}</p>        
+            </div>
+            <h3>Fecha de la Denuncia</h3>
+            <div class="box">
+              <p>{{formatDate(complaint.created_at)}}</p>       
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-item">
+        <div class="description">
+          <h3>Descripción</h3>
+          <div class="description-box">
+            <p>{{complaint.description}}</p>      
+          </div>
+        </div>
+      </div>          
+    </div> 
+  </div>
 </template>
 
 <script>
@@ -54,5 +98,79 @@
 
 <style scoped>
 
+  .complaint {
+    display: flex;    
+    flex-flow: row wrap;
+    justify-content: space-between;    
+  }
+
+  .flex-item {
+    width: 655px;
+    margin-top: 10px;    
+    line-height: 150px;   
+    display: flex;    
+    flex-flow: row wrap;
+    justify-content: space-between;    
+  }
+
+  .item {
+    width: 315px;
+    margin-top: 10px;    
+    line-height: 150px; 
+  }
+
+  .description {
+    width: 100%;
+  }
+  
+  .box {
+    background: #FFFFFF;
+    border: 1px solid #DBDBDB;
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-family: Nunito;
+    font-style: normal;
+    height: 40px;
+    line-height: 40px;
+    font-size: 13px;
+    letter-spacing: 0.01em;
+    color: #3F4150;
+    vertical-align: middle;
+    padding-left: 10px;
+  }
+  .description-box {
+    background: #FFFFFF;
+    border: 1px solid #DBDBDB;
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-family: Nunito;
+    font-style: normal;
+    line-height: 40px;
+    font-size: 13px;
+    letter-spacing: 0.01em;
+    color: #3F4150;
+    vertical-align: middle;
+    padding-left: 10px;
+    height:181px;
+  }
+
+  h3 {
+    margin-top: 10px;
+    margin-left: 2px;
+    font-family: Nunito;
+    font-weight: bold;
+    line-height: 14px;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #575A6D;
+  }
+
+  h2 {
+    margin-top:30px;
+    font-size: 24PX;
+    font-weight: bold;
+    color: #3F4150;
+  }
 </style>
 

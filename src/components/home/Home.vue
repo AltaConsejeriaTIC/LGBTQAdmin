@@ -168,4 +168,7 @@ export default {
     justify-content: center;
   }
 
+  td:nth-child(2) {
+    width: 100px;
+  }
 </style>
