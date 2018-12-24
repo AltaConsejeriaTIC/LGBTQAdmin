@@ -103,4 +103,12 @@ export default {
   .organization {
     width: 85%;
   }
+
+  .btn-warning {
+    width: 170px;
+    font-weight: bold;
+    line-height: 21px;
+    border: 1px solid #E0AE0D;
+    color: #161824;
+  }
 </style>

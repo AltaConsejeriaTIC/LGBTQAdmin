@@ -18,7 +18,7 @@
         Subir imagen
       </button>
     </div>
-    <p>Las imágenes subidas serán cortadas para quedar con proporción 5:4. El peso máximo de la imagen es de 1Mb.</p>
+    <p>Las imágenes subidas serán cortadas para quedar con proporción {{this.ratio}}. El peso máximo de la imagen es de 1Mb.</p>
   </div>
 </template>
 
@@ -43,6 +43,10 @@
       h: {
         type: Number,
         required: true
+      },
+      ratio: {
+        type: Number,
+        default: '5:4'
       }
     },
     data() {
