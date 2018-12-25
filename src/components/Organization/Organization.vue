@@ -91,8 +91,7 @@ export default {
         changeStateOrganization: constants.ORGANIZATION_CHANGE_STATE,
         deleteOrganization: constants.ORGANIZATION_DELETE_ORGANIZATION
       }),
-      deleteItem(organization){
-        console.log("est[a haciendo lo que debe" , organization)
+      deleteItem(organization){        
         this.organizationToDelete = organization;
         this.$refs.deleteModal.show();        
       },      
