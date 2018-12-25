@@ -18,8 +18,11 @@
         <div class="form-center">
         <form>
           <div class="form-width">
-            <div class="form-group">
+            <div class="form-group">              
               <h1>Iniciar sesión</h1>
+              <b-alert variant="danger" :show="error">
+                Usuario o Contraseña no coinciden con nuestros registros
+              </b-alert>
               <label for="email">Usuario</label>
               <input v-model="form.email" type="text" id="email" class="form-control" placeholder="Usuario">
             </div>
@@ -48,18 +51,21 @@ export default {
       form: {
         email: '',
         password: ''
-      }
+      },
+      error: false
     };
   },
   computed: {
     ...mapState({
-      token: (state) => state.Session.token
+      token: (state) => state.Session.token,
+      alert: (state) => state.Session.alert
     }),
     isDisabled: function() {
       return this.form.email === '' || this.form.password === '';
     },
     ...mapGetters({
-      isLogged: constants.SESSION_IS_LOGGED
+      isLogged: constants.SESSION_IS_LOGGED,
+      showAlert: constants.SESSION_INVALID_LOGIN
     })
   },
   methods: {
@@ -75,6 +81,9 @@ export default {
       if (this.isLogged) {
         this.$router.push({ name: 'Home'  });
       }
+    },
+    alert() {
+      this.error = this.showAlert;      
     }
   }
 };
