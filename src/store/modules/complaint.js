@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import * as constants from '@/store/constants';
+import { promises } from 'fs';
 
 const state = {
   complaints: []
@@ -11,6 +12,18 @@ const actions = {
       .get("/complaints")
       .then( response => commit(constants.COMPLAINT_SET_COMPLAINTS, response.data))
       .catch( e => console.error(e))    
+  },
+  [constants.COMPLAINT_CALL_BY_ID]: ({ commit }, id) => {
+    return new Promise((resolve,reject) => {
+      Vue.axios
+        .get(`/complaints/${id}`)
+        .then( complaint => resolve(complaint.data))
+        .catch( e => {
+          console.error(e);
+          reject();
+        })
+    })
+      
   }
 };
 

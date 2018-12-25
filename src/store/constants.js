@@ -26,7 +26,8 @@ export const ALLIANCE_CHANGE_STATE = 'alliance/CHANGE_STATE';
 export const ALLIANCE_CREATE_ALLIANCE = 'alliance/CREATE_ALLIANCE';
 export const ALLIANCE_CALL_BY_ID = 'alliance/GET_ALLIANCE_BY_ID';
 export const PERSONALDATA_GET_USERS = 'personalData/GET_USERS';
-export const COMPLAINT_GET_COMPLAINTS = 'complaint/GET_COMPLAINTS'
+export const COMPLAINT_GET_COMPLAINTS = 'complaint/GET_COMPLAINTS';
+export const COMPLAINT_CALL_BY_ID = 'complaint/GET_COMPLAINT_BY_ID';
 export const EVENT_GET_ON_EVENTS = 'event/GET_ON_EVENTS';
 export const NEWS_GET_ON_NEWS = 'news/NEWS_GET_ON_NEWS';
 
