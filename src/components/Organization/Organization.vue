@@ -4,6 +4,9 @@
       <h2 class="d-inline float-left text">{{title}}</h2>
       <button type="button" class="btn btn-warning d-inline float-right big text" @click="newOrganization">Agregar Organización</button>
     </div>
+    
+        
+    
     <div v-if="thereAreOrganizations">
       <b-table hover stacked="lg"           :items="organizations"
                :fields="fields"             :head-variant="'light'"
@@ -14,11 +17,19 @@
           <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
           <b-button class="actions" variant="light" @click.stop="changeState(row.item)">{{row.item.state ? "Ocultar" : "Publicar" }}</b-button>
           <b-button class="actions" variant="light" @click.stop="editOrganization(row.item.id)">Editar</b-button>
-          <b-button class="actions" variant="danger" @click.stop="deleteItem(row.item)">Borrar</b-button>
-        </template>
+          <b-button class="actions" variant="danger" @click.stop="deleteItem(row.item)">Eliminar</b-button>
+        </template>        
       </b-table>
       <b-pagination :total-rows="organizations.length" :per-page="perPage" v-model="currentPage" align="right"
                     :limit=5 v-bind:hide-goto-end-buttons="true" next-text="Siguiente" prev-text="Anterior"></b-pagination>
+      <b-modal ref="deleteModal"
+               title="Eliminar organización"
+               ok-title="Eliminar"
+               cancel-title="Cancelar"
+               ok-variant="danger"
+               @ok="deleteOrganization(organizationToDelete)">
+        ¿Desea eliminar la organización? Esta acción no se puede deshacer.
+      </b-modal>
     </div>
     <div v-else>
       <h3>No hay Organizaciones Vigentes</h3>
@@ -35,6 +46,7 @@ export default {
     data() {
       return {
         title: "Organizaciones",
+        organizationToDelete: {},
         currentPage: 1,
         perPage: 5,
         fields: {
@@ -80,8 +92,10 @@ export default {
         deleteOrganization: constants.ORGANIZATION_DELETE_ORGANIZATION
       }),
       deleteItem(organization){
-        this.deleteOrganization(organization)
-      },
+        console.log("est[a haciendo lo que debe" , organization)
+        this.organizationToDelete = organization;
+        this.$refs.deleteModal.show();        
+      },      
       editOrganization(organizationId){
         this.$router.push({ name: 'DetailOrganization', params: { id: organizationId } });
       },
