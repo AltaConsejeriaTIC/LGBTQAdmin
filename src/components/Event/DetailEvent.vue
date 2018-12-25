@@ -56,6 +56,21 @@
                 </b-form-input>
               </b-form-group>
             </b-col>
+            <div class="w-100"></div>
+            <b-col>
+              <b-form-group id="latitudeGroup" label="Latitud:" label-for="latitude">
+                <b-form-input id="latitude" type="number" v-model="data.latitude"
+                              placeholder="Latitud">
+                </b-form-input>
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-group id="longitudeGroup" label="Longitud:" label-for="longitude">
+                <b-form-input id="longitude" type="number" v-model="data.longitude"
+                              placeholder="Longitud">
+                </b-form-input>
+              </b-form-group>
+            </b-col>
           </b-form-row>
           <b-form-group id="placeGroup" label="Lugar:" label-for="place">
             <b-form-input id="place" type="text" v-model="data.place"
