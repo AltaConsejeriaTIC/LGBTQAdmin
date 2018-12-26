@@ -21,7 +21,7 @@
             <div class="form-group">              
               <h1>Iniciar sesión</h1>
               <b-alert variant="danger" :show="error">
-                Usuario o Contraseña no coinciden con nuestros registros
+                El usuario o la contraseña son incorrectos
               </b-alert>
               <label for="email">Usuario</label>
               <input v-model="form.email" type="text" id="email" class="form-control" placeholder="Usuario">
