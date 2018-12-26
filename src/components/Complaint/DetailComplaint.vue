@@ -1,68 +1,22 @@
 <template>
-  <div>   
-    <h2>Detalle Denuncia</h2> 
-    <div class="complaint">      
-      <div class="flex-item">
-        <div>
-          <div class="item">            
-            <h3>Denunciante</h3>
-            <div class="box">
-              <p>{{complaint.first_name + " " + complaint.last_name}}</p>       
-            </div>
-          </div>
-          <div class="item">            
-            <h3>Teléfono</h3>
-            <div class="box">
-              <p>{{complaint.phone}}</p>       
-            </div>
-          </div>
+  <div class="complaintContainer">
+    <h2>Detalle Denuncia</h2>
+    <div class="complaint">
+      <div class="complaint__description">
+        <div class="complaintTitle">
+          <div class="complaint__id">{{complaint.id}}</div>
+          <div>{{complaint.first_name + " " + complaint.last_name}}</div>
         </div>
-        <div>
-          <div class="item">
-            <h3>Tipo de Documento</h3>
-            <div class="box">
-              <p>{{complaint.document_type}}</p>
-            </div>
-            <h3>Número de Documento</h3>
-            <div class="box">
-              <p>{{complaint.document_number}}</p>       
-            </div> 
-          </div>
-        </div>
-        <div>
-          <div class="item">           
-            <h3>Correo</h3>
-            <div class="box">
-              <p>{{complaint.email}}</p>       
-            </div>
-            <h3>Lugar</h3>
-            <div class="box">
-              <p>{{complaint.event_place}}</p>      
-            </div> 
-          </div>
-        </div>  
-        <div>
-          <div class="item">   
-            <h3>Día del Evento</h3>
-            <div class="box">
-              <p>{{formatDate(complaint.event_day)}}</p>        
-            </div>
-            <h3>Fecha de la Denuncia</h3>
-            <div class="box">
-              <p>{{formatDate(complaint.created_at)}}</p>       
-            </div>
-          </div>
-        </div>
+        <div><label>Tipo de Documento: </label>{{ " " + complaint.document_type}}</div>
+        <div><label>Número de documento: </label>{{ " " + complaint.document_number}}</div>
+        <div><label>Correo: </label>{{ " " + complaint.email}}</div>
+        <div><label>Teléfono: </label>{{ " " + complaint.phone}}</div>
+        <div><label>Descripcion: </label>{{ " " + complaint.description}}</div>
+        <div><label>Lugar: </label>{{ " " + complaint.event_place}}</div>
+        <div><label>Día del evento: </label>{{ " " + formatDate(complaint.event_day)}}</div>
+        <div><label>Fecha de denuncia: </label>{{ " " + formatDate(complaint.created_at)}}</div>
       </div>
-      <div class="flex-item">
-        <div class="description">
-          <h3>Descripción</h3>
-          <div class="description-box">
-            <p>{{complaint.description}}</p>      
-          </div>
-        </div>
-      </div>          
-    </div> 
+    </div>
   </div>
 </template>
 
@@ -99,75 +53,49 @@
 <style scoped>
 
   .complaint {
-    display: flex;    
+    display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;    
-  }
-
-  .flex-item {
-    width: 655px;
-    margin-top: 10px;    
-    line-height: 150px;   
-    display: flex;    
-    flex-flow: row wrap;
-    justify-content: space-between;    
-  }
-
-  .item {
-    width: 315px;
-    margin-top: 10px;    
-    line-height: 150px; 
-  }
-
-  .description {
-    width: 100%;
-  }
-  
-  .box {
     background: #FFFFFF;
     border: 1px solid #DBDBDB;
     box-sizing: border-box;
     border-radius: 3px;
     font-family: Nunito;
-    font-style: normal;
-    height: 40px;
-    line-height: 40px;
-    font-size: 13px;
     letter-spacing: 0.01em;
     color: #3F4150;
     vertical-align: middle;
-    padding-left: 10px;
-  }
-  .description-box {
-    background: #FFFFFF;
-    border: 1px solid #DBDBDB;
-    box-sizing: border-box;
-    border-radius: 3px;
-    font-family: Nunito;
-    font-style: normal;
-    line-height: 40px;
-    font-size: 13px;
-    letter-spacing: 0.01em;
-    color: #3F4150;
-    vertical-align: middle;
-    padding-left: 10px;
-    height:181px;
   }
 
-  h3 {
-    margin-top: 10px;
-    margin-left: 2px;
+  .complaint__description {
+    margin:30px;
+  }
+
+  .complaint__id {
+    opacity: 0.7;
+    font-size: 0.8em;
+  }
+  label {
+    display: inline-block;
+    margin-top: 6px;
+    margin-left: 5px;
     font-family: Nunito;
     font-weight: bold;
-    line-height: 14px;
-    font-size: 11px;
+    line-height: 16px;
+    font-size: 14px;
     letter-spacing: 0.03em;
-    text-transform: uppercase;
-    color: #575A6D;
+    color: #3F4150;
+  }
+
+  .complaintTitle {
+    font-size: 24px;
+    line-height: 1.3;
+    font-weight: bold;
+    color: #3F4150;
+    margin-bottom: 1.3rem;
   }
 
   h2 {
     margin-top:30px;
+    margin-bottom: 30px;
     font-size: 24PX;
     font-weight: bold;
     color: #3F4150;
