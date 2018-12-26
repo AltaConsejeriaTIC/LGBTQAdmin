@@ -64,23 +64,27 @@
     },
     methods: {
       uploadImage( name ) {
-        if (!this.myCroppa.hasImage()) {
-          alert('No hay imagen')
-          return
-        }
-        if(!name){
-          name = this.img.split("/");
-          name = name[name.length - 1];
-        }        
-        this.myCroppa.generateBlob( blob => {
-          var fd = new FormData();
-          fd.append('file', blob, name);
-          Vue.axios.post(`/upload`, fd )
-            .then()
-            .catch((e) => {
-              console.log(e);
+        return new Promise((resolve,reject) => {
+          if (!this.myCroppa.hasImage()) {
+            alert('La imagen es requerida')
+            reject()
+          }else{
+            if(!name){
+              name = this.img.split("/");
+              name = name[name.length - 1];
+            }        
+            this.myCroppa.generateBlob( blob => {
+              var fd = new FormData();
+              fd.append('file', blob, name);
+              Vue.axios.post(`/upload`, fd )
+                .then()
+                .catch((e) => {
+                  console.log(e);
+                });
             });
-        });
+            resolve();
+          }          
+        })         
       },
       onFileSizeExceed (file) {
         alert('Tamaño de archivo excedido. Pro favo elija una imagen menor a 1MB.')

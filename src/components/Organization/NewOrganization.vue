@@ -101,13 +101,15 @@ export default {
       this.data.image = `/images/organizacion-${nameImage}.jpg`;
       this.data.deleted = false;
       this.$set(this.data,'state',true);
-      this.$refs.imgContent.uploadImage(`organizacion-${nameImage}.jpg`);
-      this.createOrganization(this.data)
-        .then( () => {
-          alert("Organización creada exitosamente")
-          this.$router.push('/organizations');
-        })
-        .catch( () => alert("No se pudo crear") );
+      this.$refs.imgContent.uploadImage(`organizacion-${nameImage}.jpg`)
+        .then(() => {
+          this.createOrganization(this.data)
+          .then( () => {
+            alert("Organización creada exitosamente")
+            this.$router.push('/organizations');
+          })
+          .catch( () => alert("No se pudo crear") )
+        });      
     },    
     checkForm(submit) {
       this.errors = [];

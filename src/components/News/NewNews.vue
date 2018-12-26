@@ -101,13 +101,15 @@
         let nameImage = hashImageName;
         this.data.image = `/images/noticia-${nameImage}.jpg`;
         this.$set(this.data,'state',true);
-        this.$refs.imgContent.uploadImage(`noticia-${nameImage}.jpg`);
-        this.createNews(this.data)
-          .then( () =>  {
-            alert("Noticia creada exitosamente");
-            this.$router.push('/news');
-          })
-          .catch( () => alert("No se pudo crear"));
+        this.$refs.imgContent.uploadImage(`noticia-${nameImage}.jpg`)
+          .then(() => {
+            this.createNews(this.data)
+              .then( () =>  {
+                alert("Noticia creada exitosamente");
+                this.$router.push('/news');
+              })
+              .catch( () => alert("No se pudo crear"));
+          });
       },
       checkForm(event) {
         this.errors = [];
