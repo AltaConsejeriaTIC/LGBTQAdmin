@@ -114,6 +114,7 @@ export default {
         news: news,
         highlights: this.highlights
       } );
+      this.news.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
     }
   }
 };
