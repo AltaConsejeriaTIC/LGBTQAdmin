@@ -1,20 +1,22 @@
 <template>
-  <div v-if="complaintContainer" >
-    <h2>Detalle Denuncia</h2>
-    <div class="complaint">
-      <div class="complaint__description">
-        <div class="complaintTitle">
-          <div class="complaint__id">{{complaint.id}}</div>
-          <div>{{complaint.first_name + " " + complaint.last_name}}</div>
+  <div v-if="complaint" >
+    <div class="complaintContainer" >
+      <h2>Detalle Denuncia</h2>
+      <div class="complaint">
+        <div class="complaint__description">
+          <div class="complaintTitle">
+            <div class="complaint__id">{{complaint.id}}</div>
+            <div>{{complaint.first_name + " " + complaint.last_name}}</div>
+          </div>
+          <div><label>Tipo de Documento: </label>{{ " " + complaint.document_type}}</div>
+          <div><label>Número de documento: </label>{{ " " + complaint.document_number}}</div>
+          <div><label>Correo: </label>{{ " " + complaint.email}}</div>
+          <div><label>Teléfono: </label>{{ " " + complaint.phone}}</div>
+          <div><label>Descripcion: </label>{{ " " + complaint.description}}</div>
+          <div><label>Lugar: </label>{{ " " + complaint.event_place}}</div>
+          <div><label>Día del evento: </label>{{ " " + formatDate(complaint.event_day)}}</div>
+          <div><label>Fecha de denuncia: </label>{{ " " + formatDate(complaint.created_at)}}</div>
         </div>
-        <div><label>Tipo de Documento: </label>{{ " " + complaint.document_type}}</div>
-        <div><label>Número de documento: </label>{{ " " + complaint.document_number}}</div>
-        <div><label>Correo: </label>{{ " " + complaint.email}}</div>
-        <div><label>Teléfono: </label>{{ " " + complaint.phone}}</div>
-        <div><label>Descripcion: </label>{{ " " + complaint.description}}</div>
-        <div><label>Lugar: </label>{{ " " + complaint.event_place}}</div>
-        <div><label>Día del evento: </label>{{ " " + formatDate(complaint.event_day)}}</div>
-        <div><label>Fecha de denuncia: </label>{{ " " + formatDate(complaint.created_at)}}</div>
       </div>
     </div>
   </div>
