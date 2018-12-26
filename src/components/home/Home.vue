@@ -114,12 +114,12 @@ export default {
   created() {
       this.getEvents();
       this.getNews();
-      this.getHighlights();      
-  },
-  mounted(){
-    if(this.highlights.length < 3)
-      this.showMessage(this.highlights.length)
-  },
+      this.getHighlights()
+        .then(() =>{
+          if(this.highlights.length < 3)
+            this.showMessage(this.highlights.length)
+        })
+  },  
   computed: {
     ...mapGetters({
       events: constants.CURRENT_EVENTS,
