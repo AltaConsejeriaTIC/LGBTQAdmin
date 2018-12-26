@@ -33,6 +33,7 @@ export const NEWS_GET_ON_NEWS = 'news/NEWS_GET_ON_NEWS';
 
 //mutations
 export const SESSION_SET_TOKEN = 'session/SET_TOKEN';
+export const SESSION_SET_ALERT = 'session/SET_ALERT';
 export const EVENT_SET_EVENTS = 'event/SET_EVENTS';
 export const HIGHLIGHT_SET_HIGHLIGHTS = 'highlight/SET_HIGHLIGHTS';
 export const EVENT_SET_EVENT = 'event/SET_EVENT';
@@ -56,6 +57,7 @@ export const NEWS_SET_CURRENT_NEWS = 'news/NEWS_SET_CURRENT_NEWS';
 
 //getters
 export const SESSION_IS_LOGGED = 'session/IS_LOGGED';
+export const SESSION_INVALID_LOGIN = 'session/INVALID_LOGIN';
 export const EVENTS = 'events/GET';
 export const EVENT_BY_ID = 'event/GET_EVENT';
 export const NEWS = 'news/GET';
