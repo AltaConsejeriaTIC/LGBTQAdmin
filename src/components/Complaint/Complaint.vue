@@ -85,11 +85,13 @@
       ...mapActions({
         getData: constants.COMPLAINT_GET_COMPLAINTS,
         handleResize() {
-          let rowHeight = 140;
-          if(this.$refs.actionsRow.$el && this.$refs.actionsRow.$el.children[1] && this.$refs.actionsRow.$el.children[1].children[0]){
-            rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
+          if(this.complaints.length !== 0){
+            let rowHeight = 140;
+            if(this.$refs.actionsRow.$el && this.$refs.actionsRow.$el.children[1] && this.$refs.actionsRow.$el.children[1].children[0]){
+              rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
+            }
+            this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 5;
           }
-          this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 5;
         }
       }),
       viewComplaint(complaint){

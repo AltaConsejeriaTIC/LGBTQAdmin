@@ -12,10 +12,13 @@
     </div>
     <div class="container-fluid row">
       <b-form class="p-form col" @submit="checkForm">
-        <b-form-group id="titleGroup" label="Título:" label-for="title">
-          <b-form-input id="title" type="text" v-model="data.title"
-                         placeholder="Título" formnovalidate>
+        <b-form-group id="titleGroup" label="Título:" label-for="title" :class="{ 'form-group--error': $v.data.title.$error }" >
+          <b-form-input id="title" type="text" v-model="$v.data.title.$model"
+                         placeholder="Título" :state="!$v.data.title.$error">
           </b-form-input>
+          <b-form-invalid-feedback v-for="error in $v.data.title.$params" v-if="!$v.data.title[error.type]"  v-bind:key="error.type">
+            {{errorMessages(error)}}
+          </b-form-invalid-feedback>
           <p>Máx. 50 caracteres</p>
         </b-form-group>
         <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
@@ -28,7 +31,7 @@
         <b-form-row>
           <b-col>
             <b-form-group id="start_dateGroup" label="Fecha de inicio:" label-for="start_date">
-              <b-form-input id="start_date" type="date" v-model="data.start_date"
+              <b-form-input id="start_date" type="date" v-model="data.start_date" ref="startTimeInput"
                              placeholder="Fecha de inicio">
               </b-form-input>
             </b-form-group>
@@ -44,7 +47,7 @@
           <b-col>
             <b-form-group id="start_timeGroup" label="Hora de inicio:" label-for="start_time">
               <b-form-input id="start_time" type="time" v-model="data.start_time"
-                             placeholder="Hora de inicio">
+                             placeholder="Hora de inicio"  >
               </b-form-input>
             </b-form-group>
           </b-col>
@@ -104,6 +107,7 @@ import ImageContent from '../Image/ImageContent';
 
 var moment = require('moment');
 var hash = require('object-hash');
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
 export default {
   name: 'NewEvent',
@@ -112,15 +116,69 @@ export default {
   },
   data() {
     return {
-      data: {},
+      data: {
+        title: '',
+        description: '',
+        start_date: '',
+        finish_date: '',
+        start_time: '',
+        finish_time: '',
+        latitude: '',
+        longitude: '',
+        place: '',
+        address: '',
+      },
       image: '',//'/images/ImagePlaceholder.png',
       api: ENV.ENDPOINT,
-      errors: []
+      errors: [],
+      errorMessages: constants.ERROR_MESSAGES
     }
   },
-  created(){
-    if(!this.data.place){
+  created() {
+    if (!this.data.place) {
       this.data.place = "";
+    }
+  },
+  mounted() {
+    this.$refs.startTimeInput.$el.min = new Date().toISOString().split("T")[0];
+    console.log(this.$refs.startTimeInput.$el.min)
+
+  },
+  validations: {
+    data: {
+      title: {
+        required,
+        maxLength: maxLength(50)
+      },
+      description: {
+        required,
+        minLength: minLength(150),
+        maxLength: maxLength(800)
+      },
+      start_date: {
+
+      },
+      finish_date: {
+
+      },
+      start_time: {
+
+      },
+      finish_time: {
+
+      },
+      latitude: {
+
+      },
+      longitude: {
+
+      },
+      place: {
+
+      },
+      address: {
+        
+      },
     }
   },
   methods: {
@@ -143,6 +201,9 @@ export default {
           })
           .catch( () => alert("No se pudo crear"))
         });      
+    },
+    log(a){
+      console.log(a)
     },
     checkForm(event) {
       this.errors = [];

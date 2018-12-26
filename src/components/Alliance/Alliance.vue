@@ -63,6 +63,7 @@ export default {
             label: 'Estado'
           },
           actions: {
+            class: 'p-actions',
             label: 'Acciones'
           }
         }
@@ -102,11 +103,13 @@ export default {
         this.alliances.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
       },
       handleResize() {
-        let rowHeight = 140;
-        if(this.$refs.actionsRow && this.$refs.actionsRow.$el && this.$refs.actionsRow.$el.children[1] && this.$refs.actionsRow.$el.children[1].children[0]){
-          rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
+        if(this.alliances.length !== 0){
+          let rowHeight = 140;
+          if(this.$refs.actionsRow.$el && this.$refs.actionsRow.$el.children[1] && this.$refs.actionsRow.$el.children[1].children[0]){
+            rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
+          }
+          this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 5;
         }
-        this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 6;
       }
     }
 }
@@ -123,9 +126,6 @@ export default {
 
   .table >>> td:nth-child(3) {
     width: 155px;
-  }
-  .table >>> td:nth-child(6) {
-    width: 183px;
   }
 
   @media (max-width: 1100px) {

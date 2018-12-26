@@ -75,3 +75,17 @@ export const COMPLAINTS = 'complaint/GET';
 export const COMPLAINT_BY_ID = 'complaint/GET_COMPLAINT'
 export const CURRENT_EVENTS = 'events/CURRENT_EVENTS';
 export const CURRENT_NEWS = 'news/CURRENT_NEWS';
+
+//error messages
+
+export const ERROR_MESSAGES = (e) => {
+  switch (e.type) {
+    case "maxLength": return `Este campo puede tener hasta ${e.max} caracteres.`;
+    case "minLength": return `Este campo puede tener minimo ${e.min} caracteres.`;
+    case "required": return "Este campo es requerido.";
+  }
+
+
+
+};
+

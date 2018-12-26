@@ -67,7 +67,7 @@
         </b-form>
 
         <div class="col-12 col-md-auto" >
-          <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
+          <ImageContent :img="data.image" :w="400" :h="400" :ratio="'1:1'" ref="imgContent" class="image"></ImageContent>
         </div>
       </div>
     </div>
