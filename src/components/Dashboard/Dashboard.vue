@@ -116,7 +116,7 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters} from 'vuex';
+  import { mapActions, mapGetters, mapState} from 'vuex';
   import * as constants from '@/store/constants';
 
   export default {
@@ -126,16 +126,25 @@
         active: true
       }
     },
+    computed: {
+      ...mapState({
+          token: (state) => state.Session.token
+      })
+    },
     methods: {
       ...mapActions({
         logout: constants.SESSION_LOGOUT
       }),
       signout() {
-        this.logout();
-        this.$router.push('/login')
+        this.logout();        
       },
       toggle: function() {
         this.active = !this.active
+      }
+    },
+    watch: {
+      token() {
+        this.$router.push('/login')
       }
     }
   }

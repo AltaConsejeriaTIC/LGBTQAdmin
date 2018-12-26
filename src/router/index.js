@@ -123,11 +123,15 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     let isLogged = store.getters['session/IS_LOGGED'];
-    let autorizacion = to.matched.some(record => record.meta.autentificado);
-
-    if (autorizacion && !isLogged) {
+    let requireAuthorization = to.matched.some(record => record.meta.autentificado);
+    
+    if (requireAuthorization && !isLogged) {
         next('login')
-    } else {
+    }
+    else if(isLogged && to.name==="Login"){
+        next('/homeCarousel')
+    }
+    else {
         next()
     }
 })

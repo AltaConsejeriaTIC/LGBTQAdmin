@@ -55,6 +55,9 @@ export default {
       error: false
     };
   },
+  created(){
+
+  },
   computed: {
     ...mapState({
       token: (state) => state.Session.token,
