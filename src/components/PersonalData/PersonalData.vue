@@ -147,6 +147,7 @@
 </script>
 
 <style scoped>
+
   .section {
     display: flex;
     flex-direction: column;
@@ -161,7 +162,7 @@
     font-weight: bold;
     color: #3F4150;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
   .subtitle{
     font-size: 24PX;
@@ -169,7 +170,7 @@
     font-weight: bold;
     color: #999BAA;
   }
-  .down-exel {
+ .down-exel {
     display: flex;
     width: 140px;
     color: #7C7F92;
@@ -194,22 +195,25 @@
     background-color: #fff;
     margin-top: 24px;
     margin-bottom: 0;
-    height: auto;
     overflow-y: auto;
-    min-height: 309px;
+    min-height: min-content;
     max-height: 70%;
   }
-  table.table td, table.table th{
+    /* table.table td, table.table th{
     vertical-align: middle;
   }
   td:nth-child(3) {
-    width: 113px;
+    width: 50px;
   }
   td:nth-child(6) {
-    width: 183px;
+    width: 18px;
+  }
+  td:nth-child(7) {
+    width: 50px;
+    white-space: nowrap;
   }
   table.table tr{
-    min-height: 43px;
+    min-height: 20px;
   }
   thead{
     text-transform: uppercase;
@@ -253,7 +257,7 @@
   }
   .white-space-pre {
     white-space: pre-wrap;
-  }
+  } */
   @media (max-width: 1100px){
     td:nth-child(6){
       width: unset;
@@ -282,6 +286,6 @@
     table.b-table.b-table-stacked-lg, table.b-table.b-table-stacked-lg > tbody, table.b-table.b-table-stacked-lg > tbody > tr, table.b-table.b-table-stacked-lg > tbody > tr > td, table.b-table.b-table-stacked-lg > tbody > tr > th, table.b-table.b-table-stacked-lg > caption {
       display: block;
     }
-  }
+  } 
 
 </style>
