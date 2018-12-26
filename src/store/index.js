@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Session from './modules/session';
 import Event from './modules/event';
+import Notification from './modules/notification';
 import Highlight from './modules/highlight'
 import News from './modules/news';
 import Alliance from './modules/alliance';
@@ -20,6 +21,7 @@ export default new Vuex.Store({
         Organization,
         PersonalData,
         Complaint,
-        Highlight
+        Highlight,
+        Notification
     }
 });

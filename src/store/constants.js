@@ -31,6 +31,8 @@ export const COMPLAINT_CALL_BY_ID = 'complaint/GET_COMPLAINT_BY_ID';
 export const EVENT_GET_ON_EVENTS = 'event/GET_ON_EVENTS';
 export const NEWS_GET_ON_NEWS = 'news/NEWS_GET_ON_NEWS';
 
+export const NOTIFICATION_SEND = 'notification/SEND';
+
 //mutations
 export const SESSION_SET_TOKEN = 'session/SET_TOKEN';
 export const SESSION_SET_ALERT = 'session/SET_ALERT';

@@ -54,14 +54,14 @@
                         <li class="group-text">
                                 ACTUALIDAD
                         </li>
-                        <!-- <router-link tag="li" active-class="active" :to="{name: ''}"> -->
+                        <router-link tag="li" active-class="active" :to="{name: 'Notification'}">
                             <a>
                                 <div class="section">
                                     <div class="section-text">Notificaciones</div>
                                     <div class="section-icon"><i class="far fa-bell "></i></div>
                                 </div>
                             </a>
-                        <!-- </router-link> -->
+                        </router-link>
                         <li class="group-text">
                                 ALIADOS
                         </li>

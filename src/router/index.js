@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/components/Login/Login';
+import Notification from '@/components/Notification/Notification'
 import Dashboard from '@/components/Dashboard/Dashboard';
 import store from '@/store';
 import { Alliance, DetailAlliance, NewAlliance } from '@/components/Alliance';
@@ -50,6 +51,11 @@ const router = new Router({
                     path: '/createevent',
                     name: 'NewEvent',
                     component: NewEvent
+                },
+                {
+                  path: '/notification',
+                  name: 'Notification',
+                  component: Notification
                 },
                 {
                     path: '/news',
