@@ -119,7 +119,7 @@ export default {
           if(this.highlights.length < 3)
             this.showMessage(this.highlights.length)
         })
-  },  
+  },
   computed: {
     ...mapGetters({
       events: constants.CURRENT_EVENTS,
@@ -142,7 +142,7 @@ export default {
         alert(`Aún puede destacar un evento o una noticia`);
       else
         alert(`Aún puede destacar ${3-number} eventos o noticias`);
-    },    
+    },
     postHighlight( data, section ){
       const curr = {
         "section_id": data.id,
@@ -182,5 +182,9 @@ export default {
 
   button.actions {
     width: 80px;
+  }
+
+  td:nth-child(2) {
+    width: 100px;
   }
 </style>
