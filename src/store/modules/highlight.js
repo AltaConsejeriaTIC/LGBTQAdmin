@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import * as constants from '@/store/constants';
+import { resolve } from 'url';
+import { rejects } from 'assert';
 
 const state = {
   highlights: []
@@ -7,11 +9,19 @@ const state = {
 
 const actions = {
   [constants.HIGHLIGHT_GET_HIGHLIGHT]: ({ commit }) => {
-    return Vue.axios
+    return new Promise((resolve,reject) => {
+      Vue.axios
       .get(`/highlights`)
       .then((response) => response.data)
-      .then((highlights) => commit(constants.HIGHLIGHT_SET_HIGHLIGHTS, highlights))
-      .catch((e) => console.log(e));
+      .then((highlights) => {
+        commit(constants.HIGHLIGHT_SET_HIGHLIGHTS, highlights);
+        resolve()
+      })
+      .catch((e) => {
+        console.error(e);
+        reject();
+      });
+    })     
   },
   [constants.HIGHLIGHT_CREATE_HIGHLIGHT]: ({commit}, highlight) => {
     return Vue.axios
