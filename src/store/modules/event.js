@@ -17,12 +17,12 @@ const actions = {
   [constants.EVENT_CALL_BY_ID]: ({ commit }, id) => {
     return new Promise( (resolve,reject) => {
       Vue.axios.get(`/events/${id}`)
-        .then( event => resolve(event.data))      
+        .then( event => resolve(event.data))
         .catch((e) => {
           console.error(e);
           reject();
         });
-    })    
+    })
   },
   [constants.EVENT_UPDATE]: ({commit}, event) => {
     return new Promise((resolve, reject) => {
@@ -36,14 +36,29 @@ const actions = {
         console.error(e)
         reject();
       });
-    })    
+    })
   },
-  [constants.EVENT_CHANGE_STATE]: ({commit}, event) => {
-    event.state = !event.state;
-    return Vue.axios
-    .put(`/updateEvenState/${event.id}`, event, { headers: { token: sessionStorage.getItem('token') }})
-    .then( () => commit(constants.EVENT_SET_EVENT, event))
-    .catch((e) => console.error(e));
+  [constants.EVENT_CHANGE_STATE]: ({commit}, data) => {
+
+    let event = data.event;
+    let highlights = data.highlights;
+    let isHighlight = false;
+
+    for( let highligh of highlights){
+      if( highligh.section_id === event.id ){
+        isHighlight = true;
+      }
+    }
+
+    if( !isHighlight ){
+      event.state = !event.state;
+      return Vue.axios
+        .put(`/updateEvenState/${event.id}`, event, { headers: { token: sessionStorage.getItem('token') }})
+        .then( () => commit(constants.EVENT_SET_EVENT, event))
+        .catch((e) => console.error(e));
+    }
+    alert('No puede ocultar este evento, dado a que se encuentra destacado');
+    return null;
   },
   [constants.EVENT_CREATE_EVENT]: ({commit}, event) => {
     return new Promise((resolve, reject) => {
@@ -58,7 +73,7 @@ const actions = {
         console.error(e);
         reject();
       });
-    })    
+    })
   },
   [constants.EVENT_GET_ON_EVENTS]: ({ commit }) => {
     return Vue.axios
@@ -78,7 +93,6 @@ const mutations = {
     state.currentEvents = events;
   },
   [constants.EVENT_SET_EVENT]: (state, event) => {
-    console.log('Setting new events....')
     for (var i = 0; i < state.events.length; i++) {
       if (state.events[i].id === event.id){
         state.events[i] = event

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import * as constants from '@/store/constants';
 import DetailEvent from "./DetailEvent";
 
@@ -84,6 +84,9 @@ export default {
     ...mapGetters({
       events: constants.EVENTS
     }),
+    ...mapState({
+      highlights: (state) => state.Highlight.highlights
+    }),
     thereAreEvents() {
       return this.events.length !== 0;
     }
@@ -103,7 +106,10 @@ export default {
       this.$router.push({ name: 'NewEvent' });
     },
     changeState(event) {
-      this.changeStateEvent(event);
+      this.changeStateEvent( {
+        event: event,
+        highlights: this.highlights
+      } );
       this.events.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
     },
     handleResize() {
