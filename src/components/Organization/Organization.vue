@@ -53,6 +53,7 @@ export default {
             label: 'Estado'
           },
           actions: {
+            class: 'p-actions',
             label: 'Acciones'
           }
         }
@@ -88,12 +89,13 @@ export default {
         this.$router.push({ name: 'NewOrganization' });
       },
       handleResize() {
-        let rowHeight = 140;
-        if(this.$refs.actionsRow && this.$refs.actionsRow.$el && this.$refs.actionsRow.$el.children[1] && this.$refs.actionsRow.$el.children[1].children[0]){
-          rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
+        if(this.organizations.length !== 0){
+          let rowHeight = 140;
+          if(this.$refs.actionsRow.$el && this.$refs.actionsRow.$el.children[1] && this.$refs.actionsRow.$el.children[1].children[0]){
+            rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
+          }
+          this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 5;
         }
-        this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 6;
-
       }
     }
 }

@@ -45,7 +45,7 @@
         required: true
       },
       ratio: {
-        type: Number,
+        type: String,
         default: '5:4'
       }
     },

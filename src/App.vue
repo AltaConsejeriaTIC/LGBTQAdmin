@@ -223,6 +223,23 @@ button.actions:first-child{
   white-space: pre-wrap;
 }
 
+td.p-actions {
+  width: 195px;
+}
+
+.was-validated .form-control:valid, .form-control.is-valid, .was-validated .custom-select:valid, .custom-select.is-valid {
+  border: 1px solid #ced4da;
+
+}
+
+.form-control:focus, .form-control.is-valid:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
 @media (max-width: 1100px){
   button.actions:first-child{
     margin-right: 0;
