@@ -17,13 +17,13 @@ const actions = {
   [constants.NEWS_CALL_BY_ID]: ({ commit }, id) => {
     return new Promise( (resolve,reject) => {
       Vue.axios
-        .get(`/news/${id}`)      
+        .get(`/news/${id}`)
         .then(news => resolve(news.data))
         .catch((e) => {
           console.error(e);
           reject();
         });
-    })      
+    })
   },
   [constants.NEWS_UPDATE]: ({commit}, news) => {
     return new Promise((resolve, reject) => {
@@ -37,21 +37,36 @@ const actions = {
           console.error(e);
           reject();
         });
-    })    
+    })
   },
-  [constants.NEWS_CHANGE_STATE]: ({commit}, news) => {
-    news.state = !news.state;
-    return Vue.axios
-      .put(`/updateNewsState/${news.id}`, news, { headers: { token: sessionStorage.getItem('token') }})
-      .then(response => commit(constants.NEWS_SET_ONE_NEWS, news))
-      .catch((e) => console.log(e));
+  [constants.NEWS_CHANGE_STATE]: ({commit}, data) => {
+
+    let news = data.news;
+    let highlights = data.highlights;
+    let isHighlight = false;
+
+    for( let highligh of highlights){
+      if( highligh.section_id === news.id ){
+        isHighlight = true;
+      }
+    }
+
+    if( !isHighlight ){
+      news.state = !news.state;
+      return Vue.axios
+        .put(`/updateNewsState/${news.id}`, news, { headers: { token: sessionStorage.getItem('token') }})
+        .then(response => commit(constants.NEWS_SET_ONE_NEWS, news))
+        .catch((e) => console.log(e));
+    }
+    alert('No puede ocultar esta noticia, dado a que se encuentra destacada');
+    return null;
   },
   [constants.NEWS_CREATE_NEWS]: ({commit}, news) => {
     return new Promise( (resolve, reject) => {
       Vue.axios
       .post('/news', news, { headers: { token: sessionStorage.getItem('token') }})
       .then(response => {
-        news.id = response.data.id;        
+        news.id = response.data.id;
         commit(constants.NEWS_ADD_NEWS, news);
         resolve();
       })
@@ -59,9 +74,9 @@ const actions = {
         console.error(e);
         reject();
       });
-    })    
+    })
   },
-  [constants.NEWS_GET_ON_NEWS]: ({ commit }) => {      
+  [constants.NEWS_GET_ON_NEWS]: ({ commit }) => {
     return Vue.axios.get(`/news`)
       .then((response) => response.data)
       .then((news) => commit(constants.NEWS_SET_CURRENT_NEWS, news))

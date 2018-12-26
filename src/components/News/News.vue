@@ -12,7 +12,7 @@
         <template slot="state" slot-scope="row">{{row.value?'Publicado':'No Publicado'}}</template>
         <template slot="actions" slot-scope="row">
           <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
-          <b-button class="actions" variant="light" @click.stop="changeStateNews(row.item)">{{row.item.state ? "Ocultar" : "Publicar" }}</b-button>
+          <b-button class="actions" variant="light" @click.stop="changeNewState(row.item)">{{row.item.state ? "Ocultar" : "Publicar" }}</b-button>
           <b-button class="actions" variant="light" @click.stop="editNews(row.item.id)">Editar</b-button>
         </template>
       </b-table>
@@ -81,6 +81,9 @@ export default {
     ...mapGetters({
       news: constants.NEWS
     }),
+    ...mapState({
+      highlights: (state) => state.Highlight.highlights
+    }),
     thereAreNews() {
       return this.news.length !== 0;
     }
@@ -105,6 +108,12 @@ export default {
         rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
       }
       this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 6;
+    },
+    changeNewState( news ){
+      this.changeStateNews( {
+        news: news,
+        highlights: this.highlights
+      } );
     }
   }
 };
