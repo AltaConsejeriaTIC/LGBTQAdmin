@@ -114,7 +114,11 @@ export default {
   created() {
       this.getEvents();
       this.getNews();
-      this.getHighlights();
+      this.getHighlights();      
+  },
+  mounted(){
+    if(this.highlights.length < 3)
+      this.showMessage(this.highlights.length)
   },
   computed: {
     ...mapGetters({
@@ -131,6 +135,14 @@ export default {
       createHighlight: constants.HIGHLIGHT_CREATE_HIGHLIGHT,
       deleteHighlight: constants.HIGHLIGHT_DELETE_HIGHLIGHT
     }),
+    showMessage( number ) {
+      if(number === 0)
+        alert("No hay noticias ni eventos destacados");
+      else if(number == 2)
+        alert(`Aún puede destacar un evento o una noticia`);
+      else
+        alert(`Aún puede destacar ${3-number} eventos o noticias`);
+    },    
     postHighlight( data, section ){
       const curr = {
         "section_id": data.id,
