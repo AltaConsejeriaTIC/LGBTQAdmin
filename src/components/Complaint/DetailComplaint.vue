@@ -12,7 +12,7 @@
           <div><label>Número de documento: </label>{{ " " + complaint.document_number}}</div>
           <div><label>Correo: </label>{{ " " + complaint.email}}</div>
           <div><label>Teléfono: </label>{{ " " + complaint.phone}}</div>
-          <div class="description_content"><label>Descripcion: </label><p>fjsdlñjf ladjflasdfl jsdlafj lsdk jflsdjfklj sdalfjlsd jflsdajfklja sdlfjsdkla fjlsdk jfkljsdalfsdl fjklsdjflksdja lfjasdlk fjsdklajfklsd ajfkljsdlk fjsdklaj flasdjfklasdjfl kjsdaklfjsdkla fjlsdjaflsdja flñjksdalfkñj sdalfjsdkljfl ksdjfkljsda fkljasdklfjsdklña jfklsdjflk sdjafljsdklfjsdkl fklsdj flsdjflk sdafj sdkl fjklasdjf klsdajfklsdjaklfjsd lfjsdlñk fj sdjflñsadjf</p></div>
+          <div class="description_content"><label>Descripcion: </label><p>{{complaint.description}}</p></div>
           <div><label>Lugar: </label>{{ " " + complaint.event_place}}</div>
           <div><label>Día del evento: </label>{{ " " + formatDate(complaint.event_day)}}</div>
           <div><label>Fecha de denuncia: </label>{{ " " + formatDate(complaint.created_at)}}</div>
