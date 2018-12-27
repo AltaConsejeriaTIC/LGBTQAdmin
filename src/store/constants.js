@@ -87,6 +87,9 @@ export const ERROR_MESSAGES = (e) => {
     case "required": return "Este campo es requerido.";
     case "addMsg":
     case "notBefore": return e.msg;
+    case "email": return "El correo ingresado no es válido.";
+    case "email": return "Le URL no es válida.";
+    case "validatePhone": return "El teléfono ingresado no es válido."
   }
 };
 
@@ -115,4 +118,12 @@ export const addMsg = function (f,msg){
     }
   );
 };
+
 const parseDate = (date,vm,format) => moment(date,format).isValid() ? moment(date,format) : moment(vm[date],format);
+
+export const validatePhone = helpers.withParams(
+  {type: "validatePhone"},
+  (v) => /^([\(]?\+?[0-9]{1,3}[\)]?){0,2}[0-9\s]{7,20}((ext|ext\.|Ext|Ext\.){1}\s[0-9\s]{1,7})?$/.test(v)
+);
+
+

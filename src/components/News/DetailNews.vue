@@ -27,7 +27,7 @@
             <p>Máx. 1000 caracteres</p>
           </b-form-group>
 
-          <b-form-group id="sourceGroup" label="Fuente:" label-for="source">
+          <b-form-group id="sourceGroup" label="Fuente: (opcional)" label-for="source">
             <b-form-input id="source" type="text" v-model="$v.data.source.$model"
                           placeholder="Fuente" :state="!$v.data.source.$error">
             </b-form-input>
@@ -36,7 +36,7 @@
             </b-form-invalid-feedback>
           </b-form-group>
 
-          <b-form-group id="sourceLinkGroup" label="Link:" label-for="sourceLink">
+          <b-form-group id="sourceLinkGroup" label="Link: (opcional)" label-for="sourceLink">
             <b-form-input id="sourceLink" type="text" v-model="$v.data.source_link.$model"
                           placeholder="Link" :state="!$v.data.source_link.$error">
             </b-form-input>
@@ -45,7 +45,7 @@
             </b-form-invalid-feedback>
           </b-form-group>
 
-          <b-form-group id="imageOwnerGroup" label="Crédito de la imagen:" label-for="imageOwner">
+          <b-form-group id="imageOwnerGroup" label="Crédito de la imagen: (opcional)" label-for="imageOwner">
             <b-form-input id="imageOwner" type="text" v-model="$v.data.image_owner.$model"
                           placeholder="Crédito de la imagen" :state="!$v.data.image_owner.$error">
             </b-form-input>

@@ -4,50 +4,62 @@
       <a class="d-block p-link" href="#" @click="goBack"><i class="fas fa-angle-left"></i>Regresar</a>
       <h2 class="d-inline float-left text">Agregar Organización</h2>
     </div>
-    <div v-if="errors.length" class="p-errors">
-      <b>Por favor corriga los siguientes errores:</b>
-      <ul>
-        <li v-for="error in errors" >{{ error }}</li>
-      </ul>
-    </div>
     <div class="container-fluid row">
       <b-form class="p-form col" @submit="checkForm">
         <b-form-group id="nameGroup" label="Nombre:" label-for="name">
           <b-form-input id="name" type="text" v-model="data.name"
-                         placeholder="Nombre">
+                         placeholder="Nombre" :state="!$v.data.name.$error">
           </b-form-input>
+          <b-form-invalid-feedback v-for="error in $v.data.name.$params" v-if="!$v.data.name[error.type]"  v-bind:key="error.type">
+            {{errorMessages(error)}}
+          </b-form-invalid-feedback>
           <p>Máx. 45 caracteres</p>
         </b-form-group>
         <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
           <b-form-textarea  id="description" type="text" v-model="data.description"
                              placeholder="Descripción" :rows="3" :max-rows="5"
-                            v-bind:no-resize="true">
+                            v-bind:no-resize="true" :state="!$v.data.description.$error">
           </b-form-textarea>
+          <b-form-invalid-feedback v-for="error in $v.data.description.$params" v-if="!$v.data.description[error.type]"  v-bind:key="error.type">
+            {{errorMessages(error)}}
+          </b-form-invalid-feedback>
           <p>Mín. 200, Máx. 700 caracteres</p>
         </b-form-group>
 
         <b-form-group id="addressGroup" label="Dirección:" label-for="address">
           <b-form-input id="address" type="text" v-model="data.address"
-                         placeholder="Dirección">
+                         placeholder="Dirección" :state="!$v.data.address.$error">
           </b-form-input>
+          <b-form-invalid-feedback v-for="error in $v.data.address.$params" v-if="!$v.data.address[error.type]"  v-bind:key="error.type">
+            {{errorMessages(error)}}
+          </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group id="websiteGroup" label="Sitio Web:" label-for="website">
           <b-form-input id="website" type="text" v-model="data.website"
-                         placeholder="Sitio Web">
+                         placeholder="Sitio Web" :state="!$v.data.website.$error">
           </b-form-input>
+          <b-form-invalid-feedback v-for="error in $v.data.website.$params" v-if="!$v.data.website[error.type]"  v-bind:key="error.type">
+            {{errorMessages(error)}}
+          </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group id="phoneGroup" label="Teléfono:" label-for="phone">
           <b-form-input id="phone" type="text" v-model="data.phone"
-                         placeholder="(+57)(1) 1234567 ext. 12345">
+                         placeholder="(+57)(1) 1234567 ext. 12345" :state="!$v.data.phone.$error">
           </b-form-input>
+          <b-form-invalid-feedback v-for="error in $v.data.phone.$params" v-if="!$v.data.phone[error.type]"  v-bind:key="error.type">
+            {{errorMessages(error)}}
+          </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group id="emailGroup" label="Email:" label-for="email">
           <b-form-input id="email" type="text" v-model="data.email"
-                         placeholder="Email">
+                         placeholder="Email" :state="!$v.data.email.$error">
           </b-form-input>
+          <b-form-invalid-feedback v-for="error in $v.data.email.$params" v-if="!$v.data.email[error.type]"  v-bind:key="error.type">
+            {{errorMessages(error)}}
+          </b-form-invalid-feedback>
         </b-form-group>
         <b-form-row class="form-row float-right">
           <b-col>
@@ -70,7 +82,7 @@ import * as constants from '@/store/constants';
 import * as ENV from '../../env';
 import ImageContent from '../Image/ImageContent';
 
-var hash = require('object-hash');
+import hash from 'object-hash';
 
 export default {
   name: "NewOrganization",
@@ -79,10 +91,17 @@ export default {
   },
   data() {
     return{
-      data:{},
-      image: '/images/ImagePlaceholder.png',
+      data: {
+        name: '',
+        description: '',
+        offer: '',
+        website: '',
+        phone: '',
+        email: '',
+        finish_date: ''
+      },
       api: ENV.ENDPOINT,
-      errors:[]
+      errorMessages: constants.ERROR_MESSAGES
     }
   },
   methods:{
