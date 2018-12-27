@@ -224,7 +224,7 @@ button.actions:first-child{
 }
 
 td.p-actions {
-  width: 195px;
+  width: 200px;
 }
 
 .was-validated .form-control:valid, .form-control.is-valid, .was-validated .custom-select:valid, .custom-select.is-valid {

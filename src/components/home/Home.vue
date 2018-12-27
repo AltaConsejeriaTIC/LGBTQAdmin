@@ -163,6 +163,9 @@ export default {
 </script>
 
 <style>
+  .form-control.is-valid{
+    border: 1px solid #ced4da;
+  }
 
   .highlights-section{
     padding-bottom: 6%;
@@ -184,7 +187,7 @@ export default {
     width: 80px;
   }
 
-  td:nth-child(2) {
-    width: 100px;
-  }
+  /*td:nth-child(2) {*/
+    /*width: 100px;*/
+  /*}*/
 </style>
