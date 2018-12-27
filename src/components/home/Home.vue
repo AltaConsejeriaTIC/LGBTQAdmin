@@ -4,8 +4,8 @@
       <h2 class="d-inline float-left text">{{title}}</h2>
     </div>
 
-    <div class="highlights-section">
-      <b-table hover stacked="lg"          :items="highlights"
+    <div class="highlights-section" >
+      <b-table hover stacked="lg"          :items="data"
               :fields="fields"             :head-variant="'light'"
               :current-page="currentPage"  :per-page="perPage"
               class="table text table-responsive-xl" ref="actionsRow">
@@ -88,22 +88,22 @@ export default {
       fields: {
         id: {
           label: 'ID',
-          sortable: true,
+          sortable: false,
           class: 'id'
-        },
-        section_id: {
-          label: 'Id Sección',
-          sortable: false
-        },
+        },        
         section: {
           label: 'Sección',
           sortable: true,
+        },
+        title: {
+          label: 'Título',
+          sortable: true
         },
         actions: {
           label: 'Acciones'
         }
       },
-      data: {},
+      data: [],
       image: '/images/ImagePlaceholder.png',
       api: ENV.ENDPOINT,
       errors: [],
@@ -112,14 +112,14 @@ export default {
     }
   },
   created() {
-      this.getEvents();
-      this.getNews();
-      this.getHighlights()
-        .then(() =>{
-          if(this.highlights.length < 3)
-            this.showMessage(this.highlights.length)
-        })
-  },
+    this.getEvents();
+    this.getNews();
+    this.getHighlights()
+      .then(() =>{          
+        if(this.highlights.length < 3)
+          this.showMessage(this.highlights.length)
+      })
+  },  
   computed: {
     ...mapGetters({
       events: constants.CURRENT_EVENTS,
@@ -157,7 +157,41 @@ export default {
     formatDate(date) {
       return moment(date).format('YYYY-MMMM-DD');
     },
+    findTitle(sectionId, section) {
+      let highlight;
+      if(section==="event")
+        highlight = this.events.find( element => element.id === sectionId)
+      else
+        highlight = this.news.find( element => element.id === sectionId)
+      
+      return highlight.title;
+    },
+    assignSection( section ){
+      if(section==="event")
+        return "Evento";
+      else
+        return "Noticia";
+    },
+    createTableElement( highlight ) {
+      let elementToTable = {
+        id: highlight.id,
+        title: this.findTitle(highlight.section_id, highlight.section),
+        section: this.assignSection(highlight.section)
+      }
+      return elementToTable;
+    },
+    loadHighlightsTable() {
+      this.data = [];
+      for( let highlight of this.highlights){
+        this.data.push(this.createTableElement(highlight));
+      }      
+    }
   },
+  watch: {
+    highlights() {
+      this.loadHighlightsTable();
+    }
+  }
 
 }
 </script>
