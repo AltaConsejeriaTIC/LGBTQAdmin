@@ -36,7 +36,7 @@
               <td>{{formatDate(event.finish_date)}}</td>
               <td>{{event.place}}</td>
               <td >
-                <b-button v-bind:class="{disabled: disableButtonN(event, 'event')}" @click="postHighlight( event ,'event')" class="btn actions btn-light" >Destacar</b-button>
+                <b-button :disabled="disableButtonN(event, 'event')" @click="postHighlight( event ,'event')" class="btn actions btn-light" >Destacar</b-button>
               </td>
             </tr>
           </tbody>
@@ -59,7 +59,7 @@
               <td>{{n.source}}</td>
               <td>{{formatDate(n.date)}}</td>
                 <td >
-                  <b-button v-bind:class="{disabled: disableButtonN( n, 'news' )}" @click="postHighlight( n ,'news')" class="btn actions btn-light">Destacar</b-button>
+                  <b-button :disabled="disableButtonN( n, 'news' )"  @click="postHighlight( n ,'news')" class="btn actions btn-light">Destacar</b-button>
               </td>
             </tr>
           </tbody>
@@ -199,5 +199,5 @@ export default {
 
   .was-validated .form-control:valid, .form-control.is-valid, .was-validated .custom-select:valid, .custom-select.is-valid {
     border: 1px solid #ced4da;
-  }
+    }
 </style>
