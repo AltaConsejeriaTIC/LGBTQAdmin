@@ -8,7 +8,7 @@
       <b-table hover stacked="lg"          :items="highlights"
               :fields="fields"             :head-variant="'light'"
               :current-page="currentPage"  :per-page="perPage"
-              class="table text table-responsive-xl" ref="actionsRow">
+              class="table text table-responsive-md" ref="actionsRow">
         <template slot="actions" slot-scope="row">
           <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
           <b-button variant="danger" @click.stop="deleteHighlightById(row.item.id) " ><i class="fas fa-trash-alt"></i></b-button>
@@ -88,8 +88,7 @@ export default {
       fields: {
         id: {
           label: 'ID',
-          sortable: true,
-          class: 'id'
+          sortable: true
         },
         section_id: {
           label: 'Id Sección',
