@@ -77,15 +77,42 @@ export const CURRENT_EVENTS = 'events/CURRENT_EVENTS';
 export const CURRENT_NEWS = 'news/CURRENT_NEWS';
 
 //error messages
+import { helpers } from 'vuelidate/lib/validators'
+import moment from 'moment';
 
 export const ERROR_MESSAGES = (e) => {
   switch (e.type) {
     case "maxLength": return `Este campo puede tener hasta ${e.max} caracteres.`;
     case "minLength": return `Este campo puede tener minimo ${e.min} caracteres.`;
     case "required": return "Este campo es requerido.";
+    case "addMsg":
+    case "notBefore": return e.msg;
   }
-
-
-
 };
 
+export const notBefore = function (d,format,msg){
+  return helpers.withParams({
+      type: "notBefore",
+      msg: msg
+    },
+    (v,vm) => {
+      return v >= parseDate(d, vm, format).format(format)
+    }
+  );
+};
+
+export const equalDates = function (p1,p2,format) {
+  return (v, vm) => parseDate(p1,vm,format).format(format) === parseDate(p2,vm,format).format(format);
+}
+
+export const addMsg = function (f,msg){
+  return helpers.withParams({
+      type: "addMsg",
+      msg: msg
+    },
+    (v,vm) => {
+      return f.call(this, v, vm)
+    }
+  );
+};
+const parseDate = (date,vm,format) => moment(date,format).isValid() ? moment(date,format) : moment(vm[date],format);
