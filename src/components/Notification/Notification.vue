@@ -82,11 +82,12 @@ export default {
     checkForm(event) {
       this.$v.$touch();
       event.preventDefault();
-      if (this.errors.length === 0)
+      if (!this.$v.$invalid) {
         this.sendNotification({
           "title": this.data.title,
           "body": this.data.description
         });
+      }
     },
     goBack() {
       window.history.length > 1
