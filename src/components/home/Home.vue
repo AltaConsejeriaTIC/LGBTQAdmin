@@ -36,7 +36,7 @@
               <td>{{formatDate(event.finish_date)}}</td>
               <td>{{event.place}}</td>
               <td >
-                <b-button  @click="postHighlight( event ,'event')" class="btn actions btn-light" >Destacar</b-button>
+                <b-button v-bind:class="{disabled: disableButtonN(event, 'event')}" @click="postHighlight( event ,'event')" class="btn actions btn-light" >Destacar</b-button>
               </td>
             </tr>
           </tbody>
@@ -59,7 +59,7 @@
               <td>{{n.source}}</td>
               <td>{{formatDate(n.date)}}</td>
                 <td >
-                  <b-button  @click="postHighlight( n ,'news')" class="btn actions btn-light">Destacar</b-button>
+                  <b-button v-bind:class="{disabled: disableButtonN( n, 'news' )}" @click="postHighlight( n ,'news')" class="btn actions btn-light">Destacar</b-button>
               </td>
             </tr>
           </tbody>
@@ -125,7 +125,18 @@ export default {
       events: constants.CURRENT_EVENTS,
       news: constants.CURRENT_NEWS,
       highlights: constants.HIGHLIGHTS
-    })
+    }),
+    disableButtonN: function() {
+      return (data, checkString) => {
+        let check = false;
+        for( let high of this.highlights){
+          if( high.section_id === data.id && high.section === checkString ){
+            check = true;
+          }
+        }
+        return check;
+      }
+    }
   },
   methods: {
     ...mapActions({
@@ -156,7 +167,7 @@ export default {
     },
     formatDate(date) {
       return moment(date).format('YYYY-MMMM-DD');
-    },
+    }
   },
 
 }
