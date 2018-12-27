@@ -70,11 +70,6 @@ export default {
       }
     }
   },
-  created(){
-    if(!this.data.place){
-      this.data.place = "";
-    }
-  },
   methods: {
     ...mapActions({
       sendNotification: constants.NOTIFICATION_SEND
