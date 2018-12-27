@@ -7,7 +7,7 @@
     <div class="container-fluid row">
       <b-form class="p-form col" @submit="checkForm">
         <b-form-group id="nameGroup" label="Nombre:" label-for="name">
-          <b-form-input id="name" type="text" v-model="data.name"
+          <b-form-input id="name" type="text" v-model="$v.data.name.$model"
                          placeholder="Nombre" :state="!$v.data.name.$error">
           </b-form-input>
           <b-form-invalid-feedback v-for="error in $v.data.name.$params" v-if="!$v.data.name[error.type]"  v-bind:key="error.type">
@@ -16,7 +16,7 @@
           <p>Máx. 45 caracteres</p>
         </b-form-group>
         <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
-          <b-form-textarea  id="description" type="text" v-model="data.description"
+          <b-form-textarea  id="description" type="text" v-model="$v.data.description.$model"
                              placeholder="Descripción" :rows="3" :max-rows="5"
                             v-bind:no-resize="true" :state="!$v.data.description.$error">
           </b-form-textarea>
@@ -27,7 +27,7 @@
         </b-form-group>
 
         <b-form-group id="addressGroup" label="Dirección: (opcional)" label-for="address">
-          <b-form-input id="address" type="text" v-model="data.address"
+          <b-form-input id="address" type="text" v-model="$v.data.address.$model"
                          placeholder="Dirección" :state="!$v.data.address.$error">
           </b-form-input>
           <b-form-invalid-feedback v-for="error in $v.data.address.$params" v-if="!$v.data.address[error.type]"  v-bind:key="error.type">
@@ -36,7 +36,7 @@
         </b-form-group>
 
         <b-form-group id="websiteGroup" label="Sitio Web: (opcional)" label-for="website">
-          <b-form-input id="website" type="text" v-model="data.website"
+          <b-form-input id="website" type="text" v-model="$v.data.website.$model"
                          placeholder="Sitio Web" :state="!$v.data.website.$error">
           </b-form-input>
           <b-form-invalid-feedback v-for="error in $v.data.website.$params" v-if="!$v.data.website[error.type]"  v-bind:key="error.type">
@@ -45,7 +45,7 @@
         </b-form-group>
 
         <b-form-group id="phoneGroup" label="Teléfono:" label-for="phone">
-          <b-form-input id="phone" type="text" v-model="data.phone"
+          <b-form-input id="phone" type="text" v-model="$v.data.phone.$model"
                          placeholder="(+57)(1) 1234567 ext. 12345" :state="!$v.data.phone.$error">
           </b-form-input>
           <b-form-invalid-feedback v-for="error in $v.data.phone.$params" v-if="!$v.data.phone[error.type]"  v-bind:key="error.type">
@@ -54,7 +54,7 @@
         </b-form-group>
 
         <b-form-group id="emailGroup" label="Email:" label-for="email">
-          <b-form-input id="email" type="text" v-model="data.email"
+          <b-form-input id="email" type="text" v-model="$v.data.email.$model"
                          placeholder="Email" :state="!$v.data.email.$error">
           </b-form-input>
           <b-form-invalid-feedback v-for="error in $v.data.email.$params" v-if="!$v.data.email[error.type]"  v-bind:key="error.type">
