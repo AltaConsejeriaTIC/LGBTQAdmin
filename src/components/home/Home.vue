@@ -15,6 +15,28 @@
         </template>
       </b-table>
 
+      <!-- <b-modal ref="noHighlights"  title="Using Component Methods">
+        <div class="d-block text-center">
+          <h3>No hay noticias ni eventos destacados.</h3>
+        </div>
+        <div slot="modal-footer" class="w-100">
+         <p class="float-left">Modal Footer Content</p>
+         <b-btn block class="float-none" variant="outline-primary" @click="show=false">
+           Close
+         </b-btn>
+       </div>
+      </b-modal> -->
+
+      <b-modal ref="noHighlights"
+               title="No hay noticias ni eventos destacados."
+               ok-only=""
+               hide-header-close
+               centered
+               ok-title="Aceptar"
+               ok-variant="primary"
+               class="mt-3"
+               @ok="show=false">
+      </b-modal>
     </div>
     <b-tabs>
       <b-tab title="Eventos" active>
@@ -108,7 +130,7 @@ export default {
       api: ENV.ENDPOINT,
       errors: [],
       isEventActive: true,
-      isNewsdActive: false
+      isNewsdActive: false,
     }
   },
   created() {
@@ -137,7 +159,8 @@ export default {
     }),
     showMessage( number ) {
       if(number === 0)
-        alert("No hay noticias ni eventos destacados");
+        this.$refs.noHighlights.show();
+        // alert("No hay noticias ni eventos destacados");
       else if(number == 2)
         alert(`Aún puede destacar un evento o una noticia`);
       else
