@@ -59,6 +59,7 @@
         },
         event_day: {
           label: 'Fecha de denuncia',
+          sortable: true,
           formatter: (value, key, item) => {
             return this.formatDate(item.event_day)
           }

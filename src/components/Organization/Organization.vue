@@ -66,7 +66,7 @@ export default {
             label: 'Estado'
           },
           actions: {
-            class: 'p-actions',
+            class: 'p-actions maxWidth',
             label: 'Acciones'
           }
         }
@@ -130,5 +130,14 @@ export default {
     line-height: 21px;
     border: 1px solid #E0AE0D;
     color: #161824;
+  }
+
+  .table >>> td.p-actions.maxWidth{
+    width: 270px;
+  }
+
+  button.actions:nth-child(2) {
+    margin-bottom: 0;
+    margin-right: 10px;
   }
 </style>

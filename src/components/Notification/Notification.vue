@@ -4,25 +4,25 @@
       <a class="d-block p-link" href="#" @click="goBack"><i class="fas fa-angle-left"></i>Regresar</a>
       <h2 class="d-block text">Enviar notificación push </h2>
     </div>
-    <div v-if="errors.length" class="p-errors">
-      <b>Por favor corriga los siguientes errores:</b>
-      <ul>
-        <li v-for="error in errors" >{{ error }}</li>
-      </ul>
-    </div>
     <div class="container-fluid row">
       <b-form class="p-form col" @submit="checkForm">
         <b-form-group id="titleGroup" label="Título:" label-for="title">
-          <b-form-input id="title" type="text" v-model="data.title"
-                         placeholder="Título" formnovalidate>
+          <b-form-input id="title" type="text" v-model="$v.data.title.$model"
+                        placeholder="Título" :state="!$v.data.title.$error">
           </b-form-input>
+          <b-form-invalid-feedback v-for="error in $v.data.title.$params" v-if="!$v.data.title[error.type]"  v-bind:key="error.type">
+            {{errorMessages(error)}}
+          </b-form-invalid-feedback>
           <p>Máx. 20 caracteres</p>
         </b-form-group>
         <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
-          <b-form-textarea  id="description" type="text" v-model="data.description"
+          <b-form-textarea  id="description" type="text" v-model="$v.data.description.$model"
                              placeholder="Descripción" :rows="3" :max-rows="5"
-                            v-bind:no-resize="true">
+                            v-bind:no-resize="true" :state="!$v.data.description.$error">
           </b-form-textarea>
+          <b-form-invalid-feedback v-for="error in $v.data.description.$params" v-if="!$v.data.description[error.type]"  v-bind:key="error.type">
+            {{errorMessages(error)}}
+          </b-form-invalid-feedback>
           <p>Max. 50 caracteres</p>
         </b-form-group>
         <b-form-row class="form-row float-right">
@@ -37,10 +37,10 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions} from 'vuex';
 import * as constants from '@/store/constants';
 import * as ENV from '../../env';
-import ImageContent from '../Image/ImageContent';
+import {maxLength, required} from 'vuelidate/lib/validators'
 
 
 
@@ -49,15 +49,25 @@ export default {
   components: {},
   data() {
     return {
-      data: {},
+      data: {
+        title: '',
+        description: ''
+      },
       image: '',//'/images/ImagePlaceholder.png',
       api: ENV.ENDPOINT,
-      errors: []
+      errorMessages: constants.ERROR_MESSAGES
     }
   },
-  created(){
-    if(!this.data.place){
-      this.data.place = "";
+  validations: {
+    data: {
+      title: {
+        required,
+        maxLength: maxLength(20)
+      },
+      description: {
+        required,
+        maxLength: maxLength(50)
+      }
     }
   },
   methods: {
@@ -65,29 +75,14 @@ export default {
       sendNotification: constants.NOTIFICATION_SEND
     }),
     checkForm(event) {
-      this.errors = [];
-
-      if (!this.data.title) {
-        this.errors.push('Título es requerido.');
-      }
-      else if(this.data.title.length>20){
-        this.errors.push('Título no válido. Tamaño máximo del título 20 caracteres.');
-
-      }
-
-      if (!this.data.description) {
-        this.errors.push('Descripción es requerida.');
-      }
-      else if(this.data.description.length>50){
-        this.errors.push('Descripción no válida. Tamaño máximo de la descripción 50 caracteres.');
-      }
-
+      this.$v.$touch();
       event.preventDefault();
-      if (this.errors.length === 0)
+      if (!this.$v.$invalid) {
         this.sendNotification({
           "title": this.data.title,
           "body": this.data.description
         });
+      }
     },
     goBack() {
       window.history.length > 1
