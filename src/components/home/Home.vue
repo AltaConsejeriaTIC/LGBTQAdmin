@@ -108,7 +108,8 @@ export default {
       api: ENV.ENDPOINT,
       errors: [],
       isEventActive: true,
-      isNewsdActive: false
+      isNewsdActive: false,
+      showAlert: true
     }
   },
   created() {
@@ -145,9 +146,11 @@ export default {
       if(this.events.length !== 0 && this.news.length !== 0){
         this.getHighlights()
           .then(() =>{          
-            if(this.highlights.length < 3)
-              this.showMessage(this.highlights.length)
-          })
+            if(this.highlights.length < 3 && this.showAlert ){
+              this.showMessage(this.highlights.length);
+              this.showAlert = false;
+            }              
+          }) 
       }
     },
     showMessage( number ) {
