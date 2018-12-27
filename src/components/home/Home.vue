@@ -4,8 +4,8 @@
       <h2 class="d-inline float-left text">{{title}}</h2>
     </div>
 
-    <div class="highlights-section">
-      <b-table hover stacked="lg"          :items="highlights"
+    <div class="highlights-section" >
+      <b-table hover stacked="lg"          :items="data"
               :fields="fields"             :head-variant="'light'"
               :current-page="currentPage"  :per-page="perPage"
               class="table text table-responsive-md" ref="actionsRow">
@@ -88,21 +88,22 @@ export default {
       fields: {
         id: {
           label: 'ID',
-          sortable: true
-        },
-        section_id: {
-          label: 'Id Sección',
-          sortable: false
-        },
+          sortable: false,
+          class: 'id'
+        },        
         section: {
           label: 'Sección',
           sortable: true,
+        },
+        title: {
+          label: 'Título',
+          sortable: true
         },
         actions: {
           label: 'Acciones'
         }
       },
-      data: {},
+      data: [],
       image: '/images/ImagePlaceholder.png',
       api: ENV.ENDPOINT,
       errors: [],
@@ -111,14 +112,9 @@ export default {
     }
   },
   created() {
-      this.getEvents();
-      this.getNews();
-      this.getHighlights()
-        .then(() =>{
-          if(this.highlights.length < 3)
-            this.showMessage(this.highlights.length)
-        })
-  },
+    this.getEvents();
+    this.getNews();    
+  }, 
   computed: {
     ...mapGetters({
       events: constants.CURRENT_EVENTS,
@@ -145,6 +141,15 @@ export default {
       createHighlight: constants.HIGHLIGHT_CREATE_HIGHLIGHT,
       deleteHighlight: constants.HIGHLIGHT_DELETE_HIGHLIGHT
     }),
+    loadHighlights() {
+      if(this.events.length !== 0 && this.news.length !== 0){
+        this.getHighlights()
+          .then(() =>{          
+            if(this.highlights.length < 3)
+              this.showMessage(this.highlights.length)
+          })
+      }
+    },
     showMessage( number ) {
       if(number === 0)
         alert("No hay noticias ni eventos destacados");
@@ -166,8 +171,48 @@ export default {
     },
     formatDate(date) {
       return moment(date).format('YYYY-MMMM-DD');
+    },
+    findTitle(sectionId, section) {
+      let highlight;
+      if(section==="event")
+        highlight = this.events.find( element => element.id === sectionId)
+      else
+        highlight = this.news.find( element => element.id === sectionId)
+      
+      return highlight.title;
+    },
+    assignSection( section ){
+      if(section==="event")
+        return "Evento";
+      else
+        return "Noticia";
+    },
+    createTableElement( highlight ) {
+      let elementToTable = {
+        id: highlight.id,
+        title: this.findTitle(highlight.section_id, highlight.section),
+        section: this.assignSection(highlight.section)
+      }
+      return elementToTable;
+    },
+    loadHighlightsTable() {
+      this.data = [];
+      for( let highlight of this.highlights){
+        this.data.push(this.createTableElement(highlight));
+      }      
     }
   },
+  watch: {
+    events() {
+      this.loadHighlights();
+    },
+    news() {
+      this.loadHighlights();
+    },
+    highlights() {
+      this.loadHighlightsTable();
+    }
+  }
 
 }
 </script>
