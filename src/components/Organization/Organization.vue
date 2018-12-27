@@ -132,7 +132,7 @@ export default {
     color: #161824;
   }
 
-  td.p-actions.maxWidth{
+  .table >>> td.p-actions.maxWidth{
     width: 270px;
   }
 

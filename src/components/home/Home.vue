@@ -187,7 +187,7 @@ export default {
     width: 80px;
   }
 
-  /*td:nth-child(2) {*/
-    /*width: 100px;*/
-  /*}*/
+  .was-validated .form-control:valid, .form-control.is-valid, .was-validated .custom-select:valid, .custom-select.is-valid {
+    border: 1px solid #ced4da;
+  }
 </style>
