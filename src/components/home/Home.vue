@@ -113,13 +113,8 @@ export default {
   },
   created() {
     this.getEvents();
-    this.getNews();
-    this.getHighlights()
-      .then(() =>{          
-        if(this.highlights.length < 3)
-          this.showMessage(this.highlights.length)
-      })
-  },  
+    this.getNews();    
+  }, 
   computed: {
     ...mapGetters({
       events: constants.CURRENT_EVENTS,
@@ -135,6 +130,15 @@ export default {
       createHighlight: constants.HIGHLIGHT_CREATE_HIGHLIGHT,
       deleteHighlight: constants.HIGHLIGHT_DELETE_HIGHLIGHT
     }),
+    loadHighlights() {
+      if(this.events.length !== 0 && this.news.length !== 0){
+        this.getHighlights()
+          .then(() =>{          
+            if(this.highlights.length < 3)
+              this.showMessage(this.highlights.length)
+          })
+      }
+    },
     showMessage( number ) {
       if(number === 0)
         alert("No hay noticias ni eventos destacados");
@@ -188,6 +192,12 @@ export default {
     }
   },
   watch: {
+    events() {
+      this.loadHighlights();
+    },
+    news() {
+      this.loadHighlights();
+    },
     highlights() {
       this.loadHighlightsTable();
     }
