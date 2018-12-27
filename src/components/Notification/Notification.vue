@@ -81,7 +81,12 @@ export default {
         this.sendNotification({
           "title": this.data.title,
           "body": this.data.description
-        });
+        })
+        .then(() => {          
+          alert("Notificación enviada");
+          this.$router.push({name: 'Home'})
+        })
+        .catch(()=> alert("No se pudo enviar notifcación"))        
       }
     },
     goBack() {
