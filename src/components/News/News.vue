@@ -111,7 +111,6 @@ export default {
         }
         this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 5;
       }
-      this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 6;
     },
     changeNewState( news ){
       this.changeStateNews( {
