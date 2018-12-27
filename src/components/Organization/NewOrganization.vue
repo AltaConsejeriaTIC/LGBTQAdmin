@@ -26,7 +26,7 @@
           <p>Mín. 200, Máx. 700 caracteres</p>
         </b-form-group>
 
-        <b-form-group id="addressGroup" label="Dirección:" label-for="address">
+        <b-form-group id="addressGroup" label="Dirección: (opcional)" label-for="address">
           <b-form-input id="address" type="text" v-model="data.address"
                          placeholder="Dirección" :state="!$v.data.address.$error">
           </b-form-input>
@@ -35,7 +35,7 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
-        <b-form-group id="websiteGroup" label="Sitio Web:" label-for="website">
+        <b-form-group id="websiteGroup" label="Sitio Web: (opcional)" label-for="website">
           <b-form-input id="website" type="text" v-model="data.website"
                          placeholder="Sitio Web" :state="!$v.data.website.$error">
           </b-form-input>
@@ -66,9 +66,7 @@
             <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
           </b-col>
         </b-form-row>
-
       </b-form>
-
       <div class="col-12 col-md-auto" >
         <ImageContent :w="400" :h="400" :ratio="'1:1'" ref="imgContent" class="image"></ImageContent>
       </div>
@@ -77,14 +75,15 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
-import * as constants from '@/store/constants';
-import * as ENV from '../../env';
-import ImageContent from '../Image/ImageContent';
+  import {mapActions} from 'vuex';
+  import * as constants from '@/store/constants';
+  import * as ENV from '../../env';
+  import ImageContent from '../Image/ImageContent';
 
-import hash from 'object-hash';
+  import hash from 'object-hash';
+  import {email, maxLength, minLength, required} from 'vuelidate/lib/validators'
 
-export default {
+  export default {
   name: "NewOrganization",
   components:{
     ImageContent
@@ -94,14 +93,36 @@ export default {
       data: {
         name: '',
         description: '',
-        offer: '',
+        address: '',
         website: '',
         phone: '',
-        email: '',
-        finish_date: ''
+        email: ''
       },
       api: ENV.ENDPOINT,
       errorMessages: constants.ERROR_MESSAGES
+    }
+  },
+  validations: {
+    data: {
+      name: {
+        required,
+        maxLength: maxLength(45)
+      },
+      description: {
+        required,
+        minLength: minLength(200),
+        maxLength: maxLength(700)
+      },
+      address: {},
+      email: {
+        required,
+        email
+      },
+      phone: {
+        required,
+        validatePhone: constants.validatePhone
+      },
+      website: {}
     }
   },
   methods:{
@@ -115,8 +136,7 @@ export default {
       if(!this.data.website){
         this.data.website = "";
       }
-      let hashImageName = hash( this.data.name.replace(/\s/g,"") );
-      let nameImage = hashImageName;
+      let nameImage = hash(this.data.name.replace(/\s/g, ""));
       this.data.image = `/images/organizacion-${nameImage}.jpg`;
       this.data.deleted = false;
       this.$set(this.data,'state',true);
@@ -124,49 +144,16 @@ export default {
         .then(() => {
           this.createOrganization(this.data)
           .then( () => {
-            alert("Organización creada exitosamente")
+            alert("Organización creada exitosamente");
             this.$router.push('/organizations');
           })
           .catch( () => alert("No se pudo crear") )
         });      
     },    
-    checkForm(submit) {
-      this.errors = [];
-
-      if (!this.data.name) {
-        this.errors.push('Nombre es requerido.');
-      }else if(this.data.name.length > 45){
-        this.errors.push('El nombre puede contener máximo 45 caracteres.');
-      }
-      if (!this.data.description) {
-        this.errors.push('Descripción es requerida.');
-      }else{
-        let lenDes = this.data.description.length
-        if ( lenDes < 200 || lenDes > 700 ){
-          this.errors.push('La descripción debe contener mínimo 200 y máximo 700 caracteres.');
-        }
-      }
-      if (!this.data.email) {
-        this.errors.push('Email es requerido.');
-      }else if (!this.validateEmail(this.data.email)) {
-        this.errors.push('Correo no válido.')
-      }
-      if (!this.data.phone) {
-        this.errors.push('Teléfono es requerido.');
-      }else if (!this.validatePhone(this.data.phone)) {
-        this.errors.push('Teléfono no válido')
-      }            
-      submit.preventDefault();
-      if(this.errors.length === 0)
-        this.save();            
-    },
-    validateEmail( email ) {
-      let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z-.]{2,}$/
-      return regex.test(email);
-    },
-    validatePhone( phone ) {
-      let regex = /^([\(]?\+?[0-9]{1,3}[\)]?){0,2}[0-9\s]{7,20}((ext|ext\.|Ext|Ext\.){1}\s[0-9\s]{1,7})?$/
-      return regex.test(phone)
+    checkForm(event) {
+      this.$v.$touch();
+      event.preventDefault();
+      if(!this.$v.$invalid) this.save();
     },
     goBack() {
       window.history.length > 1
