@@ -178,7 +178,7 @@
           : this.$router.push('/dashboard')
       },
       goNews(){
-        this.$router.pushh('/news')
+        this.$router.push('/news')
       }
     }
   }

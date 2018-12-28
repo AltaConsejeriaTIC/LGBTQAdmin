@@ -30,7 +30,7 @@
             ok-title="Aceptar"
             ok-variant="primary"
             class="mt-3"
-            @ok="reject()">
+            @ok="show=false">
             <div class="d-block text-center">
                 <h4>La imagen es requerida.</h4>
               </div>

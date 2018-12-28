@@ -68,7 +68,7 @@
                 ok-title="Aceptar"
                 ok-variant="primary"
                 class="mt-3"
-                @ok="goNews()">
+                @ok="goNews">
                 <div class="d-block text-center">
                     <h4>Noticia actualizada exitosamente.</h4>
                   </div>

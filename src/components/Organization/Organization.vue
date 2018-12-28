@@ -17,8 +17,11 @@
           <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
           <b-button class="actions" variant="light" @click.stop="changeState(row.item)">{{row.item.state ? "Ocultar" : "Publicar" }}</b-button>
           <b-button class="actions" variant="light" @click.stop="editOrganization(row.item.id)">Editar</b-button>
+        </template>
+        <template slot="remove" slot-scope="row">
           <b-button class="actions" variant="danger" @click.stop="deleteItem(row.item)">Eliminar</b-button>
         </template>
+
       </b-table>
       <b-pagination :total-rows="organizations.length" :per-page="perPage" v-model="currentPage" align="right"
                     :limit=5 v-bind:hide-goto-end-buttons="true" next-text="Siguiente" prev-text="Anterior"></b-pagination>
@@ -68,6 +71,9 @@ export default {
           actions: {
             class: 'p-actions maxWidth',
             label: 'Acciones'
+          },
+          remove: {
+            label: 'Eliminar'
           }
         }
       }
@@ -133,7 +139,7 @@ export default {
   }
 
   .table >>> td.p-actions.maxWidth{
-    width: 270px;
+    width: 200px;
   }
 
   button.actions:nth-child(2) {
