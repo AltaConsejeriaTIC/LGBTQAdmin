@@ -133,6 +133,11 @@ export default {
         .catch( e => this.$refs.noHide.show() )
       this.news.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
     }
+  },
+  watch: {
+    news(){
+      this.news.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
+    }
   }
 };
 </script>

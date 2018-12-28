@@ -32,86 +32,91 @@ import * as constants from '@/store/constants';
 var moment = require('moment');
 
 export default {
-    name: "Alliance",
-    data() {
-      return {
-        title: "Alianzas",
-        currentPage: 1,
-        perPage: 10,
-        fields: {
-          id: {
-            label: 'ID',
-            sortable: true,
-            class: 'id'
-          },
-          name: {
-            label: 'Nombre',
-            sortable: true
-          },
-          website: {
-            label: 'Sitio web'
-          },
-          finish_date: {
-            label: 'Fecha de expiración',
-            sortable: true,
-            class: 'white-space-pre',
-            formatter: (value) => {
-              return this.formatDate(value);
-            }
-          },
-          state: {
-            label: 'Estado'
-          },
-          actions: {
-            class: 'p-actions',
-            label: 'Acciones'
+  name: "Alliance",
+  data() {
+    return {
+      title: "Alianzas",
+      currentPage: 1,
+      perPage: 10,
+      fields: {
+        id: {
+          label: 'ID',
+          sortable: true,
+          class: 'id'
+        },
+        name: {
+          label: 'Nombre',
+          sortable: true
+        },
+        website: {
+          label: 'Sitio web'
+        },
+        finish_date: {
+          label: 'Fecha de expiración',
+          sortable: true,
+          class: 'white-space-pre',
+          formatter: (value) => {
+            return this.formatDate(value);
           }
-        }
-      }
-    },
-    created() {
-      if ( !this.alliances.length )
-        this.getAlliances()
-      this.alliances.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
-
-    },
-    computed: {
-      ...mapGetters({
-        alliances: constants.ALLIANCES
-      }),
-      thereAreAliances() {
-        return this.alliances.length !== 0;
-      }
-    },
-    methods: {
-      ...mapActions({
-        getAlliances: constants.ALLIANCE_GET_ALLIANCES,
-        changeStateAlliance: constants.ALLIANCE_CHANGE_STATE
-      }),
-      formatDate(date) {
-        return moment(date).format('YYYY-MMMM-DD');
-
-      },
-      editAlliance(allianceId){
-        this.$router.push({ name: 'DetailAlliance', params: { id: allianceId } });
-      },
-      newAlliance() {
-        this.$router.push({ name: 'NewAlliance' });
-      },
-      changeState(alliance) {
-        this.changeStateAlliance(alliance);
-        this.alliances.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
-      },
-      handleResize() {
-        if(this.alliances.length !== 0){
-          let rowHeight = 140;
-          if(this.$refs.actionsRow.$el && this.$refs.actionsRow.$el.children[1] && this.$refs.actionsRow.$el.children[1].children[0]){
-            rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
-          }
-          this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 5;
+        },
+        state: {
+          label: 'Estado'
+        },
+        actions: {
+          class: 'p-actions',
+          label: 'Acciones'
         }
       }
     }
+  },
+  created() {
+    if ( !this.alliances.length )
+      this.getAlliances()
+    this.alliances.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
+
+  },
+  computed: {
+    ...mapGetters({
+      alliances: constants.ALLIANCES
+    }),
+    thereAreAliances() {
+      return this.alliances.length !== 0;
+    }
+  },
+  methods: {
+    ...mapActions({
+      getAlliances: constants.ALLIANCE_GET_ALLIANCES,
+      changeStateAlliance: constants.ALLIANCE_CHANGE_STATE
+    }),
+    formatDate(date) {
+      return moment(date).format('YYYY-MMMM-DD');
+
+    },
+    editAlliance(allianceId){
+      this.$router.push({ name: 'DetailAlliance', params: { id: allianceId } });
+    },
+    newAlliance() {
+      this.$router.push({ name: 'NewAlliance' });
+    },
+    changeState(alliance) {
+      this.changeStateAlliance(alliance);
+      this.alliances.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
+    },
+    handleResize() {
+      if(this.alliances.length !== 0){
+        let rowHeight = 140;
+        if(this.$refs.actionsRow.$el && this.$refs.actionsRow.$el.children[1] && this.$refs.actionsRow.$el.children[1].children[0]){
+          rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
+        }
+        this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 5;
+      }
+    }
+  },
+  watch: {
+    alliances(){
+      this.alliances.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
+    }
+  }
 }
 </script>
 

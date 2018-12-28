@@ -138,6 +138,11 @@ export default {
       }
     }
   },
+  watch: {
+    events(){
+      this.events.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
+    }
+  }
 };
 </script>
 

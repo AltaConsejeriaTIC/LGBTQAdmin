@@ -121,6 +121,11 @@ export default {
           this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 5;
         }
       }
+    },
+    watch: {
+      organizations(){
+        this.organizations.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
+      }
     }
 }
 </script>
