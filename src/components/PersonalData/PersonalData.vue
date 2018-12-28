@@ -18,13 +18,13 @@
           <div class="icon-text">Descargar la tabla de respuestas</div>
         </div>
       </div>
-        <b-table hover stacked="lg"           :items="users"
+        <b-table hover stacked="lg"          :items="users"
                 :fields="fields"             :head-variant="'light'"
                 :current-page="currentPage"  :per-page="perPage"
                 class="table text table-responsive-xl" id="tblData">
         </b-table>
           <b-pagination :total-rows="users.length" :per-page="perPage" v-model="currentPage" align="right"
-                        :limit=1 v-bind:hide-goto-end-buttons="true" next-text="Siguiente" prev-text="Anterior"></b-pagination>
+                        :limit=3 v-bind:hide-goto-end-buttons="true" next-text="Siguiente" prev-text="Anterior"></b-pagination>
     </div>
   </div>
 </template>
@@ -41,7 +41,7 @@
       return {
         title: 'Datos personales',
         currentPage: 1,
-        perPage: 5,
+        perPage: 10,
         fields: {
           id: {
             label: 'ID',
@@ -286,6 +286,6 @@
     table.b-table.b-table-stacked-lg, table.b-table.b-table-stacked-lg > tbody, table.b-table.b-table-stacked-lg > tbody > tr, table.b-table.b-table-stacked-lg > tbody > tr > td, table.b-table.b-table-stacked-lg > tbody > tr > th, table.b-table.b-table-stacked-lg > caption {
       display: block;
     }
-  } 
+  }
 
 </style>

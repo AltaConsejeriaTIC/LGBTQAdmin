@@ -4,9 +4,9 @@
       <h2 class="d-inline float-left text">{{title}}</h2>
       <button type="button" class="btn btn-warning d-inline float-right big text" @click="newOrganization">Agregar Organización</button>
     </div>
-    
-        
-    
+
+
+
     <div v-if="thereAreOrganizations">
       <b-table hover stacked="lg"           :items="organizations"
                :fields="fields"             :head-variant="'light'"
@@ -18,7 +18,7 @@
           <b-button class="actions" variant="light" @click.stop="changeState(row.item)">{{row.item.state ? "Ocultar" : "Publicar" }}</b-button>
           <b-button class="actions" variant="light" @click.stop="editOrganization(row.item.id)">Editar</b-button>
           <b-button class="actions" variant="danger" @click.stop="deleteItem(row.item)">Eliminar</b-button>
-        </template>        
+        </template>
       </b-table>
       <b-pagination :total-rows="organizations.length" :per-page="perPage" v-model="currentPage" align="right"
                     :limit=5 v-bind:hide-goto-end-buttons="true" next-text="Siguiente" prev-text="Anterior"></b-pagination>
@@ -48,7 +48,7 @@ export default {
         title: "Organizaciones",
         organizationToDelete: {},
         currentPage: 1,
-        perPage: 5,
+        perPage: 10,
         fields: {
           id: {
             label: 'ID',
@@ -92,10 +92,10 @@ export default {
         changeStateOrganization: constants.ORGANIZATION_CHANGE_STATE,
         deleteOrganization: constants.ORGANIZATION_DELETE_ORGANIZATION
       }),
-      deleteItem(organization){        
+      deleteItem(organization){
         this.organizationToDelete = organization;
-        this.$refs.deleteModal.show();        
-      },      
+        this.$refs.deleteModal.show();
+      },
       editOrganization(organizationId){
         this.$router.push({ name: 'DetailOrganization', params: { id: organizationId } });
       },

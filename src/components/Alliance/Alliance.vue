@@ -37,7 +37,7 @@ export default {
       return {
         title: "Alianzas",
         currentPage: 1,
-        perPage: 5,
+        perPage: 10,
         fields: {
           id: {
             label: 'ID',
