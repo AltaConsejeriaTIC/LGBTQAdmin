@@ -32,6 +32,28 @@
         </b-form-row>
 
       </b-form>
+      <b-modal ref="notificationCreated"
+            ok-only
+            hide-header
+            ok-title="Aceptar"
+            ok-variant="primary"
+            class="mt-3"
+            @ok="goHome">
+            <div class="d-block text-center">
+                <h4>Notificación enviada.</h4>
+              </div>
+      </b-modal>
+      <b-modal ref="noCreated"
+            ok-only
+            hide-header
+            ok-title="Aceptar"
+            ok-variant="primary"
+            class="mt-3"
+            @ok="show=false">
+            <div class="d-block text-center">
+                <h4>No se pudo enviar notifcación.</h4>
+              </div>
+      </b-modal>
     </div>
   </div>
 </template>
@@ -83,16 +105,18 @@ export default {
           "body": this.data.description
         })
         .then(() => {          
-          alert("Notificación enviada");
-          this.$router.push({name: 'Home'})
+          this.$refs.notificationCreated.show();
         })
-        .catch(()=> alert("No se pudo enviar notifcación"))        
+        .catch(()=> this.$refs.noCreated.show())        
       }
     },
     goBack() {
       window.history.length > 1
         ? this.$router.go(-1)
         : this.$router.push('/dashboard')
+    },
+    goHome() {
+      this.$router.push({name: 'Home'})      
     }
   }
 }

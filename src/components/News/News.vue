@@ -27,7 +27,7 @@
             <div class="d-block text-center">
                 <h4>No se pude ocultar una noticia destacada.</h4>
               </div>
-    </b-modal>
+      </b-modal>
 
       <b-pagination :total-rows="news.length" :per-page="perPage" v-model="currentPage" align="right"
                     :limit=5 v-bind:hide-goto-end-buttons="true" next-text="Siguiente" prev-text="Anterior"></b-pagination>

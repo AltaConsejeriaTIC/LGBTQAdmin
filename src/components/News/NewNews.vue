@@ -10,7 +10,7 @@
           <b-form-input id="title" type="text" v-model="$v.data.title.$model"
                          placeholder="Título" :state="!$v.data.title.$error">
           </b-form-input>
-          <p class="counter">{{countTitle}}</p>
+          <p :class="{'counterOk': countTitle<=82,  'counterError': countTitle === 0 || countTitle>82}">{{countTitle + ' caracteres'}}</p>
           <b-form-invalid-feedback v-for="error in $v.data.title.$params" v-if="!$v.data.title[error.type]"  v-bind:key="error.type">
             {{errorMessages(error)}}
           </b-form-invalid-feedback>
@@ -176,6 +176,9 @@
         window.history.length > 1
           ? this.$router.go(-1)
           : this.$router.push('/dashboard')
+      },
+      goNews(){
+        this.$router.pushh('/news')
       }
     }
   }
@@ -209,8 +212,14 @@
     color: #A8ABBA;
 
   }
-  .counter{    
+  .counterOk{    
     float: right;
+    color: #28a745;
+  }
+
+  .counterError{    
+    float: right;
+    color: #dc3545;
   }
 
   input[type=text]{
