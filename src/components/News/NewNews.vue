@@ -10,7 +10,7 @@
           <b-form-input id="title" type="text" v-model="$v.data.title.$model"
                          placeholder="Título" :state="!$v.data.title.$error">
           </b-form-input>
-          <p :class="{'counterOk': countTitle<=82,  'counterError': countTitle === 0 || countTitle>82}">{{countTitle + ' caracteres'}}</p>
+          <p class="counter">{{countTitle + ' caracteres'}}</p>
           <b-form-invalid-feedback v-for="error in $v.data.title.$params" v-if="!$v.data.title[error.type]"  v-bind:key="error.type">
             {{errorMessages(error)}}
           </b-form-invalid-feedback>
@@ -21,7 +21,7 @@
                              placeholder="Descripción" :rows="4" :max-rows="6"
                             v-bind:no-resize="true" :state="!$v.data.description.$error">
           </b-form-textarea>
-          <p class="counter">{{countDescription}}</p>
+          <p class="counter">{{countDescription + ' caracteres'}}</p>
           <b-form-invalid-feedback v-for="error in $v.data.description.$params" v-if="!$v.data.description[error.type]"  v-bind:key="error.type">
             {{errorMessages(error)}}
           </b-form-invalid-feedback>
@@ -212,14 +212,8 @@
     color: #A8ABBA;
 
   }
-  .counterOk{    
+  .counter{
     float: right;
-    color: #28a745;
-  }
-
-  .counterError{    
-    float: right;
-    color: #dc3545;
   }
 
   input[type=text]{

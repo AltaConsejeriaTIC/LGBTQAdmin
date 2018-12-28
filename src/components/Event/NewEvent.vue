@@ -10,7 +10,7 @@
           <b-form-input id="title" type="text" v-model="$v.data.title.$model"
                          placeholder="Título" :state="!$v.data.title.$error">
           </b-form-input>
-          <p class="counter">{{countTitle}}</p>
+          <p class="counter">{{countTitle + ' caracteres'}}</p>
           <b-form-invalid-feedback v-for="error in $v.data.title.$params" v-if="!$v.data.title[error.type]"  v-bind:key="error.type">
             {{errorMessages(error)}}
           </b-form-invalid-feedback>
@@ -21,7 +21,7 @@
                              placeholder="Descripción" :rows="3" :max-rows="5"
                             v-bind:no-resize="true" :state="!$v.data.description.$error">
           </b-form-textarea>
-          <p class="counter">{{countDescription}}</p>
+          <p class="counter">{{countDescription + ' caracteres'}}</p>
           <b-form-invalid-feedback v-for="error in $v.data.description.$params" v-if="!$v.data.description[error.type]"  v-bind:key="error.type">
             {{errorMessages(error)}}
           </b-form-invalid-feedback>

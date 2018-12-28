@@ -10,7 +10,7 @@
           <b-form-input id="name" type="text" v-model="$v.data.name.$model"
                          placeholder="Nombre" :state="!$v.data.name.$error">
           </b-form-input>
-          <p class="counter">{{countName}}</p>
+          <p class="counter">{{countName + ' caracteres'}}</p>
           <b-form-invalid-feedback v-for="error in $v.data.name.$params" v-if="!$v.data.name[error.type]"  v-bind:key="error.type">
             {{errorMessages(error)}}
           </b-form-invalid-feedback>
@@ -21,7 +21,7 @@
                              placeholder="Descripción" :rows="3" :max-rows="5"
                             v-bind:no-resize="true" :state="!$v.data.description.$error">
           </b-form-textarea>
-          <p class="counter">{{countDescription}}</p>
+          <p class="counter">{{countDescription + ' caracteres'}}</p>
           <b-form-invalid-feedback v-for="error in $v.data.description.$params" v-if="!$v.data.description[error.type]"  v-bind:key="error.type">
             {{errorMessages(error)}}
           </b-form-invalid-feedback>
@@ -130,11 +130,11 @@
   },
   computed: {
     countName() {
-     return this.data.name.length; 
+     return this.data.name.length;
     },
     countDescription() {
-     return this.data.description.length; 
-    } 
+     return this.data.description.length;
+    }
   },
   validations: {
     data: {
@@ -210,7 +210,7 @@
     margin: 0;
     padding: 0;
   }
-  .counter{    
+  .counter{
     float: right;
   }
 </style>
