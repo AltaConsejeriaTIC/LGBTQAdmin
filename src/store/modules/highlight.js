@@ -29,7 +29,6 @@ const actions = {
       .then(response => {
         highlight.id = response.data.id
         commit(constants.HIGHLIGHT_ADD_HIGHLIGHT, highlight);
-        console.log(response);
       })
       .catch((e) => console.log(e));
   },
@@ -38,7 +37,6 @@ const actions = {
       .delete(`/highlights/${highlightId}`,  { headers: { token: sessionStorage.getItem('token') }})
       .then(response => {
         commit(constants.HIGHLIGHT_UPDATE_DELETE_HIGHLIGHT, highlightId);
-        console.log(response);
       })
       .catch((e) => console.log(e));
   },

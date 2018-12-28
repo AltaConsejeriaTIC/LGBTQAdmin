@@ -66,6 +66,7 @@ export default {
             label: 'Estado'
           },
           actions: {
+            class: 'p-actions maxWidth',
             label: 'Acciones'
           }
         }
@@ -106,12 +107,13 @@ export default {
         this.$router.push({ name: 'NewOrganization' });
       },
       handleResize() {
-        let rowHeight = 140;
-        if(this.$refs.actionsRow && this.$refs.actionsRow.$el && this.$refs.actionsRow.$el.children[1] && this.$refs.actionsRow.$el.children[1].children[0]){
-          rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
+        if(this.organizations.length !== 0){
+          let rowHeight = 140;
+          if(this.$refs.actionsRow.$el && this.$refs.actionsRow.$el.children[1] && this.$refs.actionsRow.$el.children[1].children[0]){
+            rowHeight = this.$refs.actionsRow.$el.children[1].children[0].offsetHeight;
+          }
+          this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 5;
         }
-        this.perPage = window.innerWidth > 992 ? Math.ceil((window.innerHeight-320)/rowHeight)-1 : 6;
-
       }
     }
 }
@@ -120,5 +122,22 @@ export default {
 <style scoped>
   .organization {
     width: 85%;
+  }
+
+  .btn-warning {
+    width: 170px;
+    font-weight: bold;
+    line-height: 21px;
+    border: 1px solid #E0AE0D;
+    color: #161824;
+  }
+
+  .table >>> td.p-actions.maxWidth{
+    width: 270px;
+  }
+
+  button.actions:nth-child(2) {
+    margin-bottom: 0;
+    margin-right: 10px;
   }
 </style>

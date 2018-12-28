@@ -3,60 +3,74 @@
     <div v-if="data">
       <div class="p-title text">
         <a class="d-block p-link" href="#" @click="goBack"><i class="fas fa-angle-left"></i>Regresar</a>
-        <h2 class="d-inline float-left text">Editar Alianza</h2>
-      </div>
-      <div v-if="errors.length" class="p-errors">
-        <b>Por favor corriga los siguientes errores:</b>
-        <ul>
-          <li v-for="error in errors" >{{ error }}</li>
-        </ul>
+        <h2 class="d-inline float-left text">Agregar Alianza</h2>
       </div>
       <div class="container-fluid row">
         <b-form class="p-form col" @submit="checkForm">
           <b-form-group id="nameGroup" label="Nombre:" label-for="name">
-            <b-form-input id="name" type="text" v-model="data.name"
-                           placeholder="Nombre">
+            <b-form-input id="name" type="text" v-model="$v.data.name.$model"
+                          placeholder="Nombre" :state="!$v.data.name.$error">
             </b-form-input>
+            <b-form-invalid-feedback v-for="error in $v.data.name.$params" v-if="!$v.data.name[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
             <p>Máx. 45 caracteres</p>
           </b-form-group>
           <b-form-group id="descriptionGroup" label="Descripción aliado:" label-for="description">
-            <b-form-textarea  id="description" type="text" v-model="data.description"
-                               placeholder="Descripción aliado" :rows="4" :max-rows="5"
-                              v-bind:no-resize="true">
+            <b-form-textarea  id="description" type="text" v-model="$v.data.description.$model"
+                              placeholder="Descripción aliado" :rows="4" :max-rows="5"
+                              v-bind:no-resize="true" :state="!$v.data.description.$error">
             </b-form-textarea>
+            <b-form-invalid-feedback v-for="error in $v.data.description.$params" v-if="!$v.data.description[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
             <p>Mín. 150, Máx. 300 caracteres</p>
           </b-form-group>
 
-
           <b-form-group id="offerGroup" label="Oferta aliado:" label-for="offer">
-            <b-form-textarea id="offer" type="text" v-model="data.offer"
-                           placeholder="Oferta aliado" :rows="6" :max-rows="8"
-                          v-bind:no-resize="true">
+            <b-form-textarea id="offer" type="text" v-model="$v.data.offer.$model"
+                             placeholder="Oferta aliado" :rows="6" :max-rows="8"
+                             v-bind:no-resize="true" :state="!$v.data.offer.$error">>
             </b-form-textarea>
+            <b-form-invalid-feedback v-for="error in $v.data.offer.$params" v-if="!$v.data.offer[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
             <p>Mín. 300, Máx. 1000 caracteres</p>
           </b-form-group>
 
-          <b-form-group id="websiteGroup" label="Sitio Web:" label-for="website">
-            <b-form-input id="website" type="text" v-model="data.website"
-                           placeholder="Sitio Web">
+          <b-form-group id="websiteGroup" label="Sitio Web: (opcional)" label-for="website">
+            <b-form-input id="website" type="text" v-model="$v.data.website.$model"
+                          placeholder="Sitio Web" :state="!$v.data.website.$error">
             </b-form-input>
+            <b-form-invalid-feedback v-for="error in $v.data.website.$params" v-if="!$v.data.website[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
           </b-form-group>
 
           <b-form-group id="phoneGroup" label="Teléfono:" label-for="phone">
-            <b-form-input id="phone" type="text" v-model="data.phone"
-                           placeholder="(+57)(1) 1234567 ext. 12345">
+            <b-form-input id="phone" type="text" v-model="$v.data.phone.$model"
+                          placeholder="(+57)(1) 1234567 ext. 12345" :state="!$v.data.phone.$error">
             </b-form-input>
+            <b-form-invalid-feedback v-for="error in $v.data.phone.$params" v-if="!$v.data.phone[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
           </b-form-group>
 
           <b-form-group id="emailGroup" label="Email:" label-for="email">
-            <b-form-input id="email" type="text" v-model="data.email"
-                           placeholder="Email">
+            <b-form-input id="email" type="text" v-model="$v.data.email.$model"
+                          placeholder="Email" :state="!$v.data.email.$error">
             </b-form-input>
+            <b-form-invalid-feedback v-for="error in $v.data.email.$params" v-if="!$v.data.email[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
           </b-form-group>
           <b-form-group id="finish_dateGroup" label="Fecha de expiración:" label-for="finish_date">
-            <b-form-input id="finish_date" type="date" v-model="data.finish_date"
-                           placeholder="Fecha">
+            <b-form-input id="finish_date" type="date" v-model="$v.data.finish_date.$model"
+                          placeholder="Fecha" :state="!$v.data.finish_date.$error">
             </b-form-input>
+            <b-form-invalid-feedback v-for="error in $v.data.finish_date.$params" v-if="!$v.data.finish_date[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
           </b-form-group>
           <b-form-row class="form-row float-right">
             <b-col>
@@ -89,7 +103,7 @@
         </b-modal>
 
         <div class="col-12 col-md-auto" >
-          <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
+          <ImageContent :img="data.image" :w="400" :h="400" :ratio="'1:1'" ref="imgContent" class="image"></ImageContent>
         </div>
       </div>
     </div>
@@ -103,8 +117,8 @@
     import { mapActions, mapGetters } from 'vuex';
     import * as constants from '@/store/constants';
     import ImageContent from '../Image/ImageContent';
-
-    var moment = require('moment');
+    import {maxLength, minLength, required, email} from 'vuelidate/lib/validators'
+    import moment from 'moment';
 
     export default {
         name: "DetailAlliance",
@@ -113,10 +127,47 @@
         },
         data() {
           return {
-            data: {},
-            errors: []
+            data: {
+              name: '',
+              description: '',
+              offer: '',
+              website: '',
+              phone: '',
+              email: '',
+              finish_date: ''
+            },
+            errorMessages: constants.ERROR_MESSAGES
           }
         },
+        validations: {
+        data: {
+          name: {
+            required,
+            maxLength: maxLength(45)
+          },
+          description: {
+            required,
+            minLength: minLength(150),
+            maxLength: maxLength(300)
+          },
+          offer: {
+            required,
+            minLength: minLength(300),
+            maxLength: maxLength(1000)
+          },
+          email: {
+            required,
+            email
+          },
+          phone: {
+            validatePhone: constants.validatePhone
+          },
+          finish_date: {
+            required
+          },
+          website: {}
+        }
+      },
         created() {
           let id = this.$route.params.id;
           this.data = this.get(id);
@@ -129,7 +180,6 @@
           }else{
             this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
           }
-
         },
         computed: {
           ...mapGetters({
@@ -156,51 +206,10 @@
               })
               .catch( () => this.$refs.noUpdatedAlliance.show())
           },
-          checkForm(submit) {
-            this.errors = [];
-            if (!this.data.name) {
-              this.errors.push('Nombre es requerido.');
-            }else if (this.data.name.length > 45) {
-              this.errors.push('El nombre puede contener máximo 45 caracteres.');
-            }
-            if (!this.data.description) {
-              this.errors.push('Descripción es requerida.');
-            }else{
-              let lenDes = this.data.description.length;
-              if( lenDes < 150 ||  lenDes > 300){
-                this.errors.push('La descripción debe contener mínimo 150 y máximo 300 caracteres.');
-              }
-            }
-            if (!this.data.offer) {
-              this.errors.push('Campo oferta es requerido.')
-            }else{
-              let lenOfer = this.data.offer.length;
-              if( lenOfer < 300 ||  lenOfer > 1000){
-                this.errors.push('La oferta debe contener mínimo 300 y máximo 1000  caracteres.');
-              }
-            }
-            if (!this.data.email) {
-              this.errors.push('Campo Email es requerido.')
-            }else if (!this.validEmail(this.data.email)) {
-              this.errors.push("Correo ingresado no es válido.")
-            }
-            if ( !this.data.finish_date ) {
-              this.errors.push('Campo Fecha es requerido.')
-            }
-            if (this.data.phone && !this.validPhone(this.data.phone)) {
-              this.errors.push("Teléfono ingresado no es válido.")
-            }
-            submit.preventDefault();
-            if(this.errors.length === 0)
-              this.save();
-          },
-          validEmail( email ) {
-            let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z-.]{2,}$/
-            return regex.test(email);
-          },
-          validPhone( phone ) {
-            let regex = /^([\(]?\+?[0-9]{1,3}[\)]?){0,2}[0-9\s]{7,20}((ext|ext\.|Ext|Ext\.){1}\s[0-9\s]{1,7})?$/
-            return regex.test(phone)
+          checkForm(event) {
+            this.$v.$touch();
+            event.preventDefault();
+            if(!this.$v.$invalid) this.save();
           },
           goBack() {
             window.history.length > 1

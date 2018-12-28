@@ -2,85 +2,109 @@
   <div>
     <div v-if="data">
       <div class="p-title text">
-       <a class="d-block p-link" href="#" @click="goBack"><i class="fas fa-angle-left"></i>Regresar</a>
-        <h2 class="d-inline float-left text">Editar Evento</h2>
-      </div>
-      <div v-if="errors.length" class="p-errors">
-        <b>Por favor corriga los siguientes errores:</b>
-        <ul>
-          <li v-for="error in errors" >{{ error }}</li>
-        </ul>
+        <a class="d-block p-link" href="#" @click="goBack"><i class="fas fa-angle-left"></i>Regresar</a>
+        <h2 class="d-block text">Agregar Evento </h2>
       </div>
       <div class="container-fluid row">
         <b-form class="p-form col" @submit="checkForm">
-          <b-form-group id="titleGroup" label="Título: " label-for="title">
-            <b-form-input id="title" type="text" v-model="data.title"
-                           placeholder="Título">
+          <b-form-group id="titleGroup" label="Título:" label-for="title">
+            <b-form-input id="title" type="text" v-model="$v.data.title.$model"
+                          placeholder="Título" :state="!$v.data.title.$error">
             </b-form-input>
+            <b-form-invalid-feedback v-for="error in $v.data.title.$params" v-if="!$v.data.title[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
             <p>Máx. 50 caracteres</p>
           </b-form-group>
           <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
-            <b-form-textarea  id="description" type="text" v-model="data.description"
-                               placeholder="Descripción" :rows="3" :max-rows="5"
-                              v-bind:no-resize="true">
+            <b-form-textarea  id="description" type="text" v-model="$v.data.description.$model"
+                              placeholder="Descripción" :rows="3" :max-rows="5"
+                              v-bind:no-resize="true" :state="!$v.data.description.$error">
             </b-form-textarea>
+            <b-form-invalid-feedback v-for="error in $v.data.description.$params" v-if="!$v.data.description[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
             <p>Mín. 150, Máx. 800 caracteres</p>
           </b-form-group>
           <b-form-row>
             <b-col>
               <b-form-group id="start_dateGroup" label="Fecha de inicio:" label-for="start_date">
-                <b-form-input id="start_date" type="date" v-model="data.start_date"
-                               placeholder="Fecha de inicio">
+                <b-form-input id="start_date" type="date" v-model="$v.data.start_date.$model" ref="startTimeInput"
+                              placeholder="Fecha de inicio" :state="!$v.data.start_date.$error">
                 </b-form-input>
+                <b-form-invalid-feedback v-for="error in $v.data.start_date.$params" v-if="!$v.data.start_date[error.type]"  v-bind:key="error.type">
+                  {{errorMessages(error)}}
+                </b-form-invalid-feedback>
               </b-form-group>
             </b-col>
             <b-col>
               <b-form-group id="finish_dateGroup" label="Fecha de fin:" label-for="finish_date">
-                <b-form-input id="finish_date" type="date" v-model="data.finish_date"
-                               placeholder="Fecha de fin">
+                <b-form-input id="finish_date" type="date" v-model="$v.data.finish_date.$model"
+                              placeholder="Fecha de fin" :state="!$v.data.finish_date.$error">
                 </b-form-input>
+                <b-form-invalid-feedback v-for="error in $v.data.finish_date.$params" v-if="!$v.data.finish_date[error.type]"  v-bind:key="error.type">
+                  {{errorMessages(error)}}
+                </b-form-invalid-feedback>
               </b-form-group>
             </b-col>
             <div class="w-100"></div>
             <b-col>
               <b-form-group id="start_timeGroup" label="Hora de inicio:" label-for="start_time">
-                <b-form-input id="start_time" type="time" v-model="data.start_time.split(' ')[0]"
-                               placeholder="Hora de inicio" >
+                <b-form-input id="start_time" type="time" v-model="$v.data.start_time.$model"
+                              placeholder="Hora de inicio" :state="!$v.data.start_time.$error" >
                 </b-form-input>
+                <b-form-invalid-feedback v-for="error in $v.data.start_time.$params" v-if="!$v.data.start_time[error.type]"  v-bind:key="error.type">
+                  {{errorMessages(error)}}
+                </b-form-invalid-feedback>
               </b-form-group>
             </b-col>
             <b-col>
               <b-form-group id="finish_timeGroup" label="Hora de fin:" label-for="finish_time">
-                <b-form-input id="finish_time" type="time" v-model="data.finish_time.split(' ')[0]"
-                               placeholder="Hora de fin">
+                <b-form-input id="finish_time" type="time" v-model="$v.data.finish_time.$model"
+                              placeholder="Hora de fin" :state="!$v.data.finish_time.$error">
                 </b-form-input>
+                <b-form-invalid-feedback v-for="error in $v.data.finish_time.$params" v-if="!$v.data.finish_time[error.type]"  v-bind:key="error.type">
+                  {{errorMessages(error)}}
+                </b-form-invalid-feedback>
               </b-form-group>
             </b-col>
             <div class="w-100"></div>
             <b-col>
-              <b-form-group id="latitudeGroup" label="Latitud:" label-for="latitude">
-                <b-form-input id="latitude" type="number" v-model="data.latitude"
-                              placeholder="Latitud">
+              <b-form-group id="latitudeGroup" label="Latitud: (opcional)" label-for="latitude">
+                <b-form-input id="latitude" type="number" v-model="$v.data.latitude.$model"
+                              placeholder="Latitud" :state="!$v.data.latitude.$error">
                 </b-form-input>
+                <b-form-invalid-feedback v-for="error in $v.data.latitude.$params" v-if="!$v.data.latitude[error.type]"  v-bind:key="error.type">
+                  {{errorMessages(error)}}
+                </b-form-invalid-feedback>
               </b-form-group>
             </b-col>
             <b-col>
-              <b-form-group id="longitudeGroup" label="Longitud:" label-for="longitude">
-                <b-form-input id="longitude" type="number" v-model="data.longitude"
-                              placeholder="Longitud">
+              <b-form-group id="longitudeGroup" label="Longitud: (opcional)" label-for="longitude">
+                <b-form-input id="longitude" type="number" v-model="$v.data.longitude.$model"
+                              placeholder="Longitud" :state="!$v.data.longitude.$error">
                 </b-form-input>
+                <b-form-invalid-feedback v-for="error in $v.data.longitude.$params" v-if="!$v.data.longitude[error.type]"  v-bind:key="error.type">
+                  {{errorMessages(error)}}
+                </b-form-invalid-feedback>
               </b-form-group>
             </b-col>
           </b-form-row>
-          <b-form-group id="placeGroup" label="Lugar:" label-for="place">
-            <b-form-input id="place" type="text" v-model="data.place"
-                           placeholder="Lugar">
+          <b-form-group id="placeGroup" label="Lugar: (opcional)" label-for="place">
+            <b-form-input id="place" type="text" v-model="$v.data.place.$model"
+                          placeholder="Lugar" :state="!$v.data.place.$error">
             </b-form-input>
+            <b-form-invalid-feedback v-for="error in $v.data.place.$params" v-if="!$v.data.place[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
           </b-form-group>
           <b-form-group id="addressGroup" label="Dirección:" label-for="address">
-            <b-form-input id="address" type="text" v-model="data.address"
-                           placeholder="Dirección">
+            <b-form-input id="address" type="text" v-model="$v.data.address.$model"
+                          placeholder="Dirección" :state="!$v.data.address.$error">
             </b-form-input>
+            <b-form-invalid-feedback v-for="error in $v.data.address.$params" v-if="!$v.data.address[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
           </b-form-group>
           <b-form-row class="form-row float-right">
             <b-col>
@@ -111,7 +135,7 @@
                 </div>
         </b-modal>
         <div class="col-12 col-md-auto" >
-          <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
+          <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image" ></ImageContent>
         </div>
       </div>
     </div>
@@ -119,7 +143,6 @@
     <div v-else>
       <h2>Cargando ...</h2>
     </div>
-
   </div>
 </template>
 
@@ -128,8 +151,9 @@ import { mapActions, mapGetters } from 'vuex';
 import ImageContent from '../Image/ImageContent'
 import * as constants from '@/store/constants';
 import * as ENV from '../../env';
+import {maxLength, minLength, not, or, required} from 'vuelidate/lib/validators'
 
-var moment = require('moment');
+import moment from 'moment';
 
 export default {
   name: 'DetailEvent',
@@ -138,10 +162,21 @@ export default {
   },
   data() {
     return {
-      data: {},
+      data: {
+        title: '',
+        description: '',
+        start_date: '',
+        finish_date: '',
+        start_time: '',
+        finish_time: '',
+        latitude: 0,
+        longitude: 0,
+        place: '',
+        address: ''
+      },
       error: false,
       api: ENV.ENDPOINT,
-      errors: []
+      errorMessages: constants.ERROR_MESSAGES
     }
   },
   created() {
@@ -161,10 +196,41 @@ export default {
       }
     }
   },
-  computed: {
-    ...mapGetters({
-      get: constants.EVENT_BY_ID
-    })
+  validations: {
+    data: {
+      title: {
+        required,
+        maxLength: maxLength(50)
+      },
+      description: {
+        required,
+        minLength: minLength(150),
+        maxLength: maxLength(800)
+      },
+      start_date: {
+        required
+      },
+      finish_date: {
+        required,
+        notBefore: constants.notBefore('start_date', "YYYY-MM-DD", "La fecha debe ser igual o mayor a la fecha de inicio")
+      },
+      start_time: {
+        required,
+        notBefore: constants.addMsg(or( not(constants.equalDates('start_date',new Date(),"YYYY-MM-DD")),
+          constants.notBefore(new Date(), 'HH:mm')),"La hora debe ser mayor a la actual.")
+      },
+      finish_time: {
+        required,
+        notBefore: constants.addMsg(or( not(constants.equalDates('start_date', 'finish_date',"YYYY-MM-DD")),
+          constants.notBefore('start_time', 'HH:mm')),"La hora de fin debe ser mayor a la hora de inicio.")
+      },
+      address: {
+        required
+      },
+      latitude: {},
+      longitude: {},
+      place: {},
+    }
   },
   methods: {
     ...mapActions({
@@ -183,64 +249,10 @@ export default {
         })
         .catch( () => this.$refs.noUpdatedEvent.show())
     },
-    parseDate() {
-      this.data.start_date = moment(this.data.start_date).format('YYYY-MM-DD');
-      this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
-      this.data.start_time = moment(this.data.start_time,"h:mm a").format('HH:MM');
-      this.data.finish_time = moment(this.data.finish_time,"h:mm a").format('HH:MM');
-    },
     checkForm(event) {
-      this.errors = [];
-
-      if (!this.data.title) {
-        this.errors.push('Título es requerido.');
-      }else{
-        let lenTit = this.data.title.length;
-        if (lenTit > 50) {
-          this.errors.push('el título puede contener máximo 50 caracteres.');
-        }
-      }
-      if (!this.data.description) {
-        this.errors.push('Descripción es requerida.');
-      }else{
-        let lenDes = this.data.description.length;
-        if (lenDes < 150 || lenDes > 800) {
-          this.errors.push('La descripción debe contener mínimo 150 y máximo 800 caracteres');
-        }
-      }
-      if (!this.data.address) {
-        this.errors.push('Dirección es requerida.');
-      }
-      let currentDateAndHour = new Date();
-      if (!this.data.start_date){
-        this.errors.push('Fecha de inicio requerida.');
-      }
-      if (!this.data.finish_date){
-        this.errors.push('Fecha de fin requerida.');
-      }
-      if (this.data.start_date > this.data.finish_date){
-        this.errors.push('La fecha de fin debe ser mayor o igual a la fecha de inicio.');
-      }
-      if (!this.data.start_time) {
-        this.errors.push('Hora de inicio requerida.');
-      }
-      if (!this.data.finish_time) {
-        this.errors.push('Hora de fin requerida.');
-      }
-      if (this.data.start_date === this.data.finish_date){
-        if (this.data.start_time > this.data.finish_time){
-          this.errors.push('La hora de fin debe ser mayor a la hora de inicio.');
-        }
-      }
+      this.$v.$touch();
       event.preventDefault();
-      if(this.errors.length === 0)
-        this.save();
-    },
-    addZero(number){
-      if(number < 10){
-        number = "0"+1;
-      }
-      return number;
+      if(!this.$v.$invalid) this.save();
     },
     goBack() {
       window.history.length > 1
@@ -249,7 +261,19 @@ export default {
     },
     goEvents() {
       this.$router.push('/events');
+
+    },
+    parseDate() {
+      this.data.start_date = moment(this.data.start_date).format('YYYY-MM-DD');
+      this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
+      this.data.start_time = moment(this.data.start_time,"h:mm a").format('HH:MM');
+      this.data.finish_time = moment(this.data.finish_time,"h:mm a").format('HH:MM');
     }
+  },
+  computed: {
+    ...mapGetters({
+      get: constants.EVENT_BY_ID
+    })
   }
 }
 </script>

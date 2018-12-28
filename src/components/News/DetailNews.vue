@@ -2,46 +2,56 @@
   <div>
     <div v-if="data">
       <div class="p-title text">
-       <a class="d-block p-link" href="#" @click="goBack"><i class="fas fa-angle-left"></i>Regresar</a>
-        <h2 class="d-inline float-left text">Editar Noticia</h2>
-      </div>
-      <div v-if="errors.length" class="p-errors">
-        <b>Por favor corriga los siguientes errores:</b>
-        <ul>
-          <li v-for="error in errors" >{{ error }}</li>
-        </ul>
+        <a class="d-block p-link" href="#" @click="goBack"><i class="fas fa-angle-left"></i>Regresar</a>
+        <h2 class="d-inline float-left text">Agregar Noticia</h2>
       </div>
       <div class="container-fluid row">
         <b-form class="p-form col" @submit="checkForm">
           <b-form-group id="titleGroup" label="Título:" label-for="title">
-            <b-form-input id="title" type="text" v-model="data.title"
-                           placeholder="Título">
+            <b-form-input id="title" type="text" v-model="$v.data.title.$model"
+                          placeholder="Título" :state="!$v.data.title.$error">
             </b-form-input>
+            <b-form-invalid-feedback v-for="error in $v.data.title.$params" v-if="!$v.data.title[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
             <p>Máx. 82 caracteres</p>
           </b-form-group>
           <b-form-group id="descriptionGroup" label="Descripción:" label-for="description">
-            <b-form-textarea  id="description" type="text" v-model="data.description"
-                               placeholder="Descripción" :rows="3" :max-rows="5"
-                              v-bind:no-resize="true">
+            <b-form-textarea  id="description" type="text" v-model="$v.data.description.$model"
+                              placeholder="Descripción" :rows="4" :max-rows="6"
+                              v-bind:no-resize="true" :state="!$v.data.description.$error">
             </b-form-textarea>
+            <b-form-invalid-feedback v-for="error in $v.data.description.$params" v-if="!$v.data.description[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
             <p>Máx. 1000 caracteres</p>
           </b-form-group>
-          <b-form-group id="sourceGroup" label="Fuente:" label-for="source">
-            <b-form-input id="source" type="text" v-model="data.source"
-                           placeholder="Fuente">
+
+          <b-form-group id="sourceGroup" label="Fuente: (opcional)" label-for="source">
+            <b-form-input id="source" type="text" v-model="$v.data.source.$model"
+                          placeholder="Fuente" :state="!$v.data.source.$error">
             </b-form-input>
+            <b-form-invalid-feedback v-for="error in $v.data.source.$params" v-if="!$v.data.source[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
           </b-form-group>
 
-          <b-form-group id="sourceLinkGroup" label="Link:" label-for="sourceLink">
-            <b-form-input id="sourceLink" type="text" v-model="data.source_link"
-                           placeholder="Link">
+          <b-form-group id="sourceLinkGroup" label="Link: (opcional)" label-for="sourceLink">
+            <b-form-input id="sourceLink" type="text" v-model="$v.data.source_link.$model"
+                          placeholder="Link" :state="!$v.data.source_link.$error">
             </b-form-input>
+            <b-form-invalid-feedback v-for="error in $v.data.source_link.$params" v-if="!$v.data.source_link[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
           </b-form-group>
 
-          <b-form-group id="imageOwnerGroup" label="Crédito de la imagen:" label-for="imageOwner">
-            <b-form-input id="imageOwner" type="text" v-model="data.image_owner"
-                           placeholder="Crédito de la imagen">
+          <b-form-group id="imageOwnerGroup" label="Crédito de la imagen: (opcional)" label-for="imageOwner">
+            <b-form-input id="imageOwner" type="text" v-model="$v.data.image_owner.$model"
+                          placeholder="Crédito de la imagen" :state="!$v.data.image_owner.$error">
             </b-form-input>
+            <b-form-invalid-feedback v-for="error in $v.data.image_owner.$params" v-if="!$v.data.image_owner[error.type]"  v-bind:key="error.type">
+              {{errorMessages(error)}}
+            </b-form-invalid-feedback>
           </b-form-group>
           <b-form-row class="form-row float-right">
             <b-col>
@@ -78,6 +88,7 @@
         </div>
       </div>
     </div>
+    <h2 v-else-if="error">Error cargando los datos.</h2>
     <div v-else>
       <h2>Cargando ...</h2>
     </div>
@@ -89,9 +100,9 @@
 import { mapActions, mapGetters } from 'vuex';
 import * as constants from '@/store/constants';
 import ImageContent from '../Image/ImageContent';
-import Vue from 'vue';
+import {maxLength, required} from 'vuelidate/lib/validators'
+import moment from 'moment';
 
-var moment = require('moment');
 
 export default {
   name: 'DetailNews',
@@ -100,8 +111,30 @@ export default {
   },
   data() {
     return {
-      data: {},
-      errors: []
+      data: {
+        title: '',
+        description: '',
+        source: '',
+        source_link: '',
+        image_owner: '',
+      },
+      error: false,
+      errorMessages: constants.ERROR_MESSAGES
+    }
+  },
+  validations: {
+    data: {
+      title: {
+        required,
+        maxLength: maxLength(82)
+      },
+      description: {
+        required,
+        maxLength: maxLength(1000)
+      },
+      source: {},
+      source_link: {},
+      image_owner: {},
     }
   },
   created() {
@@ -112,7 +145,8 @@ export default {
         .then( news => {
           this.data = news;
           this.data.date = moment(this.data.date).format('YYYY-MM-DD');
-        })
+        }).
+        catch(error => this.error = true)
     }else{
       this.data.date = moment(this.data.date).format('YYYY-MM-DD');
     }
@@ -137,31 +171,9 @@ export default {
         .catch( () => this.$refs.noUpdatedNews.show())
     },
     checkForm(event) {
-      this.errors = [];
-
-      if (!this.data.title) {
-        this.errors.push('Título es requerido.');
-      }else{
-        if (this.data.title.length > 82) {
-          this.errors.push('El titulo puede contener máximo 82 caracteres.');
-        }
-      }
-      if (!this.data.description) {
-        this.errors.push('Descripción es requerida.');
-      }else{
-        if (this.data.description.length > 1000) {
-          this.errors.push('La descripción puede tener máximo 1000 caracteres.')
-        }
-      }
+      this.$v.$touch();
       event.preventDefault();
-      if(this.errors.length === 0)
-        this.save();
-    },
-    addZero( number ) {
-      if (number < 10){
-        number = "0" + number;
-      }
-      return number;
+      if(!this.$v.$invalid) this.save();
     },
     goBack() {
       window.history.length > 1

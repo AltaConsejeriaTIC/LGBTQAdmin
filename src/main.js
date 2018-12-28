@@ -18,7 +18,10 @@ Vue.component('downloadExcel', JsonExcel);
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Vuelidate from 'vuelidate'
 
+Vuelidate["hola"] = 'prueba';
+Vue.use(Vuelidate)
 Vue.use(BootstrapVue);
 Vue.use(Vuetify);
 Vue.use(VueAxios, axios);

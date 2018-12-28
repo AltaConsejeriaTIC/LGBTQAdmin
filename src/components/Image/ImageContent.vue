@@ -20,7 +20,7 @@
         Subir imagen (jpg,png)
       </button>
     </div>
-    <p>Las imágenes subidas serán cortadas para quedar con proporción 5:4. El peso máximo de la imagen es de 1Mb.
+    <p>Las imágenes subidas serán cortadas para quedar con proporción {{this.ratio}}. El peso máximo de la imagen es de 1Mb.
       Podras acercar, alejar y mover la imagen.
     </p>
 
@@ -83,6 +83,10 @@
       h: {
         type: Number,
         required: true
+      },
+      ratio: {
+        type: String,
+        default: '5:4'
       }
     },
     data() {

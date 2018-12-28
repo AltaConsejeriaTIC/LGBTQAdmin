@@ -4,11 +4,11 @@
       <h2 class="d-inline float-left text">{{title}}</h2>
     </div>
 
-    <div class="highlights-section">
-      <b-table hover stacked="lg"          :items="highlights"
+    <div class="highlights-section" >
+      <b-table hover stacked="lg"          :items="data"
               :fields="fields"             :head-variant="'light'"
               :current-page="currentPage"  :per-page="perPage"
-              class="table text table-responsive-xl" ref="actionsRow">
+              class="table text table-responsive-md" ref="actionsRow">
         <template slot="actions" slot-scope="row">
           <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
           <b-button variant="danger" @click.stop="deleteHighlightById(row.item.id) " ><i class="fas fa-trash-alt"></i></b-button>
@@ -68,7 +68,7 @@
               <td>{{formatDate(event.finish_date)}}</td>
               <td>{{event.place}}</td>
               <td >
-                <b-button  @click="postHighlight( event ,'event')" class="btn actions btn-light" >Destacar</b-button>
+                <b-button :disabled="disableButtonN(event, 'event')" @click="postHighlight( event ,'event')" class="btn actions btn-light" >Destacar</b-button>
               </td>
             </tr>
           </tbody>
@@ -91,7 +91,7 @@
               <td>{{n.source}}</td>
               <td>{{formatDate(n.date)}}</td>
                 <td >
-                  <b-button  @click="postHighlight( n ,'news')" class="btn actions btn-light">Destacar</b-button>
+                  <b-button :disabled="disableButtonN( n, 'news' )"  @click="postHighlight( n ,'news')" class="btn actions btn-light">Destacar</b-button>
               </td>
             </tr>
           </tbody>
@@ -120,44 +120,51 @@ export default {
       fields: {
         id: {
           label: 'ID',
-          sortable: true,
+          sortable: false,
           class: 'id'
-        },
-        section_id: {
-          label: 'Id Sección',
-          sortable: false
         },
         section: {
           label: 'Sección',
           sortable: true,
         },
+        title: {
+          label: 'Título',
+          sortable: true
+        },
         actions: {
           label: 'Acciones'
         }
       },
-      data: {},
+      data: [],
       image: '/images/ImagePlaceholder.png',
       api: ENV.ENDPOINT,
       errors: [],
       isEventActive: true,
       isNewsdActive: false,
+      showAlert: true
     }
   },
   created() {
-      this.getEvents();
-      this.getNews();
-      this.getHighlights()
-        .then(() =>{
-          if(this.highlights.length < 3)
-            this.showMessage(this.highlights.length)
-        })
+    this.getEvents();
+    this.getNews();
   },
   computed: {
     ...mapGetters({
       events: constants.CURRENT_EVENTS,
       news: constants.CURRENT_NEWS,
       highlights: constants.HIGHLIGHTS
-    })
+    }),
+    disableButtonN: function() {
+      return (data, checkString) => {
+        let check = false;
+        for( let high of this.highlights){
+          if( high.section_id === data.id && high.section === checkString ){
+            check = true;
+          }
+        }
+        return check;
+      }
+    }
   },
   methods: {
     ...mapActions({
@@ -167,6 +174,17 @@ export default {
       createHighlight: constants.HIGHLIGHT_CREATE_HIGHLIGHT,
       deleteHighlight: constants.HIGHLIGHT_DELETE_HIGHLIGHT
     }),
+    loadHighlights() {
+      if(this.events.length !== 0 && this.news.length !== 0){
+        this.getHighlights()
+          .then(() =>{
+            if(this.highlights.length < 3 && this.showAlert ){
+              this.showMessage(this.highlights.length);
+              this.showAlert = false;
+            }
+          })
+      }
+    },
     showMessage( number ) {
       if(number === 0)
         this.$refs.noHighlights.show();
@@ -189,12 +207,55 @@ export default {
     formatDate(date) {
       return moment(date).format('YYYY-MMMM-DD');
     },
+    findTitle(sectionId, section) {
+      let highlight;
+      if(section==="event")
+        highlight = this.events.find( element => element.id === sectionId)
+      else
+        highlight = this.news.find( element => element.id === sectionId)
+
+      return highlight.title;
+    },
+    assignSection( section ){
+      if(section==="event")
+        return "Evento";
+      else
+        return "Noticia";
+    },
+    createTableElement( highlight ) {
+      let elementToTable = {
+        id: highlight.id,
+        title: this.findTitle(highlight.section_id, highlight.section),
+        section: this.assignSection(highlight.section)
+      }
+      return elementToTable;
+    },
+    loadHighlightsTable() {
+      this.data = [];
+      for( let highlight of this.highlights){
+        this.data.push(this.createTableElement(highlight));
+      }
+    }
   },
+  watch: {
+    events() {
+      this.loadHighlights();
+    },
+    news() {
+      this.loadHighlights();
+    },
+    highlights() {
+      this.loadHighlightsTable();
+    }
+  }
 
 }
 </script>
 
 <style>
+  .form-control.is-valid{
+    border: 1px solid #ced4da;
+  }
 
   .highlights-section{
     padding-bottom: 6%;
@@ -216,7 +277,7 @@ export default {
     width: 80px;
   }
 
-  td:nth-child(2) {
-    width: 100px;
-  }
+  .was-validated .form-control:valid, .form-control.is-valid, .was-validated .custom-select:valid, .custom-select.is-valid {
+    border: 1px solid #ced4da;
+    }
 </style>

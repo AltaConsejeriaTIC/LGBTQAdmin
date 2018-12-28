@@ -31,6 +31,8 @@ export const COMPLAINT_CALL_BY_ID = 'complaint/GET_COMPLAINT_BY_ID';
 export const EVENT_GET_ON_EVENTS = 'event/GET_ON_EVENTS';
 export const NEWS_GET_ON_NEWS = 'news/NEWS_GET_ON_NEWS';
 
+export const NOTIFICATION_SEND = 'notification/SEND';
+
 //mutations
 export const SESSION_SET_TOKEN = 'session/SET_TOKEN';
 export const SESSION_SET_ALERT = 'session/SET_ALERT';
@@ -73,3 +75,55 @@ export const COMPLAINTS = 'complaint/GET';
 export const COMPLAINT_BY_ID = 'complaint/GET_COMPLAINT'
 export const CURRENT_EVENTS = 'events/CURRENT_EVENTS';
 export const CURRENT_NEWS = 'news/CURRENT_NEWS';
+
+//error messages
+import { helpers } from 'vuelidate/lib/validators'
+import moment from 'moment';
+
+export const ERROR_MESSAGES = (e) => {
+  switch (e.type) {
+    case "maxLength": return `Este campo puede tener hasta ${e.max} caracteres.`;
+    case "minLength": return `Este campo puede tener minimo ${e.min} caracteres.`;
+    case "required": return "Este campo es requerido.";
+    case "addMsg":
+    case "notBefore": return e.msg;
+    case "email": return "El correo ingresado no es válido.";
+    case "email": return "Le URL no es válida.";
+    case "validatePhone": return "El teléfono ingresado no es válido."
+  }
+};
+
+export const notBefore = function (d,format,msg){
+  return helpers.withParams({
+      type: "notBefore",
+      msg: msg
+    },
+    (v,vm) => {
+      return v >= parseDate(d, vm, format).format(format)
+    }
+  );
+};
+
+export const equalDates = function (p1,p2,format) {
+  return (v, vm) => parseDate(p1,vm,format).format(format) === parseDate(p2,vm,format).format(format);
+}
+
+export const addMsg = function (f,msg){
+  return helpers.withParams({
+      type: "addMsg",
+      msg: msg
+    },
+    (v,vm) => {
+      return f.call(this, v, vm)
+    }
+  );
+};
+
+const parseDate = (date,vm,format) => moment(date,format).isValid() ? moment(date,format) : moment(vm[date],format);
+
+export const validatePhone = helpers.withParams(
+  {type: "validatePhone"},
+  (v) => /^([\(]?\+?[0-9]{1,3}[\)]?){0,2}[0-9\s]{7,20}((ext|ext\.|Ext|Ext\.){1}\s[0-9\s]{1,7})?$/.test(v)
+);
+
+
