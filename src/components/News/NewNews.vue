@@ -10,6 +10,7 @@
           <b-form-input id="title" type="text" v-model="$v.data.title.$model"
                          placeholder="Título" :state="!$v.data.title.$error">
           </b-form-input>
+          <p class="counter">{{countTitle}}</p>
           <b-form-invalid-feedback v-for="error in $v.data.title.$params" v-if="!$v.data.title[error.type]"  v-bind:key="error.type">
             {{errorMessages(error)}}
           </b-form-invalid-feedback>
@@ -20,6 +21,7 @@
                              placeholder="Descripción" :rows="4" :max-rows="6"
                             v-bind:no-resize="true" :state="!$v.data.description.$error">
           </b-form-textarea>
+          <p class="counter">{{countDescription}}</p>
           <b-form-invalid-feedback v-for="error in $v.data.description.$params" v-if="!$v.data.description[error.type]"  v-bind:key="error.type">
             {{errorMessages(error)}}
           </b-form-invalid-feedback>
@@ -115,6 +117,14 @@
         errorMessages: constants.ERROR_MESSAGES
       }
     },
+    computed: {
+      countTitle() {
+        return this.data.title.length
+      },
+      countDescription() {
+        return this.data.description.length
+      }
+    },
     validations: {
       data: {
         title: {
@@ -198,6 +208,9 @@
     letter-spacing: 0.01em;
     color: #A8ABBA;
 
+  }
+  .counter{    
+    float: right;
   }
 
   input[type=text]{
