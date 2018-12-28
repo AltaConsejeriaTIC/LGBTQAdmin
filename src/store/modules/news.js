@@ -47,7 +47,7 @@ const actions = {
             let isHighlight = false;
 
             for (let highligh of highlights) {
-                if (highligh.section_id === news.id) {
+                if (highligh.section_id === news.id && highligh.section === 'news') {
                     isHighlight = true;
                 }
             }
