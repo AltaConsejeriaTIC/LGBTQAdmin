@@ -87,9 +87,29 @@
               <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
             </b-col>
           </b-form-row>
-
-
         </b-form>
+        <b-modal ref="updatedEvent"
+                ok-only
+                hide-header
+                ok-title="Aceptar"
+                ok-variant="primary"
+                class="mt-3"
+                @ok="goEvents()">
+                <div class="d-block text-center">
+                  <h4>Evento actualizado exitosamente.</h4>
+                </div>
+        </b-modal>
+        <b-modal ref="noUpdatedEvent"
+                ok-only
+                hide-header
+                ok-title="Aceptar"
+                ok-variant="primary"
+                class="mt-3"
+                @ok="show=false">
+                <div class="d-block text-center">
+                  <h4>No se pudo actualizar.</h4>
+                </div>
+        </b-modal>
         <div class="col-12 col-md-auto" >
           <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
         </div>
@@ -159,10 +179,9 @@ export default {
       delete this.data._rowVariant;
       this.updateEvent(this.data)
         .then( () => {
-          alert("Evento fue actualizado exitosamente")
-          this.$router.push('/events');
+          this.$refs.updatedEvent.show();
         })
-        .catch( () => alert("No se pudo actualizar"))
+        .catch( () => this.$refs.noUpdatedEvent.show())
     },
     parseDate() {
       this.data.start_date = moment(this.data.start_date).format('YYYY-MM-DD');
@@ -227,6 +246,9 @@ export default {
       window.history.length > 1
         ? this.$router.go(-1)
         : this.$router.push('/dashboard')
+    },
+    goEvents() {
+      this.$router.push('/events');
     }
   }
 }

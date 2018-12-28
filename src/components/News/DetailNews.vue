@@ -48,8 +48,30 @@
               <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
             </b-col>
           </b-form-row>
-
         </b-form>
+
+        <b-modal ref="updatedNews"
+                ok-only
+                hide-header
+                ok-title="Aceptar"
+                ok-variant="primary"
+                class="mt-3"
+                @ok="goNews()">
+                <div class="d-block text-center">
+                    <h4>Noticia actualizada exitosamente.</h4>
+                  </div>
+        </b-modal>
+        <b-modal ref="noUpdatedNews"
+                ok-only
+                hide-header
+                ok-title="Aceptar"
+                ok-variant="primary"
+                class="mt-3"
+                @ok="show=false">
+                <div class="d-block text-center">
+                    <h4>No se pudo actualizar.</h4>
+                  </div>
+        </b-modal>
 
         <div class="col-12 col-md-auto" >
           <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
@@ -60,7 +82,7 @@
       <h2>Cargando ...</h2>
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -89,12 +111,12 @@ export default {
       this.getById(id)
         .then( news => {
           this.data = news;
-          this.data.date = moment(this.data.date).format('YYYY-MM-DD'); 
+          this.data.date = moment(this.data.date).format('YYYY-MM-DD');
         })
     }else{
-      this.data.date = moment(this.data.date).format('YYYY-MM-DD'); 
+      this.data.date = moment(this.data.date).format('YYYY-MM-DD');
     }
-    
+
   },
   computed: {
     ...mapGetters({
@@ -110,10 +132,9 @@ export default {
       this.$refs.imgContent.uploadImage();
       this.updateNews(this.data)
         .then( () => {
-          alert("Noticia actualizada exitosamente");
-          this.$router.push('/news');
+          this.$refs.updatedNews.show();
         })
-        .catch( () => alert("No se pudo actualizar"))
+        .catch( () => this.$refs.noUpdatedNews.show())
     },
     checkForm(event) {
       this.errors = [];
@@ -146,7 +167,10 @@ export default {
       window.history.length > 1
         ? this.$router.go(-1)
         : this.$router.push('/dashboard')
-    }
+    },
+    goNews() {
+      this.$router.push('/news');
+    },
   }
 }
 </script>
@@ -165,11 +189,11 @@ export default {
     padding: 0;
     margin-right: 10%;
   }
-  
+
   p {
     color: #A8ABBA;
   }
-  
+
 
   .p-form ::placeholder{
     font-weight: 600;

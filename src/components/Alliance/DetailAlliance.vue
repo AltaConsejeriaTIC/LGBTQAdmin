@@ -26,12 +26,12 @@
             </b-form-textarea>
             <p>Mín. 150, Máx. 300 caracteres</p>
           </b-form-group>
-    
+
 
           <b-form-group id="offerGroup" label="Oferta aliado:" label-for="offer">
             <b-form-textarea id="offer" type="text" v-model="data.offer"
                            placeholder="Oferta aliado" :rows="6" :max-rows="8"
-                          v-bind:no-resize="true"> 
+                          v-bind:no-resize="true">
             </b-form-textarea>
             <p>Mín. 300, Máx. 1000 caracteres</p>
           </b-form-group>
@@ -63,8 +63,30 @@
               <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
             </b-col>
           </b-form-row>
-
         </b-form>
+
+        <b-modal ref="updatedAlliance"
+                ok-only
+                hide-header
+                ok-title="Aceptar"
+                ok-variant="primary"
+                class="mt-3"
+                @ok="goAlliances()">
+                <div class="d-block text-center">
+                    <h4>Alianza actualizada exitosamente.</h4>
+                  </div>
+        </b-modal>
+        <b-modal ref="noUpdatedAlliance"
+                ok-only
+                hide-header
+                ok-title="Aceptar"
+                ok-variant="primary"
+                class="mt-3"
+                @ok="show=false">
+                <div class="d-block text-center">
+                    <h4>No se pudo actualizar.</h4>
+                  </div>
+        </b-modal>
 
         <div class="col-12 col-md-auto" >
           <ImageContent :img="data.image" :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
@@ -107,7 +129,7 @@
           }else{
             this.data.finish_date = moment(this.data.finish_date).format('YYYY-MM-DD');
           }
-          
+
         },
         computed: {
           ...mapGetters({
@@ -130,17 +152,16 @@
             delete this.data._rowVariant;
             this.updateAlliance(this.data)
               .then( () => {
-                alert("Alianza fue actualizada exitosamente");
-                this.$router.push('/alliances');
+                this.$refs.updatedAlliance.show();
               })
-              .catch( () => alert('No se pudo actualizar'))    
+              .catch( () => this.$refs.noUpdatedAlliance.show())
           },
           checkForm(submit) {
             this.errors = [];
             if (!this.data.name) {
               this.errors.push('Nombre es requerido.');
             }else if (this.data.name.length > 45) {
-              this.errors.push('El nombre puede contener máximo 45 caracteres.');                            
+              this.errors.push('El nombre puede contener máximo 45 caracteres.');
             }
             if (!this.data.description) {
               this.errors.push('Descripción es requerida.');
@@ -156,8 +177,8 @@
               let lenOfer = this.data.offer.length;
               if( lenOfer < 300 ||  lenOfer > 1000){
                 this.errors.push('La oferta debe contener mínimo 300 y máximo 1000  caracteres.');
-              } 
-            }                    
+              }
+            }
             if (!this.data.email) {
               this.errors.push('Campo Email es requerido.')
             }else if (!this.validEmail(this.data.email)) {
@@ -180,12 +201,15 @@
           validPhone( phone ) {
             let regex = /^([\(]?\+?[0-9]{1,3}[\)]?){0,2}[0-9\s]{7,20}((ext|ext\.|Ext|Ext\.){1}\s[0-9\s]{1,7})?$/
             return regex.test(phone)
-          },          
+          },
           goBack() {
             window.history.length > 1
               ? this.$router.go(-1)
               : this.$router.push('/dashboard')
-          }           
+          },
+          goAlliances() {
+            this.$router.push('/alliances');
+          },
         }
     }
 </script>

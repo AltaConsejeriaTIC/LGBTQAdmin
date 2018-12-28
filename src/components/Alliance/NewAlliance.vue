@@ -61,14 +61,33 @@
             <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
           </b-col>
         </b-form-row>
-
       </b-form>
+      <b-modal ref="allianceCreated"
+              ok-only
+              hide-header
+              ok-title="Aceptar"
+              ok-variant="primary"
+              class="mt-3"
+              @ok="goAlliances">
+              <div class="d-block text-center">
+                  <h4>Allianza creada exitosamente.</h4>
+                </div>
+      </b-modal>
+      <b-modal ref="noAllianceCreated"
+              ok-only
+              hide-header
+              ok-title="Aceptar"
+              ok-variant="primary"
+              class="mt-3"
+              @ok="show=false">
+              <div class="d-block text-center">
+                  <h4>No se pudo crear.</h4>
+                </div>
+      </b-modal>
 
       <div class="col-12 col-md-auto" >
         <ImageContent :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
       </div>
-
-
     </div>
   </div>
 </template>
@@ -114,10 +133,9 @@
           .then(() => {
             this.createAlliance(this.data)
             .then( () => {
-              alert(`Allianza fue creada exitosamente`);
-              this.$router.push('/alliances');
+              this.$refs.allianceCreated.show();
             })
-            .catch( () => alert("No se pudo crear"))
+            .catch( () => this.$refs.noAllianceCreated.show())
           })
       },
       checkForm(submit) {
@@ -125,7 +143,7 @@
         if (!this.data.name) {
           this.errors.push('Nombre es requerido.');
         }else if (this.data.name.length > 45) {
-          this.errors.push('El nombre puede contener máximo 45 caracteres.');                            
+          this.errors.push('El nombre puede contener máximo 45 caracteres.');
         }
         if (!this.data.description) {
           this.errors.push('Descripción es requerida.');
@@ -141,8 +159,8 @@
           let lenOfer = this.data.offer.length;
           if( lenOfer < 300 ||  lenOfer > 1000){
             this.errors.push('La oferta debe contener mínimo 300 y máximo 1000  caracteres.');
-          } 
-        }                    
+          }
+        }
         if (!this.data.email) {
           this.errors.push('Campo Email es requerido.')
         }else if (!this.validEmail(this.data.email)) {
@@ -176,17 +194,21 @@
         return regex.test(phone)
       },
       addZero(number){
-      if(number < 10){
-        number = "0"+1;
-      }
-      return number;
-    },
+        if(number < 10){
+          number = "0"+1;
+        }
+        return number;
+      },
       goBack() {
         window.history.length > 1
           ? this.$router.go(-1)
           : this.$router.push('/dashboard')
-      }
+      },
+      goAlliances() {
+        this.$router.push('/alliances');
+      },
     }
+
   }
 </script>
 

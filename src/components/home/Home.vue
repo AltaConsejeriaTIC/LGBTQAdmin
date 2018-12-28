@@ -14,28 +14,38 @@
           <b-button variant="danger" @click.stop="deleteHighlightById(row.item.id) " ><i class="fas fa-trash-alt"></i></b-button>
         </template>
       </b-table>
-
-      <!-- <b-modal ref="noHighlights"  title="Using Component Methods">
-        <div class="d-block text-center">
-          <h3>No hay noticias ni eventos destacados.</h3>
-        </div>
-        <div slot="modal-footer" class="w-100">
-         <p class="float-left">Modal Footer Content</p>
-         <b-btn block class="float-none" variant="outline-primary" @click="show=false">
-           Close
-         </b-btn>
-       </div>
-      </b-modal> -->
-
       <b-modal ref="noHighlights"
-               title="No hay noticias ni eventos destacados."
-               ok-only=""
-               hide-header-close
-               centered
+               ok-only
+               hide-header
                ok-title="Aceptar"
                ok-variant="primary"
                class="mt-3"
                @ok="show=false">
+               <div class="d-block text-center">
+                  <h4>No hay noticias ni eventos destacados.</h4>
+                </div>
+      </b-modal>
+      <b-modal ref="oneHighlights"
+               ok-only
+               hide-header
+               ok-title="Aceptar"
+               ok-variant="primary"
+               class="mt-3"
+               @ok="show=false">
+               <div class="d-block text-center">
+                  <h4>Aún puede destacar un evento o una noticia.</h4>
+                </div>
+      </b-modal>
+      <b-modal ref="twoHighlights"
+               ok-only
+               hide-header
+               ok-title="Aceptar"
+               ok-variant="primary"
+               class="mt-3"
+               @ok="show=false">
+               <div class="d-block text-center">
+                  <h4>Aún puede destacar dos eventos o noticias</h4>
+                </div>
       </b-modal>
     </div>
     <b-tabs>
@@ -160,11 +170,10 @@ export default {
     showMessage( number ) {
       if(number === 0)
         this.$refs.noHighlights.show();
-        // alert("No hay noticias ni eventos destacados");
       else if(number == 2)
-        alert(`Aún puede destacar un evento o una noticia`);
+        this.$refs.oneHighlights.show();
       else
-        alert(`Aún puede destacar ${3-number} eventos o noticias`);
+        this.$refs.twoHighlights.show();
     },
     postHighlight( data, section ){
       const curr = {

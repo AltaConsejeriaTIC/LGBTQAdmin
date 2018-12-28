@@ -16,6 +16,19 @@
           <b-button class="actions" variant="light" @click.stop="editNews(row.item.id)">Editar</b-button>
         </template>
       </b-table>
+
+      <b-modal ref="noHide"
+            ok-only
+            hide-header
+            ok-title="Aceptar"
+            ok-variant="primary"
+            class="mt-3"
+            @ok="show=false">
+            <div class="d-block text-center">
+                <h4>No se pude ocultar una noticia destacada.</h4>
+              </div>
+    </b-modal>
+
       <b-pagination :total-rows="news.length" :per-page="perPage" v-model="currentPage" align="right"
                     :limit=5 v-bind:hide-goto-end-buttons="true" next-text="Siguiente" prev-text="Anterior"></b-pagination>
     </div>
@@ -112,8 +125,9 @@ export default {
     changeNewState( news ){
       this.changeStateNews( {
         news: news,
-        highlights: this.highlights
-      } );
+        highlights: this.highlights } )
+        .then( res => {})
+        .catch( e => this.$refs.noHide.show() )
       this.news.forEach(item => item['_rowVariant'] = item.state ? 'actives' : 'disable');
     }
   }

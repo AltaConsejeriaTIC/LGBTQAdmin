@@ -86,8 +86,30 @@
             <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
           </b-col>
         </b-form-row>
-
       </b-form>
+
+      <b-modal ref="eventCreated"
+              ok-only
+              hide-header
+              ok-title="Aceptar"
+              ok-variant="primary"
+              class="mt-3"
+              @ok="goEvents()">
+              <div class="d-block text-center">
+                  <h4>Evento creado exitosamente.</h4>
+                </div>
+      </b-modal>
+      <b-modal ref="noEventCreated"
+              ok-only
+              hide-header
+              ok-title="Aceptar"
+              ok-variant="primary"
+              class="mt-3"
+              @ok="show=false">
+              <div class="d-block text-center">
+                  <h4>No se pudo crear.</h4>
+                </div>
+      </b-modal>
 
       <div class="col-12 col-md-auto" >
         <ImageContent :w="420" :h="336" ref="imgContent" class="image" ></ImageContent>
@@ -138,23 +160,22 @@ export default {
         .then(() => {
           this.createEvent(this.data)
           .then( () => {
-            alert(`Evento fue creado exitosamente`);
-            this.$router.push('/events');
+            this.$refs.eventCreated.show();
           })
-          .catch( () => alert("No se pudo crear"))
-        });      
+          .catch( () => this.$refs.noEventCreated.show())
+        });
     },
     checkForm(event) {
       this.errors = [];
 
       if (!this.data.title) {
-        this.errors.push('Título es requerido.');        
+        this.errors.push('Título es requerido.');
       }else{
         let lenTit = this.data.title.length;
         if (lenTit > 50) {
           this.errors.push('Título no válido. Tamaño máximo del título 50 caracteres.');
         }
-      }           
+      }
       if (!this.data.description) {
         this.errors.push('Descripción es requerida.');
       }else{
@@ -166,7 +187,7 @@ export default {
       if (!this.data.address) {
         this.errors.push('Dirección es requerida.');
       }
-      let currentDateAndHour = new Date();      
+      let currentDateAndHour = new Date();
       if (!this.data.start_date){
         this.errors.push('Fecha de inicio requerida.');
       }else{
@@ -186,7 +207,7 @@ export default {
             this.errors.push('La hora de inicio debe ser igual o mayor a la hora actual.');
           }
         }
-      }      
+      }
       if (!this.data.finish_date){
         this.errors.push('Fecha de fin requerida.');
       }
@@ -213,11 +234,14 @@ export default {
         number = "0"+1;
       }
       return number;
-    },  
+    },
     goBack() {
       window.history.length > 1
         ? this.$router.go(-1)
         : this.$router.push('/dashboard')
+    },
+    goEvents() {
+      this.$router.push('/events');
     }
   }
 }

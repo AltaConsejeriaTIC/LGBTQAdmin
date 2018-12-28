@@ -54,8 +54,30 @@
             <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
           </b-col>
         </b-form-row>
-
       </b-form>
+
+      <b-modal ref="organizationCreated"
+              ok-only
+              hide-header
+              ok-title="Aceptar"
+              ok-variant="primary"
+              class="mt-3"
+              @ok="goOrganization">
+              <div class="d-block text-center">
+                  <h4>Organización creada exitosamente.</h4>
+                </div>
+      </b-modal>
+      <b-modal ref="noOrganizationCreated"
+              ok-only
+              hide-header
+              ok-title="Aceptar"
+              ok-variant="primary"
+              class="mt-3"
+              @ok="show=false">
+              <div class="d-block text-center">
+                  <h4>No se pudo crear.</h4>
+                </div>
+      </b-modal>
 
       <div class="col-12 col-md-auto" >
         <ImageContent :w="400" :h="400" ref="imgContent" class="image"></ImageContent>
@@ -105,12 +127,11 @@ export default {
         .then(() => {
           this.createOrganization(this.data)
           .then( () => {
-            alert("Organización creada exitosamente")
-            this.$router.push('/organizations');
+            this.$refs.organizationCreated.show();
           })
-          .catch( () => alert("No se pudo crear") )
-        });      
-    },    
+          .catch( () => this.$refs.noOrganizationCreated.show() )
+        });
+    },
     checkForm(submit) {
       this.errors = [];
 
@@ -136,10 +157,10 @@ export default {
         this.errors.push('Teléfono es requerido.');
       }else if (!this.validatePhone(this.data.phone)) {
         this.errors.push('Teléfono no válido')
-      }            
+      }
       submit.preventDefault();
       if(this.errors.length === 0)
-        this.save();            
+        this.save();
     },
     validateEmail( email ) {
       let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z-.]{2,}$/
@@ -153,7 +174,10 @@ export default {
       window.history.length > 1
         ? this.$router.go(-1)
         : this.$router.push('/dashboard')
-    }
+    },
+    goOrganization() {
+      this.$router.push('/organizations');
+    },
   }
 
 }

@@ -2,11 +2,13 @@
   <div class="p-container">
     <div class="p-card">
       <croppa v-model="myCroppa"
+              accept=".jpg,.png"
               :quality="2"
               :prevent-white-space="true"
               :show-remove-button="false"
               :file-size-limit="1024000"
               @file-size-exceed="onFileSizeExceed"
+              @file-type-mismatch="onFileTypeMismatch"
               :placeholder="'  +  '"
               :width="w"
               :height="h"
@@ -15,10 +17,48 @@
       </croppa>
       <button @click="myCroppa.chooseFile()">
         <i class="edit icon"></i>
-        Subir imagen
+        Subir imagen (jpg,png)
       </button>
     </div>
-    <p>Las imágenes subidas serán cortadas para quedar con proporción 5:4. El peso máximo de la imagen es de 1Mb.</p>
+    <p>Las imágenes subidas serán cortadas para quedar con proporción 5:4. El peso máximo de la imagen es de 1Mb.
+      Podras acercar, alejar y mover la imagen.
+    </p>
+
+    <b-modal ref="noImage"
+            ok-only
+            hide-header
+            ok-title="Aceptar"
+            ok-variant="primary"
+            class="mt-3"
+            @ok="reject()">
+            <div class="d-block text-center">
+                <h4>La imagen es requerida.</h4>
+              </div>
+    </b-modal>
+
+    <b-modal ref="sizeFile"
+            ok-only
+            hide-header
+            ok-title="Aceptar"
+            ok-variant="primary"
+            class="mt-3"
+            @ok="reject()">
+            <div class="d-block text-center">
+              <h4>Tamaño de archivo excedido. Por favor elija una imagen menor a 1MB.</h4>
+            </div>
+    </b-modal>
+    <b-modal ref="fileNotValid"
+            ok-only
+            hide-header
+            ok-title="Aceptar"
+            ok-variant="primary"
+            class="mt-3"
+            @ok="reject()">
+            <div class="d-block text-center">
+              <h4>Tipo de archivo no válido.</h4>
+            </div>
+    </b-modal>
+
   </div>
 </template>
 
@@ -66,13 +106,12 @@
       uploadImage( name ) {
         return new Promise((resolve,reject) => {
           if (!this.myCroppa.hasImage()) {
-            alert('La imagen es requerida')
-            reject()
+            this.$refs.noImage.show();
           }else{
             if(!name){
               name = this.img.split("/");
               name = name[name.length - 1];
-            }        
+            }
             this.myCroppa.generateBlob( blob => {
               var fd = new FormData();
               fd.append('file', blob, name);
@@ -83,14 +122,14 @@
                 });
             });
             resolve();
-          }          
-        })         
+          }
+        })
       },
       onFileSizeExceed (file) {
-        alert('Tamaño de archivo excedido. Pro favo elija una imagen menor a 1MB.')
+        this.$refs.sizeFile.show();
       },
-      onFileMismatch() {
-        alert('Tipo de archivo no válido.')
+      onFileTypeMismatch (file) {
+        this.$refs.fileNotValid.show();
       }
     }
   }
@@ -107,10 +146,6 @@ p{
   text-align: left;
   padding: 4px;
 }
-
-
-
-
 
 </style>
 

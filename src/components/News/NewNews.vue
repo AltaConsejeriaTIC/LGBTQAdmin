@@ -48,9 +48,29 @@
             <b-btn type="submit" class="btn btn-warning d-inline big text">Publicar</b-btn>
           </b-col>
         </b-form-row>
-
       </b-form>
-
+      <b-modal ref="newsCreated"
+              ok-only
+              hide-header
+              ok-title="Aceptar"
+              ok-variant="primary"
+              class="mt-3"
+              @ok="goNews">
+              <div class="d-block text-center">
+                  <h4>Noticia creada exitosamente.</h4>
+                </div>
+      </b-modal>
+      <b-modal ref="noNewsCreated"
+              ok-only
+              hide-header
+              ok-title="Aceptar"
+              ok-variant="primary"
+              class="mt-3"
+              @ok="show=false">
+              <div class="d-block text-center">
+                  <h4>No se pudo crear.</h4>
+                </div>
+      </b-modal>
       <div class="col-12 col-md-auto" >
         <ImageContent :w="420" :h="336" ref="imgContent" class="image"></ImageContent>
       </div>
@@ -105,10 +125,9 @@
           .then(() => {
             this.createNews(this.data)
               .then( () =>  {
-                alert("Noticia creada exitosamente");
-                this.$router.push('/news');
+                this.$refs.newsCreated.show();
               })
-              .catch( () => alert("No se pudo crear"));
+              .catch( () => this.$refs.noNewsCreated.show());
           });
       },
       checkForm(event) {
@@ -149,7 +168,10 @@
         let month = this.addZero(currentDate.getMonth()+1);
         let day = this.addZero(currentDate.getDate());
         return `${year}-${month}-${day}`;
-      }
+      },
+      goNews() {
+        this.$router.push('/news');
+      },
     }
   }
 </script>

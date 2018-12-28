@@ -1,7 +1,10 @@
 <template>
   <div v-if="complaint" >
     <div class="complaintContainer" >
-      <h2>Detalle Denuncia</h2>
+      <div class="p-title text">
+        <a class="d-block p-link" href="#" @click="goBack"><i class="fas fa-angle-left"></i>Regresar</a>
+        <h2>Detalle Denuncia</h2>
+      </div>
       <div class="complaint">
         <div class="complaint__description">
           <div class="complaintTitle">
@@ -55,7 +58,12 @@
       }),
       formatDate(date) {
         return moment(date).format('YYYY-MMMM-DD');
-      }
+      },
+      goBack() {
+        window.history.length > 1
+          ? this.$router.go(-1)
+          : this.$router.push('/complaints')
+      },
     }
   }
 </script>
@@ -104,15 +112,11 @@
   }
 
   h2 {
-    margin-top:30px;
-    margin-bottom: 30px;
+    margin-top:10px;
+    margin-bottom: 30px !important;
     font-size: 24PX;
     font-weight: bold;
     color: #3F4150;
-  }
-
-  .description_content {
-
   }
 
   p {
@@ -120,6 +124,13 @@
     margin-top: -2px;
     text-align: justify;
     line-height:1.15em;
+  }
+
+  .p-title {
+    text-align: left;
+    margin: 23px 0px;
+    height: 44px;
+    margin-bottom: 60px;
   }
 </style>
 

@@ -57,10 +57,10 @@
         phone: {
           label: 'Teléfono',
         },
-        event_day: {
+        created_at: {
           label: 'Fecha de denuncia',
           formatter: (value, key, item) => {
-            return this.formatDate(item.event_day)
+            return this.formatDate(item.created_at)
           }
         },
         actions: {
