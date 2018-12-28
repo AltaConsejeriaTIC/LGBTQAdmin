@@ -2,7 +2,7 @@
   <div class="p-container">
     <div class="p-card">
       <croppa v-model="myCroppa"
-              accept=".jpg,.png"
+              accept=".jpg,.png,.jpeg"
               :quality="2"
               :prevent-white-space="true"
               :show-remove-button="false"
@@ -17,7 +17,7 @@
       </croppa>
       <button @click="myCroppa.chooseFile()">
         <i class="edit icon"></i>
-        Subir imagen (jpg,png)
+        Subir imagen (jpeg,jpg,png)
       </button>
     </div>
     <p>Las imágenes subidas serán cortadas para quedar con proporción {{this.ratio}}. El peso máximo de la imagen es de 1Mb.
