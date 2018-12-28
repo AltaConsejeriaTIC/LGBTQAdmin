@@ -11,6 +11,7 @@
           <b-form-input id="name" type="text" v-model="data.name"
                         placeholder="Nombre" :state="!$v.data.name.$error">
           </b-form-input>
+          <p class="counter">{{countName}}</p>
           <b-form-invalid-feedback v-for="error in $v.data.name.$params" v-if="!$v.data.name[error.type]"  v-bind:key="error.type">
             {{errorMessages(error)}}
           </b-form-invalid-feedback>
@@ -21,6 +22,7 @@
                             placeholder="Descripción" :rows="3" :max-rows="5"
                             v-bind:no-resize="true" :state="!$v.data.description.$error">
           </b-form-textarea>
+          <p class="counter">{{countDescription}}</p>
           <b-form-invalid-feedback v-for="error in $v.data.description.$params" v-if="!$v.data.description[error.type]"  v-bind:key="error.type">
             {{errorMessages(error)}}
           </b-form-invalid-feedback>
@@ -137,7 +139,13 @@
         computed: {
           ...mapGetters({
             get: constants.ORGANIZATION_BY_ID
-          })
+          }),
+          countName() {
+            return this.data.name.length; 
+          },
+          countDescription() {
+            return this.data.description.length; 
+          }
         },
         methods: {
           ...mapActions({
@@ -181,5 +189,8 @@
   .row, .col-md-auto, .col-md-4{
     margin: 0;
     padding: 0;
+  }
+  .counter{    
+    float: right;
   }
 </style>
