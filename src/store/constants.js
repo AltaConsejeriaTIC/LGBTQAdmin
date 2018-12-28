@@ -123,7 +123,7 @@ const parseDate = (date,vm,format) => moment(date,format).isValid() ? moment(dat
 
 export const validatePhone = helpers.withParams(
   {type: "validatePhone"},
-  (v) => /^([\(]?\+?[0-9]{1,3}[\)]?){0,2}[0-9\s]{7,20}((ext|ext\.|Ext|Ext\.){1}\s[0-9\s]{1,7})?$/.test(v)
+  (v) => /^([0-9().+ext ]){7,40}$/.test(v)
 );
 
 
