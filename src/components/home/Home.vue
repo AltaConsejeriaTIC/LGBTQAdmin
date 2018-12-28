@@ -118,8 +118,8 @@ export default {
       currentPage: 1,
       perPage: window.innerHeight > 992 ? (window.innerHeight-320)/110 : 5,
       fields: {
-        id: {
-          label: 'ID',
+        section_id: {
+          label: 'ID de Sección',
           sortable: false,
           class: 'id'
         },
@@ -225,6 +225,7 @@ export default {
     createTableElement( highlight ) {
       let elementToTable = {
         id: highlight.id,
+        section_id: highlight.section_id,
         title: this.findTitle(highlight.section_id, highlight.section),
         section: this.assignSection(highlight.section)
       }
