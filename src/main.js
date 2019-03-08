@@ -7,13 +7,29 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { sync } from 'vuex-router-sync'
 import store from './store'
+import Vuetify from 'vuetify'
+import * as ENV from './env'
+import BootstrapVue from 'bootstrap-vue'
+import JsonExcel from 'vue-json-excel'
 
-Vue.use(VueAxios, axios)
 
-Vue.axios.defaults.baseURL = 'http://localhost:8080/'
-sync(store, router)
+ 
+Vue.component('downloadExcel', JsonExcel);
 
-Vue.config.productionTip = false
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Vuelidate from 'vuelidate'
+
+Vuelidate["hola"] = 'prueba';
+Vue.use(Vuelidate)
+Vue.use(BootstrapVue);
+Vue.use(Vuetify);
+Vue.use(VueAxios, axios);
+Vue.axios.defaults.baseURL = ENV.ENDPOINT;
+sync(store, router);
+
+
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
